@@ -9,7 +9,7 @@
         <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
             <h2 class="card-title fw-bold mb-1">Welcome to Vuexy! 👋</h2>
             <p class="card-text mb-2">Please sign-in to your account and start the adventure</p>
-            <form class="auth-login-form mt-2" method="post" action="{{ url('/login') }}">
+            <form class="auth-login-form mt-2" method="post" action="{{ url('/admin/login') }}">
                 @csrf
                 <div class="mb-1">
                     <label class="form-label" for="login-email">Email</label>

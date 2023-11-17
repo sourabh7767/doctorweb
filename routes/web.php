@@ -23,12 +23,14 @@ Route::middleware('prevent-back-history')->group(function (){
         
         return Redirect::back()->with('success', 'All cache cleared successfully.');
     });
+    Route::group(['prefix' => 'admin'], function(){  
+        Auth::routes();
+    });
+    Route::get('/', 'HomeController@webIndex')->name('web.index');
+    
+    Route::middleware('auth')->prefix('admin')->group(function(){
 
-    Auth::routes();
-
-    Route::middleware('auth')->group(function(){
-
-        Route::get('/', 'HomeController@index')->name('user.home');
+        Route::get('/dashboard', 'HomeController@index')->name('user.home');
         Route::resource('users', 'UserController');
         Route::resource('role', 'RoleController');
         Route::get('/user/changeStatus/{id}','UserController@changeStatus')->name('user.changeStatus');

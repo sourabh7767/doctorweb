@@ -40,16 +40,18 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        
         $this->middleware('guest')->except('logout');
     }
 
     public function login(Request $request){
-
+    
 
         $rules = array(
             'email' => 'required|email:rfc,dns,filter',
             'password' => 'required',
         );
+        
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
@@ -68,6 +70,6 @@ class LoginController extends Controller
     public function logout(Request $request){
 
         Auth::logout(); // logout user
-        return redirect('/login');
+        return redirect('/admin/login');
     }
 }

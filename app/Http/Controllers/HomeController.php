@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('webIndex');
     }
 
     /**
@@ -28,5 +28,9 @@ class HomeController extends Controller
         $data = User::getActiveInactiveCount();
         $monthlys = User::monthly();
         return view('home',compact("users","data","monthlys"));
+    }
+    
+    public function webIndex(){
+        return view('web.index');
     }
 }
