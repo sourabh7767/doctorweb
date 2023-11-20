@@ -1,0 +1,371 @@
+/*==== Start Common css ====*/
+html
+{
+    scroll-behavior: smooth;
+    height: 100%;
+}
+body
+{ 
+    font-family: 'Poppins', sans-serif;
+    min-height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.scroll-hide {	
+    overflow: hidden;	
+}
+ul
+{
+    padding: 0 !important;
+    margin: 0;
+}
+ul li{list-style: none;}
+a{text-decoration: none !important;}
+.bg{background: #383838}
+.bgContain {
+    background: #474747;
+    width: auto;
+    display: block;
+    padding: 15px 26px;
+    border-radius: 13px;
+}
+textarea{resize: none;}
+/* Scrollbar Css Start */
+::-webkit-scrollbar{
+    width: 2px;
+    height: 10%;
+}
+::-webkit-scrollbar-track {
+    background-color:#3a3a3a
+}
+::-webkit-scrollbar-thumb {
+    background-color:#babac0;
+    border-radius:16px;
+}
+::-moz-scrollbar
+{
+    width: 2px;
+    height: 10%;
+}
+::-moz-scrollbar-track {
+    background-color:#3a3a3a
+}
+::-moz-scrollbar-thumb {
+    background-color:#babac0;
+    border-radius:16px;
+}
+/* Scrollbar Css End */
+input, textarea{color: #fff;width: 100%;}
+.customControlInputs {
+    background: #474747;
+    color: #fff;
+    border: 0;
+    width: 100%;
+    font-size: 13px;
+    padding: 8px 4px;
+    border-radius: 5px;
+    resize: none;
+}
+.secondryBtn {
+    background: linear-gradient(to right, #4CAF50 , #30852d);
+    border: 0;
+    font-size: 13px;
+    color: #fff;
+    padding: 3px 10px;
+    border-radius: 10px;
+}
+input:focus-visible,textarea:focus-visible {
+    outline: 0;
+}
+.formControl
+{
+    background: #525252;
+    border: none;
+    padding: 3px 13px;
+    width: 100%;
+    color: #fff;
+    font-size: 14px;
+}
+textarea {
+    font-size: 14px;
+    resize: none;
+    width: 100%;
+    background: #474747;
+    border: 0;
+    border-radius: 13px;
+}
+.form-group{position: relative}
+.modal {
+    backdrop-filter: blur(3px);
+}  
+.modal-title
+{
+    font-size: 24px;
+    color: #cfcfcf;
+}
+.modal-subtext {
+    margin: 0;
+    font-size: 16x;
+    color: #969696;
+}
+.modal-content {
+    padding: 20px;
+    transition: all 0.3s;
+    background: #666666;
+    border-radius: 18px;
+}
+/* Start Custom RadioBtn Css */
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    appearance: none;
+}
+[type="radio"]:checked + label,
+[type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #dfdfdf;
+}
+[type="radio"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #cfcfcf;
+    border-radius: 100%;
+    background: transparent;
+}
+[type="radio"]:checked + label:after,
+[type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #afafafeb;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+[type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+[type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+/* End Custom RadioBtn Css */
+/*==== End Common css ====*/
+/*==== Start Header css ====*/
+.header {
+    background: #7a7a7a3b;
+    padding: 11px 0;
+}
+.menuDropdown .dropdown-toggle{font-size: 28px;
+    color: #fff;
+}
+.dropdown-menu
+{
+    background: #474747;
+}
+.dropdown-item {
+    color: #fff;
+    margin: 0 13px !important;
+    display: block;
+    width: auto;
+    transition: all 0.3s;
+    font-size: 16px !important;
+    display: flex;
+    align-items: center;
+}
+.dropdown-item i {
+    font-size: 20px;
+    margin-right: 5px;
+}
+i.las.la-key {
+    transform: rotate(188deg);
+}
+i.las.la-sign-out-alt {
+    transform: rotate(-90deg);
+}
+.dropdown-item:focus, .dropdown-item:hover {
+    color: #fff;
+    background-color: #7a7a7a;
+    border-radius: 6px;
+    outline: 0;
+}
+/*==== End Header css ====*/
+/*==== Start FirstSec css ====*/
+.btnGroup {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: end;
+    height: 93px;
+    overflow: auto;
+}
+.secondryOutline {
+    border: 1px solid #ffffff54;
+    padding: 1px 7px;
+    color: #ffffff54;
+    border-radius: 9px;
+    margin: 3px 2px;
+    font-size: 14px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    transition: all 0.3s;
+}
+.secondryOutline.active
+{
+    background: linear-gradient(to right,#248cd1, #60c0e6);
+    color: #000;
+    border-color: #3eadf7;
+}
+.crossValue {
+    background: #00B4DB;
+    background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);
+    background: linear-gradient(to right, #00B4DB, #0083B0);
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+    color: #fff;
+    transition: all 0.3s;
+}
+.crossValue i {
+    font-size: 9px;
+    -webkit-text-stroke: 1px;
+}
+/*==== End FirstSec css ====*/
+/*========== Start SecondSec css =========*/
+/* Start LeftArea */
+.leftCard {
+    background: #474747;
+    padding: 20px 20px 20px 11px;
+    border-radius: 13px;
+    width: 100%;
+    position: relative;
+    transition: all 0.3s;
+}
+.cardItemHead {
+    color: #d9d9d9;
+    font-size: 15px;
+}
+.cardItemValue {
+    color: #add8e6;
+    font-size: 14px;
+}
+.clearBtn {
+    background: linear-gradient(to right, #e556f5, #8f2fde);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 13px 18px;
+    border-radius: 15px;
+    transition: all 0.3s;
+}
+.leftCard .addOnBtn
+{
+    position: absolute;
+    top: -8px;
+    right: -8px;
+}
+.addOnBtn {
+    display: flex;
+    background: #7a7a7a;
+    color: #b9b9b9;
+    border-radius: 50px;
+    align-items: center;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    justify-content: center;
+}
+.addOnBtn i {
+    font-size: 18px;
+    -webkit-text-stroke-width: medium;
+}
+.dropdown-toggle::after{display: none;}
+.modal-footer button
+{
+    font-size: 13px;
+    padding: 5px 13px;
+}
+/* Start LeftArea Css */
+/* Start MidArea Css */
+.cardArea {
+    background: #f9cc65;
+    margin-bottom: 10px;
+    border-radius: 22px;
+    padding: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    border: 1px solid #000;
+    margin-right: 5px;
+}
+.titleTxt {
+    font-size: 14px;
+    margin: 0;
+    color: #000;
+    font-weight: 600;
+}
+.description {
+    margin: 0;
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: #000;
+}
+.midContainer .crossValue {
+    background: #7b7273;
+    width: 20px;
+    height: 20px;
+    margin-left: 0;
+    color: #fff;
+}
+.midContainer .crossValue i {
+    font-size: 13px;
+    -webkit-text-stroke: 0px;
+}
+.cardArea.active
+{
+    background: #35abeb;
+    background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);
+    background: linear-gradient(to right, #7fc6ec, #35abeb);
+    color: #000;
+}
+.midContainerCard {
+    height: 570px;
+    overflow: auto;
+}
+
+/* End MidArea Css */
+.field {
+    padding: 20px;
+    background-color: #474747;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    transition: all 0.3s;
+}
+/*==== End SecondSec css ====*/

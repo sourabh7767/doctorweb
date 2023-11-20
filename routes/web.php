@@ -27,6 +27,7 @@ Route::middleware('prevent-back-history')->group(function (){
         Auth::routes();
     });
     Route::get('/', 'HomeController@webIndex')->name('web.index');
+    Route::get('/home', 'HomeController@webHome')->name('web.home');
     
     Route::middleware('auth')->prefix('admin')->group(function(){
 

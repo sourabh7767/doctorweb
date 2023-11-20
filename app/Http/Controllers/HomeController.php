@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('webIndex');
+        $this->middleware('auth')->except('webIndex','webHome');
     }
 
     /**
@@ -32,5 +32,9 @@ class HomeController extends Controller
     
     public function webIndex(){
         return view('web.index');
+    }
+    
+    public function webHome(){
+        return view('web.home');
     }
 }

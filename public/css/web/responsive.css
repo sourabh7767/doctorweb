@@ -1,0 +1,22 @@
+@media (min-width: 1200px)
+{
+    /* Hover Effect */
+    .secondryOutline:hover {
+        color: #fff;
+    }
+    .crossValue:hover
+    {
+        background: #ED213A;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #93291E, #ED213A);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #93291E, #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    .clearBtn:hover
+    {
+        box-shadow: -3px 4px 3px 3px rgba(0, 0, 0, 0.3);
+        background-image: linear-gradient(to right, #e556f5, #fa41e1);
+    }
+    .secondryOutline.active:hover, .secondryOutline:hover{border-color: #fff;}
+    .field:hover, .leftCard:hover, .modal-content:hover {
+        box-shadow: -8px 8px 10px 5px rgba(0, 0, 0, 0.19);
+    }
+}
