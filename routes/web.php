@@ -26,11 +26,16 @@ Route::middleware('prevent-back-history')->group(function (){
     Route::group(['prefix' => 'admin'], function(){  
         Auth::routes();
     });
-    Route::get('/', 'HomeController@webIndex')->name('web.index');
-    Route::get('/home', 'HomeController@webHome')->name('web.home');
+    Route::get('/', 'Auth\LoginController@webIndex')->name('web.index');
+    Route::post('/signup', 'Auth\LoginController@signup')->name('signup');
+    Route::post('/user/login', 'Auth\LoginController@userLogin')->name('userLogin');
+    Route::middleware('auth')->prefix('user')->group(function(){
+        Route::get('/home', 'HomeController@webHome')->name('web.home');
+        Route::get('/user-logout', 'Auth\LoginController@userLogout')->name('userLogout');
+
+    });
     
     Route::middleware('auth')->prefix('admin')->group(function(){
-
         Route::get('/dashboard', 'HomeController@index')->name('user.home');
         Route::resource('users', 'UserController');
         Route::resource('role', 'RoleController');

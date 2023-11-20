@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -44,6 +45,38 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function webIndex(){
+        return view('web.index');
+    }
+
+    public function signup(Request $request)
+    {
+        // dd($request->all());
+        // Validate the request data (you can customize the validation rules)
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+            'confirm_password' => 'required|same:password'
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Create a new user
+        $user = User::create([
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ]);
+
+        // Log in the user
+        // Auth::login($user);
+
+        // Return a JSON response (you can customize the response as needed)
+        
+        return response()->json(['success' => true, 'message' => 'Signup successful']);
+    }
+
     public function login(Request $request){
     
 
@@ -66,7 +99,35 @@ class LoginController extends Controller
         return redirect()->route('user.home');
 
     }
+    public function userLogin(Request $request){
+    
 
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+        
+        $email = $request->email;
+        $password = $request->password;
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+
+        if (!Auth::attempt(['email' => $email, 'password' => $password])) {
+
+            return response()->json(['errors' => "wrong cred"], 422);
+
+        }
+
+        return response()->json(['success' => "login"], 200);
+
+    }
+    public function userLogout(Request $request){
+
+        Auth::logout();
+        return redirect('/');
+    }
     public function logout(Request $request){
 
         Auth::logout(); // logout user
