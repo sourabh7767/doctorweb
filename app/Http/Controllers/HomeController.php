@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $users = User::where('created_by','!=', 0)->count();
+        $users = User::count();
         $data = User::getActiveInactiveCount();
         $monthlys = User::monthly();
         return view('home',compact("users","data","monthlys"));

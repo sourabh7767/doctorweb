@@ -41,7 +41,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout','userLogout');
     }
 
    
@@ -70,6 +70,9 @@ class LoginController extends Controller
 
     public function login(Request $request){
     
+        if($request->isMethod('get')){
+            return view('auth.login');
+        }
 
         $rules = array(
             'email' => 'required|email:rfc,dns,filter',
@@ -80,14 +83,14 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
         }  
-
-        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        // dd(!Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password]));
+        if (!Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
 
             return $this->sendFailedLoginResponse($request);
 
         }
 
-        return redirect()->route('user.home');
+        return redirect()->route('admin.home');
 
     }
     public function userLogin(Request $request){
@@ -104,8 +107,8 @@ class LoginController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
         if (!Auth::attempt(['email' => $email, 'password' => $password])) {
-
-            return response()->json(['errors' => "wrong cred"], 422);
+            $returnArray = ['password' => ["Password or Email is Incorect"]];
+            return response()->json(['errors' => $returnArray], 422);
 
         }
 
@@ -115,7 +118,7 @@ class LoginController extends Controller
     public function userLogout(Request $request){
 
         Auth::logout();
-        return redirect('/');
+        return redirect()->route('web.index');
     }
     public function logout(Request $request){
 

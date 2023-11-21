@@ -36,12 +36,7 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $exception) {
-        $data = [
-            'file'    => $exception->getFile(),
-            'message' => "Line".$exception->getLine()." ". $exception->getMessage(),
-            'trace'   => $exception->getTraceAsString(),
-        ];
-        ErrorLog::create($data);
+       
         });
     }
 }

@@ -24,19 +24,21 @@ Route::middleware('prevent-back-history')->group(function (){
         return Redirect::back()->with('success', 'All cache cleared successfully.');
     });
     Route::group(['prefix' => 'admin'], function(){  
-        Auth::routes();
+        // Auth::routes();
+        Route::any('/login', 'Auth\LoginController@login')->name('login'); 
+        Route::post('/logout', 'Auth\LoginController@logout')->name('logout');     
     });
     Route::get('/', 'HomeController@webIndex')->name('web.index');
     Route::post('/signup', 'Auth\LoginController@signup')->name('signup');
     Route::post('/user/login', 'Auth\LoginController@userLogin')->name('userLogin');
-    Route::middleware('auth')->prefix('user')->group(function(){
+    Route::middleware('auth:web')->prefix('user')->group(function(){
         Route::get('/home', 'HomeController@webHome')->name('web.home');
         Route::get('/user-logout', 'Auth\LoginController@userLogout')->name('userLogout');
 
     });
     
-    Route::middleware('auth')->prefix('admin')->group(function(){
-        Route::get('/dashboard', 'HomeController@index')->name('user.home');
+    Route::middleware('auth:admin')->prefix('admin')->group(function(){
+        Route::get('/dashboard', 'HomeController@index')->name('admin.home');
         Route::resource('users', 'UserController');
         Route::resource('role', 'RoleController');
         Route::get('/user/changeStatus/{id}','UserController@changeStatus')->name('user.changeStatus');
@@ -50,3 +52,7 @@ Route::middleware('prevent-back-history')->group(function (){
 
     });
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

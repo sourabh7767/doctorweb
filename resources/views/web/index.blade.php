@@ -362,17 +362,17 @@
                             <div class="input-group">
                                 <i class='bx bx-mail-send'></i>
                                 <input type="email" placeholder="Email" name="email" data-form="signup">
-                                <div id="signup-email-error" class="message" data-form="signup"></div>
+                                <div id="signup-email-error" class="messagesignup" data-form="signup"></div>
                             </div>
                             <div class="input-group">
                                 <i class='bx bxs-lock-alt'></i>
                                 <input type="password" placeholder="Password" name="password" data-form="signup">
-                                <div id="signup-password-error" class="message" data-form="signup"></div>
+                                <div id="signup-password-error" class="messagesignup" data-form="signup"></div>
                             </div>
                             <div class="input-group">
                                 <i class='bx bxs-lock-alt'></i>
                                 <input type="password" placeholder="Confirm password" name="confirm_password" data-form="signup"> 
-                                <div id="signup-confirm_password-error" class="message" data-form="signup"></div>
+                                <div id="signup-confirm_password-error" class="messagesignup" data-form="signup"></div>
                             </div>
                             <button>
                                 Sign up
@@ -394,18 +394,18 @@
                 <!-- SIGN IN -->
                 <div class="col align-items-center flex-col sign-in">
                     <div class="form-wrapper align-items-center">
-                        <form action="{{route('login')}}" method="post" id="login-form">
+                        <form action="" method="post" id="login-form">
                             @csrf
                         <div class="form sign-in">
                             <div class="input-group">
                                 <i class='bx bxs-user'></i>
                                 <input type="text" placeholder="Email" name="email" data-form="login">
-                                <div id="login-email-error" class="message" data-form="login"></div>
+                                <div id="login-email-error" class="messagelogin" data-form="login"></div>
                             </div>
                             <div class="input-group">
                                 <i class='bx bxs-lock-alt'></i>
                                 <input type="password" placeholder="Password" name="password" data-form="login">
-                                <div id="login-password-error" class="message" data-form="login"></div>
+                                <div id="login-password-error" class="messagelogin" data-form="login"></div>
                             </div>
                             <button>
                                 Sign in

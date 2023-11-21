@@ -16,14 +16,12 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $isAdminExist = DB::table('users')->where(['email' => "admin@yopmail.com"])->count();
+        $isAdminExist = DB::table('admins')->where(['email' => "admin@yopmail.com"])->count();
         if(!$isAdminExist){
-            $adminRole = DB::table('roles')->where(['is_deleteable' => 0])->first();
-            DB::table('users')->insert([
+            DB::table('admins')->insert([
                 'full_name' => 'Admin',
                 'email' => 'admin@yopmail.com',
                 'phone_number' => '123456789',
-                'role' => $adminRole ? $adminRole->id : 0,
                 'password' => Hash::make('admin@123')
             ]);
         }
