@@ -41,18 +41,14 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        
         $this->middleware('guest')->except('logout');
     }
 
-    public function webIndex(){
-        return view('web.index');
-    }
+   
 
     public function signup(Request $request)
     {
-        // dd($request->all());
-        // Validate the request data (you can customize the validation rules)
+       
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
@@ -68,12 +64,7 @@ class LoginController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ]);
-
-        // Log in the user
-        // Auth::login($user);
-
-        // Return a JSON response (you can customize the response as needed)
-        
+               
         return response()->json(['success' => true, 'message' => 'Signup successful']);
     }
 
@@ -112,8 +103,6 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
-
         if (!Auth::attempt(['email' => $email, 'password' => $password])) {
 
             return response()->json(['errors' => "wrong cred"], 422);

@@ -30,7 +30,9 @@ class HomeController extends Controller
         return view('home',compact("users","data","monthlys"));
     }
     
-
+    public function webIndex(){
+        return view('web.index');
+    }
     
     public function webHome(){
         return view('web.home');

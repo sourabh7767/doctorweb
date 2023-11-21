@@ -1,5 +1,5 @@
     $(document).ready(function () {
-        function handleAuth(action, data) {
+        function handleAuth(action, data,className) {
             $.ajax({
                 url: '/' + action,
                 type: 'POST',
@@ -22,8 +22,9 @@
                     if (response.errors) {  
                             $.each(response.errors, function (key, value) {
                                 console.log('#' + key + '-error')
-                                $('.error-message[data-form="' + action + '"]').html('');
-                               $('#' + action + '-' + key + '-error').html('<span style="color:red;font-weight:20px;">' + value[0] + '</span>');
+                                console.log('.error-message[data-form="' + action + '"]',"=====================>");
+                                $('.error-message[data-form="' + className + '"]').html('');
+                               $('#' + className + '-' + key + '-error').html('<span style="color:red;font-weight:20px;">' + value[0] + '</span>');
                             });
                         }else{
                             alert()
@@ -37,13 +38,13 @@
         $('#signup-form').submit(function (e) {
             e.preventDefault();
             var formData = $(this).serialize();
-            handleAuth('signup', formData);
+            handleAuth('signup', formData ,'signup');
         });
         
         // Event listener for login form submission
         $('#login-form').submit(function (e) {
             e.preventDefault();
             var formData = $(this).serialize();
-            handleAuth('user/login', formData);
+            handleAuth('user/login', formData , 'login');
         });
     });
