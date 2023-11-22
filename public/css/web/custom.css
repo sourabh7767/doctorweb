@@ -115,6 +115,7 @@ textarea {
     background: #666666;
     border-radius: 18px;
 }
+.modal-body{max-height: 390px;overflow: auto;}
 /* Start Custom RadioBtn Css */
 [type="radio"]:checked,
 [type="radio"]:not(:checked) {
@@ -124,7 +125,8 @@ textarea {
 [type="radio"]:not(:checked) + label
 {
     position: relative;
-    padding-left: 28px;
+    padding-left: 22px;
+    font-size: 14px;
     cursor: pointer;
     line-height: 20px;
     display: inline-block;
@@ -136,8 +138,8 @@ textarea {
     position: absolute;
     left: 0;
     top: 0;
-    width: 20px;
-    height: 20px;
+    width: 17px;
+    height: 17px;
     border: 1px solid #cfcfcf;
     border-radius: 100%;
     background: transparent;
@@ -145,8 +147,8 @@ textarea {
 [type="radio"]:checked + label:after,
 [type="radio"]:not(:checked) + label:after {
     content: '';
-    width: 12px;
-    height: 12px;
+    width: 9px;
+    height: 9px;
     background: #afafafeb;
     position: absolute;
     top: 4px;
@@ -233,6 +235,7 @@ i.las.la-sign-out-alt {
     color: #000;
     border-color: #3eadf7;
 }
+.btnText{z-index: 1;}
 .crossValue {
     background: #00B4DB;
     background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);
@@ -246,10 +249,15 @@ i.las.la-sign-out-alt {
     margin-left: 4px;
     color: #fff;
     transition: all 0.3s;
+    z-index: 2;
 }
 .crossValue i {
     font-size: 9px;
     -webkit-text-stroke: 1px;
+}
+#addBtnModal .form-check-inline {
+    margin-right: 0rem !important;
+    padding: 0;
 }
 /*==== End FirstSec css ====*/
 /*========== Start SecondSec css =========*/
@@ -264,11 +272,25 @@ i.las.la-sign-out-alt {
 }
 .cardItemHead {
     color: #d9d9d9;
-    font-size: 15px;
+    font-size: 18px;
 }
 .cardItemValue {
     color: #add8e6;
-    font-size: 14px;
+    font-size: 16px;
+}
+.cardItemValue span {
+    cursor: pointer;
+    margin-right: 16px;
+    transition: all 0.3s;
+    border: 1px solid;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 3px 16px;
+    margin: 3px;
+}
+.cardItemValue span.active{
+    background: #d464de;
+    color: #fff !important;
 }
 .clearBtn {
     background: linear-gradient(to right, #e556f5, #8f2fde);
@@ -296,6 +318,7 @@ i.las.la-sign-out-alt {
     width: 32px;
     height: 32px;
     justify-content: center;
+    transition: all 0.3s;
 }
 .addOnBtn i {
     font-size: 18px;
@@ -352,6 +375,7 @@ i.las.la-sign-out-alt {
     background: linear-gradient(to right, #7fc6ec, #35abeb);
     color: #000;
 }
+.cardBody{z-index: 1;}
 .midContainerCard {
     height: 570px;
     overflow: auto;
