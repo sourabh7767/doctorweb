@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLogsTable extends Migration
+class CreatePrescriptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('error_logs', function (Blueprint $table) {
+        Schema::create('prescriptions', function (Blueprint $table) {
             $table->id();
-            $table->longText("file")->nullable();
-            $table->text("message")->nullable();
-            $table->longText("trace")->nullable();
+            $table->string('diagn');
+            $table->string('objective');
+            $table->string('recomend');
+            $table->bigInteger('user_id');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateLogsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logs');
+        Schema::dropIfExists('prescriptions');
     }
 }

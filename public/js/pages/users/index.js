@@ -11,9 +11,8 @@ $(document).ready(function() {
         ajax: site_url + "/admin/users/",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-            { data: 'full_name', name: 'full_name' },
             { data: 'email', name: 'email' },
-            { data: 'user_role', name: 'user_role' },
+            // { data: 'user_role', name: 'user_role' },
             { data: 'status', name: 'status' },
             { data: 'created_at', name: 'created_at'},
             { data: 'action', name: 'action', orderable: false, searchable: false},

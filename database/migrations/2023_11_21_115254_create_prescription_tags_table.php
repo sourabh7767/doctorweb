@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterUserTableAdd extends Migration
+class CreatePrescriptionTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AlterUserTableAdd extends Migration
      */
     public function up()
     {
-         Schema::table('users', function (Blueprint $table) {
-            $table->integer('device_type')->after('email_verification_otp')->default(1)->comments("0 =>IOS, 1=>Android");
+        Schema::create('prescription_tags', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('user_id');
+            $table->string('tags');
+            $table->integer('prescription_id');
+            $table->timestamps();
         });
     }
 
@@ -25,6 +29,6 @@ class AlterUserTableAdd extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('prescription_tags');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -40,12 +41,38 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout','userLogout');
+    }
+
+   
+
+    public function signup(Request $request)
+    {
+       
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+            'confirm_password' => 'required|same:password'
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        // Create a new user
+        $user = User::create([
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ]);
+               
+        return response()->json(['success' => true, 'message' => 'Signup successful']);
     }
 
     public function login(Request $request){
     
+        if($request->isMethod('get')){
+            return view('auth.login');
+        }
 
         $rules = array(
             'email' => 'required|email:rfc,dns,filter',
@@ -56,17 +83,43 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
         }  
-
-        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        // dd(!Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password]));
+        if (!Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
 
             return $this->sendFailedLoginResponse($request);
 
         }
 
-        return redirect()->route('user.home');
+        return redirect()->route('admin.home');
 
     }
+    public function userLogin(Request $request){
+    
 
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+        
+        $email = $request->email;
+        $password = $request->password;
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        if (!Auth::attempt(['email' => $email, 'password' => $password])) {
+            $returnArray = ['password' => ["Password or Email is Incorect"]];
+            return response()->json(['errors' => $returnArray], 422);
+
+        }
+
+        return response()->json(['success' => "login"], 200);
+
+    }
+    public function userLogout(Request $request){
+
+        Auth::logout();
+        return redirect()->route('web.index');
+    }
     public function logout(Request $request){
 
         Auth::logout(); // logout user

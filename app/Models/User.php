@@ -16,7 +16,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
 
-    const ROLE_ADMIN = 0;
+    const ROLE_ADMIN = 1;
     const ROLE_USER = 2;
     const ROLE_PROJECT_MANAGER = 1;
     const ROLE_CUTTING_MANAGER = 3;
@@ -98,7 +98,7 @@ class User extends Authenticatable
         if(empty($column)){
             $column = 'id';
         }
-        $query = self::select("users.*","roles.title as user_role")->leftJoin('roles', 'roles.id', '=', 'users.role')->orderBy($column, $order)->where('users.created_by','!=', 0);
+        $query = self::query()->orderBy($column, $order);
 
         if(!empty($request)){
 
@@ -106,10 +106,8 @@ class User extends Authenticatable
 
             if(!empty($search)){
                  $query->where(function ($query) use($request,$search){
-                        $query->orWhere( 'full_name', 'LIKE', '%'. $search .'%')
-                            ->orWhere( 'email', 'LIKE', '%'. $search .'%')
-                            ->orWhere( 'roles.title', 'LIKE', '%'. $search .'%')
-                            ->orWhere('users.created_at', 'LIKE', '%' . $search . '%');
+                        $query ->orWhere( 'email', 'LIKE', '%'. $search .'%')
+                            ->orWhere('created_at', 'LIKE', '%' . $search . '%');
 
                     });
 

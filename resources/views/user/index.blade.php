@@ -14,7 +14,7 @@
                         <div class="col-12">
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('user.home')}}">Home</a>
+                                    <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Home</a>
                                     </li>
                                     <li class="breadcrumb-item"><a href="{{route('users.index')}}">Users</a>
                                     </li>
@@ -42,9 +42,7 @@
                   <thead>
                   <tr>
                     <th>S.No</th>
-                    <th>Full Name</th>
                     <th>Email</th>
-                    <th>Role</th>
                      <th>Status</th>
                     <th>Created At</th>
                     <th data-orderable="false">Action</th>

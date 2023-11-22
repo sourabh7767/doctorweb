@@ -21,7 +21,7 @@
                 </div>
                 <div class="mb-1">
                     <!-- <div class="d-flex justify-content-between">
-                        <label class="form-label" for="login-password">Password</label><a href="{{ route('password.request') }}"><small>Forgot Password?</small></a>
+                        <label class="form-label" for="login-password">Password</label><a href=""><small>Forgot Password?</small></a>
                     </div> -->
                     <div class="input-group input-group-merge form-password-toggle @error('password') is-invalid @enderror">
                         <!-- <input class="form-control form-control-merge" id="login-password" type="password" name="login-password" placeholder="············" aria-describedby="login-password" tabindex="2" /><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span> -->
@@ -40,7 +40,7 @@
                 </div>
                 <button class="btn btn-primary w-100" tabindex="4" type="submit">Sign in</button>
             </form>
-<!--             <p class="text-center mt-2"><span>New on our platform?</span><a href="{{ route('register') }}"><span>&nbsp;Create an account</span></a></p>
+<!--             <p class="text-center mt-2"><span>New on our platform?</span><a href=""><span>&nbsp;Create an account</span></a></p>
  -->        </div>
     </div>
     <!-- /Login-->

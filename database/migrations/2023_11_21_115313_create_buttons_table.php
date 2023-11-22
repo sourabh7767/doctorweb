@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterRolesTable extends Migration
+class CreateButtonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class AlterRolesTable extends Migration
      */
     public function up()
     {
-         Schema::table('roles', function (Blueprint $table) {
-            $table->integer('is_deleteable')->after('title')->default(0)->comment("0 =>No","1 =>yes");
-            $table->integer('created_by')->after('updated_at');
+        Schema::create('buttons', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->string('place');
+            $table->text('description');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +29,6 @@ class AlterRolesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('buttons');
     }
 }
