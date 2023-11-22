@@ -11,7 +11,9 @@
   <link href="{{ asset('css/web/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/web/custom.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('css/web/responsive.css') }}" rel="stylesheet" type="text/css">
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" />
+  <link rel="stylesheet" href="{{ asset('css/web/bootstrap-tagsinput.css') }}">
 </head>
 
 <body class="bg">
@@ -27,7 +29,7 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                           <a class="dropdown-item" href="#"> <i class="las la-edit"></i> <span>Update Profile</span></a>
                           <a class="dropdown-item" href="#"><i class="las la-key"></i> <span>Change Password </span></a>
-                          <a class="dropdown-item" href="#"><i class="las la-sign-out-alt"></i><span>Logout</span></a>
+                          <a class="dropdown-item" href="{{route('userLogout')}}"><i class="las la-sign-out-alt"></i><span>Logout</span></a>
                         </div>
                       </div>
                 </div>
@@ -43,17 +45,17 @@
                 <div class="col-md-6 mb-3 mb-md-0">
                     <div class="d-block d-md-flex align-items-center">
                         <div class="btnGroup w-100 me-2">
-                            <button class="secondryOutline active">Kruki <span class="crossValue"><i class="las la-times"></i></span></button>
-                            <button class="secondryOutline">Imovax Ir Velkta <span class="crossValue"><i class="las la-times"></i></span></button>
-                            <button class="secondryOutline">Imovax atsakas <span class="crossValue"><i class="las la-times"></i></span></button>
-                            <button class="secondryOutline">Alkohols izelpa <span class="crossValue"><i class="las la-times"></i></span></button>
-                            <button class="secondryOutline">Alkohols asinis <span class="crossValue"><i class="las la-times"></i></span></button>
-                            <button class="secondryOutline">MRI <span class="crossValue"><i class="las la-times"></i></span></button>
-                            <button class="secondryOutline">CTg <span class="crossValue"><i class="las la-times"></i></span></button>
-                            <button class="secondryOutline">Fizikaias proc. <span class="crossValue"><i class="las la-times"></i></span></button>
-                            <button class="secondryOutline">Rehabillitologa konsult. <span class="crossValue"><i class="las la-times"></i></span></button>
-                            <button class="secondryOutline">Asins anazitzes <span class="crossValue"><i class="las la-times"></i></span></button>
-                            <button class="secondryOutline">Traumatologa konsult. <span class="crossValue"><i class="las la-times"></i></span></button>
+                            <button class="secondryOutline active"><span class="btnText">Kruki</span> <span class="crossValue"><i class="las la-times"></i></span></button>
+                            <button class="secondryOutline"><span class="btnText">Imovax Ir Velkta </span><span class="crossValue"><i class="las la-times"></i></span></button>
+                            <button class="secondryOutline"><span class="btnText">Imovax atsakas </span><span class="crossValue"><i class="las la-times"></i></span></button>
+                            <button class="secondryOutline"><span class="btnText">Alkohols izelpa </span><span class="crossValue"><i class="las la-times"></i></span></button>
+                            <button class="secondryOutline"><span class="btnText">Alkohols asinis</span> <span class="crossValue"><i class="las la-times"></i></span></button>
+                            <button class="secondryOutline"><span class="btnText">MRI</span> <span class="crossValue"><i class="las la-times"></i></span></button>
+                            <button class="secondryOutline"><span class="btnText">CTg</span> <span class="crossValue"><i class="las la-times"></i></span></button>
+                            <button class="secondryOutline"><span class="btnText">Fizikaias proc. </span><span class="crossValue"><i class="las la-times"></i></span></button>
+                            <button class="secondryOutline"><span class="btnText">Rehabillitologa konsult. </span><span class="crossValue"><i class="las la-times"></i></span></button>
+                            <button class="secondryOutline"><span class="btnText">Asins anazitzes</span> <span class="crossValue"><i class="las la-times"></i></span></button>
+                            <button class="secondryOutline"><span class="btnText">Traumatologa konsult. </span><span class="crossValue"><i class="las la-times"></i></span></button>
                         </div>
                         <span class="addOnBtn m-auto m-md-0 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#addBtnModal">
                             <i class="las la-plus"></i>
@@ -106,14 +108,17 @@
                     <div class="d-flex align-items-center">
                         <span class="addOnBtn d-none"><i class="las la-plus"></i></span>
                         <div class="btnGroup">
-                            <button class="secondryOutline">Bericox 90mg <span class="crossValue"><i class="las la-times"></i></button>
-                            <button class="secondryOutline">Co-Codamol 500/30mg <span class="crossValue"><i class="las la-times"></i></button>
-                            <button class="secondryOutline">Amoxicillin/Clavulanic 875 mg/125 mg <span class="crossValue"><i class="las la-times"></i></button>
-                            <button class="secondryOutline">Dolmen 25 mg <span class="crossValue"><i class="las la-times"></i></button>
-                            <button class="secondryOutline">Neiromidine 20mg <span class="crossValue"><i class="las la-times"></i></button>
-                            <button class="secondryOutline">Neirontin 300mg <span class="crossValue"><i class="las la-times"></i></button>
-                            <button class="secondryOutline">Aceclofenac 100mg <span class="crossValue"><i class="las la-times"></i></button>
-                            <button class="secondryOutline">Duracef 500 mg <span class="crossValue"><i class="las la-times"></i></button>
+                            <button class="secondryOutline">
+                                <span class="btnText">Bericox 90mg</span>
+                                <span class="crossValue"><i class="las la-times"></i>
+                            </button>
+                            <button class="secondryOutline"><span class="btnText">Co-Codamol 500/30mg </span><span class="crossValue"><i class="las la-times"></i></button>
+                            <button class="secondryOutline"><span class="btnText">Amoxicillin/Clavulanic 875 mg/125 mg</span><span class="crossValue"><i class="las la-times"></i></button>
+                            <button class="secondryOutline"><span class="btnText">Dolmen 25 mg</span><span class="crossValue"><i class="las la-times"></i></button>
+                            <button class="secondryOutline"><span class="btnText">Neiromidine 20mg</span><span class="crossValue"><i class="las la-times"></i></button>
+                            <button class="secondryOutline"><span class="btnText">Neirontin 300mg</span><span class="crossValue"><i class="las la-times"></i></button>
+                            <button class="secondryOutline"><span class="btnText">Aceclofenac 100mg</span><span class="crossValue"><i class="las la-times"></i></button>
+                            <button class="secondryOutline"><span class="btnText">Duracef 500 mg</span><span class="crossValue"><i class="las la-times"></i></button>
                         </div>
                     </div>
                 </div>
@@ -127,19 +132,41 @@
                         <ul class="leftCardMenus">
                             <li class="leftCardItems row">
                                 <h6 class="cardItemHead col-md-4">Side</h6>
-                                <p class="cardItemValue col-md-8 ">left right</p>
+                                <p class="cardItemValue col-md-8 ">
+                                    <span class="active">left</span>
+                                    <span>right</sapan>
+                                </p>
                             </li>
                             <li class="leftCardItems row">
                                 <h6 class="cardItemHead col-md-4">Apvidus</h6>
-                                <p class="cardItemValue col-md-8">Roka Kaja Kruskurvis Mugurkauis Krusti</p>
+                                <p class="cardItemValue col-md-8">
+                                    <span>Roka</span>
+                                    <span>Kaja</span>
+                                    <span>Kruskurvis</span>
+                                    <span>Mugurkauis</span>
+                                    <span>Krusti</span>
+                                </p>
                             </li>
                             <li class="leftCardItems row">
                                 <h6 class="cardItemHead col-md-4">Trauma</h6>
-                                <p class="cardItemValue col-md-8">Luzums Sasitums Susticpums Mezgijums Bruce Toska Amputacija Cits</p>
+                                <p class="cardItemValue col-md-8">
+                                    <span>Luzums</span>
+                                    <span>Sasitums</span>
+                                    <span>Susticpums</span>
+                                    <span>Mezgijums</span>
+                                    <span>Bruce</span>
+                                    <span>Toska</span>
+                                    <span>Amputacija</span>
+                                    <span>Cits</span>
+                                </p>
                             </li>
                             <li class="leftCardItemsr row">
                                 <h6 class="cardItemHead col-md-4">DNL</h6>
-                                <p class="cardItemValue col-md-8">Atverta Nav nepiec.</p>
+                                <p class="cardItemValue col-md-8">
+                                    <span>Atverta</span>
+                                    <span>Nav</span>
+                                    <span>nepiec.</span>
+                                </p>
                             </li>
                         </ul>
                         <div class="leftBtmBtn mt-3 text-end">
@@ -160,8 +187,11 @@
                                                 <div class="form-group mb-2">
                                                     <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs">
                                                 </div>
-                                                <div class="form-group">
+                                                <!-- <div class="form-group">
                                                     <textarea class="customControlInputs" id="" rows="11" placeholder="Rekomendjdjas..."></textarea>
+                                                </div> -->
+                                                <div class="u-tagsinput">
+                                                    <input id="tagsInput" type="text" value="HTML5, CSS3, JavaScript, jQuery" data-role="tagsinput" class="customControlInputs">
                                                 </div>
                                             </form>
                                         </div>
@@ -203,13 +233,13 @@
                                                         <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs">
                                                     </div>
                                                     <div class="form-group mb-2">
-                                                        <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs">
+                                                        <textarea class="customControlInputs" id="" rows="12" placeholder="Rekomendjdjas..."></textarea>
                                                     </div>
                                                     <div class="form-group mb-2">
                                                         <textarea class="customControlInputs" id="" rows="12" placeholder="Rekomendjdjas..."></textarea>
                                                     </div>
-                                                    <div class="form-group">
-                                                        <textarea class="customControlInputs" id="" rows="12" placeholder="Rekomendjdjas..."></textarea>
+                                                    <div class="u-tagsinput mb-2">
+                                                        <input id="tagsInput" type="text" value="HTML5, CSS3, JavaScript, jQuery" data-role="tagsinput" class="customControlInputs">
                                                     </div>
                                                 </form>
                                             </div>
@@ -326,6 +356,22 @@
  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
  <script src="{{ asset('js/web/bootstrap.bundle.min.js') }}"></script>
  <script src="{{ asset('js/web/scripts.js') }}"></script>
+ 
+ <script src="{{ asset('js/web/bootstrap-tagsinput.min.js') }}"></script>
+ 
+ <script>
+    $(document).ready(function() {
+	$('.btnText').on('click', function() {
+	  // Toggle the 'active' class on the parent button
+	  $(this).parent('.secondryOutline').toggleClass('active');
+	});
+
+	$('.crossValue').on('click', function() {
+	  // Add your delete logic here
+	  alert("Are you sure you want to remove?");
+	});
+  });
+ </script>
  <!-- End Js -->
  </body>
  </html>
