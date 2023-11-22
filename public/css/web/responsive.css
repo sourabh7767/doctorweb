@@ -19,4 +19,11 @@
     .field:hover, .leftCard:hover, .modal-content:hover {
         box-shadow: -8px 8px 10px 5px rgba(0, 0, 0, 0.19);
     }
+    .cardItemValue  span:hover{
+        color: #d464de;
+    }
+    .addOnBtn:hover{
+        background-color: #d464de;
+        color: #fff;
+    }
 }
