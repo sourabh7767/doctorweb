@@ -24,9 +24,9 @@ Route::middleware('prevent-back-history')->group(function (){
         return Redirect::back()->with('success', 'All cache cleared successfully.');
     });
     Route::group(['prefix' => 'admin'], function(){  
-        // Auth::routes();
-        Route::any('/login', 'Auth\LoginController@login')->name('login'); 
-        Route::post('/logout', 'Auth\LoginController@logout')->name('logout');     
+        Auth::routes();
+        // Route::any('/login', 'Auth\LoginController@login')->name('login'); 
+        // Route::post('/logout', 'Auth\LoginController@logout')->name('logout');     
     });
     Route::get('/', 'HomeController@webIndex')->name('web.index');
     Route::post('/signup', 'Auth\LoginController@signup')->name('signup');
@@ -34,6 +34,9 @@ Route::middleware('prevent-back-history')->group(function (){
     Route::middleware('auth:web')->prefix('user')->group(function(){
         Route::get('/home', 'HomeController@webHome')->name('web.home');
         Route::get('/user-logout', 'Auth\LoginController@userLogout')->name('userLogout');
+        Route::post('/add/prescription', 'UserController@addPrescription')->name('addPrescription');
+        Route::post('/get/prescription/list', 'UserController@getTraumaData')->name('getTraumaData');
+        Route::post('/get/card', 'UserController@deleteTraumaCard')->name('deleteTraumaCard');
 
     });
     
@@ -48,11 +51,7 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::get('user/change-password','UserController@changePasswordView')->name('user.changePassword');
         Route::post('user/change-password','UserController@changePassword')->name('user.changePassword.submit');
         
-        Route::resource('email-queue', 'EmailQueueController');
 
     });
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

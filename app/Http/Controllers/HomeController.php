@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Prescription;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -34,7 +35,7 @@ class HomeController extends Controller
         return view('web.index');
     }
     
-    public function webHome(){
+    public function webHome(Request $request){
         return view('web.home');
     }
 }

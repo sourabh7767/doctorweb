@@ -347,6 +347,7 @@
                 }
             }
         </style>
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/sweetalert2.min.css') }}">
     </head>
     <body>
        
@@ -467,10 +468,8 @@
     </body>
     </html>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="{{ asset('js/sweetalert.min.js') }}"></script>
     <script src="{{ asset('js/pages/users/userAuth.js') }}"></script>
-    
-
-    
 <script>
     function clearErrors() {
     $('.message').html('');

@@ -18,6 +18,7 @@ class CreatePrescriptionTagsTable extends Migration
             $table->bigInteger('user_id');
             $table->string('tags');
             $table->integer('prescription_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

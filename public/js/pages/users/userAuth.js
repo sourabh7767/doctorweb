@@ -7,13 +7,39 @@
                 dataType: 'json',
                 success: function (response) {
                     if (response.success) {
+                       
                         if(action === 'user/login'){
-                        window.location.href = '/user/home';
+                            swal({
+                                icon:"success",
+                                text: "Login successfully!",
+                                buttons:false,
+                                timer: 1500, 
+                                timerProgressBar: true, 
+                              }).then(function() {
+                                window.location.href = '/user/home';
+                              });
+                       
                         }else{
-                            window.location.href = '/';
+                            swal({
+                                icon:"success",
+                                text: "Sign up successfully!",
+                                timer: 1500, 
+                                buttons:false,
+                                timerProgressBar: true,
+                              }).then(function() {
+                                window.location.href = '/';
+                              });
                         }
                     }else{
-                        alert();
+                        swal({
+                            icon:"error",
+                            text: "Something went wrong!",
+                            timer: 1500, 
+                            buttons:false,
+                            timerProgressBar: true,
+                          }).then(function() {
+                            window.location.href = '/';
+                          });
                     }
                 },
                 error: function (xhr, status, error) {

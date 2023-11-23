@@ -19,6 +19,7 @@ class CreatePrescriptionsTable extends Migration
             $table->string('objective');
             $table->string('recomend');
             $table->bigInteger('user_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

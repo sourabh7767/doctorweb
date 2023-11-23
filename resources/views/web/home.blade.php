@@ -11,9 +11,12 @@
   <link href="{{ asset('css/web/bootstrap.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/web/custom.css') }}" rel="stylesheet" type="text/css">
   <link href="{{ asset('css/web/responsive.css') }}" rel="stylesheet" type="text/css">
-  
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/plugins/extensions/ext-component-toastr.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/extensions/toastr.min.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" />
   <link rel="stylesheet" href="{{ asset('css/web/bootstrap-tagsinput.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/sweetalert2.min.css') }}">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body class="bg">
@@ -62,7 +65,7 @@
                         </span>
                         <!-- Start AddBtn modal -->
                             <!-- Modal -->
-                            <div class="modal fade" id="addBtnModal" tabindex="-1" aria-labelledby="addBtnModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="addBtnModal" tabindex="-1" aria-labelledby="addBtnModalLabel" aria-hidden="true" data-bs-backdrop="static">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header d-block border-0 p-0 mb-2">
@@ -175,7 +178,7 @@
                         <span class="addOnBtn" data-bs-toggle="modal" data-bs-target="#addOnBtnModal"><i class="las la-plus"></i></span>
                         <!-- Start AddBtn modal -->
                             <!-- Modal -->
-                            <div class="modal fade" id="addOnBtnModal" tabindex="-1" aria-labelledby="addOnBtnLabel" aria-hidden="true">
+                            <div class="modal fade" id="addOnBtnModal" tabindex="-1" aria-labelledby="addOnBtnLabel" aria-hidden="true" data-bs-backdrop="static">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header d-block border-0 p-0 mb-2">
@@ -214,13 +217,13 @@
                             <div class="bgContain midContainer">
                                 <form class="">
                                     <div class="form-group">
-                                        <input type="search" class="formControl" placeholder="Maklot poc nosaukuma">
+                                        <input type="search" class="formControl" placeholder="Maklot poc nosaukuma" id="searchInput">
                                     </div>
                                 </form>
                                 <span class="addOnBtn mt-2 mb-1 m-auto" data-bs-toggle="modal" data-bs-target="#createTemp"><i class="las la-plus"></i></span>
                                 <!-- Start RightMid Modal -->
                                 <!-- Modal -->
-                                <div class="modal fade" id="createTemp" tabindex="-1" aria-labelledby="createTempLabel" aria-hidden="true">
+                                <div class="modal fade" id="createTemp" tabindex="-1" aria-labelledby="createTempLabel" aria-hidden="true" data-bs-backdrop="static" >
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header d-block border-0 p-0 mb-2">
@@ -228,100 +231,45 @@
                                                 <p class="modal-subtext">Edit fields and create fast access template</p>
                                             </div>
                                             <div class="modal-body p-0">
-                                                <form class="addBtnForm">
+                                                <form class="addBtnForm" id="addPrescriptionForm">
+                                                    @csrf
                                                     <div class="form-group mb-2">
-                                                        <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs">
+                                                        <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="diagn">
+                                                        <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                     <div class="form-group mb-2">
-                                                        <textarea class="customControlInputs" id="" rows="12" placeholder="Rekomendjdjas..."></textarea>
+                                                        <textarea class="customControlInputs" id="" rows="12" placeholder="Rekomendjdjas..." name="objective"></textarea>
+                                                        <div id="prescription-objective-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                     <div class="form-group mb-2">
-                                                        <textarea class="customControlInputs" id="" rows="12" placeholder="Rekomendjdjas..."></textarea>
+                                                        <textarea class="customControlInputs" id="" rows="12" placeholder="Rekomendjdjas..." name="recomend"></textarea>
+                                                        <div id="prescription-recomend-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                     <div class="u-tagsinput mb-2">
-                                                        <input id="tagsInput" type="text" value="HTML5, CSS3, JavaScript, jQuery" data-role="tagsinput" class="customControlInputs">
+                                                        <input id="tagsInput" type="text" value="" data-role="tagsinput" class="customControlInputs" name="tags">
+                                                        <div id="prescription-tags-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                 </form>
                                             </div>
                                             <div class="modal-footer border-0 p-0">
-                                            <button type="button" class="clearBtn" data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="secondryBtn">Save</button>
+                                            <button type="button" class="clearBtn" data-bs-dismiss="modal" onclick="clearErrors();">Close</button>
+                                            <button type="button" class="secondryBtn" id="submitPrescription" >Save</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- End RightMid Modal -->
                                 <div class="midContainerCard">
-                                    <div class="cardArea active">
+                                    {{-- <div class="cardArea active">
                                         <div class="cardBody">
                                             <h6 class="titleTxt">L03.0 Lb. plaukstas I pirksta panaricijs</h6>
                                             <p class="description">Panaricijs lb. plaukstas I pirksta</p>
                                         </div>
                                         <span class="crossValue"><i class="las la-times"></i></span>
-                                    </div>
-                                    <div class="cardArea">
-                                        <div class="cardBody">
-                                            <h6 class="titleTxt">My template name and diagnosis</h6>
-                                            <p class="description">my template description</p>
-                                        </div>
-                                        <span class="crossValue"><i class="las la-times"></i></span>
-                                    </div>
-                                    <div class="cardArea">
-                                        <div class="cardBody">
-                                            <h6 class="titleTxt">L03.0 Lb. plaukstas I pirksta panaricijs</h6>
-                                            <p class="description">Panaricijs lb. plaukstas I pirksta</p>
-                                        </div>
-                                        <span class="crossValue"><i class="las la-times"></i></span>
-                                    </div>
-                                    <div class="cardArea">
-                                        <div class="cardBody">
-                                            <h6 class="titleTxt">L03.0 Lb. plaukstas I pirksta panaricijs</h6>
-                                            <p class="description">Panaricijs lb. plaukstas I pirksta</p>
-                                        </div>
-                                        <span class="crossValue"><i class="las la-times"></i></span>
-                                    </div>
-                                    <div class="cardArea">
-                                        <div class="cardBody">
-                                            <h6 class="titleTxt">L03.0 Lb. plaukstas I pirksta panaricijs</h6>
-                                            <p class="description">Panaricijs lb. plaukstas I pirksta</p>
-                                        </div>
-                                        <span class="crossValue"><i class="las la-times"></i></span>
-                                    </div>
-                                    <div class="cardArea">
-                                        <div class="cardBody">
-                                            <h6 class="titleTxt">L03.0 Lb. plaukstas I pirksta panaricijs</h6>
-                                            <p class="description">Panaricijs lb. plaukstas I pirksta</p>
-                                        </div>
-                                        <span class="crossValue"><i class="las la-times"></i></span>
-                                    </div>
-                                    <div class="cardArea">
-                                        <div class="cardBody">
-                                            <h6 class="titleTxt">L03.0 Lb. plaukstas I pirksta panaricijs</h6>
-                                            <p class="description">Panaricijs lb. plaukstas I pirksta</p>
-                                        </div>
-                                        <span class="crossValue"><i class="las la-times"></i></span>
-                                    </div>
-                                    <div class="cardArea">
-                                        <div class="cardBody">
-                                            <h6 class="titleTxt">L03.0 Lb. plaukstas I pirksta panaricijs</h6>
-                                            <p class="description">Panaricijs lb. plaukstas I pirksta</p>
-                                        </div>
-                                        <span class="crossValue"><i class="las la-times"></i></span>
-                                    </div>
-                                    <div class="cardArea">
-                                        <div class="cardBody">
-                                            <h6 class="titleTxt">L03.0 Lb. plaukstas I pirksta panaricijs</h6>
-                                            <p class="description">Panaricijs lb. plaukstas I pirksta</p>
-                                        </div>
-                                        <span class="crossValue"><i class="las la-times"></i></span>
-                                    </div>
-                                    <div class="cardArea">
-                                        <div class="cardBody">
-                                            <h6 class="titleTxt">L03.0 Lb. plaukstas I pirksta panaricijs</h6>
-                                            <p class="description">Panaricijs lb. plaukstas I pirksta</p>
-                                        </div>
-                                        <span class="crossValue"><i class="las la-times"></i></span>
-                                    </div>
+                                    </div> --}}
+                                    <div id="searchResults"></div>
+                                    
+                                    
                                 </div>
                             </div>
                         </div>
@@ -330,16 +278,16 @@
                         <div class="col-md-12 col-lg-12 col-xl-6 col-xxl-7 mb-3 mb-xl-0">
                             <form class="detailsForm">
                                 <div class="dg field">
-                                    <input type="text" placeholder="Diagnoze..." class="bg-transparent border-0 me-2 w-100">
-                                    <button class="secondryBtn">Copy</button>
+                                    <input type="text" placeholder="Diagnoze..." class="bg-transparent border-0 me-2 w-100 " id="to_diagn" >
+                                    <button class="secondryBtn" data-target-id="to_diagn" type="button">Copy</button>
                                 </div>
                                 <div class="obj field">
-                                    <textarea class="me-2" placeholder="Objektīvās atradnes..." rows="6"></textarea>
-                                    <button class="secondryBtn">Copy</button>
+                                    <textarea class="me-2 " placeholder="Objektīvās atradnes..." rows="6" id="to_objective"></textarea>
+                                    <button class="secondryBtn"  data-target-id="to_objective" type="button">Copy</button>
                                 </div>
                                 <div class="rek field">
-                                    <textarea class="me-2" placeholder="Rekomendācijas..." rows="10"></textarea>
-                                    <button class="secondryBtn">Copy</button>
+                                    <textarea class="me-2 " placeholder="Rekomendācijas..." rows="10" id="to_recomend"></textarea>
+                                    <button class="secondryBtn"  data-target-id="to_recomend" type="button">Copy</button>
                                 </div>
                             </form>
                         </div>
@@ -353,10 +301,12 @@
     </section>
     <!-- End SecondRow -->
  <!-- Start Js -->
- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+ {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script> --}}
+ <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
  <script src="{{ asset('js/web/bootstrap.bundle.min.js') }}"></script>
  <script src="{{ asset('js/web/scripts.js') }}"></script>
- 
+ <script src="{{ asset('js/pages/users/main-screen.js') }}"></script>
+ <script src="{{ asset('js/sweetalert.min.js') }}"></script>
  <script src="{{ asset('js/web/bootstrap-tagsinput.min.js') }}"></script>
  
  <script>
@@ -366,11 +316,14 @@
 	  $(this).parent('.secondryOutline').toggleClass('active');
 	});
 
-	$('.crossValue').on('click', function() {
-	  // Add your delete logic here
-	  alert("Are you sure you want to remove?");
-	});
+	
   });
+ </script>
+ <script>
+    function clearErrors() {
+    $('.messageprescription').html('');
+    $('#addPrescriptionForm')[0].reset();;
+}
  </script>
  <!-- End Js -->
  </body>

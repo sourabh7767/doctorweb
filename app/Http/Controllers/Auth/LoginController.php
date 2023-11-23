@@ -64,8 +64,7 @@ class LoginController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ]);
-               
-        return response()->json(['success' => true, 'message' => 'Signup successful']);
+        return response()->json(['success'=> true,'Signup successful'],200);
     }
 
     public function login(Request $request){
