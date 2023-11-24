@@ -217,7 +217,7 @@
                             <div class="bgContain midContainer">
                                 <form class="">
                                     <div class="form-group">
-                                        <input type="search" class="formControl" placeholder="Maklot poc nosaukuma" id="searchInput">
+                                        <input type="search" class="formControl cardSearch" placeholder="Maklot poc nosaukuma" id="searchInput">
                                     </div>
                                 </form>
                                 <span class="addOnBtn mt-2 mb-1 m-auto" data-bs-toggle="modal" data-bs-target="#createTemp"><i class="las la-plus"></i></span>
