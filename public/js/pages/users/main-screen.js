@@ -90,12 +90,13 @@ $('.crossValue').on('click', function() {
                   'card_id': prescriptionId
               },
               success: function (data) {
+                alert("deleted")
                   // Assuming your server returns a success message
-                  swal(data.message, {
-                  buttons: false,
-                  timer: 1500,
-                  });
-                  cardArea.remove(); // Remove the card from the DOM
+                //   swal(data.message, {
+                //   buttons: false,
+                //   timer: 1500,
+                //   });
+                //   cardArea.remove(); // Remove the card from the DOM
               },
               error: function (error) {
                   console.error('Error deleting prescription:', error);
