@@ -7,14 +7,15 @@ $(document).ready(function () {
             url: site_url+"/user/add/prescription",  
             data: formData,
             success: function (response) {
-                swal({
-                    icon:"success",
-                    text: "Prescription added successfully!",
-                    timer: 1500, 
-                    buttons:false,
-                  }).then(function() {
-                    window.location.href = '/user/home';
-                  });
+                alert('Prescription added successfully!')
+                // swal({
+                //     icon:"success",
+                //     text: "Prescription added successfully!",
+                //     timer: 1500, 
+                //     buttons:false,
+                //   }).then(function() {
+                //     window.location.href = '/user/home';
+                //   });
             },
             error: function (xhr, status, error) {
                 var response = JSON.parse(xhr.responseText);
@@ -45,88 +46,88 @@ $(document).ready(function () {
 
 // start center card functionality
 
-$(document).ready(function () {
-    $('#searchInput').on('input', function () {
-        var searchTerm = $(this).val();
-        if (searchTerm.trim() === '') {
-            $('#searchResults').html('');
-            return;
-        }
-        $.ajax({
-            type: 'POST',
-            url: site_url + '/user/get/prescription/list',
-            data: {
-            '_token': $('meta[name="csrf-token"]').attr('content'),
-                searchTerm: searchTerm,
-            },
-            success: function (data) {
-                $('#searchResults').html(data);
-            }
-        });
-    });
-});
+// $(document).ready(function () {
+//     $('#searchInput').on('input', function () {
+//         var searchTerm = $(this).val();
+//         if (searchTerm.trim() === '') {
+//             $('#searchResults').html('');
+//             return;
+//         }
+//         $.ajax({
+//             type: 'POST',
+//             url: site_url + '/user/get/prescription/list',
+//             data: {
+//             '_token': $('meta[name="csrf-token"]').attr('content'),
+//                 searchTerm: searchTerm,
+//             },
+//             success: function (data) {
+//                 $('#searchResults').html(data);
+//             }
+//         });
+//     });
+// });
 
 
-$('.crossValue').on('click', function() {
-    // Add your delete logic here
-  var cardArea = $(this).closest('.cardArea');
-  var prescriptionId = cardArea.find('.cardBody').data('id');
-      swal({
-          icon:"error",
-          text: "Are you sure to delete!",
-  buttons: {
-      cancel: true,
-      confirm: true,
-  },
-  }).then(function(result) {
-      if (result === true) {
-          $.ajax({
-              type: 'POST',
-              url: site_url + '/user/get/card', // Update with your actual route
-              data: {
-                  '_token': $('meta[name="csrf-token"]').attr('content'),
-                  'card_id': prescriptionId
-              },
-              success: function (data) {
-                  // Assuming your server returns a success message
-                  swal(data.message, {
-                  buttons: false,
-                  timer: 1500,
-                  });
-                  cardArea.remove(); // Remove the card from the DOM
-              },
-              error: function (error) {
-                  console.error('Error deleting prescription:', error);
-                  // Handle error if needed
-              }
-          });
-      }
-  });
-  });
-  $('.cardArea').on('click', function() {
-      var cardBody = $(this).closest('.cardBody');
-      var from_diagn = $('.from_diagn').text();
-      var from_objective = $('.from_objective').text();
-      var from_recomend = $('.from_recomend').text();
-      $('#to_diagn').val(from_diagn);
-      $('#to_objective').val(from_objective);
-      $('#to_recomend').val(from_recomend);
+// $('.crossValue').on('click', function() {
+//     // Add your delete logic here
+//   var cardArea = $(this).closest('.cardArea');
+//   var prescriptionId = cardArea.find('.cardBody').data('id');
+//       swal({
+//           icon:"error",
+//           text: "Are you sure to delete!",
+//   buttons: {
+//       cancel: true,
+//       confirm: true,
+//   },
+//   }).then(function(result) {
+//       if (result === true) {
+//           $.ajax({
+//               type: 'POST',
+//               url: site_url + '/user/get/card', // Update with your actual route
+//               data: {
+//                   '_token': $('meta[name="csrf-token"]').attr('content'),
+//                   'card_id': prescriptionId
+//               },
+//               success: function (data) {
+//                   // Assuming your server returns a success message
+//                   swal(data.message, {
+//                   buttons: false,
+//                   timer: 1500,
+//                   });
+//                   cardArea.remove(); // Remove the card from the DOM
+//               },
+//               error: function (error) {
+//                   console.error('Error deleting prescription:', error);
+//                   // Handle error if needed
+//               }
+//           });
+//       }
+//   });
+//   });
+//   $('.cardArea').on('click', function() {
+//       var cardBody = $(this).closest('.cardBody');
+//       var from_diagn = $('.from_diagn').text();
+//       var from_objective = $('.from_objective').text();
+//       var from_recomend = $('.from_recomend').text();
+//       $('#to_diagn').val(from_diagn);
+//       $('#to_objective').val(from_objective);
+//       $('#to_recomend').val(from_recomend);
 
-  });
+//   });
 
-function copyToClipboard(element) {
-    var copyText = $(element).val();
-    navigator.clipboard.writeText(copyText)
-    swal("Copied", {
-        buttons: false,
-        timer: 800,
-        });
-}
-$(document).ready(function() {
-    $('.copy').on('click', function() {
-        var targetID = $(this).data('target-id');
-        copyToClipboard('#' + targetID);
-    });
-});
+// function copyToClipboard(element) {
+//     var copyText = $(element).val();
+//     navigator.clipboard.writeText(copyText)
+//     swal("Copied", {
+//         buttons: false,
+//         timer: 800,
+//         });
+// }
+// $(document).ready(function() {
+//     $('.copy').on('click', function() {
+//         var targetID = $(this).data('target-id');
+//         copyToClipboard('#' + targetID);
+//     });
+// });
 
 // end center card functionality
