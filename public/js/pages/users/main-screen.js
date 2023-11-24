@@ -1,6 +1,6 @@
 var site_url = window.location.protocol + '//' + window.location.host;
 $(document).ready(function () {
-    $("#submitPrescription").click(function () {
+    $(".abc").click(function () {
         alert('hit')
         var formData = $("#addPrescriptionForm").serialize();
         $.ajax({
