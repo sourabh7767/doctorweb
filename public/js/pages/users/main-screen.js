@@ -66,29 +66,7 @@ $(document).ready(function () {
     });
 
 
-  $('.cardArea').on('click', function() {
-      var cardBody = $(this).closest('.cardBody');
-      var from_diagn = $('.from_diagn').text();
-      var from_objective = $('.from_objective').text();
-      var from_recomend = $('.from_recomend').text();
-      $('#to_diagn').val(from_diagn);
-      $('#to_objective').val(from_objective);
-      $('#to_recomend').val(from_recomend);
-
-  });
-
-function copyToClipboard(element) {
-    var copyText = $(element).val();
-    navigator.clipboard.writeText(copyText)
-    swal("Copied", {
-        buttons: false,
-        timer: 800,
-        });
-}
-    $('.copy').on('click', function() {
-        var targetID = $(this).data('target-id');
-        copyToClipboard('#' + targetID);
-    });
+  
 });
 
 // end center card functionality
