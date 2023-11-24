@@ -46,26 +46,26 @@ $(document).ready(function () {
 
 // start center card functionality
 
-// $(document).ready(function () {
-//     $('#searchInput').on('input', function () {
-//         var searchTerm = $(this).val();
-//         if (searchTerm.trim() === '') {
-//             $('#searchResults').html('');
-//             return;
-//         }
-//         $.ajax({
-//             type: 'POST',
-//             url: site_url + '/user/get/prescription/list',
-//             data: {
-//             '_token': $('meta[name="csrf-token"]').attr('content'),
-//                 searchTerm: searchTerm,
-//             },
-//             success: function (data) {
-//                 $('#searchResults').html(data);
-//             }
-//         });
-//     });
-// });
+$(document).ready(function () {
+    $('#searchInput').on('input', function () {
+        var searchTerm = $(this).val();
+        if (searchTerm.trim() === '') {
+            $('#searchResults').html('');
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: site_url + '/user/get/prescription/list',
+            data: {
+            '_token': $('meta[name="csrf-token"]').attr('content'),
+                searchTerm: searchTerm,
+            },
+            success: function (data) {
+                $('#searchResults').html(data);
+            }
+        });
+    });
+});
 
 
 $('.crossValue').on('click', function() {
