@@ -68,42 +68,42 @@ $(document).ready(function () {
 // });
 
 
-// $('.crossValue').on('click', function() {
-//     // Add your delete logic here
-//   var cardArea = $(this).closest('.cardArea');
-//   var prescriptionId = cardArea.find('.cardBody').data('id');
-//       swal({
-//           icon:"error",
-//           text: "Are you sure to delete!",
-//   buttons: {
-//       cancel: true,
-//       confirm: true,
-//   },
-//   }).then(function(result) {
-//       if (result === true) {
-//           $.ajax({
-//               type: 'POST',
-//               url: site_url + '/user/get/card', // Update with your actual route
-//               data: {
-//                   '_token': $('meta[name="csrf-token"]').attr('content'),
-//                   'card_id': prescriptionId
-//               },
-//               success: function (data) {
-//                   // Assuming your server returns a success message
-//                   swal(data.message, {
-//                   buttons: false,
-//                   timer: 1500,
-//                   });
-//                   cardArea.remove(); // Remove the card from the DOM
-//               },
-//               error: function (error) {
-//                   console.error('Error deleting prescription:', error);
-//                   // Handle error if needed
-//               }
-//           });
-//       }
-//   });
-//   });
+$('.crossValue').on('click', function() {
+    // Add your delete logic here
+  var cardArea = $(this).closest('.cardArea');
+  var prescriptionId = cardArea.find('.cardBody').data('id');
+      swal({
+          icon:"error",
+          text: "Are you sure to delete!",
+  buttons: {
+      cancel: true,
+      confirm: true,
+  },
+  }).then(function(result) {
+      if (result === true) {
+          $.ajax({
+              type: 'POST',
+              url: site_url + '/user/delete/card', // Update with your actual route
+              data: {
+                  '_token': $('meta[name="csrf-token"]').attr('content'),
+                  'card_id': prescriptionId
+              },
+              success: function (data) {
+                  // Assuming your server returns a success message
+                  swal(data.message, {
+                  buttons: false,
+                  timer: 1500,
+                  });
+                  cardArea.remove(); // Remove the card from the DOM
+              },
+              error: function (error) {
+                  console.error('Error deleting prescription:', error);
+                  // Handle error if needed
+              }
+          });
+      }
+  });
+  });
 //   $('.cardArea').on('click', function() {
 //       var cardBody = $(this).closest('.cardBody');
 //       var from_diagn = $('.from_diagn').text();
