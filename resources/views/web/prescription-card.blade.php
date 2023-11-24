@@ -11,4 +11,3 @@
 @empty
     
 @endforelse
-<script src="{{ asset('js/pages/users/main-screen.js') }}"></script>
