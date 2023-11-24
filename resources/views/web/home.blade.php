@@ -253,7 +253,7 @@
                                             </div>
                                             <div class="modal-footer border-0 p-0">
                                             <button type="button" class="clearBtn" data-bs-dismiss="modal" onclick="clearErrors();">Close</button>
-                                            <button type="button" class="secondryBtn" id="submitPrescription" >Save</button>
+                                            <button type="button" class="secondryBtn abc" id="submitPrescription" >Save</button>
                                             </div>
                                         </div>
                                     </div>

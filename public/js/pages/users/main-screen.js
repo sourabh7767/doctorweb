@@ -18,28 +18,28 @@ $(document).ready(function () {
                 //     window.location.href = '/user/home';
                 //   });
             },
-            error: function (xhr, status, error) {
-                var response = JSON.parse(xhr.responseText);
+        //     error: function (xhr, status, error) {
+        //         var response = JSON.parse(xhr.responseText);
                 
-                if (response.errors) {  
-                    var className = "prescription";
-                        $.each(response.errors, function (key, value) {
-                            console.log('#' + key + '-error')
-                            console.log('.error-message[data-form="' + className + '"]',"=====================>");
-                            $('.message[data-form="' + className + '"]').html('');
-                           $('#' + className + '-' + key + '-error').html('<span style="color:red;font-weight:20px;">' + value[0] + '</span>');
-                        });
-                    }else{
-                        swal({
-                            icon:"error",
-                            text: "Something went Wrong!",
-                            timer: 1500, 
-                            buttons:false,
-                          }).then(function() {
-                            window.location.href = '/user/home';
-                          });
-                    }
-            }
+        //         if (response.errors) {  
+        //             var className = "prescription";
+        //                 $.each(response.errors, function (key, value) {
+        //                     console.log('#' + key + '-error')
+        //                     console.log('.error-message[data-form="' + className + '"]',"=====================>");
+        //                     $('.message[data-form="' + className + '"]').html('');
+        //                    $('#' + className + '-' + key + '-error').html('<span style="color:red;font-weight:20px;">' + value[0] + '</span>');
+        //                 });
+        //             }else{
+        //                 swal({
+        //                     icon:"error",
+        //                     text: "Something went Wrong!",
+        //                     timer: 1500, 
+        //                     buttons:false,
+        //                   }).then(function() {
+        //                     window.location.href = '/user/home';
+        //                   });
+        //             }
+        //     }
         });
         });
 
