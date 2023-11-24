@@ -34,7 +34,7 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::get('/user-logout', 'Auth\LoginController@userLogout')->name('userLogout');
         Route::post('/add/prescription', 'UserController@addPrescription')->name('addPrescription');
         Route::post('/get/prescription/list', 'UserController@getTraumaData')->name('getTraumaData');
-        Route::post('/get/card', 'UserController@deleteTraumaCard')->name('deleteTraumaCard');
+        Route::post('/delete/card', 'UserController@deleteTraumaCard')->name('deleteTraumaCard');
 
     });
     
