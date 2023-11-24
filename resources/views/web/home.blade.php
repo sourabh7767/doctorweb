@@ -279,15 +279,15 @@
                             <form class="detailsForm">
                                 <div class="dg field">
                                     <input type="text" placeholder="Diagnoze..." class="bg-transparent border-0 me-2 w-100 " id="to_diagn" >
-                                    <button class="secondryBtn" data-target-id="to_diagn" type="button">Copy</button>
+                                    <button class="secondryBtn copy" data-target-id="to_diagn" type="button">Copy</button>
                                 </div>
                                 <div class="obj field">
                                     <textarea class="me-2 " placeholder="Objektīvās atradnes..." rows="6" id="to_objective"></textarea>
-                                    <button class="secondryBtn"  data-target-id="to_objective" type="button">Copy</button>
+                                    <button class="secondryBtn copy"  data-target-id="to_objective" type="button">Copy</button>
                                 </div>
                                 <div class="rek field">
                                     <textarea class="me-2 " placeholder="Rekomendācijas..." rows="10" id="to_recomend"></textarea>
-                                    <button class="secondryBtn"  data-target-id="to_recomend" type="button">Copy</button>
+                                    <button class="secondryBtn copy"  data-target-id="to_recomend" type="button">Copy</button>
                                 </div>
                             </form>
                         </div>

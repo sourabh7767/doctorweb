@@ -339,13 +339,14 @@ class UserController extends Controller
     {
         try {
             DB::beginTransaction();
-            $cruntCard = Prescription::where('id',$request->card_id)->first();
+            $cruntCard = Prescription::where('id', $request->card_id)->first();
             $cruntCard->delete();
-            PrescriptionTag::where('prescription_id',$request->card_id)->delete();
+            PrescriptionTag::where('prescription_id', $request->card_id)->delete();
             DB::commit();
-            return response()->json(['success'=> true,'message'=> 'Card deleted successfully!']);
+            return response()->json(['success' => true, 'message' => 'Prescriptions deleted successfully!']);
         } catch (\Throwable $th) {
             DB::rollBack();
+            return response()->json(['success' => false, 'message' => 'Error deleting prescriptions', 'error' => $th->getMessage()]);
         }
         
     }

@@ -24,9 +24,7 @@ Route::middleware('prevent-back-history')->group(function (){
         return Redirect::back()->with('success', 'All cache cleared successfully.');
     });
     Route::group(['prefix' => 'admin'], function(){  
-        Auth::routes();
-        // Route::any('/login', 'Auth\LoginController@login')->name('login'); 
-        // Route::post('/logout', 'Auth\LoginController@logout')->name('logout');     
+        Auth::routes();    
     });
     Route::get('/', 'HomeController@webIndex')->name('web.index');
     Route::post('/signup', 'Auth\LoginController@signup')->name('signup');

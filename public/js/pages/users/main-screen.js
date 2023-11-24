@@ -78,7 +78,6 @@ $('.crossValue').on('click', function() {
       confirm: true,
   },
   }).then(function(result) {
-      // alert(result)
       if (result === true) {
           $.ajax({
               type: 'post',
@@ -123,7 +122,7 @@ function copyToClipboard(element) {
         });
 }
 $(document).ready(function() {
-    $('.secondryBtn').on('click', function() {
+    $('.copy').on('click', function() {
         var targetID = $(this).data('target-id');
         copyToClipboard('#' + targetID);
     });
