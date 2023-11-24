@@ -304,12 +304,12 @@
  {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script> --}}
  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
  <script src="{{ asset('js/web/bootstrap.bundle.min.js') }}"></script>
- <script src="{{ asset('js/web/scripts.js') }}"></script>
+ {{-- <script src="{{ asset('js/web/scripts.js') }}"></script> --}}
  <script src="{{ asset('js/pages/users/main-screen.js') }}"></script>
  <script src="{{ asset('js/sweetalert.min.js') }}"></script>
  <script src="{{ asset('js/web/bootstrap-tagsinput.min.js') }}"></script>
  
- <script>
+ {{-- <script>
     $(document).ready(function() {
 	$('.btnText').on('click', function() {
 	  // Toggle the 'active' class on the parent button
@@ -324,7 +324,7 @@
     $('.messageprescription').html('');
     $('#addPrescriptionForm')[0].reset();;
 }
- </script>
+ </script> --}}
  <!-- End Js -->
  </body>
  </html>
