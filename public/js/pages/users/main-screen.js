@@ -1,9 +1,10 @@
+var site_url = window.location.protocol + '//' + window.location.host;
 $(document).ready(function () {
     $("#submitPrescription").click(function () {
         var formData = $("#addPrescriptionForm").serialize();
         $.ajax({
             type: "POST",  
-            url: "/user/add/prescription",  
+            url: site_url+"/user/add/prescription",  
             data: formData,
             success: function (response) {
                 swal({
@@ -53,7 +54,7 @@ $(document).ready(function () {
         }
         $.ajax({
             type: 'POST',
-            url: '/user/get/prescription/list',
+            url: site_url + '/user/get/prescription/list',
             data: {
             '_token': $('meta[name="csrf-token"]').attr('content'),
                 searchTerm: searchTerm,
@@ -80,8 +81,8 @@ $('.crossValue').on('click', function() {
   }).then(function(result) {
       if (result === true) {
           $.ajax({
-              type: 'post',
-              url: '/user/get/card/', // Update with your actual route
+              type: 'POST',
+              url: site_url + '/user/get/card', // Update with your actual route
               data: {
                   '_token': $('meta[name="csrf-token"]').attr('content'),
                   'card_id': prescriptionId
