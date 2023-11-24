@@ -42,12 +42,10 @@ $(document).ready(function () {
             }
         });
         });
-});
 
 
 // start center card functionality
 
-$(document).ready(function () {
     $('.cardSearch').on('input', function () {
         var searchTerm = $(this).val();
         if (searchTerm.trim() === '') {
@@ -66,7 +64,6 @@ $(document).ready(function () {
             }
         });
     });
-});
 
 
 $('.crossValue').on('click', function() {
@@ -125,11 +122,10 @@ $('.crossValue').on('click', function() {
 //         timer: 800,
 //         });
 // }
-// $(document).ready(function() {
 //     $('.copy').on('click', function() {
 //         var targetID = $(this).data('target-id');
 //         copyToClipboard('#' + targetID);
 //     });
-// });
+});
 
 // end center card functionality
