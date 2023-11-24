@@ -217,7 +217,7 @@
                             <div class="bgContain midContainer">
                                 <form class="">
                                     <div class="form-group">
-                                        <input type="search" class="formControl cardSearch" placeholder="Maklot poc nosaukuma" id="searchInput">
+                                        <input type="search" class="formControl" placeholder="Maklot poc nosaukuma" id="searchInput">
                                     </div>
                                 </form>
                                 <span class="addOnBtn mt-2 mb-1 m-auto" data-bs-toggle="modal" data-bs-target="#createTemp"><i class="las la-plus"></i></span>
@@ -253,7 +253,7 @@
                                             </div>
                                             <div class="modal-footer border-0 p-0">
                                             <button type="button" class="clearBtn" data-bs-dismiss="modal" onclick="clearErrors();">Close</button>
-                                            <button type="button" class="secondryBtn abc" id="submitPrescription" >Save</button>
+                                            <button type="button" class="secondryBtn" id="submitPrescription" >Save</button>
                                             </div>
                                         </div>
                                     </div>
@@ -283,11 +283,11 @@
                                 </div>
                                 <div class="obj field">
                                     <textarea class="me-2 " placeholder="Objektīvās atradnes..." rows="6" id="to_objective"></textarea>
-                                    <button class="secondryBtn copy"  data-target-id="to_objective" type="button">Copy</button>
+                                    <button class="secondryBtn"  data-target-id="to_objective" type="button">Copy</button>
                                 </div>
                                 <div class="rek field">
                                     <textarea class="me-2 " placeholder="Rekomendācijas..." rows="10" id="to_recomend"></textarea>
-                                    <button class="secondryBtn copy"  data-target-id="to_recomend" type="button">Copy</button>
+                                    <button class="secondryBtn"  data-target-id="to_recomend" type="button">Copy</button>
                                 </div>
                             </form>
                         </div>
@@ -304,12 +304,12 @@
  {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script> --}}
  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
  <script src="{{ asset('js/web/bootstrap.bundle.min.js') }}"></script>
- {{-- <script src="{{ asset('js/web/scripts.js') }}"></script> --}}
+ <script src="{{ asset('js/web/scripts.js') }}"></script>
  <script src="{{ asset('js/pages/users/main-screen.js') }}"></script>
  <script src="{{ asset('js/sweetalert.min.js') }}"></script>
  <script src="{{ asset('js/web/bootstrap-tagsinput.min.js') }}"></script>
  
- {{-- <script>
+ <script>
     $(document).ready(function() {
 	$('.btnText').on('click', function() {
 	  // Toggle the 'active' class on the parent button
@@ -324,7 +324,7 @@
     $('.messageprescription').html('');
     $('#addPrescriptionForm')[0].reset();;
 }
- </script> --}}
+ </script>
  <!-- End Js -->
  </body>
  </html>

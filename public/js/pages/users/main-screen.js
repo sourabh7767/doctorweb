@@ -1,14 +1,11 @@
-var site_url = window.location.protocol + '//' + window.location.host;
 $(document).ready(function () {
-    $(".abc").click(function () {
-        alert('hit')
+    $("#submitPrescription").click(function () {
         var formData = $("#addPrescriptionForm").serialize();
         $.ajax({
             type: "POST",  
-            url: site_url+"/user/add/prescription",  
+            url: "/user/add/prescription",  
             data: formData,
             success: function (response) {
-                alert('Prescription added successfully!')
                 swal({
                     icon:"success",
                     text: "Prescription added successfully!",
@@ -42,11 +39,13 @@ $(document).ready(function () {
             }
         });
         });
+});
 
 
 // start center card functionality
 
-    $('.cardSearch').on('input', function () {
+$(document).ready(function () {
+    $('#searchInput').on('input', function () {
         var searchTerm = $(this).val();
         if (searchTerm.trim() === '') {
             $('#searchResults').html('');
@@ -54,7 +53,7 @@ $(document).ready(function () {
         }
         $.ajax({
             type: 'POST',
-            url: site_url + '/user/get/prescription/list',
+            url: '/user/get/prescription/list',
             data: {
             '_token': $('meta[name="csrf-token"]').attr('content'),
                 searchTerm: searchTerm,
@@ -64,9 +63,70 @@ $(document).ready(function () {
             }
         });
     });
+});
 
 
-  
+$('.crossValue').on('click', function() {
+    // Add your delete logic here
+  var cardArea = $(this).closest('.cardArea');
+  var prescriptionId = cardArea.find('.cardBody').data('id');
+      swal({
+          icon:"error",
+          text: "Are you sure to delete!",
+  buttons: {
+      cancel: true,
+      confirm: true,
+  },
+  }).then(function(result) {
+      // alert(result)
+      if (result === true) {
+          $.ajax({
+              type: 'post',
+              url: '/user/get/card/', // Update with your actual route
+              data: {
+                  '_token': $('meta[name="csrf-token"]').attr('content'),
+                  'card_id': prescriptionId
+              },
+              success: function (data) {
+                  // Assuming your server returns a success message
+                  swal(data.message, {
+                  buttons: false,
+                  timer: 1500,
+                  });
+                  cardArea.remove(); // Remove the card from the DOM
+              },
+              error: function (error) {
+                  console.error('Error deleting prescription:', error);
+                  // Handle error if needed
+              }
+          });
+      }
+  });
+  });
+  $('.cardArea').on('click', function() {
+      var cardBody = $(this).closest('.cardBody');
+      var from_diagn = $('.from_diagn').text();
+      var from_objective = $('.from_objective').text();
+      var from_recomend = $('.from_recomend').text();
+      $('#to_diagn').val(from_diagn);
+      $('#to_objective').val(from_objective);
+      $('#to_recomend').val(from_recomend);
+
+  });
+
+function copyToClipboard(element) {
+    var copyText = $(element).val();
+    navigator.clipboard.writeText(copyText)
+    swal("Copied", {
+        buttons: false,
+        timer: 800,
+        });
+}
+$(document).ready(function() {
+    $('.copy').on('click', function() {
+        var targetID = $(this).data('target-id');
+        copyToClipboard('#' + targetID);
+    });
 });
 
 // end center card functionality
