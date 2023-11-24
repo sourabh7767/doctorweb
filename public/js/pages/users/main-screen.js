@@ -82,7 +82,7 @@ $('.crossValue').on('click', function() {
       if (result === true) {
           $.ajax({
               type: 'post',
-              url: '/user/get/card/', // Update with your actual route
+              url: '/user/delete/card/', // Update with your actual route
               data: {
                   '_token': $('meta[name="csrf-token"]').attr('content'),
                   'card_id': prescriptionId
