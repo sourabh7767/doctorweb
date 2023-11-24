@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Button;
 use App\Models\Prescription;
 use App\Models\PrescriptionTag;
 use Illuminate\Http\Request;
@@ -349,6 +350,26 @@ class UserController extends Controller
             return response()->json(['success' => false, 'message' => 'Error deleting prescriptions', 'error' => $th->getMessage()]);
         }
         
+    }
+
+    public function addTags(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+            'place' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        $buttonObj = Button::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'place' => $request->place
+        ]);
+        if($buttonObj)
+        return response()->json(['success' => true,'message' => "Button added Successfull!"]);
     }
 
 }

@@ -1,16 +1,19 @@
+var site_url = window.location.protocol + '//' + window.location.host;
+
 $(document).ready(function () {
     $("#submitPrescription").click(function () {
         var formData = $("#addPrescriptionForm").serialize();
         $.ajax({
             type: "POST",  
-            url: "/user/add/prescription",  
+            url: site_url + "/user/add/prescription",  
             data: formData,
             success: function (response) {
-                swal({
-                    icon:"success",
+                $('#createTemp').hide()
+                Swal.fire({
+                    icon: "success",
+                    title: "Done",
                     text: "Prescription added successfully!",
-                    timer: 1500, 
-                    buttons:false,
+                    footer: '<a href="#">Doctor minisquaretechnologies</a>'
                   }).then(function() {
                     window.location.href = '/user/home';
                   });
@@ -19,19 +22,23 @@ $(document).ready(function () {
                 var response = JSON.parse(xhr.responseText);
                 
                 if (response.errors) {  
-                    var className = "prescription";
-                        $.each(response.errors, function (key, value) {
-                            console.log('#' + key + '-error')
-                            console.log('.error-message[data-form="' + className + '"]',"=====================>");
-                            $('.message[data-form="' + className + '"]').html('');
-                           $('#' + className + '-' + key + '-error').html('<span style="color:red;font-weight:20px;">' + value[0] + '</span>');
-                        });
+                    $.each(response.errors, function (field, errors) {
+                        if (errors.length > 0) {
+                            firstError = errors[0];
+                            return false; 
+                        }
+                    });
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: firstError,
+                    });
                     }else{
-                        swal({
-                            icon:"error",
+                        Swal.fire({
+                            icon: "question",
+                            title: "Oops...",
                             text: "Something went Wrong!",
-                            timer: 1500, 
-                            buttons:false,
+                            footer: '<a href="#">Why do I have this issue?</a>'
                           }).then(function() {
                             window.location.href = '/user/home';
                           });
@@ -39,12 +46,10 @@ $(document).ready(function () {
             }
         });
         });
-});
 
 
 // start center card functionality
 
-$(document).ready(function () {
     $('#searchInput').on('input', function () {
         var searchTerm = $(this).val();
         if (searchTerm.trim() === '') {
@@ -53,17 +58,17 @@ $(document).ready(function () {
         }
         $.ajax({
             type: 'POST',
-            url: '/user/get/prescription/list',
+            url: site_url + '/user/get/prescription/list',
             data: {
             '_token': $('meta[name="csrf-token"]').attr('content'),
                 searchTerm: searchTerm,
             },
             success: function (data) {
                 $('#searchResults').html(data);
-            }
+            },
+            
         });
     });
-});
 
 
 $('.crossValue').on('click', function() {
@@ -82,7 +87,7 @@ $('.crossValue').on('click', function() {
       if (result === true) {
           $.ajax({
               type: 'post',
-              url: '/user/delete/card/', // Update with your actual route
+              url: site_url + '/user/delete/card', // Update with your actual route
               data: {
                   '_token': $('meta[name="csrf-token"]').attr('content'),
                   'card_id': prescriptionId
@@ -117,16 +122,65 @@ $('.crossValue').on('click', function() {
 function copyToClipboard(element) {
     var copyText = $(element).val();
     navigator.clipboard.writeText(copyText)
-    swal("Copied", {
-        buttons: false,
-        timer: 800,
-        });
+        Swal.fire({
+            icon: "success",
+            title: "Done",
+            timer: 1000,
+            text: "Copied!",
+          });
 }
-$(document).ready(function() {
     $('.copy').on('click', function() {
         var targetID = $(this).data('target-id');
         copyToClipboard('#' + targetID);
     });
-});
+
 
 // end center card functionality
+
+    $('#saveButtons').on('click', function(event) {
+        event.preventDefault();
+        
+        var formData = $('#AddButtonForm').serialize();
+        $.ajax({
+            type: 'POST',
+            url: site_url + '/user/add/buttons', 
+            data:formData,
+            
+            success: function (data) {
+                $('#addBtnModal').modal('hide');
+                $('#AddButtonForm')[0].reset();
+                Swal.fire({
+                    icon: "success",
+                    title: "Done",
+                    text: data.message,
+                  });
+            },
+            error: function (xhr, status, error) {
+                var response = JSON.parse(xhr.responseText);
+                console.log(response)
+                if (response.errors) {  
+                    $.each(response.errors, function (field, errors) {
+                        if (errors.length > 0) {
+                            firstError = errors[0];
+                            return false; 
+                        }
+                    });
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: firstError,
+                    });
+                    }else{
+                        Swal.fire({
+                            icon: "question",
+                            title: "Oops...",
+                            text: "Something went Wrong!",
+                          }).then(function() {
+                            window.location.href = '/user/home';
+                          });
+                    }
+            }
+        });
+       });
+       
+});
