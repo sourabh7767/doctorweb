@@ -112,11 +112,18 @@ $(document).on('click', '.crossValue' ,function (e) {
     
   });
   $(document).on('click', '.cardArea' ,function (e) {
+    $(".cardArea").removeClass("active");
+    $(this).toggleClass('active');
   //$('.cardArea').on('click', function() {
-      var cardBody = $(this).closest('.cardBody');
-      var from_diagn = $('.from_diagn').text();
-      var from_objective = $('.from_objective').text();
-      var from_recomend = $('.from_recomend').text();
+    var cardBody = $(this).find('.cardBody');
+
+    var from_diagn = cardBody.find('.from_diagn').text().trim();
+    var from_objective = cardBody.find('.from_objective').text().trim();
+    var from_recomend = cardBody.find('.from_recomend').text().trim();
+    //   var cardBody = $(this).closest('.cardBody');
+    //   var from_diagn = $(this).closest('.from_diagn').text();
+    //   var from_objective = $('.from_objective').text();
+    //   var from_recomend = $('.from_recomend').text();
       $('#to_diagn').val(from_diagn);
       $('#to_objective').val(from_objective);
       $('#to_recomend').val(from_recomend);
