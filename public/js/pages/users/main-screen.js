@@ -192,6 +192,7 @@ function copyToClipboard(element) {
                     }
             }
         });
-       });
-       
+    });
+
+
 });
