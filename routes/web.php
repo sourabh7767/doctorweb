@@ -26,29 +26,29 @@ Route::middleware('prevent-back-history')->group(function (){
     Route::group(['prefix' => 'admin'], function(){  
         Auth::routes();    
     });
-    Route::get('/', 'HomeController@webIndex')->name('web.index');
-    Route::post('/signup', 'Auth\LoginController@signup')->name('signup');
-    Route::post('/user/login', 'Auth\LoginController@userLogin')->name('userLogin');
+    Route::get('/', 'Web\AuthController@webIndex')->name('web.index');
+    Route::post('/signup', 'Web\AuthController@signup')->name('signup');
+    Route::post('/user/login', 'Web\AuthController@userLogin')->name('userLogin');
     Route::middleware('auth:web')->prefix('user')->group(function(){
-        Route::get('/home', 'HomeController@webHome')->name('web.home');
-        Route::get('/user-logout', 'Auth\LoginController@userLogout')->name('userLogout');
-        Route::post('/add/prescription', 'UserController@addPrescription')->name('addPrescription');
-        Route::post('/get/prescription/list', 'UserController@getTraumaData')->name('getTraumaData');
-        Route::post('/delete/card', 'UserController@deleteTraumaCard')->name('deleteTraumaCard');
-        Route::post('/add/buttons', 'UserController@addTags')->name('addTags');
+        Route::get('/home', 'Web\HomeController@webHome')->name('web.home');
+        Route::get('/user-logout', 'Web\AuthController@userLogout')->name('userLogout');
+        Route::post('/add/prescription', 'Web\HomeController@addPrescription')->name('addPrescription');
+        Route::post('/get/prescription/list', 'Web\HomeController@getTraumaData')->name('getTraumaData');
+        Route::post('/delete/card', 'Web\HomeController@deleteTraumaCard')->name('deleteTraumaCard');
+        Route::post('/add/buttons', 'Web\HomeController@addTags')->name('addTags');
 
     });
     
     Route::middleware('auth:admin')->prefix('admin')->group(function(){
-        Route::get('/dashboard', 'HomeController@index')->name('admin.home');
-        Route::resource('users', 'UserController');
-        Route::resource('role', 'RoleController');
-        Route::get('/user/changeStatus/{id}','UserController@changeStatus')->name('user.changeStatus');
-        Route::get('user/profile','UserController@profile')->name('user.profile');
-        Route::get('user/update-profile','UserController@showUpdateProfileForm')->name('user.updateProfile');
-        Route::post('user/update-profile','UserController@updateProfile')->name('user.updateProfile.submit');
-        Route::get('user/change-password','UserController@changePasswordView')->name('user.changePassword');
-        Route::post('user/change-password','UserController@changePassword')->name('user.changePassword.submit');
+        Route::get('/dashboard', 'Admin\HomeController@index')->name('admin.home');
+        Route::resource('users', 'Admin\UserController');
+        Route::resource('role', 'Admin\RoleController');
+        Route::get('/user/changeStatus/{id}','Admin\UserController@changeStatus')->name('user.changeStatus');
+        Route::get('user/profile','Admin\UserController@profile')->name('user.profile');
+        Route::get('user/update-profile','Admin\UserController@showUpdateProfileForm')->name('user.updateProfile');
+        Route::post('user/update-profile','Admin\UserController@updateProfile')->name('user.updateProfile.submit');
+        Route::get('user/change-password','Admin\UserController@changePasswordView')->name('user.changePassword');
+        Route::post('user/change-password','Admin\UserController@changePassword')->name('user.changePassword.submit');
         
 
     });

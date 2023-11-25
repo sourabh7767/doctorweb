@@ -11,7 +11,7 @@
                         <div class="col-12">
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('user.home')}}">Home</a>
+                                    <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active">Profile
                                     </li>
@@ -59,11 +59,11 @@
                             <td colspan="1">{{$model->email}}</td>
                             
                          </tr>
-                         <tr>
+                         {{-- <tr>
                             <th>Role</th>
                             <td colspan="1">{{$model->getRole()}}</td>
                             
-                         </tr>
+                         </tr> --}}
                         <tr>
                             <th>Created At</th>
                         <td colspan="1">{{$model->created_at}}</td>

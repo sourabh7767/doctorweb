@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Button;
 use App\Models\Prescription;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('webIndex');
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -32,13 +33,5 @@ class HomeController extends Controller
         return view('home',compact("users","data","monthlys"));
     }
     
-    public function webIndex(){
-       
-        return view('web.index');
-    }
     
-    public function webHome(Request $request){
-        $buttons = Button::get();
-        return view('web.home',compact('buttons'));
-    }
 }

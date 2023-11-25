@@ -346,7 +346,7 @@
  <script>
     function clearErrors() {
     $('.messageprescription').html('');
-    $('#addPrescriptionForm')[0].reset();;
+    $('#addPrescriptionForm')[0].reset();
 }
  </script>
  <script>

@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 use App\Models\Button;
 use App\Models\Prescription;
 use App\Models\PrescriptionTag;
@@ -218,7 +218,7 @@ class UserController extends Controller
 
     {
 
-    $model = Auth()->user();
+    $model = auth()->guard('admin')->user();
 
      $rules = array(
             'full_name'=>'required',
@@ -230,14 +230,15 @@ class UserController extends Controller
         if ($validator->fails()) {
             return Redirect::back()->withInput()->withErrors($validator);
         } 
-
-        $model = $model->fill($request->all());
+        $model->full_name = $request->full_name;
+        $model->email = $request->email;
+        $model->phone_number = $request->phone_number;
         if($request->hasFile('file')){
         $model->profile_image = saveUploadedFile($request->file);
         }
         if($model->save()){
 
-        return redirect()->route('user.home')->with('success', 'profile updated successfully.');
+        return redirect()->route('admin.home')->with('success', 'profile updated successfully.');
   
         }
 

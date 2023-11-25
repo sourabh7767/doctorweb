@@ -16,7 +16,7 @@
                         <div class="col-12">
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{route('user.home')}}">Home</a>
+                                    <li class="breadcrumb-item"><a href="{{route('admin.home')}}">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active">Update Profile
                                     </li>
@@ -34,7 +34,7 @@
                 <h5><b>Update Profile</b></h5>
             </div>
             <div class="card-body">
-                <form method="POST" action="/user/update-profile" enctype="multipart/form-data">
+                <form method="POST" action="{{route('user.updateProfile.submit')}}" enctype="multipart/form-data">
                     @csrf
                    
                 <div class="card-body">

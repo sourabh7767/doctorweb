@@ -41,7 +41,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout','userLogout');
+        $this->middleware('guest')->except('logout');
     }
 
    
@@ -92,33 +92,7 @@ class LoginController extends Controller
         return redirect()->route('admin.home');
 
     }
-    public function userLogin(Request $request){
     
-
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-            'password' => 'required|min:6',
-        ]);
-        
-        $email = $request->email;
-        $password = $request->password;
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-        if (!Auth::attempt(['email' => $email, 'password' => $password])) {
-            $returnArray = ['password' => ["Password or Email is Incorect"]];
-            return response()->json(['errors' => $returnArray], 422);
-
-        }
-
-        return response()->json(['success' => "login"], 200);
-
-    }
-    public function userLogout(Request $request){
-
-        Auth::logout();
-        return redirect()->route('web.index');
-    }
     public function logout(Request $request){
 
         Auth::logout(); // logout user
