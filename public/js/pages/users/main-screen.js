@@ -13,7 +13,7 @@ $(document).ready(function () {
                     icon: "success",
                     title: "Done",
                     text: "Prescription added successfully!",
-                    footer: '<a href="#">Doctor minisquaretechnologies</a>'
+                    //footer: '<a href="#">Doctor minisquaretechnologies</a>'
                   }).then(function() {
                     window.location.href = '/user/home';
                   });
@@ -70,45 +70,49 @@ $(document).ready(function () {
         });
     });
 
-
-$('.crossValue').on('click', function() {
+$(document).on('click', '.crossValue' ,function (e) {
+//$('.crossValue').on('click', function() {
     // Add your delete logic here
   var cardArea = $(this).closest('.cardArea');
   var prescriptionId = cardArea.find('.cardBody').data('id');
-      swal({
-          icon:"error",
-          text: "Are you sure to delete!",
-  buttons: {
-      cancel: true,
-      confirm: true,
-  },
-  }).then(function(result) {
-      // alert(result)
-      if (result === true) {
-          $.ajax({
-              type: 'post',
-              url: site_url + '/user/delete/card', // Update with your actual route
-              data: {
-                  '_token': $('meta[name="csrf-token"]').attr('content'),
-                  'card_id': prescriptionId
-              },
-              success: function (data) {
-                  // Assuming your server returns a success message
-                  swal(data.message, {
-                  buttons: false,
-                  timer: 1500,
-                  });
-                  cardArea.remove(); // Remove the card from the DOM
-              },
-              error: function (error) {
-                  console.error('Error deleting prescription:', error);
-                  // Handle error if needed
-              }
-          });
-      }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: 'post',
+                    url: site_url + '/user/delete/card', // Update with your actual route
+                    data: {
+                        '_token': $('meta[name="csrf-token"]').attr('content'),
+                        'card_id': prescriptionId
+                    },
+                    success: function (data) {
+                        // Assuming your server returns a success message
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: data.message,
+                            icon: "success"
+                          });
+                        
+                        cardArea.remove(); // Remove the card from the DOM
+                    },
+                    error: function (error) {
+                        console.error('Error deleting prescription:', error);
+                        // Handle error if needed
+                    }
+                });
+            }
+        });
+    
   });
-  });
-  $('.cardArea').on('click', function() {
+  $(document).on('click', '.cardArea' ,function (e) {
+  //$('.cardArea').on('click', function() {
       var cardBody = $(this).closest('.cardBody');
       var from_diagn = $('.from_diagn').text();
       var from_objective = $('.from_objective').text();

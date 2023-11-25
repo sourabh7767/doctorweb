@@ -31,10 +31,40 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                           <a class="dropdown-item" href="#"> <i class="las la-edit"></i> <span>Update Profile</span></a>
-                          <a class="dropdown-item" href="#"><i class="las la-key"></i> <span>Change Password </span></a>
+                          <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModel"><i class="las la-key"></i> <span>Change Password </span></a>
                           <a class="dropdown-item" href="{{route('userLogout')}}"><i class="las la-sign-out-alt"></i><span>Logout</span></a>
                         </div>
                       </div>
+                      <!-- Start ChangePassword Modal -->
+                            <!-- Modal -->
+                            <div class="modal fade" id="changePasswordModel" tabindex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header d-flex flex-column align-items-start border-0 p-0 mb-2">
+                                            <h5 class="modal-title" id="changePasswordModel">Change Your Password</h5>
+                                            <p class="modal-subtext">Edit field and create fast access template</p>
+                                        </div>
+                                        <div class="modal-body p-0">
+                                            <form class="changePasswordForm">
+                                                <div class="form-group mb-2">
+                                                    <input type="password" value="" placeholder="Current Password..." class="customControlInputs">
+                                                </div>  
+                                                <div class="form-group mb-2">
+                                                    <input type="email" value="" placeholder="New Password Password..." class="customControlInputs">
+                                                </div>  
+                                                <div class="form-group mb-2">
+                                                    <input type="email" value="" placeholder="Re-enter New Password Password..." class="customControlInputs">
+                                                </div>  
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer border-0 p-0">
+                                        <button type="button" class="clearBtn" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="secondryBtn">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- End ChangePassword modal -->
                 </div>
             </div>
         </div>
@@ -232,15 +262,15 @@
                                                         <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                     <div class="form-group mb-2">
-                                                        <textarea class="customControlInputs" id="" rows="12" placeholder="Rekomendjdjas..." name="objective"></textarea>
+                                                        <textarea class="customControlInputs" id="" rows="6" placeholder="Rekomendjdjas..." name="objective"></textarea>
                                                         <div id="prescription-objective-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                     <div class="form-group mb-2">
-                                                        <textarea class="customControlInputs" id="" rows="12" placeholder="Rekomendjdjas..." name="recomend"></textarea>
+                                                        <textarea class="customControlInputs" id="" rows="6" placeholder="Rekomendjdjas..." name="recomend"></textarea>
                                                         <div id="prescription-recomend-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                     <div class="u-tagsinput mb-2">
-                                                        <input id="tagsInput" type="text" value="" data-role="tagsinput" class="customControlInputs" name="tags">
+                                                        <input id="tagsInput" placeholder="Tags" type="text" value="" data-role="tagsinput" class="customControlInputs" name="tags">
                                                         <div id="prescription-tags-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                 </form>
