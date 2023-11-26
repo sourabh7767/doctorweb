@@ -44,29 +44,6 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-   
-
-    public function signup(Request $request)
-    {
-       
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-            'confirm_password' => 'required|same:password'
-        ]);
-    
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->errors()], 422);
-        }
-
-        // Create a new user
-        $user = User::create([
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
-        ]);
-        return response()->json(['success'=> true,'Signup successful'],200);
-    }
-
     public function login(Request $request){
     
         if($request->isMethod('get')){

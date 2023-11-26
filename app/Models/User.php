@@ -16,6 +16,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
 
+    protected $guard = "web";
     const ROLE_ADMIN = 1;
     const ROLE_USER = 2;
     const ROLE_PROJECT_MANAGER = 1;
@@ -239,10 +240,10 @@ class User extends Authenticatable
         return $count;
     }
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = Hash::make($value);
-    }
+    // public function setPasswordAttribute($value)
+    // {
+    //     $this->attributes['password'] = Hash::make($value);
+    // }
 
     public static function generateEmailVerificationOtp(){
         // $otp = 1234;

@@ -14,6 +14,7 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/plugins/extensions/ext-component-toastr.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/extensions/toastr.min.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="{{ asset('css/web/bootstrap-tagsinput.css') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -30,14 +31,50 @@
                             <span><i class="las la-bars"></i></span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="#"> <i class="las la-edit"></i> <span>Update Profile</span></a>
-                          <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#changePasswordModel"><i class="las la-key"></i> <span>Change Password </span></a>
+                          <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateProfileModal"> <i class="las la-edit"></i> <span>Update Profile</span></a>
+                          <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changePasswordModel"><i class="las la-key"></i> <span>Change Password </span></a>
                           <a class="dropdown-item" href="{{route('userLogout')}}"><i class="las la-sign-out-alt"></i><span>Logout</span></a>
                         </div>
                       </div>
-                      <!-- Start ChangePassword Modal -->
+                      {{-- {{dd($user->full_name)}} --}}
+                        <!-- Start UpdateProfile Modal -->
                             <!-- Modal -->
-                            <div class="modal fade" id="changePasswordModel" tabindex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true">
+                            <div class="modal fade" id="updateProfileModal" tabindex="-1" aria-labelledby="updateProfileModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-body p-0">
+                                            <form  class="updateProfileForm" id="UpdateProfileForm" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="form-group">
+                                                    <div class="previewContainer text-center">
+                                                        <div class="previewDivArea">
+                                                            <img src="{{asset(@$user->profile_image)}}" id="preview" class="img-fluid" alt="" style="background: url('https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png');">
+                                                            <div class="previewInput">
+                                                                <label for="profileImage" class="profileEditLabel">
+                                                                    <i class="fas fa-pencil-alt"></i>
+                                                                </label>
+                                                                <input type="file" class="form-control d-none" id="profileImage" accept="" oninput="previewImage(this)" name="profileImage" value="{{old('profileImage',@$user->profile_image)}}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group mb-2">
+                                                    <label class="labelTxt text-start mb-1" id="updateProfileName">Enter name</label>
+                                                    <input type="text" id="updateFull_name" placeholder="Enter your name..." class="customControlInputs" name="full_name" value="{{$user->full_name}}">
+                                                </div>  
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer border-0 p-0">
+                                        <button type="button" class="clearBtn" data-bs-dismiss="modal" onclick="clearForm()">Close</button>
+                                        <button type="button" class="secondryBtn"  id="submitUpdateProfile">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- End UpdateProfile modal -->
+                        <!-- Start ChangePassword Modal -->
+                            <!-- Modal -->
+                            <div class="modal fade" id="changePasswordModel" tabindex="-1" aria-labelledby="changePasswordLabel" aria-hidden="true" data-bs-backdrop="static">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header d-flex flex-column align-items-start border-0 p-0 mb-2">
@@ -45,21 +82,22 @@
                                             <p class="modal-subtext">Edit field and create fast access template</p>
                                         </div>
                                         <div class="modal-body p-0">
-                                            <form class="changePasswordForm">
+                                            <form class="changePasswordForm" id="changePasswordForm">
+                                                @csrf
                                                 <div class="form-group mb-2">
-                                                    <input type="password" value="" placeholder="Current Password..." class="customControlInputs">
+                                                    <input type="password" value="" placeholder="Current Password..." class="customControlInputs" name="change_old_pass">
                                                 </div>  
                                                 <div class="form-group mb-2">
-                                                    <input type="email" value="" placeholder="New Password Password..." class="customControlInputs">
+                                                    <input type="email" value="" placeholder="New Password Password..." class="customControlInputs" name="change_new_pass">
                                                 </div>  
                                                 <div class="form-group mb-2">
-                                                    <input type="email" value="" placeholder="Re-enter New Password Password..." class="customControlInputs">
+                                                    <input type="email" value="" placeholder="Re-enter New Password Password..." class="customControlInputs" name="change_confirm_pass">
                                                 </div>  
                                             </form>
                                         </div>
                                         <div class="modal-footer border-0 p-0">
                                         <button type="button" class="clearBtn" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="secondryBtn">Submit</button>
+                                        <button type="button" class="secondryBtn" id="changePasswordButton">Submit</button>
                                         </div>
                                     </div>
                                 </div>
@@ -77,11 +115,10 @@
             <div class="row">
                 <div class="col-md-6 mb-3 mb-md-0">
                     <div class="d-block d-md-flex align-items-center">
-                        <div class="btnGroup w-100 me-2">
-                            @foreach ($buttons as $button)
-                            <button class="secondryOutline active_{{@$button->id}} " data-button-id="{{@$button->id}}"><span class="btnText">{{@$button->title}}</span> <span class="crossValue"><i class="las la-times"></i></span></button>
+                        <div class="btnGroup w-100 me-2" id="buttonContainer">
+                            @foreach ($buttons1 as $button)
+                            <button class="secondryOutline active_{{@$button->id}} " data-button-id="{{@$button->id}}"><span class="btnText">{{@$button->title}}</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button>
                             @endforeach
-                            {{-- <button class="secondryOutline"><span class="btnText">Traumatologa konsult. </span><span class="crossValue"><i class="las la-times"></i></span></button> --}}
                         </div>
                         <span class="addOnBtn m-auto m-md-0 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#addBtnModal">
                             <i class="las la-plus"></i>
@@ -134,18 +171,10 @@
                 <div class="col-md-6  mb-3 mb-md-0">
                     <div class="d-flex align-items-center">
                         <span class="addOnBtn d-none"><i class="las la-plus"></i></span>
-                        <div class="btnGroup">
-                            <button class="secondryOutline">
-                                <span class="btnText">Bericox 90mg</span>
-                                <span class="crossValue"><i class="las la-times"></i>
-                            </button>
-                            <button class="secondryOutline"><span class="btnText">Co-Codamol 500/30mg </span><span class="crossValue"><i class="las la-times"></i></button>
-                            <button class="secondryOutline"><span class="btnText">Amoxicillin/Clavulanic 875 mg/125 mg</span><span class="crossValue"><i class="las la-times"></i></button>
-                            <button class="secondryOutline"><span class="btnText">Dolmen 25 mg</span><span class="crossValue"><i class="las la-times"></i></button>
-                            <button class="secondryOutline"><span class="btnText">Neiromidine 20mg</span><span class="crossValue"><i class="las la-times"></i></button>
-                            <button class="secondryOutline"><span class="btnText">Neirontin 300mg</span><span class="crossValue"><i class="las la-times"></i></button>
-                            <button class="secondryOutline"><span class="btnText">Aceclofenac 100mg</span><span class="crossValue"><i class="las la-times"></i></button>
-                            <button class="secondryOutline"><span class="btnText">Duracef 500 mg</span><span class="crossValue"><i class="las la-times"></i></button>
+                        <div class="btnGroup" id="buttonContainer2">
+                            @foreach ($buttons2 as $button)
+                            <button class="secondryOutline active_{{@$button->id}} " data-button-id="{{@$button->id}}"><span class="btnText">{{@$button->title}}</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -161,7 +190,7 @@
                                 <h6 class="cardItemHead col-md-4">Side</h6>
                                 <p class="cardItemValue col-md-8 ">
                                     <span class="active">left</span>
-                                    <span>right</sapan>
+                                    <span>right</span>
                                 </p>
                             </li>
                             <li class="leftCardItems row">
@@ -210,21 +239,19 @@
                                             <p class="modal-subtext">Edit field and create fast access template</p>
                                         </div>
                                         <div class="modal-body p-0">
-                                            <form class="addLabelsForm">
+                                            <form class="addLabelsForm" id="searchableTags">
+                                                @csrf
                                                 <div class="form-group mb-2">
-                                                    <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs">
+                                                    <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="title">
                                                 </div>
-                                                <!-- <div class="form-group">
-                                                    <textarea class="customControlInputs" id="" rows="11" placeholder="Rekomendjdjas..."></textarea>
-                                                </div> -->
                                                 <div class="u-tagsinput">
-                                                    <input id="tagsInput" type="text" value="HTML5, CSS3, JavaScript, jQuery" data-role="tagsinput" class="customControlInputs">
+                                                    <input id="tagsInput" type="text" value="" data-role="tagsinput" class="customControlInputs" name="tags">
                                                 </div>
                                             </form>
                                         </div>
                                         <div class="modal-footer border-0 p-0">
                                         <button type="button" class="clearBtn" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="secondryBtn">Save</button>
+                                        <button type="button" class="secondryBtn" id="addLableSubmit">Save</button>
                                         </div>
                                     </div>
                                 </div>
@@ -320,6 +347,11 @@
                 </div>
                 <!-- End RightSection -->
             </div>
+            <div id="loader" style="display: none;">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
             <!-- End Second Row -->
         </div>
     </section>
@@ -330,23 +362,12 @@
  <script src="{{ asset('js/web/bootstrap.bundle.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script src="{{ asset('js/web/scripts.js') }}"></script>
- <script src="{{ asset('js/pages/users/main-screen.js') }}"></script>
+ <script src="{{ asset('js/pages/web/main-screen.js') }}"></script>
  <script src="{{ asset('js/web/bootstrap-tagsinput.min.js') }}"></script>
- 
- <script>
-    $(document).ready(function() {
-	// $('.btnText').on('click', function() {
-	//   // Toggle the 'active' class on the parent button
-	//   $(this).parent('.secondryOutline').toggleClass('active');
-	// });
-
-	
-  });
- </script>
  <script>
     function clearErrors() {
     $('.messageprescription').html('');
-    $('#addPrescriptionForm')[0].reset();
+    $('#addPrescriptionForm')[0].reset();;
 }
  </script>
  <script>
@@ -356,9 +377,26 @@
     });
     function clearForm(){
         $('#AddButtonForm')[0].reset();
+        $('#UpdateProfileForm')[0].reset();
        }
-
  </script>
- <!-- End Js -->
+ <script>
+    $(document).ready(function() {
+    var tagValues = $("#tagsInput").tagsinput('items');
+    
+    console.log("Tag values:", tagValues);
+    });
+    function previewImage(input) {
+        var preview = document.getElementById('preview');
+        var file = input.files[0];
+
+        if (file) {
+        preview.src = URL.createObjectURL(file);
+        } else {
+        preview.src = "";
+        }
+    }
+ </script>
+  <!-- End Js -->
  </body>
  </html>

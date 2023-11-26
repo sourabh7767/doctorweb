@@ -74,3 +74,25 @@
             handleAuth('user/login', formData , 'login');
         });
     });
+
+        $(function () {
+            $("#toggle_pwd").click(function () {
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+                $("#signInPassword").attr("type", type);
+            });
+        });
+        $(function () {
+            $("#signUpPass").click(function () {
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+                $("#signUpPassword").attr("type", type);
+            });
+        });
+        $(function () {
+            $("#signUpConfirmPass").click(function () {
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+                $("#signUpConfirmPassword").attr("type", type);
+            });
+        });

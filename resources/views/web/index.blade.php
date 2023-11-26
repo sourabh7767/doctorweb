@@ -1,5 +1,7 @@
 <html>
     <head>
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" 
+        rel="stylesheet" type="text/css" />
         <style>
             :root {
                 --primary-color: #4EA685;
@@ -367,12 +369,14 @@
                             </div>
                             <div class="input-group">
                                 <i class='bx bxs-lock-alt'></i>
-                                <input type="password" placeholder="Password" name="password" data-form="signup">
+                                <input type="password" placeholder="Password" name="password" id="signUpPassword" data-form="signup">
+                                <span id="signUpPass" class="fa fa-fw fa-eye field_icon"></span>
                                 <div id="signup-password-error" class="messagesignup" data-form="signup"></div>
                             </div>
                             <div class="input-group">
                                 <i class='bx bxs-lock-alt'></i>
-                                <input type="password" placeholder="Confirm password" name="confirm_password" data-form="signup"> 
+                                <input type="password" placeholder="Confirm password" name="confirm_password" id="signUpConfirmPassword" data-form="signup">
+                                <span id="signUpConfirmPass" class="fa fa-fw fa-eye field_icon"></span> 
                                 <div id="signup-confirm_password-error" class="messagesignup" data-form="signup"></div>
                             </div>
                             <button>
@@ -405,7 +409,8 @@
                             </div>
                             <div class="input-group">
                                 <i class='bx bxs-lock-alt'></i>
-                                <input type="password" placeholder="Password" name="password" data-form="login">
+                                <input type="password" placeholder="Password" name="password" id="signInPassword" data-form="login">
+                                <span id="toggle_pwd" class="fa fa-fw fa-eye field_icon"></span>
                                 <div id="login-password-error" class="messagelogin" data-form="login"></div>
                             </div>
                             <button>
@@ -480,6 +485,8 @@ toggle = () => {
 	container.classList.toggle('sign-in')
 	container.classList.toggle('sign-up')
     clearErrors();
+    $('#signup-form')[0].reset();
+    $('#login-form')[0].reset();
 }
 
 setTimeout(() => {

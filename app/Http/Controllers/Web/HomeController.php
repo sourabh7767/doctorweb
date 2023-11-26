@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\CustomSearch;
+use App\Models\CustomSearchTag;
 use Illuminate\Http\Request;
 use App\Models\Button;
 use App\Models\Prescription;
 use App\Models\PrescriptionTag;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Validator;
 
@@ -18,7 +21,13 @@ class HomeController extends Controller
     }
     public function webHome(Request $request){
         $buttons = Button::get();
-        return view('web.home',compact('buttons'));
+        $middleIndex = $buttons->count() / 2;
+        $buttons1 = $buttons->slice(0, $middleIndex);
+        $buttons2 = $buttons->slice($middleIndex);
+        $user = Auth::user();
+        $customSearchObj = CustomSearch::with('customTags')->get();
+        // dd($customSearchObj);
+        return view('web.home',compact('buttons1','user','buttons2'));
     }
     public function addPrescription(Request $request)
     {
@@ -101,6 +110,69 @@ class HomeController extends Controller
             'place' => $request->place
         ]);
         if($buttonObj)
-        return response()->json(['success' => true,'message' => "Button added Successfull!"]);
+        return response()->json(['success' => true,'message' => "Button added Successfull!",'newButton' => $buttonObj]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $model = auth()->user();
+        $validator = Validator::make($request->all(), [
+            'full_name' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        if($request->hasFile('profileImage')){
+            $model->profile_image = saveUploadedFile($request->profileImage);
+        }
+        $model->full_name = $request->full_name;
+        if($model->save()){
+            return response()->json(['success' => true , 'message' => 'Profile updated !']);
+        }
+    }
+
+    public function deleteButtons(Request $request)
+    {
+        $button = Button::find($request->button_id)->delete();
+        if($button){
+            return response()->json(['success' => true , 'message' => 'Button deleted!']);
+        }else{
+            return response()->json(['error' => true,'message' => 'Something went wrong']);
+        }
+    }
+
+    public function addSearchableTags(Request $request)
+    {
+        $userObj = auth()->user();
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'tags' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        try {
+            DB::beginTransaction();
+            $customSearchObj = new CustomSearch(); 
+            $customSearchObj->title = $request->title;
+            $customSearchObj->user_id = $userObj->id;
+            $customSearchObj->save();
+            $emplodedTags = explode(',',$request->input('tags'));
+            foreach($emplodedTags as $value){
+                $customSearchTagObj = new CustomSearchTag();
+                $customSearchTagObj->tag = $value;
+                $customSearchTagObj->custom_search_id = $customSearchObj->id;
+                $customSearchTagObj->user_id = $userObj->id;
+                $customSearchTagObj->save();
+            }
+            
+            DB::commit();
+            return response()->json(['success'=> true ,'message'=> 'Lable added successfully!']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['error'=> true ,'message'=> $th->getMessage()]);
+        }
     }
 }
