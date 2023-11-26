@@ -138,7 +138,6 @@ function copyToClipboard(element) {
         Swal.fire({
             icon: "success",
             title: "Done",
-            timer: 1000,
             text: "Copied!",
           });
 }
@@ -235,14 +234,20 @@ function copyToClipboard(element) {
                         title: "Oops...",
                         text: firstError,
                     });
-                    }else{
+                    }else if(response.error){
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: response.error,
+                          })
+
+                    }
+                    else{
                         Swal.fire({
                             icon: "question",
                             title: "Oops...",
-                            text: "Something went Wrong!",
-                          }).then(function() {
-                            window.location.href = '/user/home';
-                          });
+                            text: 'something went wrong',
+                          })
                     }
             }
         });
@@ -326,9 +331,7 @@ function copyToClipboard(element) {
                                 icon: "question",
                                 title: "Oops...",
                                 text: "Something went Wrong!",
-                              }).then(function() {
-                                window.location.href = '/user/home';
-                              });
+                              })
                         }
                 }
             });
@@ -373,5 +376,42 @@ function copyToClipboard(element) {
             });
         });
     
-    
+        $(function () {
+            $("#change_old_pass_eye").click(function () {
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+                $("#change_old_pass").attr("type", type);
+            });
+        });
+        $(function () {
+            $("#change_new_pass_eye").click(function () {
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+                $("#change_new_pass").attr("type", type);
+            });
+        });
+        $(function () {
+            $("#change_confirm_pass_eye").click(function () {
+                $(this).toggleClass("fa-eye fa-eye-slash");
+                var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+                $("#change_confirm_pass").attr("type", type);
+            });
+        });
+        
+        $('#getProfileData').on('click', function(event) {
+    $.ajax({
+        type: 'GET',
+        url: site_url + '/user/get-profile-data', 
+        success: function (data) {
+            console.log(data)
+            $('#preview').attr('src',data.profile_image);
+
+            $('#updateFull_name').val(data.full_name);
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+});
+
 });

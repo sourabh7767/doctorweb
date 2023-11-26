@@ -31,7 +31,7 @@
                             <span><i class="las la-bars"></i></span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateProfileModal"> <i class="las la-edit"></i> <span>Update Profile</span></a>
+                          <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateProfileModal" id="getProfileData"> <i class="las la-edit"></i> <span>Update Profile</span></a>
                           <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changePasswordModel"><i class="las la-key"></i> <span>Change Password </span></a>
                           <a class="dropdown-item" href="{{route('userLogout')}}"><i class="las la-sign-out-alt"></i><span>Logout</span></a>
                         </div>
@@ -48,19 +48,19 @@
                                                 <div class="form-group">
                                                     <div class="previewContainer text-center">
                                                         <div class="previewDivArea">
-                                                            <img src="{{asset(@$user->profile_image)}}" id="preview" class="img-fluid" alt="" style="background: url('https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png');">
+                                                            <img src="" id="preview" class="img-fluid" alt="" style="background: url('https://png.pngtree.com/png-vector/20220709/ourmid/pngtree-businessman-user-avatar-wearing-suit-with-red-tie-png-image_5809521.png');">
                                                             <div class="previewInput">
                                                                 <label for="profileImage" class="profileEditLabel">
                                                                     <i class="fas fa-pencil-alt"></i>
                                                                 </label>
-                                                                <input type="file" class="form-control d-none" id="profileImage" accept="" oninput="previewImage(this)" name="profileImage" value="{{old('profileImage',@$user->profile_image)}}">
+                                                                <input type="file" class="form-control d-none" id="profileImage" accept="" oninput="previewImage(this)" name="profileImage" value="">
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group mb-2">
                                                     <label class="labelTxt text-start mb-1" id="updateProfileName">Enter name</label>
-                                                    <input type="text" id="updateFull_name" placeholder="Enter your name..." class="customControlInputs" name="full_name" value="{{$user->full_name}}">
+                                                    <input type="text" id="updateFull_name" placeholder="Enter your name..." class="customControlInputs" name="full_name" value="">
                                                 </div>  
                                             </form>
                                         </div>
@@ -85,13 +85,16 @@
                                             <form class="changePasswordForm" id="changePasswordForm">
                                                 @csrf
                                                 <div class="form-group mb-2">
-                                                    <input type="password" value="" placeholder="Current Password..." class="customControlInputs" name="change_old_pass">
+                                                    <input type="password" value="" placeholder="Current Password..." class="customControlInputs" name="change_old_pass" id="change_old_pass">
+                                                    <span id="change_old_pass_eye" class="fa fa-fw fa-eye field_icon"></span> 
                                                 </div>  
                                                 <div class="form-group mb-2">
-                                                    <input type="email" value="" placeholder="New Password Password..." class="customControlInputs" name="change_new_pass">
+                                                    <input type="password" value="" placeholder="New Password Password..." class="customControlInputs" name="change_new_pass" id="change_new_pass">
+                                                    <span id="change_new_pass_eye" class="fa fa-fw fa-eye field_icon"></span> 
                                                 </div>  
                                                 <div class="form-group mb-2">
-                                                    <input type="email" value="" placeholder="Re-enter New Password Password..." class="customControlInputs" name="change_confirm_pass">
+                                                    <input type="password" value="" placeholder="Re-enter New Password Password..." class="customControlInputs" name="change_confirm_pass" id="change_confirm_pass">
+                                                    <span id="change_confirm_pass_eye" class="fa fa-fw fa-eye field_icon"></span> 
                                                 </div>  
                                             </form>
                                         </div>
@@ -396,7 +399,7 @@
         preview.src = "";
         }
     }
- </script>
+ </script>  
   <!-- End Js -->
  </body>
  </html>

@@ -70,7 +70,7 @@ class AuthController extends Controller
             'change_new_pass' => 'required',
             'change_confirm_pass' => 'required|same:change_new_pass',
         ],[
-            'change_old_pass.required' => 'Old password is required',
+            'change_old_pass.required' => 'Current password is required',
             'change_new_pass.required' => 'New password is required',
             'change_confirm_pass.required' => 'Confirm password is required',
             'change_confirm_pass.same' => 'Confirm password should be same as new passowrd'

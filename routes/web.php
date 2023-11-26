@@ -32,6 +32,7 @@ Route::middleware('prevent-back-history')->group(function (){
     Route::middleware('auth:web')->prefix('user')->group(function(){
         Route::get('/home', 'Web\HomeController@webHome')->name('web.home');
         Route::get('/user-logout', 'Web\AuthController@userLogout')->name('userLogout');
+        Route::get('/get-profile-data', 'Web\HomeController@getProfileData')->name('getProfileData');
         Route::post('/add/prescription', 'Web\HomeController@addPrescription')->name('addPrescription');
         Route::post('/get/prescription/list', 'Web\HomeController@getTraumaData')->name('getTraumaData');
         Route::post('/delete/card', 'Web\HomeController@deleteTraumaCard')->name('deleteTraumaCard');
@@ -53,8 +54,6 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::post('user/update-profile','Admin\UserController@updateProfile')->name('user.updateProfile.submit');
         Route::get('user/change-password','Admin\UserController@changePasswordView')->name('user.changePassword');
         Route::post('user/change-password','Admin\UserController@changePassword')->name('user.changePassword.submit');
-        
-
     });
 });
 

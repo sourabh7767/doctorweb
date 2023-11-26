@@ -118,7 +118,10 @@ class HomeController extends Controller
         $model = auth()->user();
         $validator = Validator::make($request->all(), [
             'full_name' => 'required',
-        ]);
+        ],
+    [
+      'full_name.required' => 'Name is required',  
+    ]);
     
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
@@ -174,5 +177,15 @@ class HomeController extends Controller
             DB::rollBack();
             return response()->json(['error'=> true ,'message'=> $th->getMessage()]);
         }
+    }
+    public function getProfileData()
+    {
+        $user = Auth::user(); // Assuming you are using Laravel's built-in authentication
+        $data = [
+            'full_name' => $user->full_name,
+            'profile_image' => $user->profile_image, // Replace with the actual field name
+        ];
+
+        return response()->json($data);
     }
 }
