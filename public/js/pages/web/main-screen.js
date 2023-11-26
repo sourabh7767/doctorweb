@@ -413,5 +413,9 @@ function copyToClipboard(element) {
         }
     });
 });
+$('#clearChangePasswordForm').on('click', function(event) {
+    event.preventDefault();
+$('#changePasswordForm')[0].reset();
+});
 
 });

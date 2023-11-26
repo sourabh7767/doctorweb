@@ -79,7 +79,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header d-flex flex-column align-items-start border-0 p-0 mb-2">
                                             <h5 class="modal-title" id="changePasswordModel">Change Your Password</h5>
-                                            <p class="modal-subtext">Edit field and create fast access template</p>
+                                            {{-- <p class="modal-subtext">Edit field and create fast access template</p> --}}
                                         </div>
                                         <div class="modal-body p-0">
                                             <form class="changePasswordForm" id="changePasswordForm">
@@ -99,7 +99,7 @@
                                             </form>
                                         </div>
                                         <div class="modal-footer border-0 p-0">
-                                        <button type="button" class="clearBtn" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="clearBtn" data-bs-dismiss="modal" id="clearChangePasswordForm">Close</button>
                                         <button type="button" class="secondryBtn" id="changePasswordButton">Submit</button>
                                         </div>
                                     </div>
@@ -133,7 +133,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header d-block border-0 p-0 mb-2">
                                             <h5 class="modal-title" id="addBtnModalLabel">Create Button</h5>
-                                            <p class="modal-subtext">Edit field and create fast access template</p>
+                                            {{-- <p class="modal-subtext">Edit field and create fast access template</p> --}}
                                         </div>
                                         <div class="modal-body p-0">
                                             <form class="addBtnForm" id="AddButtonForm">
@@ -239,7 +239,7 @@
                                     <div class="modal-content">
                                         <div class="modal-header d-block border-0 p-0 mb-2">
                                             <h5 class="modal-title" id="addOnBtnLabel">Create Labels</h5>
-                                            <p class="modal-subtext">Edit field and create fast access template</p>
+                                            {{-- <p class="modal-subtext">Edit field and create fast access template</p> --}}
                                         </div>
                                         <div class="modal-body p-0">
                                             <form class="addLabelsForm" id="searchableTags">
@@ -379,8 +379,8 @@
         $('.active_' + buttonId).toggleClass('active');
     });
     function clearForm(){
+        // console.log($('#changePasswordForm'));
         $('#AddButtonForm')[0].reset();
-        $('#UpdateProfileForm')[0].reset();
        }
  </script>
  <script>
@@ -399,7 +399,8 @@
         preview.src = "";
         }
     }
- </script>  
+ </script> 
+
   <!-- End Js -->
  </body>
  </html>
