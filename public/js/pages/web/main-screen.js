@@ -2,14 +2,14 @@ var site_url = window.location.protocol + '//' + window.location.host;
 
 $(document).ready(function () {
     $("#submitPrescription").click(function () {
-        $('#loader').show();
+        $('.loader').show();
         var formData = $("#addPrescriptionForm").serialize();
         $.ajax({
             type: "POST",  
             url: site_url + "/user/add/prescription",  
             data: formData,
             success: function (response) {
-                $('#loader').hide();
+                $('.loader').hide();
                 $('#createTemp').hide()
                 Swal.fire({
                     icon: "success",
@@ -21,6 +21,7 @@ $(document).ready(function () {
                   });
             },
             error: function (xhr, status, error) {
+                $('.loader').hide();
                 var response = JSON.parse(xhr.responseText);
                 
                 if (response.errors) {  
@@ -58,6 +59,7 @@ $(document).ready(function () {
             $('#searchResults').html('');
             return;
         }
+        $('.loader').show();
         $.ajax({
             type: 'POST',
             url: site_url + '/user/get/prescription/list',
@@ -67,6 +69,7 @@ $(document).ready(function () {
             },
             success: function (data) {
                 $('#searchResults').html(data);
+                $('.loader').hide();
             },
             
         });
@@ -77,6 +80,7 @@ $(document).on('click', '.crossValue' ,function (e) {
     // Add your delete logic here
   var cardArea = $(this).closest('.cardArea');
   var prescriptionId = cardArea.find('.cardBody').data('id');
+  $('.loader').show();
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -101,15 +105,18 @@ $(document).on('click', '.crossValue' ,function (e) {
                             text: data.message,
                             icon: "success"
                           });
-                        
+                          
                         cardArea.remove(); // Remove the card from the DOM
+                        $('.loader').hide();
                     },
                     error: function (error) {
+                        $('.loader').hide();
                         console.error('Error deleting prescription:', error);
                         // Handle error if needed
                     }
                 });
             }
+            $('.loader').hide();
         });
     
   });
@@ -151,7 +158,7 @@ function copyToClipboard(element) {
 
     $('#saveButtons').on('click', function(event) {
         event.preventDefault();
-        
+        $('.loader').show();
         var formData = $('#AddButtonForm').serialize();
         $.ajax({
             type: 'POST',
@@ -169,14 +176,16 @@ function copyToClipboard(element) {
                 } else {
                     $('#buttonContainer').append(buttonHTML);
                 }
-
+                $('.loader').hide();
                 Swal.fire({
                     icon: "success",
                     title: "Done",
                     text: data.message,
                   });
+                  
             },
             error: function (xhr, status, error) {
+                $('.loader').hide();
                 var response = JSON.parse(xhr.responseText);
                 console.log(response)
                 if (response.errors) {  
@@ -206,6 +215,7 @@ function copyToClipboard(element) {
     $('#changePasswordButton').on('click', function(event) {
         event.preventDefault();
         var formData = $('#changePasswordForm').serialize();
+        $('.loader').show();
         $.ajax({
             type: 'POST',
             url: site_url + '/user/change-password', 
@@ -213,6 +223,7 @@ function copyToClipboard(element) {
             
             success: function (data) {
                 $('#changePasswordModel').modal('hide');
+                $('.loader').hide();
                 Swal.fire({
                     icon: "success",
                     title: "Done",
@@ -220,6 +231,7 @@ function copyToClipboard(element) {
                   });
             },
             error: function (xhr, status, error) {
+                $('.loader').hide();
                 var response = JSON.parse(xhr.responseText);
                 console.log(response)
                 if (response.errors) {  
@@ -257,6 +269,7 @@ function copyToClipboard(element) {
     $(document).on('click', '.buttondeleteCrose' ,function (e) {
           var button = $(this).closest('.secondryOutline');
           var buttonId = button.data('button-id');
+          $('.loader').show();
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -288,6 +301,7 @@ function copyToClipboard(element) {
                             }
                         });
                     }
+                    $('.loader').hide();
                 });
             
           });
@@ -295,12 +309,14 @@ function copyToClipboard(element) {
           $('#addLableSubmit').on('click', function(event) {
             event.preventDefault();
             var formData = $('#searchableTags').serialize();
+            $('.loader').show();
             $.ajax({
                 type: 'POST',
                 url: site_url + '/user/add/search/tags', 
                 data:formData,
                 
                 success: function (data) {
+                    $('.loader').hide();
                     $('#addOnBtnModal').modal('hide');
                     // var newButton = data.newButton;
                     // var buttonHTML = '<button class="secondryOutline active_' + newButton.id + '" data-button-id="' + newButton.id + '"><span class="btnText">' + newButton.title + '</span> <span class="crossValue"><i class="las la-times"></i></span></button>';
@@ -312,6 +328,7 @@ function copyToClipboard(element) {
                       });
                 },
                 error: function (xhr, status, error) {
+                    $('.loader').hide();
                     var response = JSON.parse(xhr.responseText);
                     console.log(response)
                     if (response.errors) {  
@@ -339,6 +356,7 @@ function copyToClipboard(element) {
         });
         $('#submitUpdateProfile').on('click', function(event) {
             event.preventDefault();
+            $('.loader').show();
             var formData = new FormData($('#UpdateProfileForm')[0]);
         
             $.ajax({
@@ -348,6 +366,7 @@ function copyToClipboard(element) {
                 processData: false,
                 contentType: false,
                 success: function(data) {
+                    $('.loader').hide();
                     $('#updateProfileModal').modal('hide');
                     Swal.fire({
                         icon: "success",
@@ -357,6 +376,7 @@ function copyToClipboard(element) {
                     console.log(response);
                 },
                 error: function (xhr, status, error) {
+                    $('.loader').hide();
                     var response = JSON.parse(xhr.responseText);
                     console.log(response)
                     if (response.errors) {  

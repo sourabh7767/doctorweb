@@ -1,7 +1,10 @@
 <html>
     <head>
-        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" 
+        <!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" 
+        rel="stylesheet" type="text/css" /> -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" 
         rel="stylesheet" type="text/css" />
+        
         <style>
             :root {
                 --primary-color: #4EA685;
@@ -278,6 +281,37 @@
                 transform: translate(100%, 0);
                 right: 50%;
             }
+            .field_icon{
+                z-index: 3;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                cursor: pointer;
+            }
+            .loader
+            {
+            position: fixed;
+                z-index: 9999;
+                background: #648edb0a;
+                height: 100%;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                backdrop-filter: blur(7px);
+            }
+            .messagelogin, .messagesignup {
+                text-align: start;
+                position: relative;
+                left: 6px;
+                top: 2px;
+            }
+            .errorMsg{
+                color: red;
+                font-weight: 500;
+                font-size: 12px
+            }
 
             /* RESPONSIVE */
 
@@ -352,8 +386,13 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('css/sweetalert2.min.css') }}">
     </head>
     <body>
-       
+    <div class="loader" style="display: none;">    
+            <div class="spinner-grow text-success" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
         <div id="container" class="container">
+        
             <!-- FORM SECTION -->
             <div class="row">
                 <!-- SIGN UP -->
@@ -363,18 +402,18 @@
                             @csrf
                         <div class="form sign-up">
                             <div class="input-group">
-                                <i class='bx bx-mail-send'></i>
+                                <i class="fas fa-user"></i>
                                 <input type="email" placeholder="Email" name="email" data-form="signup">
                                 <div id="signup-email-error" class="messagesignup" data-form="signup"></div>
                             </div>
                             <div class="input-group">
-                                <i class='bx bxs-lock-alt'></i>
+                                <i class="fas fa-lock"></i>
                                 <input type="password" placeholder="Password" name="password" id="signUpPassword" data-form="signup">
                                 <span id="signUpPass" class="fa fa-fw fa-eye field_icon"></span>
                                 <div id="signup-password-error" class="messagesignup" data-form="signup"></div>
                             </div>
                             <div class="input-group">
-                                <i class='bx bxs-lock-alt'></i>
+                                <i class="fas fa-lock"></i>
                                 <input type="password" placeholder="Confirm password" name="confirm_password" id="signUpConfirmPassword" data-form="signup">
                                 <span id="signUpConfirmPass" class="fa fa-fw fa-eye field_icon"></span> 
                                 <div id="signup-confirm_password-error" class="messagesignup" data-form="signup"></div>
@@ -403,12 +442,12 @@
                             @csrf
                         <div class="form sign-in">
                             <div class="input-group">
-                                <i class='bx bxs-user'></i>
+                                <i class="fas fa-user"></i>
                                 <input type="text" placeholder="Email" name="email" data-form="login">
                                 <div id="login-email-error" class="messagelogin" data-form="login"></div>
                             </div>
                             <div class="input-group">
-                                <i class='bx bxs-lock-alt'></i>
+                                <i class="fas fa-lock"></i>
                                 <input type="password" placeholder="Password" name="password" id="signInPassword" data-form="login">
                                 <span id="toggle_pwd" class="fa fa-fw fa-eye field_icon"></span>
                                 <div id="login-password-error" class="messagelogin" data-form="login"></div>

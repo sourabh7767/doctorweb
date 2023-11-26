@@ -21,6 +21,11 @@
 </head>
 
 <body class="bg">
+    <div class="loader " style="display: none;">
+        <div class="spinner-grow text-primary spinner-border-xl" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
     <!-- Start Header Section -->
     <header class="header">
         <div class="container-fluid">
@@ -350,11 +355,11 @@
                 </div>
                 <!-- End RightSection -->
             </div>
-            <div id="loader" style="display: none;">
+            <!-- <div id="loader" style="display: none;">
                 <div class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
-            </div>
+            </div> -->
             <!-- End Second Row -->
         </div>
     </section>
