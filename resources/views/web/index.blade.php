@@ -82,7 +82,7 @@
 
             .input-group i {
                 position: absolute;
-                top: 50%;
+                top: 27px;
                 left: 1rem;
                 transform: translateY(-50%);
                 font-size: 1.4rem;
@@ -285,7 +285,7 @@
                 z-index: 3;
                 position: absolute;
                 right: 0;
-                top: 50%;
+                top: 27px;
                 transform: translate(-50%, -50%);
                 cursor: pointer;
             }
