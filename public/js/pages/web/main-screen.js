@@ -59,7 +59,7 @@ $(document).ready(function () {
             $('#searchResults').html('');
             return;
         }
-        $('.loader').show();
+        //$('.loader').show();
         $.ajax({
             type: 'POST',
             url: site_url + '/user/get/prescription/list',
@@ -69,7 +69,7 @@ $(document).ready(function () {
             },
             success: function (data) {
                 $('#searchResults').html(data);
-                $('.loader').hide();
+               // $('.loader').hide();
             },
             
         });
@@ -80,7 +80,7 @@ $(document).on('click', '.crossValue' ,function (e) {
     // Add your delete logic here
   var cardArea = $(this).closest('.cardArea');
   var prescriptionId = cardArea.find('.cardBody').data('id');
-  $('.loader').show();
+  
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -91,6 +91,7 @@ $(document).on('click', '.crossValue' ,function (e) {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.value) {
+                $('.loader').show();
                 $.ajax({
                     type: 'post',
                     url: site_url + '/user/delete/card', // Update with your actual route
@@ -269,7 +270,7 @@ function copyToClipboard(element) {
     $(document).on('click', '.buttondeleteCrose' ,function (e) {
           var button = $(this).closest('.secondryOutline');
           var buttonId = button.data('button-id');
-          $('.loader').show();
+          
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -280,6 +281,7 @@ function copyToClipboard(element) {
                     confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
                     if (result.value) {
+                        $('.loader').show();
                         $.ajax({
                             type: 'post',
                             url: site_url + '/user/delete/button',
