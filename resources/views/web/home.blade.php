@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="{{ asset('css/web/bootstrap-tagsinput.css') }}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/extensions/toastr.min.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/plugins/extensions/ext-component-toastr.css') }}">
   <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
@@ -367,6 +369,7 @@
  <!-- Start Js -->
  {{-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script> --}}
  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+ <script src="{{ asset('js/theme/extensions/toastr.min.js') }}"></script>
  <script src="{{ asset('js/web/bootstrap.bundle.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script src="{{ asset('js/web/scripts.js') }}"></script>
@@ -404,7 +407,22 @@
         preview.src = "";
         }
     }
- </script> 
+ </script>
+ 
+ <script>
+     let toastCofig = {
+                closeButton: true,
+                tapToDismiss: false,
+                timeOut: 2000,
+            }
+
+            @if(session('success'))
+                toastr.success("{{ session('success') }}", 'Success!', toastCofig);
+            @endif
+            @if(session('error'))
+                toastr.error("{{ session('error') }}", 'Error!',  toastCofig);
+            @endif
+ </script>
 
   <!-- End Js -->
  </body>

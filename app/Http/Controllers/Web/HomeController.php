@@ -139,6 +139,7 @@ class HomeController extends Controller
     {
         $button = Button::find($request->button_id)->delete();
         if($button){
+            
             return response()->json(['success' => true , 'message' => 'Button deleted!']);
         }else{
             return response()->json(['error' => true,'message' => 'Something went wrong']);

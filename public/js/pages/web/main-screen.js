@@ -100,18 +100,13 @@ $(document).on('click', '.crossValue' ,function (e) {
                         'card_id': prescriptionId
                     },
                     success: function (data) {
-                        // Assuming your server returns a success message
-                        Swal.fire({
-                            title: "Deleted!",
-                            text: data.message,
-                            icon: "success"
-                          });
-                          
+                        toastr.success(data.message, 'Success!', toastCofig);
                         cardArea.remove(); // Remove the card from the DOM
                         $('.loader').hide();
                     },
                     error: function (error) {
                         $('.loader').hide();
+                        toastr.success("Error deleting prescription:", 'Error!', toastCofig);
                         console.error('Error deleting prescription:', error);
                         // Handle error if needed
                     }
@@ -143,11 +138,7 @@ $(document).on('click', '.crossValue' ,function (e) {
 function copyToClipboard(element) {
     var copyText = $(element).val();
     navigator.clipboard.writeText(copyText)
-        Swal.fire({
-            icon: "success",
-            title: "Done",
-            text: "Copied!",
-          });
+    toastr.success("Copied", 'Success!', toastCofig);
 }
     $('.copy').on('click', function() {
         var targetID = $(this).data('target-id');
@@ -290,11 +281,7 @@ function copyToClipboard(element) {
                                 'button_id': buttonId
                             },
                             success: function (data) {
-                                Swal.fire({
-                                    title: "Deleted!",
-                                    text: data.message,
-                                    icon: "success"
-                                  });
+                                toastr.success(data.message, 'Success!', toastCofig);
                                 
                                   button.remove(); 
                             },
