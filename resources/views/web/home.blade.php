@@ -127,7 +127,7 @@
                     <div class="d-block d-md-flex align-items-center">
                         <div class="btnGroup w-100 me-2" id="buttonContainer">
                             @foreach ($buttons1 as $button)
-                            <button class="secondryOutline active_{{@$button->id}} " data-button-id="{{@$button->id}}"><span class="btnText">{{@$button->title}}</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button>
+                            <button class="secondryOutline active_{{@$button->id}} " data-button-id="{{@$button->id}}" data-button-position="{{@$button->place}}"><span class="btnText">{{@$button->title}}</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button>
                             @endforeach
                         </div>
                         <span class="addOnBtn m-auto m-md-0 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#addBtnModal">
@@ -183,7 +183,7 @@
                         <span class="addOnBtn d-none"><i class="las la-plus"></i></span>
                         <div class="btnGroup" id="buttonContainer2">
                             @foreach ($buttons2 as $button)
-                            <button class="secondryOutline active_{{@$button->id}} " data-button-id="{{@$button->id}}"><span class="btnText">{{@$button->title}}</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button>
+                            <button class="secondryOutline active_{{@$button->id}} " data-button-id="{{@$button->id}}" data-button-position="{{@$button->place}}"><span class="btnText">{{@$button->title}}</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button>
                             @endforeach
                         </div>
                     </div>
@@ -195,45 +195,24 @@
                 <!-- Start LeftSection -->
                 <div class="col-md-5 col-lg-5 mb-3 mb-md-0">
                     <div class="leftCard">
-                        <ul class="leftCardMenus">
+                        <ul class="leftCardMenus" id="UlTags">
+                            @foreach ($customSearchObj as $item)
                             <li class="leftCardItems row">
-                                <h6 class="cardItemHead col-md-4">Side</h6>
+                                <h6 class="cardItemHead col-md-4">{{@$item->title}}</h6>
                                 <p class="cardItemValue col-md-8 ">
-                                    <span class="active">left</span>
-                                    <span>right</span>
+                                    @foreach ($item->customTags as $tag)
+                                    <span>{{@$tag->tag}}</span>
+                                    @endforeach
                                 </p>
                             </li>
-                            <li class="leftCardItems row">
+                            @endforeach
+                            
+                            {{-- <li class="leftCardItems row">
                                 <h6 class="cardItemHead col-md-4">Apvidus</h6>
                                 <p class="cardItemValue col-md-8">
                                     <span>Roka</span>
-                                    <span>Kaja</span>
-                                    <span>Kruskurvis</span>
-                                    <span>Mugurkauis</span>
-                                    <span>Krusti</span>
                                 </p>
-                            </li>
-                            <li class="leftCardItems row">
-                                <h6 class="cardItemHead col-md-4">Trauma</h6>
-                                <p class="cardItemValue col-md-8">
-                                    <span>Luzums</span>
-                                    <span>Sasitums</span>
-                                    <span>Susticpums</span>
-                                    <span>Mezgijums</span>
-                                    <span>Bruce</span>
-                                    <span>Toska</span>
-                                    <span>Amputacija</span>
-                                    <span>Cits</span>
-                                </p>
-                            </li>
-                            <li class="leftCardItemsr row">
-                                <h6 class="cardItemHead col-md-4">DNL</h6>
-                                <p class="cardItemValue col-md-8">
-                                    <span>Atverta</span>
-                                    <span>Nav</span>
-                                    <span>nepiec.</span>
-                                </p>
-                            </li>
+                            </li>--}}
                         </ul>
                         <div class="leftBtmBtn mt-3 text-end">
                             <button class="clearBtn">Clear</button>
@@ -295,6 +274,14 @@
                                                 <form class="addBtnForm" id="addPrescriptionForm">
                                                     @csrf
                                                     <div class="form-group mb-2">
+                                                        <input type="text" value="" placeholder="Name..." class="customControlInputs" name="name">
+                                                        <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
+                                                    </div>
+                                                    <div class="form-group mb-2">
+                                                        <input type="text" value="" placeholder="Description..." class="customControlInputs" name="description">
+                                                        <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
+                                                    </div>
+                                                    <div class="form-group mb-2">
                                                         <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="diagn">
                                                         <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
@@ -339,8 +326,8 @@
                         <div class="col-md-12 col-lg-12 col-xl-6 col-xxl-7 mb-3 mb-xl-0">
                             <form class="detailsForm">
                                 <div class="dg field">
-                                    <input type="text" placeholder="Diagnoze..." class="bg-transparent border-0 me-2 w-100 " id="to_diagn" >
-                                    <button class="secondryBtn copy" data-target-id="to_diagn" type="button">Copy</button>
+                                    <textarea placeholder="Diagnoze..." class="me-2" id="to_diagn" rows="6"></textarea>
+                                    <button class="secondryBtn copy" data-target-id="to_diagn"  type="button">Copy</button>
                                 </div>
                                 <div class="obj field">
                                     <textarea class="me-2 " placeholder="Objektīvās atradnes..." rows="6" id="to_objective"></textarea>

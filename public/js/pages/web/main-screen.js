@@ -10,7 +10,9 @@ $(document).ready(function () {
             data: formData,
             success: function (response) {
                 $('.loader').hide();
-                $('#createTemp').hide()
+                $('#createTemp').hide();
+                $('#addPrescriptionForm')[0].reset();
+                $("#tagsInput").tagsinput('removeAll');
                 Swal.fire({
                     icon: "success",
                     title: "Done",
@@ -75,9 +77,7 @@ $(document).ready(function () {
         });
     });
 
-$(document).on('click', '.crossValue' ,function (e) {
-//$('.crossValue').on('click', function() {
-    // Add your delete logic here
+$(document).on('click', '.crossValue' ,function (e) {   
   var cardArea = $(this).closest('.cardArea');
   var prescriptionId = cardArea.find('.cardBody').data('id');
   
@@ -117,21 +117,40 @@ $(document).on('click', '.crossValue' ,function (e) {
     
   });
   $(document).on('click', '.cardArea' ,function (e) {
-    $(".cardArea").removeClass("active");
+    // $(".cardArea").removeClass("active");
     $(this).toggleClass('active');
-  //$('.cardArea').on('click', function() {
+      $('.loader').show();
     var cardBody = $(this).find('.cardBody');
+    var cardId = cardBody.data('id');
+    $.ajax({
+        type: 'get',
+        url: site_url + '/user/prescription/data', 
+        data:{card_id:cardId},
+        
+        success: function (data) {
+            var prescriptionData = data.object;
+            // $('#to_diagn').val(prescriptionData.diagn);
+            // $('#to_objective').val(prescriptionData.objective);
+            // $('#to_recomend').val(prescriptionData.recomend);
 
-    var from_diagn = cardBody.find('.from_diagn').text().trim();
-    var from_objective = cardBody.find('.from_objective').text().trim();
-    var from_recomend = cardBody.find('.from_recomend').text().trim();
-    //   var cardBody = $(this).closest('.cardBody');
-    //   var from_diagn = $(this).closest('.from_diagn').text();
-    //   var from_objective = $('.from_objective').text();
-    //   var from_recomend = $('.from_recomend').text();
-      $('#to_diagn').val(from_diagn);
-      $('#to_objective').val(from_objective);
-      $('#to_recomend').val(from_recomend);
+            // $('#to_diagn, #to_objective, #to_recomend').val('');
+
+
+            $('#to_diagn').val(function (_, currentValue) {
+                return currentValue + '\n' + prescriptionData.diagn;
+            });
+
+            $('#to_objective').val(function (_, currentValue) {
+                return currentValue + '\n' + prescriptionData.objective;
+            });
+
+            $('#to_recomend').val(function (_, currentValue) {
+                return currentValue + '\n' + prescriptionData.recomend;
+            });
+            $('.loader').hide();
+            toastr.success(data.message, 'Success!', toastCofig);   
+        },
+    });
 
   });
 
@@ -307,9 +326,21 @@ function copyToClipboard(element) {
                 success: function (data) {
                     $('.loader').hide();
                     $('#addOnBtnModal').modal('hide');
-                    // var newButton = data.newButton;
-                    // var buttonHTML = '<button class="secondryOutline active_' + newButton.id + '" data-button-id="' + newButton.id + '"><span class="btnText">' + newButton.title + '</span> <span class="crossValue"><i class="las la-times"></i></span></button>';
-                    //     $('#buttonContainer').append(buttonHTML);
+                    $('#searchableTags')[0].reset();
+                    $("#tagsInput").tagsinput('removeAll');
+                    console.log("=========>",data)
+                   // Assuming data.newCustomSearch is an array with one element
+                    var newCustomSearchHTML = `
+                    <li class="leftCardItems row">
+                        <h6 class="cardItemHead col-md-4">${data.newCustomSearch[0].title}</h6>
+                        <p class="cardItemValue col-md-8">
+                            ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
+                                ? data.newCustomSearch[0].custom_tags.map(tag => `<span>${tag.tag}</span>`).join('')
+                                : ''}
+                        </p>
+                    </li>
+                `;
+                $('#UlTags').append(newCustomSearchHTML);
                     Swal.fire({
                         icon: "success",
                         title: "Done",
@@ -426,5 +457,40 @@ $('#clearChangePasswordForm').on('click', function(event) {
     event.preventDefault();
 $('#changePasswordForm')[0].reset();
 });
+
+    $('.secondryOutline').on('click', function() {
+        var buttonId = $(this).data('button-id');
+        var buttonPosition = $(this).data('button-position');
+        $.ajax({
+            url: site_url + '/user/get-button-description',
+            type: 'POST',
+            data: { button_id: buttonId,'_token': $('meta[name="csrf-token"]').attr('content') },
+            success: function(response) {
+                if (response.description) {
+                    // Update input field based on button position
+                    if (buttonPosition === 1) {
+                        $('#to_diagn').val(function (_, currentValue) {
+                            return currentValue + '\n' + response.description;
+                        });
+                    } else if (buttonPosition === 2) {
+                        $('#to_objective').val(function (_, currentValue) {
+                            return currentValue + '\n' + response.description;
+                        });
+                    } else if (buttonPosition === 3) {
+                        $('#to_recomend').val(function (_, currentValue) {
+                            return currentValue + '\n' + response.description;
+                        });
+                    } else {
+                        console.error('Invalid button position.');
+                    }
+                } else {
+                    console.error('Button description not found.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error: ' + error);
+            }
+        });
+    });
 
 });

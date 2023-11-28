@@ -27,7 +27,7 @@ class HomeController extends Controller
         $user = Auth::user();
         $customSearchObj = CustomSearch::with('customTags')->get();
         // dd($customSearchObj);
-        return view('web.home',compact('buttons1','user','buttons2'));
+        return view('web.home',compact('buttons1','user','buttons2','customSearchObj'));
     }
     public function addPrescription(Request $request)
     {
@@ -47,6 +47,8 @@ class HomeController extends Controller
                 $presriptionObj->diagn = $request->input('diagn');
                 $presriptionObj->objective = $request->input('objective');
                 $presriptionObj->recomend = $request->input('recomend');
+                $presriptionObj->name = $request->input('name');
+                $presriptionObj->description = $request->input('description');
                 $presriptionObj->user_id = auth()->guard('web')->user()->id;
                 $presriptionObj->save();
            
@@ -72,6 +74,9 @@ class HomeController extends Controller
             $Prescriptions = Prescription::where('deleted_at',null)->with('tags')
                 ->where('diagn', 'LIKE', '%'. $searchTerm .'%')
                 ->orWhere('objective','LIKE', '%'. $searchTerm .'%')
+                ->orWhere('name','LIKE', '%'. $searchTerm .'%')
+                ->orWhere('description','LIKE', '%'. $searchTerm .'%')
+                ->orWhere('recomend','LIKE', '%'. $searchTerm .'%')
                 ->get();
         } 
         return view('web.prescription-card',compact('Prescriptions'))->render();
@@ -171,9 +176,9 @@ class HomeController extends Controller
                 $customSearchTagObj->user_id = $userObj->id;
                 $customSearchTagObj->save();
             }
-            
+            $tags = CustomSearch::with('customTags')->where('id',$customSearchObj->id)->get();
             DB::commit();
-            return response()->json(['success'=> true ,'message'=> 'Lable added successfully!']);
+            return response()->json(['success'=> true ,'message'=> 'Lable added successfully!','newCustomSearch' => $tags]);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['error'=> true ,'message'=> $th->getMessage()]);
@@ -189,4 +194,21 @@ class HomeController extends Controller
 
         return response()->json($data);
     }
+    public function getPrescription(Request $request)
+    {
+        $prescription = Prescription::find($request->card_id);
+        return response()->json(['success' => true,'message' => "Prescription get successfully!",'object' => $prescription]);
+    }
+    public function getButtonDescription(Request $request)
+    {
+        $buttonId = $request->input('button_id');
+        $button = Button::find($buttonId);
+
+        if ($button) {
+            return response()->json(['description' => $button->description]);
+        } else {
+            return response()->json(['error' => 'Button not found'], 404);
+        }
+    }
+
 }
