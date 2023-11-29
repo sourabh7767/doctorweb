@@ -275,15 +275,25 @@ i.las.la-sign-out-alt {
 }
 /*==== End Header css ====*/
 /*==== Start FirstSec css ====*/
+.main-wrapper
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+.buttons-wrapper
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .btnGroup {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: end;
     height: 100%;
     max-height: 93px;
     overflow: auto;
-    padding-right: 5px;
 }
 .secondryOutline {
     border: 1px solid #ffffff54;
@@ -387,6 +397,7 @@ i.las.la-sign-out-alt {
     height: 32px;
     justify-content: center;
     transition: all 0.3s;
+    padding : 15px;
 }
 .addOnBtn i {
     font-size: 18px;
@@ -411,6 +422,7 @@ i.las.la-sign-out-alt {
     cursor: pointer;
     border: 1px solid #000;
     margin-right: 5px;
+    transition: all 0.3s;
 }
 .titleTxt {
     font-size: 14px;

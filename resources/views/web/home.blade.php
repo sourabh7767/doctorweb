@@ -122,73 +122,70 @@
     <section class="midSec mt-3">
         <div class="container-fluid">
             <!-- Start Buttons Row -->
-            <div class="row">
-                <div class="col-md-6 mb-3 mb-md-0">
-                    <div class="d-block d-md-flex align-items-center">
-                        <div class="btnGroup w-100 me-2" id="buttonContainer">
-                            @foreach ($buttons1 as $button)
-                            <button class="secondryOutline active_{{@$button->id}} " data-button-id="{{@$button->id}}" data-button-position="{{@$button->place}}"><span class="btnText">{{@$button->title}}</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button>
-                            @endforeach
-                        </div>
-                        <span class="addOnBtn m-auto m-md-0 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#addBtnModal">
-                            <i class="las la-plus"></i>
-                        </span>
-                        <!-- Start AddBtn modal -->
-                            <!-- Modal -->
-                            <div class="modal fade" id="addBtnModal" tabindex="-1" aria-labelledby="addBtnModalLabel" aria-hidden="true" data-bs-backdrop="static">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header d-block border-0 p-0 mb-2">
-                                            <h5 class="modal-title" id="addBtnModalLabel">Create Button</h5>
-                                            {{-- <p class="modal-subtext">Edit field and create fast access template</p> --}}
-                                        </div>
-                                        <div class="modal-body p-0">
-                                            <form class="addBtnForm" id="AddButtonForm">
-                                                @csrf
-                                                <div class="form-group mb-2">
-                                                    <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="title">
+            <!-- Start Buttons Row -->
+            <div class="main-wrapper">
+                <div class="buttons-wrapper">
+                    <div class="btnGroup w-100 me-2">
+                        <button class="secondryOutline active"><span class="btnText">Kruki</span> <span class="crossValue"><i class="las la-times"></i></span></button>
+                        <button class="secondryOutline"><span class="btnText">Imovax Ir Velkta </span><span class="crossValue"><i class="las la-times"></i></span></button>
+                        <button class="secondryOutline"><span class="btnText">Imovax atsakas </span><span class="crossValue"><i class="las la-times"></i></span></button>
+                        <button class="secondryOutline"><span class="btnText">Alkohols izelpa </span><span class="crossValue"><i class="las la-times"></i></span></button>
+                        <button class="secondryOutline"><span class="btnText">Alkohols asinis</span> <span class="crossValue"><i class="las la-times"></i></span></button>
+                        <button class="secondryOutline"><span class="btnText">MRI</span> <span class="crossValue"><i class="las la-times"></i></span></button>
+                        <button class="secondryOutline"><span class="btnText">CTg</span> <span class="crossValue"><i class="las la-times"></i></span></button>
+                        <button class="secondryOutline"><span class="btnText">Fizikaias proc. </span><span class="crossValue"><i class="las la-times"></i></span></button>
+                        <button class="secondryOutline"><span class="btnText">Rehabillitologa konsult. </span><span class="crossValue"><i class="las la-times"></i></span></button>
+                        <button class="secondryOutline"><span class="btnText">Asins anazitzes</span> <span class="crossValue"><i class="las la-times"></i></span></button>
+                        <button class="secondryOutline"><span class="btnText">Traumatologa konsult. </span><span class="crossValue"><i class="las la-times"></i></span></button>
+                    </div>
+                    <span class="addOnBtn m-auto m-md-0 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#addBtnModal">
+                        <i class="las la-plus"></i>
+                    </span>
+                    <!-- Start AddBtn modal -->
+                        <!-- Modal -->
+                        <div class="modal fade" id="addBtnModal" tabindex="-1" aria-labelledby="addBtnModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header d-block border-0 p-0 mb-2">
+                                        <h5 class="modal-title" id="addBtnModalLabel">Create Button</h5>
+                                        <p class="modal-subtext">Edit field and create fast access template</p>
+                                    </div>
+                                    <div class="modal-body p-0">
+                                        <form class="addBtnForm">
+                                            <div class="form-group mb-2">
+                                                <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs">
+                                            </div>
+                                            <div class="form-group">
+                                                <textarea class="customControlInputs" id="" rows="11" placeholder="Rekomendjdjas..."></textarea>
+                                            </div>
+                                            <h4 class="modal-title mt-3">Choose Label</h4>
+                                            <div class="labelContainer mt-3 mb-3    ">
+                                                <div class="form-check form-check-inline ps-0">
+                                                    <input type="radio" id="test1" name="radio-group" checked>
+                                                    <label for="test1">First Label</label>
                                                 </div>
-                                                <div class="form-group">
-                                                    <textarea class="customControlInputs" id="" rows="11" placeholder="Rekomendjdjas..." name="description"></textarea>
+                                                <div class="form-check form-check-inline ">
+                                                    <input type="radio" id="test2" name="radio-group">
+                                                    <label for="test2">S Label</label>
                                                 </div>
-                                                <h4 class="modal-title mt-3">Choose Label</h4>
-                                                <div class="labelContainer mt-3 mb-3    ">
-                                                    <div class="form-check form-check-inline ps-0">
-                                                        <input type="radio" id="test1" value="{{App\Models\Button::First_Label}}" name="place" checked>
-                                                        <label for="test1">First Label</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline ">
-                                                        <input type="radio" id="test2" value="{{App\Models\Button::S_LABLE}}" name="place">
-                                                        <label for="test2">S Label</label>
-                                                    </div>
-                                                    <div class="form-check form-check-inline ">
-                                                        <input type="radio" id="test3" value="{{App\Models\Button::THIRD_LABLE}}" name="place">
-                                                        <label for="test3">Third Label</label>
-                                                    </div>
+                                                <div class="form-check form-check-inline ">
+                                                    <input type="radio" id="test3" name="radio-group">
+                                                    <label for="test3">Third Label</label>
                                                 </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer border-0 p-0">
-                                        <button type="button" class="clearBtn" data-bs-dismiss="modal" onclick="clearForm();">Close</button>
-                                        <button type="button" class="secondryBtn" id="saveButtons">Save</button>
-                                        </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer border-0 p-0">
+                                    <button type="button" class="clearBtn" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="secondryBtn">Save</button>
                                     </div>
                                 </div>
                             </div>
-                        <!-- End AddBtn modal -->
-                    </div>
-                </div>
-                <div class="col-md-6  mb-3 mb-md-0">
-                    <div class="d-flex align-items-center">
-                        <span class="addOnBtn d-none"><i class="las la-plus"></i></span>
-                        <div class="btnGroup" id="buttonContainer2">
-                            @foreach ($buttons2 as $button)
-                            <button class="secondryOutline active_{{@$button->id}} " data-button-id="{{@$button->id}}" data-button-position="{{@$button->place}}"><span class="btnText">{{@$button->title}}</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button>
-                            @endforeach
                         </div>
-                    </div>
+                    <!-- End AddBtn modal -->
                 </div>
             </div>
+            <!-- End Buttons Row -->
             <!-- End Buttons Row -->
             <!-- Start Second Row -->
             <div class="row mt-3">

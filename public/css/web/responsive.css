@@ -26,4 +26,8 @@
         background-color: #d464de;
         color: #fff;
     }
+    .cardArea:hover
+    {
+        background: linear-gradient(to right, #7fc6ec, #35abeb);
+    }
 }
