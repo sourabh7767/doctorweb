@@ -157,7 +157,7 @@ function copyToClipboard(element) {
 
 // end center card functionality
 
-    $('#saveButtons').on('click', function(event) {
+        $(document).on('click', '#saveButtons' ,function (event) {
         event.preventDefault();
         $('.loader').show();
         var formData = $('#AddButtonForm').serialize();
@@ -171,7 +171,8 @@ function copyToClipboard(element) {
                 $('#AddButtonForm')[0].reset();
 
                 var newButton = data.newButton;
-                var buttonHTML = '<button class="secondryOutline active_' + newButton.id + '" data-button-id="' + newButton.id + '"><span class="btnText">' + newButton.title + '</span> <span class="crossValue"><i class="las la-times"></i></span></button>';
+                console.log(newButton )
+                var buttonHTML = '<button class="secondryOutline" data-button-position="' + newButton.place + '" data-button-id="' + newButton.id + '"><span class="btnText">' + newButton.title + '</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button>';
                     $('.buttonAppend').append(buttonHTML);
                 $('.loader').hide();
                 toastr.success(data.message, 'Success!', toastCofig);
@@ -216,6 +217,7 @@ function copyToClipboard(element) {
             
             success: function (data) {
                 $('#changePasswordModel').modal('hide');
+                $('#changePasswordForm')[0].reset();
                 $('.loader').hide();
                 toastr.success(data.message, 'Success!', toastCofig);
             },
@@ -428,7 +430,7 @@ $('#clearChangePasswordForm').on('click', function(event) {
 $('#changePasswordForm')[0].reset();
 });
 
-    $('.secondryOutline').on('click', function() {
+$('.buttonAppend').on('click', '.secondryOutline', function() {
         var buttonId = $(this).data('button-id');
         var buttonPosition = $(this).data('button-position');
         $.ajax({
@@ -462,6 +464,7 @@ $('#changePasswordForm')[0].reset();
             }
         });
     });
+
     $(document).on('click', 'button.secondryOutline', function() {
         $(this).toggleClass('active');
     });
@@ -472,7 +475,7 @@ $('#changePasswordForm')[0].reset();
 
 
     $('.tag').on('click', function () {
-
+        $('.loader').show();
         var isActive = $(this).hasClass('active');
         $(this).toggleClass('active', !isActive);
         var activeTags = $('.tag.active');
@@ -501,9 +504,16 @@ $('#changePasswordForm')[0].reset();
             },
             success: function (data) {
                 $('#searchResults').html(data);
+                $('.loader').hide();
             },
             
         });
+    });
+
+    $('#removeAllData').on('click', function () {
+        
+        $('#searchResults').html('');
+        $("#UlTags span.active").removeClass('active');
     });
 
 });

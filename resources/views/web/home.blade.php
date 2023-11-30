@@ -199,7 +199,7 @@
                            
                         </ul>
                         <div class="leftBtmBtn mt-3 text-end">
-                            <button class="clearBtn">Clear</button>
+                            <button class="clearBtn" id="removeAllData">Clear</button>
                         </div>
                         <span class="addOnBtn" data-bs-toggle="modal" data-bs-target="#addOnBtnModal"><i class="las la-plus"></i></span>
                         <!-- Start AddBtn modal -->
