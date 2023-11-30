@@ -492,7 +492,8 @@ $('.buttonAppend').on('click', '.secondryOutline', function() {
     }).join(',');
         if (searchDataString.trim() === '') {
             $('#searchResults').html('');
-            return;
+            $('.loader').hide();
+            return true;
         }
         $.ajax({
             type: 'POST',
@@ -503,8 +504,8 @@ $('.buttonAppend').on('click', '.secondryOutline', function() {
                 type:true
             },
             success: function (data) {
-                $('#searchResults').html(data);
                 $('.loader').hide();
+                $('#searchResults').html(data);
             },
             
         });
