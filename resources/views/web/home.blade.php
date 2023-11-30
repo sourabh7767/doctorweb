@@ -125,18 +125,10 @@
             <!-- Start Buttons Row -->
             <div class="main-wrapper">
                 <div class="buttons-wrapper">
-                    <div class="btnGroup w-100 me-2">
-                        <button class="secondryOutline active"><span class="btnText">Kruki</span> <span class="crossValue"><i class="las la-times"></i></span></button>
-                        <button class="secondryOutline"><span class="btnText">Imovax Ir Velkta </span><span class="crossValue"><i class="las la-times"></i></span></button>
-                        <button class="secondryOutline"><span class="btnText">Imovax atsakas </span><span class="crossValue"><i class="las la-times"></i></span></button>
-                        <button class="secondryOutline"><span class="btnText">Alkohols izelpa </span><span class="crossValue"><i class="las la-times"></i></span></button>
-                        <button class="secondryOutline"><span class="btnText">Alkohols asinis</span> <span class="crossValue"><i class="las la-times"></i></span></button>
-                        <button class="secondryOutline"><span class="btnText">MRI</span> <span class="crossValue"><i class="las la-times"></i></span></button>
-                        <button class="secondryOutline"><span class="btnText">CTg</span> <span class="crossValue"><i class="las la-times"></i></span></button>
-                        <button class="secondryOutline"><span class="btnText">Fizikaias proc. </span><span class="crossValue"><i class="las la-times"></i></span></button>
-                        <button class="secondryOutline"><span class="btnText">Rehabillitologa konsult. </span><span class="crossValue"><i class="las la-times"></i></span></button>
-                        <button class="secondryOutline"><span class="btnText">Asins anazitzes</span> <span class="crossValue"><i class="las la-times"></i></span></button>
-                        <button class="secondryOutline"><span class="btnText">Traumatologa konsult. </span><span class="crossValue"><i class="las la-times"></i></span></button>
+                    <div class="btnGroup w-100 me-2 buttonAppend">
+                        @foreach ($buttons as $button)
+                        <button class="secondryOutline" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}"><span class="btnText">{{$button->title}}</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button>
+                        @endforeach
                     </div>
                     <span class="addOnBtn m-auto m-md-0 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#addBtnModal">
                         <i class="las la-plus"></i>
@@ -148,28 +140,29 @@
                                 <div class="modal-content">
                                     <div class="modal-header d-block border-0 p-0 mb-2">
                                         <h5 class="modal-title" id="addBtnModalLabel">Create Button</h5>
-                                        <p class="modal-subtext">Edit field and create fast access template</p>
+                                        {{-- <p class="modal-subtext">Edit field and create fast access template</p> --}}
                                     </div>
                                     <div class="modal-body p-0">
-                                        <form class="addBtnForm">
+                                        <form class="addBtnForm" id="AddButtonForm">
+                                            @csrf
                                             <div class="form-group mb-2">
-                                                <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs">
+                                                <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="title">
                                             </div>
                                             <div class="form-group">
-                                                <textarea class="customControlInputs" id="" rows="11" placeholder="Rekomendjdjas..."></textarea>
+                                                <textarea class="customControlInputs" id="" rows="11" placeholder="Rekomendjdjas..." name="description"></textarea>
                                             </div>
                                             <h4 class="modal-title mt-3">Choose Label</h4>
                                             <div class="labelContainer mt-3 mb-3    ">
                                                 <div class="form-check form-check-inline ps-0">
-                                                    <input type="radio" id="test1" name="radio-group" checked>
+                                                    <input type="radio" id="test1" value="{{App\Models\Button::First_Label}}" name="place" checked>
                                                     <label for="test1">First Label</label>
                                                 </div>
                                                 <div class="form-check form-check-inline ">
-                                                    <input type="radio" id="test2" name="radio-group">
+                                                    <input type="radio" id="test2" value="{{App\Models\Button::S_LABLE}}" name="place">
                                                     <label for="test2">S Label</label>
                                                 </div>
                                                 <div class="form-check form-check-inline ">
-                                                    <input type="radio" id="test3" name="radio-group">
+                                                    <input type="radio" id="test3" value="{{App\Models\Button::S_LABLE}}" name="place">
                                                     <label for="test3">Third Label</label>
                                                 </div>
                                             </div>
@@ -177,7 +170,7 @@
                                     </div>
                                     <div class="modal-footer border-0 p-0">
                                     <button type="button" class="clearBtn" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="secondryBtn">Save</button>
+                                    <button type="button" class="secondryBtn" id="saveButtons">Save</button>
                                     </div>
                                 </div>
                             </div>
@@ -198,18 +191,12 @@
                                 <h6 class="cardItemHead col-md-4">{{@$item->title}}</h6>
                                 <p class="cardItemValue col-md-8 ">
                                     @foreach ($item->customTags as $tag)
-                                    <span>{{@$tag->tag}}</span>
+                                    <span class="tag" data-tag="{{ @$tag->tag }}" data-type="true">{{@$tag->tag}}</span>
                                     @endforeach
                                 </p>
                             </li>
                             @endforeach
-                            
-                            {{-- <li class="leftCardItems row">
-                                <h6 class="cardItemHead col-md-4">Apvidus</h6>
-                                <p class="cardItemValue col-md-8">
-                                    <span>Roka</span>
-                                </p>
-                            </li>--}}
+                           
                         </ul>
                         <div class="leftBtmBtn mt-3 text-end">
                             <button class="clearBtn">Clear</button>
@@ -366,10 +353,10 @@
 }
  </script>
  <script>
-    $('button').on('click', function() {
-        var buttonId = $(this).attr('data-button-id'); 
-        $('.active_' + buttonId).toggleClass('active');
-    });
+    // $('button').on('click', function() {
+    //     var buttonId = $(this).attr('data-button-id'); 
+    //     $('.active_' + buttonId).toggleClass('active');
+    // });
     function clearForm(){
         // console.log($('#changePasswordForm'));
         $('#AddButtonForm')[0].reset();

@@ -21,13 +21,13 @@ class HomeController extends Controller
     }
     public function webHome(Request $request){
         $buttons = Button::get();
-        $middleIndex = $buttons->count() / 2;
-        $buttons1 = $buttons->slice(0, $middleIndex);
-        $buttons2 = $buttons->slice($middleIndex);
+        // $middleIndex = $buttons->count() / 2;
+        // $buttons1 = $buttons->slice(0, $middleIndex);
+        // $buttons2 = $buttons->slice($middleIndex);
         $user = Auth::user();
         $customSearchObj = CustomSearch::with('customTags')->get();
         // dd($customSearchObj);
-        return view('web.home',compact('buttons1','user','buttons2','customSearchObj'));
+        return view('web.home',compact('user','buttons','customSearchObj'));
     }
     public function addPrescription(Request $request)
     {
@@ -65,20 +65,34 @@ class HomeController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
         }
-       return response()->json(['success' => true,'Prescription added successfully']);
+       return response()->json(['success' => true,'message'=>'Prescription added successfully']);
     }
     public function getTraumaData(Request $request){
         $searchTerm = $request->input('searchTerm');
+        $type = $request->has('type');
+        $explodeSearch   = explode(',',strtolower($searchTerm));
         $Prescriptions = "";
-        if ($searchTerm) {
-            $Prescriptions = Prescription::where('deleted_at',null)->with('tags')
-                ->where('diagn', 'LIKE', '%'. $searchTerm .'%')
-                ->orWhere('objective','LIKE', '%'. $searchTerm .'%')
-                ->orWhere('name','LIKE', '%'. $searchTerm .'%')
-                ->orWhere('description','LIKE', '%'. $searchTerm .'%')
-                ->orWhere('recomend','LIKE', '%'. $searchTerm .'%')
-                ->get();
-        } 
+        $priscriptionid = [];
+        if($type){
+            $prescriptionTags = PrescriptionTag::whereIn(DB::raw('LOWER(tags)'), $explodeSearch)->get();
+            foreach ($prescriptionTags as $tag) {
+                $priscriptionid[] = $tag->prescriptions->id;
+            }
+            if ($prescriptionTags) {
+                $Prescriptions = Prescription::whereIn('id', $priscriptionid)->get();
+            }
+        }else{
+            if ($searchTerm) {
+                $Prescriptions = Prescription::where('deleted_at',null)->with('tags')
+                    ->where('diagn', 'LIKE', '%'. $searchTerm .'%')
+                    ->orWhere('objective','LIKE', '%'. $searchTerm .'%')
+                    ->orWhere('name','LIKE', '%'. $searchTerm .'%')
+                    ->orWhere('description','LIKE', '%'. $searchTerm .'%')
+                    ->orWhere('recomend','LIKE', '%'. $searchTerm .'%')
+                    ->get();
+            }
+        }
+         
         return view('web.prescription-card',compact('Prescriptions'))->render();
     }
 
@@ -144,7 +158,6 @@ class HomeController extends Controller
     {
         $button = Button::find($request->button_id)->delete();
         if($button){
-            
             return response()->json(['success' => true , 'message' => 'Button deleted!']);
         }else{
             return response()->json(['error' => true,'message' => 'Something went wrong']);
@@ -208,6 +221,21 @@ class HomeController extends Controller
             return response()->json(['description' => $button->description]);
         } else {
             return response()->json(['error' => 'Button not found'], 404);
+        }
+    }
+
+    public function searchTagsByLables(Request $request)
+    {
+        {
+            $searchTerm = $request->input('searchTerm');
+    
+            $results = CustomSearch::where('title', 'like', "%$searchTerm%")
+                ->orWhereHas('customTags', function ($query) use ($searchTerm) {
+                    $query->where('tag', 'like', "%$searchTerm%");
+                })
+                ->get();
+    
+            return response()->json(['results' => $results]);
         }
     }
 

@@ -37,6 +37,8 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/themes/dark-layout.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/themes/bordered-layout.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/themes/semi-dark-layout.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/web/bootstrap.min.css') }}">
+        
         <!-- END: Theme CSS-->
 
         <!-- BEGIN: Page CSS-->
@@ -93,6 +95,9 @@
         <!-- BEGIN: Theme JS-->
         <script src="{{ asset('js/theme/core/app-menu.js') }}"></script>
         <script src="{{ asset('js/theme/core/app.js') }}"></script>
+        <script src="{{ asset('resources/js/bootstrap.js') }}"></script>
+
+        {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script> --}}
         <!-- END: Theme JS-->
 
         <script src="{{ asset('js/custom.js') }}"></script>

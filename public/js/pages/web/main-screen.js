@@ -10,17 +10,11 @@ $(document).ready(function () {
             data: formData,
             success: function (response) {
                 $('.loader').hide();
-                $('#createTemp').hide();
                 $('#addPrescriptionForm')[0].reset();
+                $('#createTemp').hide();
                 $("#tagsInput").tagsinput('removeAll');
-                Swal.fire({
-                    icon: "success",
-                    title: "Done",
-                    text: "Prescription added successfully!",
-                    //footer: '<a href="#">Doctor minisquaretechnologies</a>'
-                  }).then(function() {
-                    window.location.href = '/user/home';
-                  });
+                toastr.success(response.message, 'Success!', toastCofig);
+                window.location.href = '/user/home';
             },
             error: function (xhr, status, error) {
                 $('.loader').hide();
@@ -118,6 +112,7 @@ $(document).on('click', '.crossValue' ,function (e) {
   });
   $(document).on('click', '.cardArea' ,function (e) {
     // $(".cardArea").removeClass("active");
+    isActive =  $(this).hasClass('active');
     $(this).toggleClass('active');
       $('.loader').show();
     var cardBody = $(this).find('.cardBody');
@@ -129,26 +124,21 @@ $(document).on('click', '.crossValue' ,function (e) {
         
         success: function (data) {
             var prescriptionData = data.object;
-            // $('#to_diagn').val(prescriptionData.diagn);
-            // $('#to_objective').val(prescriptionData.objective);
-            // $('#to_recomend').val(prescriptionData.recomend);
+            if(!isActive){
+                $('#to_diagn').val(function (_, currentValue) {
+                    return currentValue + '\n' + prescriptionData.diagn;
+                });
 
-            // $('#to_diagn, #to_objective, #to_recomend').val('');
+                $('#to_objective').val(function (_, currentValue) {
+                    return currentValue + '\n' + prescriptionData.objective;
+                });
 
-
-            $('#to_diagn').val(function (_, currentValue) {
-                return currentValue + '\n' + prescriptionData.diagn;
-            });
-
-            $('#to_objective').val(function (_, currentValue) {
-                return currentValue + '\n' + prescriptionData.objective;
-            });
-
-            $('#to_recomend').val(function (_, currentValue) {
-                return currentValue + '\n' + prescriptionData.recomend;
-            });
+                $('#to_recomend').val(function (_, currentValue) {
+                    return currentValue + '\n' + prescriptionData.recomend;
+                });
+            }
             $('.loader').hide();
-            toastr.success(data.message, 'Success!', toastCofig);   
+            // toastr.success(data.message, 'Success!', toastCofig);   
         },
     });
 
@@ -182,17 +172,9 @@ function copyToClipboard(element) {
 
                 var newButton = data.newButton;
                 var buttonHTML = '<button class="secondryOutline active_' + newButton.id + '" data-button-id="' + newButton.id + '"><span class="btnText">' + newButton.title + '</span> <span class="crossValue"><i class="las la-times"></i></span></button>';
-                if (newButton.id % 2 === 0) {
-                    $('#buttonContainer2').append(buttonHTML);
-                } else {
-                    $('#buttonContainer').append(buttonHTML);
-                }
+                    $('.buttonAppend').append(buttonHTML);
                 $('.loader').hide();
-                Swal.fire({
-                    icon: "success",
-                    title: "Done",
-                    text: data.message,
-                  });
+                toastr.success(data.message, 'Success!', toastCofig);
                   
             },
             error: function (xhr, status, error) {
@@ -235,11 +217,7 @@ function copyToClipboard(element) {
             success: function (data) {
                 $('#changePasswordModel').modal('hide');
                 $('.loader').hide();
-                Swal.fire({
-                    icon: "success",
-                    title: "Done",
-                    text: data.message,
-                  });
+                toastr.success(data.message, 'Success!', toastCofig);
             },
             error: function (xhr, status, error) {
                 $('.loader').hide();
@@ -341,11 +319,7 @@ function copyToClipboard(element) {
                     </li>
                 `;
                 $('#UlTags').append(newCustomSearchHTML);
-                    Swal.fire({
-                        icon: "success",
-                        title: "Done",
-                        text: data.message,
-                      });
+                toastr.success(data.message, 'Success!', toastCofig);
                 },
                 error: function (xhr, status, error) {
                     $('.loader').hide();
@@ -388,11 +362,7 @@ function copyToClipboard(element) {
                 success: function(data) {
                     $('.loader').hide();
                     $('#updateProfileModal').modal('hide');
-                    Swal.fire({
-                        icon: "success",
-                        title: "Done",
-                        text: data.message,
-                      });
+                    toastr.success(data.message, 'Success!', toastCofig);
                     console.log(response);
                 },
                 error: function (xhr, status, error) {
@@ -490,6 +460,49 @@ $('#changePasswordForm')[0].reset();
             error: function(xhr, status, error) {
                 console.error('Error: ' + error);
             }
+        });
+    });
+    $(document).on('click', 'button.secondryOutline', function() {
+        $(this).toggleClass('active');
+    });
+    
+    $(document).on('click', 'button.secondryOutline.active', function() {
+        $(this).toggleClass('active');
+    });
+
+
+    $('.tag').on('click', function () {
+
+        var isActive = $(this).hasClass('active');
+        $(this).toggleClass('active', !isActive);
+        var activeTags = $('.tag.active');
+        var searchData = [];
+        activeTags.each(function () {
+        var tagData = {
+            searchTerm: $(this).data('tag')
+        };
+        searchData.push(tagData);
+    });
+
+    var searchDataString = searchData.map(function (tag) {
+        return tag.searchTerm;
+    }).join(',');
+        if (searchDataString.trim() === '') {
+            $('#searchResults').html('');
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: site_url + '/user/get/prescription/list',
+            data: {
+            '_token': $('meta[name="csrf-token"]').attr('content'),
+                searchTerm: searchDataString,
+                type:true
+            },
+            success: function (data) {
+                $('#searchResults').html(data);
+            },
+            
         });
     });
 

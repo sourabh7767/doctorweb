@@ -29,8 +29,9 @@ class HomeController extends Controller
     {
         $users = User::count();
         $data = User::getActiveInactiveCount();
+        $perscriptionsCount = Prescription::count();
         $monthlys = User::monthly();
-        return view('home',compact("users","data","monthlys"));
+        return view('home',compact("users","data","monthlys","perscriptionsCount"));
     }
     
     

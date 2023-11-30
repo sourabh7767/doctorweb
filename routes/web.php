@@ -26,7 +26,7 @@ Route::middleware('prevent-back-history')->group(function (){
     Route::group(['prefix' => 'admin'], function(){  
         Auth::routes();    
     });
-    Route::get('/', 'Web\AuthController@webIndex')->name('web.index');
+    Route::get('/', 'Web\AuthController@webIndex')->name('web.index')->middleware('guest');
     Route::post('/signup', 'Web\AuthController@signup')->name('signup');
     Route::post('/user/login', 'Web\AuthController@userLogin')->name('userLogin');
     Route::middleware('auth:web')->prefix('user')->group(function(){
