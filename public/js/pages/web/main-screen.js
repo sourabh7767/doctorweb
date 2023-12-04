@@ -315,7 +315,7 @@ function copyToClipboard(element) {
                         <h6 class="cardItemHead col-md-4">${data.newCustomSearch[0].title}</h6>
                         <p class="cardItemValue col-md-8">
                             ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
-                                ? data.newCustomSearch[0].custom_tags.map(tag => `<span>${tag.tag}</span>`).join('')
+                                ? data.newCustomSearch[0].custom_tags.map(tag => `<span class=tag data-tag=${tag.tag} data-type=true>${tag.tag}</span> `).join('')
                                 : ''}
                         </p>
                     </li>
@@ -433,48 +433,56 @@ $('#changePasswordForm')[0].reset();
 $('.buttonAppend').on('click', '.secondryOutline', function() {
         var buttonId = $(this).data('button-id');
         var buttonPosition = $(this).data('button-position');
-        $.ajax({
-            url: site_url + '/user/get-button-description',
-            type: 'POST',
-            data: { button_id: buttonId,'_token': $('meta[name="csrf-token"]').attr('content') },
-            success: function(response) {
-                if (response.description) {
-                    // Update input field based on button position
-                    if (buttonPosition === 1) {
-                        $('#to_diagn').val(function (_, currentValue) {
-                            return currentValue + '\n' + response.description;
-                        });
-                    } else if (buttonPosition === 2) {
-                        $('#to_objective').val(function (_, currentValue) {
-                            return currentValue + '\n' + response.description;
-                        });
-                    } else if (buttonPosition === 3) {
-                        $('#to_recomend').val(function (_, currentValue) {
-                            return currentValue + '\n' + response.description;
-                        });
+        
+        if(!$(this).hasClass('active')){
+            $.ajax({
+                url: site_url + '/user/get-button-description',
+                type: 'POST',
+                data: { button_id: buttonId,'_token': $('meta[name="csrf-token"]').attr('content') },
+                success: function(response) {
+                    if (response.description) {
+                        // Update input field based on button position
+                        if (buttonPosition === 1) {
+                            $('#to_diagn').val(function (_, currentValue) {
+                                return currentValue + '\n' + response.description;
+                            });
+                        } else if (buttonPosition === 2) {
+                            $('#to_objective').val(function (_, currentValue) {
+                                return currentValue + '\n' + response.description;
+                            });
+                        } else if (buttonPosition === 3) {
+                            $('#to_recomend').val(function (_, currentValue) {
+                                return currentValue + '\n' + response.description;
+                            });
+                        } else {
+                            console.error('Invalid button position.');
+                        }
                     } else {
-                        console.error('Invalid button position.');
+                        console.error('Button description not found.');
                     }
-                } else {
-                    console.error('Button description not found.');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error: ' + error);
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error: ' + error);
-            }
-        });
-    });
-
-    $(document).on('click', 'button.secondryOutline', function() {
+            });
+        }
         $(this).toggleClass('active');
     });
+
+    // $(document).on('click', 'button.secondryOutline', function() {
+    //     $(this).toggleClass('active');
+    // });
     
-    $(document).on('click', 'button.secondryOutline.active', function() {
-        $(this).toggleClass('active');
-    });
+    // $(document).on('click', 'button.secondryOutline.active', function() {
+    //     $(this).toggleClass('active');
+    // });
 
+    // $(document).on('click', 'button.secondryOutline', function() {
+    //     $(this).toggleClass('active');
+    // });
 
-    $('.tag').on('click', function () {
+    $(document).on('click', '.tag', function () {
+    //$('.tag').on('click', function () {
         $('.loader').show();
         var isActive = $(this).hasClass('active');
         $(this).toggleClass('active', !isActive);
