@@ -189,7 +189,7 @@
         $('.getPriscriptionData').on('click', function () {
             var itemId = $(this).data('id');
             $.ajax({
-                url: site_url + '/user/prescription/data',
+                url: site_url + '/admin/prescription/data',
                 type: 'GET',
                 data: { card_id: itemId },
                 success: function (response) {

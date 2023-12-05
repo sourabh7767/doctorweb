@@ -40,14 +40,14 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::post('/update-profile', 'Web\HomeController@updateProfile')->name('updateProfile');
         Route::post('/change-password', 'Web\AuthController@changePassword')->name('changePassword');
         Route::post('/delete/button', 'Web\HomeController@deleteButtons')->name('deleteButtons');
-        Route::get('/prescription/data', 'Web\HomeController@getPrescription')->name('getPrescription');
         Route::post('/add/search/tags', 'Web\HomeController@addSearchableTags')->name('addSearchableTags');
-        Route::post('/get-button-description', 'Web\HomeController@getButtonDescription')->name('getButtonDescription');
+        Route::post('/get-button-description', 'Web\HomeController@')->name('getButtonDescription');
 
     });
     
     Route::middleware('auth:admin')->prefix('admin')->group(function(){
         Route::get('/dashboard', 'Admin\HomeController@index')->name('admin.home');
+        Route::get('/prescription/data', 'Admin\HomeController@getPrescription')->name('getPrescription');
         Route::resource('users', 'Admin\UserController');
         Route::resource('role', 'Admin\RoleController');
         Route::get('/user/changeStatus/{id}','Admin\UserController@changeStatus')->name('user.changeStatus');

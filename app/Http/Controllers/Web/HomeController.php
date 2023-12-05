@@ -207,11 +207,6 @@ class HomeController extends Controller
 
         return response()->json($data);
     }
-    public function getPrescription(Request $request)
-    {
-        $prescription = Prescription::find($request->card_id);
-        return response()->json(['success' => true,'message' => "Prescription get successfully!",'object' => $prescription]);
-    }
     public function getButtonDescription(Request $request)
     {
         $buttonId = $request->input('button_id');
