@@ -20,12 +20,12 @@ class HomeController extends Controller
         $this->middleware('auth:web')->except('webHome');
     }
     public function webHome(Request $request){
-        $buttons = Button::get();
+        $buttons = Button::where('user_id',auth()->user()->id)->get();
         // $middleIndex = $buttons->count() / 2;
         // $buttons1 = $buttons->slice(0, $middleIndex);
         // $buttons2 = $buttons->slice($middleIndex);
         $user = Auth::user();
-        $customSearchObj = CustomSearch::with('customTags')->get();
+        $customSearchObj = CustomSearch::where('user_id',auth()->user()->id)->with('customTags')->get();
         // dd($customSearchObj);
         return view('web.home',compact('user','buttons','customSearchObj'));
     }
@@ -74,16 +74,16 @@ class HomeController extends Controller
         $Prescriptions = "";
         $priscriptionid = [];
         if($type){
-            $prescriptionTags = PrescriptionTag::whereIn(DB::raw('LOWER(tags)'), $explodeSearch)->get();
+            $prescriptionTags = PrescriptionTag::where('user_id',auth()->user()->id)->whereIn(DB::raw('LOWER(tags)'), $explodeSearch)->get();
             foreach ($prescriptionTags as $tag) {
                 $priscriptionid[] = $tag->prescriptions->id;
             }
             if ($prescriptionTags) {
-                $Prescriptions = Prescription::whereIn('id', $priscriptionid)->get();
+                $Prescriptions = Prescription::whereIn('id', $priscriptionid)->where('user_id',auth()->user()->id)->get();
             }
         }else{
             if ($searchTerm) {
-                $Prescriptions = Prescription::where('deleted_at',null)->with('tags')
+                $Prescriptions = Prescription::where('user_id',auth()->user()->id)->where('deleted_at',null)->with('tags')
                     ->where('diagn', 'LIKE', '%'. $searchTerm .'%')
                     ->orWhere('objective','LIKE', '%'. $searchTerm .'%')
                     ->orWhere('name','LIKE', '%'. $searchTerm .'%')
@@ -224,7 +224,7 @@ class HomeController extends Controller
         {
             $searchTerm = $request->input('searchTerm');
     
-            $results = CustomSearch::where('title', 'like', "%$searchTerm%")
+            $results = CustomSearch::where('user_id',auth()->user()->id)->where('title', 'like', "%$searchTerm%")
                 ->orWhereHas('customTags', function ($query) use ($searchTerm) {
                     $query->where('tag', 'like', "%$searchTerm%");
                 })
