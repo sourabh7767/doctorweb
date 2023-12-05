@@ -42,7 +42,8 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::post('/delete/button', 'Web\HomeController@deleteButtons')->name('deleteButtons');
         Route::post('/add/search/tags', 'Web\HomeController@addSearchableTags')->name('addSearchableTags');
         Route::post('/get-button-description', 'Web\HomeController@getButtonDescription')->name('getButtonDescription');
-
+        Route::get('/prescription/data', 'Web\HomeController@getPrescription')->name('getPrescription');
+ 
     });
     
     Route::middleware('auth:admin')->prefix('admin')->group(function(){
