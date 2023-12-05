@@ -235,4 +235,10 @@ class HomeController extends Controller
         }
     }
 
+    public function getPrescription(Request $request)
+    {
+        $prescription = Prescription::find($request->card_id);
+        return response()->json(['success' => true,'message' => "Prescription get successfully!",'object' => $prescription]);
+    }
+
 }
