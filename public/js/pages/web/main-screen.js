@@ -117,6 +117,9 @@ $(document).on('click', '.crossValue' ,function (e) {
       $('.loader').show();
     var cardBody = $(this).find('.cardBody');
     var cardId = cardBody.data('id');
+    $('#to_diagn').val('');
+    $('#to_objective').val('');
+    $('#to_recomend').val('');
     $.ajax({
         type: 'get',
         url: site_url + '/user/prescription/data', 
@@ -443,17 +446,53 @@ $('.buttonAppend').on('click', '.secondryOutline', function() {
                     if (response.description) {
                         // Update input field based on button position
                         if (buttonPosition === 1) {
-                            $('#to_diagn').val(function (_, currentValue) {
-                                return currentValue + '\n' + response.description;
-                            });
+                            const textarea = document.getElementById('to_diagn');
+                            textarea.value += response.description + '\n';
+                            // $('#to_diagn').val(function (_, currentValue) {
+                            //     return currentValue + '\n' + response.description;
+                            // });
                         } else if (buttonPosition === 2) {
-                            $('#to_objective').val(function (_, currentValue) {
-                                return currentValue + '\n' + response.description;
-                            });
+                            const textarea = document.getElementById('to_objective');
+                            textarea.value += response.description + '\n';
+                            // $('#to_objective').val(function (_, currentValue) {
+                            //     return currentValue + '\n' + response.description;
+                            // });
                         } else if (buttonPosition === 3) {
-                            $('#to_recomend').val(function (_, currentValue) {
-                                return currentValue + '\n' + response.description;
-                            });
+                            const textarea = document.getElementById('to_recomend');
+                            textarea.value += response.description + '\n';
+                            // $('#to_recomend').val(function (_, currentValue) {
+                            //     return currentValue + '\n' + response.description;
+                            // });
+                        } else {
+                            console.error('Invalid button position.');
+                        }
+                    } else {
+                        console.error('Button description not found.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error: ' + error);
+                }
+            });
+        }else{
+            $.ajax({
+                url: site_url + '/user/get-button-description',
+                type: 'POST',
+                data: { button_id: buttonId,'_token': $('meta[name="csrf-token"]').attr('content') },
+                success: function(response) {
+                    if (response.description) {
+                        // Update input field based on button position
+                        if (buttonPosition === 1) {
+                            const textarea = document.getElementById('to_diagn');
+                            textarea.value = textarea.value.replace(response.description+'\n', '');
+                            // console.log("replaced======>",textarea.value.replace(response.description + '\n', ''))
+                        } else if (buttonPosition === 2) {
+                            const textarea = document.getElementById('to_objective');
+                            textarea.value = textarea.value.replace(response.description+'\n', '');
+                           
+                        } else if (buttonPosition === 3) {
+                            const textarea = document.getElementById('to_recomend');
+                            textarea.value = textarea.value.replace(response.description+'\n', '');
                         } else {
                             console.error('Invalid button position.');
                         }
@@ -489,15 +528,15 @@ $('.buttonAppend').on('click', '.secondryOutline', function() {
         var activeTags = $('.tag.active');
         var searchData = [];
         activeTags.each(function () {
-        var tagData = {
-            searchTerm: $(this).data('tag')
-        };
-        searchData.push(tagData);
-    });
+            var tagData = {
+                searchTerm: $(this).data('tag')
+            };
+            searchData.push(tagData);
+        });
 
-    var searchDataString = searchData.map(function (tag) {
-        return tag.searchTerm;
-    }).join(',');
+        var searchDataString = searchData.map(function (tag) {
+            return tag.searchTerm;
+        }).join(',');
         if (searchDataString.trim() === '') {
             $('#searchResults').html('');
             $('.loader').hide();
