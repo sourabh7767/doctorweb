@@ -126,7 +126,8 @@ class HomeController extends Controller
         $buttonObj = Button::create([
             'title' => $request->title,
             'description' => $request->description,
-            'place' => $request->place
+            'place' => $request->place,
+            'user_id' => auth()->user()->id
         ]);
         if($buttonObj)
         return response()->json(['success' => true,'message' => "Button added Successfull!",'newButton' => $buttonObj]);

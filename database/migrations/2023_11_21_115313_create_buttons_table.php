@@ -17,6 +17,7 @@ class CreateButtonsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('place');
+            $table->bigInteger('user_id');
             $table->text('description');
             $table->timestamps();
         });
