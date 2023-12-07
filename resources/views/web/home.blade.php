@@ -162,7 +162,7 @@
                                                     <label for="test2">S Label</label>
                                                 </div>
                                                 <div class="form-check form-check-inline ">
-                                                    <input type="radio" id="test3" value="{{App\Models\Button::S_LABLE}}" name="place">
+                                                    <input type="radio" id="test3" value="{{App\Models\Button::THIRD_LABLE}}" name="place">
                                                     <label for="test3">Third Label</label>
                                                 </div>
                                             </div>

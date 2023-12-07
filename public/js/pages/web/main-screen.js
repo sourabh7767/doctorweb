@@ -562,6 +562,15 @@ $('.buttonAppend').on('click', '.secondryOutline', function() {
         
         $('#searchResults').html('');
         $("#UlTags span.active").removeClass('active');
+        $('#to_diagn').val("");
+        $('#to_objective').val("");
+        $('#to_recomend').val("");
+        $("#searchInput").val("");
+        $(".secondryOutline").removeClass('active');
     });
 
+    $('.customtagdelete').on('click', function () {
+        var tagId = $(this).data('id');
+        alert(tagId)
+    });
 });

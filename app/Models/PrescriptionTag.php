@@ -11,8 +11,8 @@ class PrescriptionTag extends Model
     use HasFactory;
     use SoftDeletes;
 
-     public function prescriptions()
+    public function prescription()
     {
-        return $this->belongsTo(Prescription::class,'prescription_id','id');
+        return $this->belongsTo(Prescription::class);
     }
 }

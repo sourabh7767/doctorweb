@@ -74,22 +74,27 @@ class HomeController extends Controller
         $Prescriptions = "";
         $priscriptionid = [];
         if($type){
-            $prescriptionTags = PrescriptionTag::where('user_id',auth()->user()->id)->whereIn(DB::raw('LOWER(tags)'), $explodeSearch)->get();
-            foreach ($prescriptionTags as $tag) {
-                $priscriptionid[] = $tag->prescriptions->id;
-            }
-            if ($prescriptionTags) {
-                $Prescriptions = Prescription::whereIn('id', $priscriptionid)->where('user_id',auth()->user()->id)->get();
-            }
+            // $prescriptionTags = PrescriptionTag::where('user_id',auth()->user()->id)->whereIn(DB::raw('LOWER(tags)'), $explodeSearch)->get();
+            // foreach ($prescriptionTags as $tag) {
+            //     $priscriptionid[] = $tag->prescriptions->id;
+            // }
+            // if ($prescriptionTags) {
+            //     $Prescriptions = Prescription::whereIn('id', $priscriptionid)->where('user_id',auth()->user()->id)->get();
+            // }
+            $Prescriptions = Prescription::whereHas('tags', function ($query) use ($explodeSearch) {
+                $query->whereIn('tags', $explodeSearch);
+            }, '=', count($explodeSearch))->get();
         }else{
             if ($searchTerm) {
-                $Prescriptions = Prescription::where('user_id',auth()->user()->id)->where('deleted_at',null)->with('tags')
-                    ->where('diagn', 'LIKE', '%'. $searchTerm .'%')
-                    ->orWhere('objective','LIKE', '%'. $searchTerm .'%')
-                    ->orWhere('name','LIKE', '%'. $searchTerm .'%')
-                    ->orWhere('description','LIKE', '%'. $searchTerm .'%')
-                    ->orWhere('recomend','LIKE', '%'. $searchTerm .'%')
-                    ->get();
+                $Prescriptions = Prescription::where('user_id', auth()->user()->id)
+                ->where(function ($query) use ($searchTerm) {
+                    $query->where('diagn', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('objective', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('name', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('description', 'LIKE', '%' . $searchTerm . '%')
+                        ->orWhere('recomend', 'LIKE', '%' . $searchTerm . '%');
+                })
+                ->get();
             }
         }
          
