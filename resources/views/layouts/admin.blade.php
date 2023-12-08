@@ -12,7 +12,7 @@
         <title> @yield('title') </title>
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <link rel="apple-touch-icon" href="{{ asset('images/theme/ico/apple-icon-120.png') }}">
-        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/theme/ico/favicon.ico') }}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
         <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
@@ -27,6 +27,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/vendors.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/charts/apexcharts.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/extensions/toastr.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/forms/select/select2.min.css') }}">
         <!-- END: Vendor CSS-->
 
         <!-- BEGIN: Theme CSS-->
@@ -37,8 +38,8 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/themes/dark-layout.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/themes/bordered-layout.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/themes/semi-dark-layout.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/web/bootstrap.min.css') }}">
-        
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/extensions/sweetalert2.min.css') }}">
+
         <!-- END: Theme CSS-->
 
         <!-- BEGIN: Page CSS-->
@@ -50,8 +51,7 @@
         <!-- END: Page CSS-->
 
         <!-- BEGIN: Custom CSS-->
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/sweetalert2.min.css') }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css?v=1.1') }}">
         <!-- END: Custom CSS-->
 
     </head>
@@ -71,13 +71,14 @@
                 <div class="content-header row">
                 </div>
                 <div class="content-body">
-                    <!-- @include("include.flashMessage") -->
+                    @include("include.flashMessage")
                     @yield('content')
                 </div>
             </div>
         </div>
         <!-- END: Content-->
 
+        <div id="pageloader" class=""></div>
         <div class="sidenav-overlay"></div>
         <div class="drag-target"></div>
 
@@ -90,22 +91,18 @@
         <!-- BEGIN: Page Vendor JS-->
         <script src="{{ asset('js/theme/charts/apexcharts.min.js') }}"></script>
         <script src="{{ asset('js/theme/extensions/toastr.min.js') }}"></script>
+        <script src="{{ asset('js/theme/extensions/sweetalert2.all.min.js') }}"></script>
+        <script src="{{ asset('js/theme/forms/select/select2.full.min.js') }}"></script>
+        <script src="{{ asset('js/theme/scripts/forms/form-select2.js') }}"></script>
         <!-- END: Page Vendor JS-->
 
         <!-- BEGIN: Theme JS-->
         <script src="{{ asset('js/theme/core/app-menu.js') }}"></script>
         <script src="{{ asset('js/theme/core/app.js') }}"></script>
-        <script src="{{ asset('resources/js/bootstrap.js') }}"></script>
-
-        {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script> --}}
         <!-- END: Theme JS-->
 
-        <script src="{{ asset('js/custom.js') }}"></script>
+        <script src="{{ asset('js/custom.js?v=1.1') }}"></script>
         <script>
-            let toastCofig = {
-                closeButton: true,
-                tapToDismiss: false
-            }
 
             @if(session('success'))
                 toastr.success("{{ session('success') }}", 'Success!', toastCofig);
@@ -124,8 +121,6 @@
             @endif
         </script>
         
-        <script src="{{ asset('js/sweetalert.min.js') }}"></script>
-
 
         <!-- BEGIN: Page JS-->
         @stack('page_script')

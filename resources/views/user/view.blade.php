@@ -7,6 +7,7 @@
     text-align: center;
       } */
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
 @section('content')
 
 <!-- Main content -->
@@ -162,27 +163,57 @@
                 <label for="copy_recomend" class="form-label">Recommendation:</label>
                 <input type="text" class="form-control" id="copy_recomend">
               </div>
-            </div>
-            <div class="mb-3">
+              <div class="mb-3">
                 <label for="copy_description" class="form-label">Description:</label>
                 <textarea type="text" class="form-control" id="copy_description" rows="3"></textarea>
+              </div>
+              <div class="mb-3">
+                  <label for="copy_diagn" class="form-label">Diagn</label>
+                  <textarea type="text" class="form-control" id="copy_diagn" rows="3"></textarea>
+              </div>
             </div>
-            <div class="mb-3">
-                <label for="copy_diagn" class="form-label">Diagn</label>
-                <textarea type="text" class="form-control" id="copy_diagn" rows="3"></textarea>
-            </div>
+           
             
             <!-- Modal Footer -->
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              {{-- <button type="button" class="btn btn-primary">Save Changes</button> --}}
+              <button type="button" class="btn btn-primary" id="copyToButton" >Copy to </button>
           </div>
 
       </div>
   </div>
 </div>
+<div class="modal fade" id="copyModalView" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h5 class="modal-title" id="examplePrescription">Select Users</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <div id="copyModalRendered"></div>
+          </div>
+           
+            
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveCopiedData" >Copy </button>
+        </div>
+
+    </div>
+</div>
+</div>
 </section>
 @push('page_script')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+
+
 <script>
   var site_url = window.location.protocol + '//' + window.location.host;
   $(document).ready(function () {
@@ -201,6 +232,7 @@
                    $("#copy_diagn").val(response.object.diagn)
                    $("#copy_objective").val(response.object.objective)
                    $("#copy_recomend").val(response.object.recomend)
+                   $("#copyToButton").val(response.object.id);
                       eventModal.show();
                     console.log(response);
                 },
@@ -210,6 +242,64 @@
             });
         });
     });
+</script>
+<script>
+   $('#exampleModal').on('shown.bs.modal', function () {
+        // When the "Copy to" button is clicked
+        $('#copyToButton').click(function () {
+          var priscriptionId = $(this).val();
+          $.ajax({
+                url: site_url + '/admin/copy/to/user',
+                type: 'GET',
+                data: { prescription_id: priscriptionId },
+                success: function (response) {
+                  
+                  var eventModal = new bootstrap.Modal(document.getElementById('copyModalView'));
+                  eventModal.show()
+                  $('#copyModalRendered').html("");
+                  $('#copyModalRendered').html(response);
+                  eventModal.modal({
+                    show:false,
+                    backdrop:'static'
+                    });
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+    $('#copyModalView').on('shown.bs.modal', function () {
+      $('#saveCopiedData').click(function () {
+        $('#multiple-checkboxes').multiselect({
+          includeSelectAllOption: true,
+        });
+        // Hide the first modal
+        var prescriptionId = $('.prescription').data('id');
+        var selectedUsers = $('#multiple-checkboxes').val();
+        if (!selectedUsers || selectedUsers.length === 0) {
+          $("#errorUserNotSelected").append("Please select at least one user.");
+          return false;
+        }
+        $.ajax({
+            url: site_url + '/admin/save/copy/data',
+            type: 'POST', 
+            data: {
+                prescription_id: prescriptionId,
+                selected_users: selectedUsers,
+                '_token': $('meta[name="csrf-token"]').attr('content'),
+            },
+            success: function (response) {
+                // Handle the success response as needed
+                window.location.reload();
+                console.log('Success:', response);
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            }
+        });
+    });
+  });
 </script>
 @endpush
 @endsection
