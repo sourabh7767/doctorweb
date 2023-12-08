@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class CustomSearchTag extends Model
 {
     use HasFactory;
+
+    public function customSearch()
+    {
+        return $this->belongsTo(CustomSearch::class);
+    }
 }

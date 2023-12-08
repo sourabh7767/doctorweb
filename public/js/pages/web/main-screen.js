@@ -568,9 +568,35 @@ $('.buttonAppend').on('click', '.secondryOutline', function() {
         $("#searchInput").val("");
         $(".secondryOutline").removeClass('active');
     });
-
-    $('.customtagdelete').on('click', function () {
+    
+    $(document).on('click', '.customtagdelete', function () {
         var tagId = $(this).data('id');
-        alert(tagId)
+        var deleteButton = $(this);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                $('.loader').show();
+                $.ajax({
+                    type: 'post',
+                    url: site_url + '/user/delete/left/tags',
+                    data: {
+                        '_token': $('meta[name="csrf-token"]').attr('content'),
+                        'tag_id': tagId
+                    },
+                    success: function (data) {
+                        $('.loader').hide();
+                        deleteButton.closest('.tag').remove();
+                        toastr.success(data.message, 'Success!', toastCofig);
+                    },
+                });
+            }
+        });
     });
 });

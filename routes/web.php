@@ -43,6 +43,7 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::post('/add/search/tags', 'Web\HomeController@addSearchableTags')->name('addSearchableTags');
         Route::post('/get-button-description', 'Web\HomeController@getButtonDescription')->name('getButtonDescription');
         Route::get('/prescription/data', 'Web\HomeController@getPrescription')->name('getPrescription');
+        Route::post('/delete/left/tags', 'Web\HomeController@deleteLeftTags')->name('deleteLeftTags');
  
     });
     

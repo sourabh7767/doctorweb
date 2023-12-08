@@ -101,7 +101,7 @@
                                                 </div>  
                                                 <div class="form-group mb-2">
                                                     <input type="password" value="" placeholder="Re-enter New Password Password..." class="customControlInputs" name="change_confirm_pass" id="change_confirm_pass">
-                                                    <span id="change_confirm_pass_eye" class="fa fa-fw fa-eye field_icon"></span> 
+                                                    <span sdd="change_confirm_pass_eye" class="fa fa-fw fa-eye field_icon"></span> 
                                                 </div>  
                                             </form>
                                         </div>
@@ -187,11 +187,12 @@
                     <div class="leftCard">
                         <ul class="leftCardMenus" id="UlTags">
                             @foreach ($customSearchObj as $item)
-                            <li class="leftCardItems row">
+                            <li class="leftCardItems row" {{@$item->id}}>
                                 <h6 class="cardItemHead col-md-4">{{@$item->title}}</h6>
                                 <p class="cardItemValue col-md-8 ">
                                     @foreach ($item->customTags as $tag)
-                                    <span class="tag" data-tag="{{ @$tag->tag }}" data-type="true">{{@$tag->tag}}</span>
+                                    <span class="tag" data-tag="{{ @$tag->tag }}" data-type="true">{{@$tag->tag}} <span class="crossValue1 customtagdelete" data-id="{{ @$tag->id }}"><i class="las la-times"></i></span></span>
+                                    
                                     @endforeach
                                 </p>
                             </li>

@@ -245,5 +245,14 @@ class HomeController extends Controller
         $prescription = Prescription::find($request->card_id);
         return response()->json(['success' => true,'message' => "Prescription get successfully!",'object' => $prescription]);
     }
+    public function deleteLeftTags(Request $request)
+    {
+        $tags = CustomSearchTag::find($request->tag_id);
+        if ($tags->customSearch->customTags->count() === 1) {
+            $tags->customSearch->delete();
+        }
+        $tags->delete();
+        return response()->json(['success' => 'true', 'message' => 'Tag Deleted']);
+    }
 
 }
