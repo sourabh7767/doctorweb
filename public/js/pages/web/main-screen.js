@@ -174,8 +174,11 @@ function copyToClipboard(element) {
                 $('#AddButtonForm')[0].reset();
 
                 var newButton = data.newButton;
-                console.log(newButton )
-                var buttonHTML = '<button class="secondryOutline" data-button-position="' + newButton.place + '" data-button-id="' + newButton.id + '"><span class="btnText">' + newButton.title + '</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button>';
+                var buttonHTML = '<div class="cardItemValue">' +
+                    '<span class="tag tag-data" data-button-position="' + newButton.place + '" data-button-id="' + newButton.id + '">' + newButton.title + '</span>' +
+                    '<span class="crossValue buttondeleteCrose" data-button-id="' + newButton.id + '"><i class="las la-times"></i></span>' +
+                '</div>';
+                console.log(buttonHTML)
                     $('.buttonAppend').append(buttonHTML);
                 $('.loader').hide();
                 toastr.success(data.message, 'Success!', toastCofig);
@@ -261,9 +264,8 @@ function copyToClipboard(element) {
     });
     
     $(document).on('click', '.buttondeleteCrose' ,function (e) {
-          var button = $(this).closest('.secondryOutline');
-          var buttonId = button.data('button-id');
-          
+          var button = $(this);
+          var buttonId = $(this).data('button-id');
                 Swal.fire({
                     title: 'Are you sure?',
                     text: "You won't be able to revert this!",
@@ -284,8 +286,7 @@ function copyToClipboard(element) {
                             },
                             success: function (data) {
                                 toastr.success(data.message, 'Success!', toastCofig);
-                                
-                                  button.remove(); 
+                                button.closest('.cardItemValue').remove();
                             },
                             error: function (error) {
                                 console.error('Error deleting button:', error);
@@ -438,7 +439,7 @@ $('#clearChangePasswordForm').on('click', function(event) {
 $('#changePasswordForm')[0].reset();
 });
 
-$('.buttonAppend').on('click', '.secondryOutline', function() {
+$('.buttonAppend').on('click', '.tag-data', function() {
         var buttonId = $(this).data('button-id');
         var buttonPosition = $(this).data('button-position');
         

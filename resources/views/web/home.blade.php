@@ -127,7 +127,12 @@
                 <div class="buttons-wrapper">
                     <div class="btnGroup w-100 me-2 buttonAppend">
                         @foreach ($buttons as $button)
-                        <button class="secondryOutline" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}"><span class="btnText">{{$button->title}}</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button>
+                        <div class="cardItemValue">
+                            <span class="tag tag-data" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}">{{$button->title}}
+                            </span>
+                            <span class="crossValue buttondeleteCrose" data-button-id="{{ @$button->id }}"><i class="las la-times"></i></span>
+                        </div>
+                        {{-- <button class="secondryOutline" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}"><span class="btnText">{{$button->title}}</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button> --}}
                         @endforeach
                     </div>
                     <span class="addOnBtn m-auto m-md-0 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#addBtnModal">
