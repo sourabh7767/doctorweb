@@ -530,17 +530,11 @@ $('.buttonAppend').on('click', '.tag-data', function() {
     $(document).on('click', '.tag', function () {
     //$('.tag').on('click', function () {
         $('.loader').show();
-       var dataId = $(this).data('id');
-       console.log('.cardItemValueTag_'+dataId);
-        var isActive = $('.tagTitle').hasClass('active');
-        if(isActive){
-            $('.tagTitle').removeClass('active');
-            $('#cardItemValueTag_'+dataId).removeClass('active');
-        }else{
-            $('.tagTitle').addClass('active');
-            $('#cardItemValueTag_'+dataId).addClass('active');
-        }
-        var activeTags = $('.tagTitle.active');
+        var dataId = $(this).data('id');
+        var cardItemValueTag = $('#cardItemValueTag_' + dataId);
+        $(this).toggleClass('active');
+        cardItemValueTag.toggleClass('active', $(this).hasClass('active'));
+        var activeTags = $('.tag.active');
         var searchData = [];
         activeTags.each(function () {
             var tagData = {
