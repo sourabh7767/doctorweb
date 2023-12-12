@@ -535,10 +535,10 @@ $('.buttonAppend').on('click', '.tag-data', function() {
         var isActive = $('.tagTitle').hasClass('active');
         if(isActive){
             $('.tagTitle').removeClass('active');
-            $('.cardItemValueTag_'+dataId).removeClass('active');
+            $('#cardItemValueTag_'+dataId).removeClass('active');
         }else{
             $('.tagTitle').addClass('active');
-            $('.cardItemValueTag_'+dataId).addClass('active');
+            $('#cardItemValueTag_'+dataId).addClass('active');
         }
         var activeTags = $('.tagTitle.active');
         var searchData = [];
