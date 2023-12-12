@@ -174,7 +174,7 @@ function copyToClipboard(element) {
                 $('#AddButtonForm')[0].reset();
 
                 var newButton = data.newButton;
-                var buttonHTML = '<div class="cardItemValue">' +
+                var buttonHTML = '<div class="cardItemValue" id="cardItemValueButton_' + newButton.id + '">' +
                     '<span class="tag tag-data" data-button-position="' + newButton.place + '" data-button-id="' + newButton.id + '">' + newButton.title + '</span>' +
                     '<span class="crossValue buttondeleteCrose" data-button-id="' + newButton.id + '"><i class="las la-times"></i></span>' +
                 '</div>';
@@ -320,7 +320,7 @@ function copyToClipboard(element) {
                        <div class="col-md-8">
                            ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
                                ? data.newCustomSearch[0].custom_tags.map(tag => `
-                                   <div class="cardItemValue">
+                                   <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
                                        <span class="tag" data-tag="${tag.tag}" data-type="true">${tag.tag}</span>
                                        <span class="crossValue crossValue1 customtagdelete" data-id="${tag.id}"><i class="las la-times"></i></span>
                                    </div>
@@ -442,8 +442,8 @@ $('#changePasswordForm')[0].reset();
 $('.buttonAppend').on('click', '.tag-data', function() {
         var buttonId = $(this).data('button-id');
         var buttonPosition = $(this).data('button-position');
-        
-        if(!$(this).hasClass('active')){
+        if(!$('#cardItemValueButton_'+buttonId).hasClass('active')){
+            $('#cardItemValueButton_'+buttonId).addClass('active');
             $.ajax({
                 url: site_url + '/user/get-button-description',
                 type: 'POST',
@@ -481,6 +481,7 @@ $('.buttonAppend').on('click', '.tag-data', function() {
                 }
             });
         }else{
+            $('#cardItemValueButton_'+buttonId).removeClass('active');
             $.ajax({
                 url: site_url + '/user/get-button-description',
                 type: 'POST',
@@ -511,7 +512,7 @@ $('.buttonAppend').on('click', '.tag-data', function() {
                 }
             });
         }
-        $(this).toggleClass('active');
+        // $(this).toggleClass('active');
     });
 
     // $(document).on('click', 'button.secondryOutline', function() {
@@ -529,9 +530,17 @@ $('.buttonAppend').on('click', '.tag-data', function() {
     $(document).on('click', '.tag', function () {
     //$('.tag').on('click', function () {
         $('.loader').show();
-        var isActive = $(this).hasClass('active');
-        $(this).toggleClass('active', !isActive);
-        var activeTags = $('.tag.active');
+       var dataId = $(this).data('id');
+       console.log('.cardItemValueTag_'+dataId);
+        var isActive = $('.tagTitle').hasClass('active');
+        if(isActive){
+            $('.tagTitle').removeClass('active');
+            $('.cardItemValueTag_'+dataId).removeClass('active');
+        }else{
+            $('.tagTitle').addClass('active');
+            $('.cardItemValueTag_'+dataId).addClass('active');
+        }
+        var activeTags = $('.tagTitle.active');
         var searchData = [];
         activeTags.each(function () {
             var tagData = {

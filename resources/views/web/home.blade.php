@@ -127,7 +127,7 @@
                 <div class="buttons-wrapper">
                     <div class="btnGroup w-100 me-2 buttonAppend">
                         @foreach ($buttons as $button)
-                        <div class="cardItemValue">
+                        <div class="cardItemValue" id="cardItemValueButton_{{@$button->id}}">
                             <span class="tag tag-data" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}">{{$button->title}}
                             </span>
                             <span class="crossValue buttondeleteCrose" data-button-id="{{ @$button->id }}"><i class="las la-times"></i></span>
@@ -196,8 +196,8 @@
                                 <h6 class="cardItemHead col-md-4">{{@$item->title}}</h6>
                                 <div class="col-md-8">
                                 @foreach ($item->customTags as $tag)
-                                    <div class="cardItemValue">
-                                            <span class="tag" data-tag="{{ @$tag->tag }}" data-type="true">{{@$tag->tag}} 
+                                    <div class="cardItemValue" id="cardItemValueTag_{{@$tag->id}}">
+                                            <span class="tag tagTitle" data-tag="{{ @$tag->tag }}" data-type="true" data-id="{{ @$tag->id }}">{{@$tag->tag}} 
                                             </span>
                                             <span class="crossValue crossValue1 customtagdelete" data-id="{{ @$tag->id }}"><i class="las la-times"></i></span>
                                     </div>
