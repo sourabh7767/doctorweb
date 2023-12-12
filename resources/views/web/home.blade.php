@@ -189,20 +189,24 @@
                             @foreach ($customSearchObj as $item)
                             <li class="leftCardItems row" {{@$item->id}}>
                                 <h6 class="cardItemHead col-md-4">{{@$item->title}}</h6>
-                                <p class="cardItemValue col-md-8 ">
-                                    @foreach ($item->customTags as $tag)
-                                    <span class="tag" data-tag="{{ @$tag->tag }}" data-type="true">{{@$tag->tag}} <span class="crossValue1 customtagdelete" data-id="{{ @$tag->id }}"><i class="las la-times"></i></span></span>
-                                    
-                                    @endforeach
-                                </p>
+                                <div class="col-md-8">
+                                @foreach ($item->customTags as $tag)
+                                    <div class="cardItemValue">
+                                            <span class="tag" data-tag="{{ @$tag->tag }}" data-type="true">{{@$tag->tag}} 
+                                            </span>
+                                            <span class="crossValue crossValue1 customtagdelete" data-id="{{ @$tag->id }}"><i class="las la-times"></i></span>
+                                    </div>
+                                @endforeach
+                                </div>
                             </li>
                             @endforeach
                            
                         </ul>
+                        <span class="addOnBtn mt-5" data-bs-toggle="modal" data-bs-target="#addOnBtnModal"><i class="las la-plus"></i></span>
                         <div class="leftBtmBtn mt-3 text-end">
                             <button class="clearBtn" id="removeAllData">Clear</button>
                         </div>
-                        <span class="addOnBtn" data-bs-toggle="modal" data-bs-target="#addOnBtnModal"><i class="las la-plus"></i></span>
+                        
                         <!-- Start AddBtn modal -->
                             <!-- Modal -->
                             <div class="modal fade" id="addOnBtnModal" tabindex="-1" aria-labelledby="addOnBtnLabel" aria-hidden="true" data-bs-backdrop="static">
@@ -311,11 +315,11 @@
                         <div class="col-md-12 col-lg-12 col-xl-6 col-xxl-7 mb-3 mb-xl-0">
                             <form class="detailsForm">
                                 <div class="dg field">
-                                    <textarea placeholder="Diagnoze..." class="me-2" id="to_diagn" rows="6"></textarea>
+                                    <textarea placeholder="Diagnoze..." class="me-2" id="to_diagn" rows="1"></textarea>
                                     <button class="secondryBtn copy" data-target-id="to_diagn"  type="button">Copy</button>
                                 </div>
                                 <div class="obj field">
-                                    <textarea class="me-2 " placeholder="Objektīvās atradnes..." rows="6" id="to_objective"></textarea>
+                                    <textarea class="me-2 " placeholder="Objektīvās atradnes..." rows="10" id="to_objective"></textarea>
                                     <button class="secondryBtn copy"  data-target-id="to_objective" type="button">Copy</button>
                                 </div>
                                 <div class="rek field">
