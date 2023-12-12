@@ -6,6 +6,12 @@
   table,tr,th,td {
     text-align: center;
       } */
+    .modal .modal-body {
+        height: calc(100vh - 170px);
+        overflow-y: auto !important;
+        overflow-x:hidden
+    }
+    #copyModalView .modal-body{height: auto}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
 @section('content')
@@ -93,7 +99,7 @@
                                   {{@$item->description}}
                                 </td>
                                 <td>
-                                  <i class="fas fa-eye getPriscriptionData" data-id="{{@$item->id}}"></i>
+                                  <i style="cursor: pointer;" class="fas fa-eye getPriscriptionData" data-id="{{@$item->id}}"></i>
                                 </td>
                               </tr>
                               @empty
