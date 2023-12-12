@@ -313,16 +313,21 @@ function copyToClipboard(element) {
                     $("#tagsInput").tagsinput('removeAll');
                     console.log("=========>",data)
                    // Assuming data.newCustomSearch is an array with one element
-                    var newCustomSearchHTML = `
-                    <li class="leftCardItems row">
-                        <h6 class="cardItemHead col-md-4">${data.newCustomSearch[0].title}</h6>
-                        <p class="cardItemValue col-md-8">
-                            ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
-                                ? data.newCustomSearch[0].custom_tags.map(tag => `<span class=tag data-tag=${tag.tag} data-type=true>${tag.tag}</span> `).join('')
-                                : ''}
-                        </p>
-                    </li>
-                `;
+                   var newCustomSearchHTML = `
+                   <li class="leftCardItems row" data-id="${data.newCustomSearch[0].id}">
+                       <h6 class="cardItemHead col-md-4">${data.newCustomSearch[0].title}</h6>
+                       <div class="col-md-8">
+                           ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
+                               ? data.newCustomSearch[0].custom_tags.map(tag => `
+                                   <div class="cardItemValue">
+                                       <span class="tag" data-tag="${tag.tag}" data-type="true">${tag.tag}</span>
+                                       <span class="crossValue crossValue1 customtagdelete" data-id="${tag.id}"><i class="las la-times"></i></span>
+                                   </div>
+                               `).join('')
+                               : ''}
+                       </div>
+                   </li>
+               `;
                 $('#UlTags').append(newCustomSearchHTML);
                 toastr.success(data.message, 'Success!', toastCofig);
                 },
@@ -592,7 +597,10 @@ $('.buttonAppend').on('click', '.secondryOutline', function() {
                     },
                     success: function (data) {
                         $('.loader').hide();
-                        deleteButton.closest('.tag').remove();
+                        deleteButton.closest('.cardItemValue').remove();
+                        if ($('.cardItemValue').length === 0) {
+                            deleteButton.closest('.leftCardItems').remove();
+                        }
                         toastr.success(data.message, 'Success!', toastCofig);
                     },
                 });
