@@ -185,6 +185,19 @@ class User extends Authenticatable
 
         return isset($list[$this->role])?$list[$this->role]:"Not defined";
     }
+    public function getUserRole(){
+
+
+        $list = User::where('id',$this->id)->first()->role;
+        // $list[self::ROLE_ADMIN] = "Admin";
+        if($list == User::ROLE_ADMIN){
+            $role = "Role Admin";
+        }else{
+            $role = "Role User";
+        }
+
+        return $role;
+    }
 
 
 

@@ -55,7 +55,7 @@
                                       <th>Email</th>
                                       <td colspan="1"><a href="mailto:jashely775@gmail.com">{{$model->email}}</a></td>
                                       <th>Role</th>
-                                      <td colspan="1">{{$model->getRole()}}</td>
+                                      <td colspan="1">{{$model->getUserRole()}}</td>
                                     </tr>
                                    
                                     
