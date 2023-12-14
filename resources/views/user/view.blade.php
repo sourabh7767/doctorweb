@@ -11,13 +11,18 @@
         overflow-y: auto !important;
         overflow-x:hidden
     }
-    #copyModalView .modal-body{height: auto}
+    #copyModalView .modal-body{height: 300px}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
 @section('content')
 
 <!-- Main content -->
     <section>
+      <div class="loader" style="display: none;">
+        <div class="spinner-grow text-primary spinner-border-xl" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
        <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
@@ -201,7 +206,15 @@
 
           <!-- Modal Body -->
           <div class="modal-body">
-            <div id="copyModalRendered"></div>
+            <div class="container">
+              <div class="row">
+                <h4>checkbox</h4>
+                <select class="js-select2" id="multiple-checkboxes" multiple="multiple">
+                  <option class="" disabled>select users</option>
+                  </select>
+                  <div id="errorUserNotSelected" style="color:red;"></div>
+              </div>
+          </div>
           </div>
            
             
@@ -218,6 +231,15 @@
 @push('page_script')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+<script>
+  $(".js-select2").select2({
+closeOnSelect : false,
+placeholder : "Select Users",
+// allowHtml: true,
+allowClear: true,
+tags: true
+});
+</script>
 
 
 <script>
@@ -262,12 +284,8 @@
                   
                   var eventModal = new bootstrap.Modal(document.getElementById('copyModalView'));
                   eventModal.show()
-                  $('#copyModalRendered').html("");
-                  $('#copyModalRendered').html(response);
-                  eventModal.modal({
-                    show:false,
-                    backdrop:'static'
-                    });
+                  $('.js-select2').html("");
+                  $('.js-select2').html(response);
                 },
                 error: function (error) {
                     console.error('Error:', error);
@@ -284,7 +302,7 @@
         var prescriptionId = $('.prescription').data('id');
         var selectedUsers = $('#multiple-checkboxes').val();
         if (!selectedUsers || selectedUsers.length === 0) {
-          $("#errorUserNotSelected").append("Please select at least one user.");
+          $("#errorUserNotSelected").html("Please select at least one user.");
           return false;
         }
         $.ajax({
