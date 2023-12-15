@@ -208,7 +208,7 @@
           <div class="modal-body">
             <div class="container">
               <div class="row">
-                <h4>checkbox</h4>
+                <h4>Users</h4>
                 <select class="js-select2" id="multiple-checkboxes" multiple="multiple">
                   <option class="" disabled>select users</option>
                   </select>
