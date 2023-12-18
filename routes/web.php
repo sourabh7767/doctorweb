@@ -59,7 +59,9 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::get('user/change-password','Admin\UserController@changePasswordView')->name('user.changePassword');
         Route::post('user/change-password','Admin\UserController@changePassword')->name('user.changePassword.submit');
         Route::get('copy/to/user','Admin\HomeController@getCopyPrescriptionModal')->name('admin.getCopyPrescriptionModal');
+        Route::get('copy/all/to/user','Admin\HomeController@CopyAllPrescriptionModal')->name('admin.CopyAllPrescriptionModal');
         Route::post('save/copy/data','Admin\HomeController@saveCopiedData')->name('admin.saveCopiedData');
+        Route::post('save','Admin\HomeController@saveAllCopiedData')->name('admin.saveAllCopiedData');
     });
 });
 

@@ -122,14 +122,17 @@
                           </div>
                           <br>
 
-                           <div class="row"> 
-                            <div class="col-md-6">
-                            <a id="tool-btn-manage"  class="btn btn-primary text-right" href="{{route('users.index')}}" title="Back">Back</a>
+                          <div class="row"> 
+                            <div class="col-md-4">
+                              <a id="tool-btn-manage"  class="btn btn-primary text-right" href="{{route('users.index')}}" title="Back">Back</a>
                             </div>
-                             <div class="col-md-6">
-                            <a href="{{route('user.changeStatus',$model->id)}}" class="active_status btn btn-{{($model->status ==1)?'danger':'primary'}}"  data-id = {{$model->id}} title="Manage">{{($model->status == 1)?"Inactive":"Active"}}</i></a>
+                            <div class="col-md-4">
+                              <a href="{{route('user.changeStatus',$model->id)}}" class="active_status btn btn-{{($model->status ==1)?'danger':'primary'}}"  data-id = {{$model->id}} title="Manage">{{($model->status == 1)?"Inactive":"Active"}}</i></a>
                             </div>
-                </div>
+                            <div class="col-md-4">
+                              <a class="btn btn-primary" id="multipleCopyData" data-id="{{@$model->id}}">Copy prescriptions</i></a>
+                            </div>
+                          </div>
 
 
               
@@ -227,6 +230,44 @@
     </div>
 </div>
 </div>
+
+{{-- ================================== --}}
+
+<div class="modal fade" id="copyAllPrescreptionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h5 class="modal-title" id="examplePrescription">Select Users</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <h4>Users</h4>
+                <select class="js-select2" id="multiple-Prescriptio" multiple="multiple">
+                  <option class="" disabled>select users</option>
+                  </select>
+                  <div id="errorUserNotSelectedOuter" style="color:red;"></div>
+              </div>
+          </div>
+          </div>
+           
+            
+          <!-- Modal Footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveMultipleCopiedData" data-id="{{@$model->id}}">Copy </button>
+        </div>
+
+    </div>
+</div>
+</div>
+
+{{-- ========================================= --}}
 </section>
 @push('page_script')
 
@@ -324,6 +365,54 @@ tags: true
         });
     });
   });
+  // saveMultipleCopiedData
+  $('#multipleCopyData').click(function () {
+          var userId = $(this).data('id');
+          $.ajax({
+                url: site_url + '/admin/copy/all/to/user',
+                type: 'GET',
+                data: { user_id: userId },
+                success: function (response) {
+                  
+                  var eventModal = new bootstrap.Modal(document.getElementById('copyAllPrescreptionModal'));
+                  eventModal.show()
+                  $('.js-select2').html("");
+                  $('.js-select2').html(response);
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+        // $('#saveMultipleCopiedData').click(function () {
+          $(document).on('click', '#saveMultipleCopiedData', function () {
+            var userId = $(this).data('id');
+            $('#multiple-Prescriptiom').multiselect({
+            includeSelectAllOption: true,
+          });
+          // Hide the first modal
+          var selectedUsers = $('#multiple-Prescriptio').val();
+          if (!selectedUsers || selectedUsers.length === 0) {
+            $("#errorUserNotSelectedOuter").html("Please select at least one user.");
+            return false;
+          }
+          $.ajax({
+              url: site_url + '/admin/save',
+              type: 'POST', 
+              data: {
+                user_id : userId,
+                  selected_users: selectedUsers,
+                  '_token': $('meta[name="csrf-token"]').attr('content'),
+              },
+              success: function (response) {
+                  window.location.reload();
+                  console.log('Success:', response);
+              },
+              error: function (error) {
+                  console.error('Error:', error);
+              }
+          });
+        });
 </script>
 @endpush
 @endsection

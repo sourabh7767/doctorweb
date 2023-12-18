@@ -75,5 +75,46 @@ class HomeController extends Controller
         
         return Redirect::back()->with('success', 'Prescriptions copied');
     }
+    public function CopyAllPrescriptionModal(Request $request)
+    {
+        
+        $users = User::where('id','!=',$request->user_id)->where('role','!=',User::ROLE_ADMIN)->get();
+        return view('user.select-user',compact('users'))->render();
+    }
+
+    public function saveAllCopiedData(Request $request)
+    {
+        $abc = [];
+        $user = $request->user_id;
+        $selectedUsers = $request->input('selected_users');
+        try {
+            DB::beginTransaction();
+    
+            foreach ($selectedUsers as $userId) {
+                $originalPrescriptions = Prescription::where('user_id', $user)->get();
+                $abc[] = $originalPrescriptions;
+                foreach ($originalPrescriptions as $originalPrescription) {
+                    $newPrescription = $originalPrescription->replicate();
+                    $newPrescription->user_id = $userId;
+                    $newPrescription->save();
+    
+                    $originalPrescriptionTags = PrescriptionTag::where('prescription_id', $originalPrescription->id)->get();
+    
+                    foreach ($originalPrescriptionTags as $originalPrescriptionTag) {
+                        $newPrescriptionTag = $originalPrescriptionTag->replicate();
+                        $newPrescriptionTag->user_id = $userId;
+                        $newPrescriptionTag->prescription_id = $newPrescription->id;
+                        $newPrescriptionTag->save();
+                    }
+                }
+            }
+    
+            DB::commit();
+            return response()->json(['success' => true , 'message' =>  'Prescriptions copied']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['error' => true , 'message' =>  'Prescriptions not copied']);
+        }
+    }
     
 }
