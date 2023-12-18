@@ -76,21 +76,19 @@
                                       <td colspan="1">{{$model->updated_at}}</td>
                                      
                                     </tr>
-
-                          
-
-                                    
                                </tbody>
                            </table>
                            <table class="table table-striped table-bordered detail-view">
                             <tbody>
                               <tr>
-                                <th style="text-align: center;" colspan="4">Prescriptions</th>
+                                <th style="text-align: center;" colspan="3">Prescriptions</th>
+                                  <th><a class="btn btn-primary" id="multipleCopyData" data-id="{{@$model->id}}">Copy prescriptions</i></a></th>
                               </tr>
                               <tr>
                                 <th style="width: 50px;">id</th>
                                 <th>title</th>
                                 <th>Description</th>
+                                <th>View</th>
                               </tr>
                               @forelse ($priscription as $item)
                               <tr>
@@ -129,9 +127,6 @@
                             <div class="col-md-4">
                               <a href="{{route('user.changeStatus',$model->id)}}" class="active_status btn btn-{{($model->status ==1)?'danger':'primary'}}"  data-id = {{$model->id}} title="Manage">{{($model->status == 1)?"Inactive":"Active"}}</i></a>
                             </div>
-                            <div class="col-md-4">
-                              <a class="btn btn-primary" id="multipleCopyData" data-id="{{@$model->id}}">Copy prescriptions</i></a>
-                            </div>
                           </div>
 
 
@@ -153,7 +148,7 @@
 </button> --}}
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog">
       <div class="modal-content">
 
@@ -170,20 +165,20 @@
                   <input type="text" class="form-control" id="copy_name">
               </div>
               <div class="mb-3">
-                <label for="copy_objective" class="form-label">Objective:</label>
-                <input type="text" class="form-control" id="copy_objective">
-              </div>
-              <div class="mb-3">
-                <label for="copy_recomend" class="form-label">Recommendation:</label>
-                <input type="text" class="form-control" id="copy_recomend">
-              </div>
-              <div class="mb-3">
                 <label for="copy_description" class="form-label">Description:</label>
                 <textarea type="text" class="form-control" id="copy_description" rows="3"></textarea>
               </div>
               <div class="mb-3">
                   <label for="copy_diagn" class="form-label">Diagn</label>
                   <textarea type="text" class="form-control" id="copy_diagn" rows="3"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="copy_objective" class="form-label">Objective:</label>
+                <input type="text" class="form-control" id="copy_objective">
+              </div>
+              <div class="mb-3">
+                <label for="copy_recomend" class="form-label">Recommendation:</label>
+                <input type="text" class="form-control" id="copy_recomend">
               </div>
             </div>
            
@@ -197,7 +192,7 @@
       </div>
   </div>
 </div>
-<div class="modal fade" id="copyModalView" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="copyModalView" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
   <div class="modal-dialog">
       <div class="modal-content">
 
@@ -233,7 +228,7 @@
 
 {{-- ================================== --}}
 
-<div class="modal fade" id="copyAllPrescreptionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="copyAllPrescreptionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
   <div class="modal-dialog">
       <div class="modal-content">
 
