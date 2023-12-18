@@ -81,7 +81,7 @@ class HomeController extends Controller
             // if ($prescriptionTags) {
             //     $Prescriptions = Prescription::whereIn('id', $priscriptionid)->where('user_id',auth()->user()->id)->get();
             // }
-            $Prescriptions = Prescription::whereHas('tags', function ($query) use ($explodeSearch) {
+            $Prescriptions = Prescription::where('user_id', auth()->user()->id)->whereHas('tags', function ($query) use ($explodeSearch) {
                 $query->whereIn('tags', $explodeSearch);
             }, '=', count($explodeSearch))->get();
         }else{
@@ -248,11 +248,13 @@ class HomeController extends Controller
     public function deleteLeftTags(Request $request)
     {
         $tags = CustomSearchTag::find($request->tag_id);
+        $custom_search_id = $tags->custom_search_id;
         if ($tags->customSearch->customTags->count() === 1) {
             $tags->customSearch->delete();
         }
         $tags->delete();
-        return response()->json(['success' => 'true', 'message' => 'Tag Deleted']);
+        $count = CustomSearchTag::where("custom_search_id",$custom_search_id)->count();
+        return response()->json(['success' => 'true', 'message' => 'Tag Deleted','count'=>$count]);
     }
 
 }
