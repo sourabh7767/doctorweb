@@ -129,15 +129,31 @@ $(document).on('click', '.crossValue' ,function (e) {
             var prescriptionData = data.object;
             if(!isActive){
                 $('#to_diagn').val(function (_, currentValue) {
-                    return currentValue + '\n' + prescriptionData.diagn;
+                    if(currentValue === ""){
+                        
+                        return currentValue + prescriptionData.diagn;
+                    }else{
+                        
+                        return currentValue + '\n' + prescriptionData.diagn;
+                    }
+                    
                 });
 
                 $('#to_objective').val(function (_, currentValue) {
-                    return currentValue + '\n' + prescriptionData.objective;
+                    if(currentValue === ""){
+                        return currentValue + prescriptionData.objective;
+                    }else{
+                        return currentValue + '\n' + prescriptionData.objective;
+                    }
                 });
 
                 $('#to_recomend').val(function (_, currentValue) {
-                    return currentValue + '\n' + prescriptionData.recomend;
+                    if(currentValue === ""){
+                        return currentValue + prescriptionData.recomend;
+                    }else{
+                        return currentValue + '\n' + prescriptionData.recomend;
+                    }
+                    
                 });
             }
             $('.loader').hide();
@@ -178,7 +194,7 @@ function copyToClipboard(element) {
                     '<span class="tag tag-data" data-button-position="' + newButton.place + '" data-button-id="' + newButton.id + '">' + newButton.title + '</span>' +
                     '<span class="crossValue buttondeleteCrose" data-button-id="' + newButton.id + '"><i class="las la-times"></i></span>' +
                 '</div>';
-                console.log(buttonHTML)
+                
                     $('.buttonAppend').append(buttonHTML);
                 $('.loader').hide();
                 toastr.success(data.message, 'Success!', toastCofig);
@@ -187,7 +203,7 @@ function copyToClipboard(element) {
             error: function (xhr, status, error) {
                 $('.loader').hide();
                 var response = JSON.parse(xhr.responseText);
-                console.log(response)
+                
                 if (response.errors) {  
                     $.each(response.errors, function (field, errors) {
                         if (errors.length > 0) {
@@ -230,7 +246,7 @@ function copyToClipboard(element) {
             error: function (xhr, status, error) {
                 $('.loader').hide();
                 var response = JSON.parse(xhr.responseText);
-                console.log(response)
+                
                 if (response.errors) {  
                     $.each(response.errors, function (field, errors) {
                         if (errors.length > 0) {
@@ -312,7 +328,7 @@ function copyToClipboard(element) {
                     $('#addOnBtnModal').modal('hide');
                     $('#searchableTags')[0].reset();
                     $("#tagsInput").tagsinput('removeAll');
-                    console.log("=========>",data)
+                    
                    // Assuming data.newCustomSearch is an array with one element
                    var newCustomSearchHTML = `
                    <li class="leftCardItems row" data-id="${data.newCustomSearch[0].id}">
@@ -335,7 +351,7 @@ function copyToClipboard(element) {
                 error: function (xhr, status, error) {
                     $('.loader').hide();
                     var response = JSON.parse(xhr.responseText);
-                    console.log(response)
+                    
                     if (response.errors) {  
                         $.each(response.errors, function (field, errors) {
                             if (errors.length > 0) {
@@ -374,12 +390,12 @@ function copyToClipboard(element) {
                     $('.loader').hide();
                     $('#updateProfileModal').modal('hide');
                     toastr.success(data.message, 'Success!', toastCofig);
-                    console.log(response);
+                    
                 },
                 error: function (xhr, status, error) {
                     $('.loader').hide();
                     var response = JSON.parse(xhr.responseText);
-                    console.log(response)
+                    
                     if (response.errors) {  
                         $.each(response.errors, function (field, errors) {
                             if (errors.length > 0) {
@@ -424,7 +440,7 @@ function copyToClipboard(element) {
         type: 'GET',
         url: site_url + '/user/get-profile-data', 
         success: function (data) {
-            console.log(data)
+            
             $('#preview').attr('src',data.profile_image);
 
             $('#updateFull_name').val(data.full_name);
@@ -440,6 +456,7 @@ $('#changePasswordForm')[0].reset();
 });
 
 $('.buttonAppend').on('click', '.tag-data', function() {
+    
         var buttonId = $(this).data('button-id');
         var buttonPosition = $(this).data('button-position');
         if(!$('#cardItemValueButton_'+buttonId).hasClass('active')){
@@ -453,19 +470,32 @@ $('.buttonAppend').on('click', '.tag-data', function() {
                         // Update input field based on button position
                         if (buttonPosition === 1) {
                             const textarea = document.getElementById('to_diagn');
-                            textarea.value += response.description + '\n';
+                            if(textarea === ""){
+                                textarea.value = response.description + '\n';
+                            }else{
+                                textarea.value +=  '\n' + response.description + '\n';
+                            }
+                            
                             // $('#to_diagn').val(function (_, currentValue) {
                             //     return currentValue + '\n' + response.description;
                             // });
                         } else if (buttonPosition === 2) {
                             const textarea = document.getElementById('to_objective');
-                            textarea.value += response.description + '\n';
+                            if(textarea === ""){
+                                textarea.value = response.description + '\n';
+                            }else{
+                                textarea.value +=  '\n' + response.description + '\n';
+                            }
                             // $('#to_objective').val(function (_, currentValue) {
                             //     return currentValue + '\n' + response.description;
                             // });
                         } else if (buttonPosition === 3) {
                             const textarea = document.getElementById('to_recomend');
-                            textarea.value += response.description + '\n';
+                            if(textarea === ""){
+                                textarea.value = response.description + '\n';
+                            }else{
+                                textarea.value +=  '\n' + response.description + '\n';
+                            }
                             // $('#to_recomend').val(function (_, currentValue) {
                             //     return currentValue + '\n' + response.description;
                             // });
@@ -529,6 +559,7 @@ $('.buttonAppend').on('click', '.tag-data', function() {
 
     $(document).on('click', '.tag', function () {
     //$('.tag').on('click', function () {
+        
         $('.loader').show();
         var dataId = $(this).data('id');
         var cardItemValueTag = $('#cardItemValueTag_' + dataId);
@@ -551,6 +582,7 @@ $('.buttonAppend').on('click', '.tag-data', function() {
             $('.loader').hide();
             return true;
         }
+        
         $.ajax({
             type: 'POST',
             url: site_url + '/user/get/prescription/list',
@@ -561,6 +593,8 @@ $('.buttonAppend').on('click', '.tag-data', function() {
             },
             success: function (data) {
                 $('.loader').hide();
+                data = '\n'+data;
+                
                 $('#searchResults').html(data);
             },
             
@@ -570,12 +604,12 @@ $('.buttonAppend').on('click', '.tag-data', function() {
     $('#removeAllData').on('click', function () {
         
         $('#searchResults').html('');
-        $("#UlTags span.active").removeClass('active');
+        $(".cardItemValue").removeClass('active');
         $('#to_diagn').val("");
         $('#to_objective').val("");
         $('#to_recomend').val("");
         $("#searchInput").val("");
-        $(".secondryOutline").removeClass('active');
+        $(".tagTitle").removeClass('active');
     });
     
     $(document).on('click', '.customtagdelete', function () {
@@ -606,6 +640,9 @@ $('.buttonAppend').on('click', '.tag-data', function() {
                             deleteButton.closest('.leftCardItems').remove();
                         }
                         toastr.success(data.message, 'Success!', toastCofig);
+                        if(data.count == 0){
+                            window.location.href = '/user/home';
+                        }
                     },
                 });
             }
