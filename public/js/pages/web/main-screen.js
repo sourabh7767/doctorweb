@@ -457,91 +457,68 @@ $('#changePasswordForm')[0].reset();
 
 $('.buttonAppend').on('click', '.tag-data', function() {
     
-        var buttonId = $(this).data('button-id');
-        var buttonPosition = $(this).data('button-position');
-        if(!$('#cardItemValueButton_'+buttonId).hasClass('active')){
-            $('#cardItemValueButton_'+buttonId).addClass('active');
-            $.ajax({
-                url: site_url + '/user/get-button-description',
-                type: 'POST',
-                data: { button_id: buttonId,'_token': $('meta[name="csrf-token"]').attr('content') },
-                success: function(response) {
-                    if (response.description) {
-                        // Update input field based on button position
-                        if (buttonPosition === 1) {
-                            const textarea = document.getElementById('to_diagn');
-                            if(textarea === ""){
-                                textarea.value = response.description + '\n';
-                            }else{
-                                textarea.value +=  '\n' + response.description + '\n';
-                            }
-                            
-                            // $('#to_diagn').val(function (_, currentValue) {
-                            //     return currentValue + '\n' + response.description;
-                            // });
-                        } else if (buttonPosition === 2) {
-                            const textarea = document.getElementById('to_objective');
-                            if(textarea === ""){
-                                textarea.value = response.description + '\n';
-                            }else{
-                                textarea.value +=  '\n' + response.description + '\n';
-                            }
-                            // $('#to_objective').val(function (_, currentValue) {
-                            //     return currentValue + '\n' + response.description;
-                            // });
-                        } else if (buttonPosition === 3) {
-                            const textarea = document.getElementById('to_recomend');
-                            if(textarea === ""){
-                                textarea.value = response.description + '\n';
-                            }else{
-                                textarea.value +=  '\n' + response.description + '\n';
-                            }
-                            // $('#to_recomend').val(function (_, currentValue) {
-                            //     return currentValue + '\n' + response.description;
-                            // });
-                        } else {
-                            console.error('Invalid button position.');
-                        }
+    var buttonId = $(this).data('button-id');
+    var buttonPosition = $(this).data('button-position');
+    if (!$('#cardItemValueButton_' + buttonId).hasClass('active')) {
+        $('#cardItemValueButton_' + buttonId).addClass('active');
+        $.ajax({
+            url: site_url + '/user/get-button-description',
+            type: 'POST',
+            data: { button_id: buttonId, '_token': $('meta[name="csrf-token"]').attr('content') },
+            success: function (response) {
+                if (response.description) {
+                    // Update input field based on button position
+                    const textarea = document.getElementById(getTextareaId(buttonPosition));
+                    const currentValue = textarea.value;
+    
+                    if (currentValue === "") {
+                        textarea.value = response.description;
                     } else {
-                        console.error('Button description not found.');
+                        textarea.value = currentValue + '\n' + response.description;
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error: ' + error);
+                } else {
+                    console.error('Button description not found.');
                 }
-            });
-        }else{
-            $('#cardItemValueButton_'+buttonId).removeClass('active');
-            $.ajax({
-                url: site_url + '/user/get-button-description',
-                type: 'POST',
-                data: { button_id: buttonId,'_token': $('meta[name="csrf-token"]').attr('content') },
-                success: function(response) {
-                    if (response.description) {
-                        // Update input field based on button position
-                        if (buttonPosition === 1) {
-                            const textarea = document.getElementById('to_diagn');
-                            textarea.value = textarea.value.replace(response.description+'\n', '');
-                            // console.log("replaced======>",textarea.value.replace(response.description + '\n', ''))
-                        } else if (buttonPosition === 2) {
-                            const textarea = document.getElementById('to_objective');
-                            textarea.value = textarea.value.replace(response.description+'\n', '');
-                           
-                        } else if (buttonPosition === 3) {
-                            const textarea = document.getElementById('to_recomend');
-                            textarea.value = textarea.value.replace(response.description+'\n', '');
-                        } else {
-                            console.error('Invalid button position.');
-                        }
-                    } else {
-                        console.error('Button description not found.');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error: ' + error);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error: ' + error);
+            }
+        });
+    } else {
+        $('#cardItemValueButton_' + buttonId).removeClass('active');
+        $.ajax({
+            url: site_url + '/user/get-button-description',
+            type: 'POST',
+            data: { button_id: buttonId, '_token': $('meta[name="csrf-token"]').attr('content') },
+            success: function (response) {
+                // Update input field based on button position
+                if (response.description) {
+                    const replaceText = response.description;
+                    const textarea = document.getElementById(getTextareaId(buttonPosition));
+                    textarea.value = textarea.value.replace(new RegExp(replaceText, 'g'), '').trim();
                 }
-            });
+            },
+            error: function (xhr, status, error) {
+                console.error('Error: ' + error);
+            }
+        });
+    }
+    
+    // Function to get the textarea ID based on the button position
+    function getTextareaId(buttonPosition) {
+        switch (buttonPosition) {
+            case 1:
+                return 'to_diagn';
+            case 2:
+                return 'to_objective';
+            case 3:
+                return 'to_recomend';
+            default:
+                console.error('Invalid button position.');
+                return '';
         }
+    }
+    
         // $(this).toggleClass('active');
     });
 
