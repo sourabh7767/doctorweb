@@ -137,7 +137,14 @@
 
             </div>
 
-
+            <select name="cars" id="cars" multiple multiselect-search="true">
+              <option value="1">Audi</option>
+              <option  value="2">BMW</option>
+              <option  value="3">Mercedes</option>
+              <option value="4">Volvo</option>
+              <option value="5">Lexus</option>
+              <option value="6">Tesla</option>
+            </select>
 
             <!-- /.card -->
         </div>
@@ -248,6 +255,16 @@
                   </select>
                   <div id="errorUserNotSelectedOuter" style="color:red;"></div>
               </div>
+              <div class="row">
+                <select name="cars" id="cars" multiple multiselect-search="true">
+                  <option value="1">Audi</option>
+                  <option  value="2">BMW</option>
+                  <option  value="3">Mercedes</option>
+                  <option value="4">Volvo</option>
+                  <option value="5">Lexus</option>
+                  <option value="6">Tesla</option>
+                </select>
+              </div>
           </div>
           </div>
            
@@ -265,7 +282,7 @@
 {{-- ========================================= --}}
 </section>
 @push('page_script')
-
+<script src="{{ asset('js/web/multiselect-dropdown.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
 <script>
   $(".js-select2").select2({
