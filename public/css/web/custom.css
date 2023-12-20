@@ -121,7 +121,7 @@ input[type='search']::-moz-search-cancel-button {
 }
 .form-group{position: relative}
 .modal {
-    backdrop-filter: blur(3px);
+    /* backdrop-filter: blur(3px); */
 }  
 .modal-header {
     display: block;
@@ -365,6 +365,9 @@ i.las.la-sign-out-alt {
     overflow-y: auto;
     overflow-x: hidden;
 }
+.leftCardItems:not(:last-child) {
+    margin-bottom: 12px;
+}
 .cardItemHead {
     color: #d9d9d9;
     font-size: 18px;
@@ -473,12 +476,21 @@ i.las.la-sign-out-alt {
     color: #000;
 }
 .cardBody{z-index: 1;}
+.midContainer {
+    transition: all 0.3s'
+}
 .midContainerCard {
-    height: 570px;
+    height: 100%;
+    max-height: 493px;
+    overflow: auto;
+}
+/* End MidArea Css */
+.detailsForm {
+    height: 100%;
+    max-height: 611px;
     overflow: auto;
 }
 
-/* End MidArea Css */
 .field {
     padding: 20px;
     background-color: #474747;
@@ -505,3 +517,9 @@ position: fixed;
 .swal2-popup{
 	backdrop-filter: blur(7px);
 }
+
+/* Start CreateTemp Css */
+#addPrescriptionForm {
+    padding: 0px 7px 0 0;
+}
+/* End CreateTemp Css */

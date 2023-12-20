@@ -14,6 +14,17 @@
     line-height: 22px;
     cursor: text;
   }
+
+  .presccreption {
+    display: inline-block;
+    padding: 16px 6px;
+    color: #fff;
+    vertical-align: middle;
+    border-radius: 5px;
+    width: 100%;
+    line-height: 22px;
+    cursor: text;
+  }
   
   .bootstrap-tagsinput input {
     border: none;

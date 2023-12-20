@@ -14,6 +14,11 @@
     #copyModalView .modal-body{height: 300px}
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+<link rel="stylesheet" href="{{ asset('css/web/bootstrap-tagsinput.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/theme/extensions/toastr.min.css') }}">
+
+
 @section('content')
 
 <!-- Main content -->
@@ -102,6 +107,7 @@
                                   {{@$item->description}}
                                 </td>
                                 <td>
+                                  <i class="fas fa-edit editPrescription" data-id="{{@$item->id}}" style="color: #7367f0 ;"></i>
                                   <i style="cursor: pointer;" class="fas fa-eye getPriscriptionData" data-id="{{@$item->id}}"></i>
                                 </td>
                               </tr>
@@ -280,21 +286,103 @@
 </div>
 
 {{-- ========================================= --}}
+
+
+{{-- ================================================== --}}
+
+<div class="modal fade" id="editPrescriptionAdmin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+      <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Prescription</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body">
+            <form action="" method="post" id="editPrescriptionForm">
+              <input type="hidden" name="prescreprion_id" id="prescreprionId">
+              <input type="hidden" name="user_id" id="UserId">
+              <input type="hidden" name="tag_ids" id="tagIds">
+                <div class="mb-3">
+                    <label for="copy_name" class="form-label">Name:</label>
+                    <input type="text" name="name" class="form-control" id="edit_name">
+                </div>
+                <div class="mb-3">
+                  <label for="edit_description" class="form-label">Description:</label>
+                  <textarea type="text" name="description" class="form-control" id="edit_description" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="edit_diagn" class="form-label">Diagn</label>
+                    <textarea type="text" name="diagn" class="form-control" id="edit_diagn" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="edit_objective" class="form-label">Objective:</label>
+                  <input type="text" name="objective" class="form-control" id="edit_objective">
+                </div>
+                <div class="mb-3">
+                  <label for="edit_recomend" class="form-label">Recommendation:</label>
+                  <input type="text" name="recomend" class="form-control" id="edit_recomend">
+                </div>
+                <div class="mb-3">
+                  <input id="tagsInputprescreption" type="text" value="" data-role="tagsinput" class="presccreption form-control" name="tags">
+                </div>
+            </form>
+            </div>
+           
+            
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="submitPrescreption" >Update </button>
+          </div>
+
+      </div>
+  </div>
+</div>
+
+{{-- ================================================== --}}
 </section>
 @push('page_script')
 <script src="{{ asset('js/web/multiselect-dropdown.js') }}"></script>
+<script src="{{ asset('js/web/bootstrap-tagsinput.min.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+<script src="{{ asset('js/theme/extensions/toastr.min.js') }}"></script>
 <script>
-  $(".js-select2").select2({
-closeOnSelect : false,
-placeholder : "Select Users",
-// allowHtml: true,
-allowClear: true,
-tags: true
-});
+    $(".js-select2").select2({
+      closeOnSelect : false,
+      placeholder : "Select Users",
+      // allowHtml: true,
+      allowClear: true,
+      tags: true
+    });
 </script>
 
+<script>
+  let toastCofig = {
+             closeButton: true,
+             tapToDismiss: false,
+             timeOut: 2000,
+         }
 
+         @if(session('success'))
+             toastr.success("{{ session('success') }}", 'Success!', toastCofig);
+         @endif
+         @if(session('error'))
+             toastr.error("{{ session('error') }}", 'Error!',  toastCofig);
+         @endif
+</script>
+
+<script>
+  $(document).ready(function() {
+    var tagValues = $("#tagsInputprescreption").tagsinput('items');
+    
+    console.log("Tag values:", tagValues);
+    });
+</script>
 <script>
   var site_url = window.location.protocol + '//' + window.location.host;
   $(document).ready(function () {
@@ -425,6 +513,83 @@ tags: true
               }
           });
         });
+</script>
+<script>
+  $(document).ready(function () {
+    $('.editPrescription').on('click', function () {
+      var eventModal = new bootstrap.Modal(document.getElementById('editPrescriptionAdmin'));
+      eventModal.show();
+      var prescreptionId = $(this).data('id');
+      $.ajax({
+                url: site_url + '/admin/get/edit/prescreption/' + prescreptionId,
+                type: 'get',
+                data:prescreptionId,
+                success: function (response) {
+                  console.log(response.tags)
+                  $("#edit_name").val(response.object.name)
+                   $("#edit_description").val(response.object.description)
+                   $("#edit_diagn").val(response.object.diagn)
+                   $("#edit_objective").val(response.object.objective)
+                   $("#edit_recomend").val(response.object.recomend)
+                   $("#prescreprionId").val(response.object.id);
+                   $("#UserId").val(response.object.user_id);
+                   var ids = [];
+                    var tagValues = response.tags.map(function(tag) {
+                        $('#tagsInputprescreption').tagsinput('add', tag.tags);
+                        ids.push(tag.id);
+                      });
+                      $('#tagIds').val(ids);
+                    console.log(response.object);
+                },
+                error: function (error) {
+                    console.error('Error:', error);
+                }
+            });
+    });
+        $('#submitPrescreption').on('click', function () {
+            var formData = $("#editPrescriptionForm").serialize();
+            $.ajax({
+                url: site_url + '/admin/submit/edit/prescreption',
+                type: 'POST',
+                data:formData,
+                success: function (response) {
+                  console.log(response.object)
+                    $('#editPrescriptionAdmin').modal('hide');
+                    $('#editPrescriptionForm')[0].reset();
+                    $("#tagsInputprescreption").tagsinput('removeAll');
+                      toastr.success(response.message, 'Success!', toastCofig);
+                    console.log(response);
+                },
+                error: function (xhr, status, error) {
+                $('.loader').hide();
+                var response = JSON.parse(xhr.responseText);
+                console.log(response)
+                if (response.errors) {  
+                    $.each(response.errors, function (field, errors) {
+                        if (errors.length > 0) {
+                            firstError = errors[0];
+                            return false; 
+                        }
+                    });
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: firstError,
+                    });
+                    }else{
+                        Swal.fire({
+                            icon: "question",
+                            title: "Oops...",
+                            text: "Something went Wrong!",
+                            footer: '<a href="#">Why do I have this issue?</a>'
+                          }).then(function() {
+                            window.location.href = '/admin/dashboard';
+                          });
+                    }
+            }
+            });
+        });
+    });
 </script>
 @endpush
 @endsection

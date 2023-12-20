@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -115,6 +116,54 @@ class HomeController extends Controller
             DB::rollBack();
             return response()->json(['error' => true , 'message' =>  'Prescriptions not copied']);
         }
+    }
+    public function editPrescreption(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'diagn' => 'required',
+            'objective' => 'required',
+            'recomend' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'tags' => 'required'
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        try {
+            DB::beginTransaction();
+            $presriptionObj = Prescription::find($request->prescreprion_id);
+                $presriptionObj->diagn = $request->input('diagn');
+                $presriptionObj->objective = $request->input('objective');
+                $presriptionObj->recomend = $request->input('recomend');
+                $presriptionObj->name = $request->input('name');
+                $presriptionObj->description = $request->input('description');
+                $presriptionObj->user_id = $request->input('user_id');
+                $presriptionObj->save();
+                $ids = explode(',',$request->tag_ids);
+                foreach($ids as $id){
+                    PrescriptionTag::where('id',$id)->delete();
+                }
+                $tags = explode(",", $request->input('tags'));
+                foreach ($tags as $key => $tag) {
+                    $tagsObj = new PrescriptionTag();
+                    $tagsObj->tags = $tag;
+                    $tagsObj->user_id = $request->input('user_id');
+                    $tagsObj->prescription_id = $presriptionObj->id;
+                    $tagsObj->save();
+                }
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
+       return response()->json(['success' => true,'message'=>'Prescription updated successfully']);
+    }
+    public function getPrescriptionEdit($id)
+    {
+        $prescreption = Prescription::find($id);
+        $tags = PrescriptionTag::where('prescription_id',$prescreption->id)->get();
+        return response()->json(['success' => true,'object' => $prescreption , 'tags' => $tags]);
     }
     
 }

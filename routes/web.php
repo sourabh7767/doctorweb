@@ -62,6 +62,8 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::get('copy/all/to/user','Admin\HomeController@CopyAllPrescriptionModal')->name('admin.CopyAllPrescriptionModal');
         Route::post('save/copy/data','Admin\HomeController@saveCopiedData')->name('admin.saveCopiedData');
         Route::post('save','Admin\HomeController@saveAllCopiedData')->name('admin.saveAllCopiedData');
+        Route::get('get/edit/prescreption/{id}','Admin\HomeController@getPrescriptionEdit')->name('admin.getPrescriptionEdit');
+        Route::post('submit/edit/prescreption','Admin\HomeController@editPrescreption')->name('admin.editPrescreption');
     });
 });
 

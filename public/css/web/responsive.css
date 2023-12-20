@@ -17,7 +17,7 @@
         background-image: linear-gradient(to right, #e556f5, #fa41e1);
     }
     .secondryOutline.active:hover, .secondryOutline:hover{border-color: #fff;}
-    .field:hover, .leftCard:hover, .modal-content:hover {
+    .field:hover, .leftCard:hover, .modal-content:hover , .midContainer:hover {
         box-shadow: -8px 8px 10px 5px rgba(0, 0, 0, 0.19);
     }
     .cardItemValue  span:hover{
@@ -30,6 +30,9 @@
     .cardArea:hover
     {
         background-image: linear-gradient(to right, #fcd06f, #ffb429);
+    }
+    .cardArea.active:hover {
+        background: linear-gradient(to right, #7fc6ec, #35abeb);
     }
     .cardItemValue.active span:hover {
         color: #fff;

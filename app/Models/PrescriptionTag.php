@@ -10,7 +10,7 @@ class PrescriptionTag extends Model
 {
     use HasFactory;
     use SoftDeletes;
-
+    protected $guarded =[];
     public function prescription()
     {
         return $this->belongsTo(Prescription::class);
