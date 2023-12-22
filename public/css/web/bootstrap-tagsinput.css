@@ -15,15 +15,9 @@
     cursor: text;
   }
 
-  .presccreption {
-    display: inline-block;
-    padding: 16px 6px;
-    color: #fff;
-    vertical-align: middle;
-    border-radius: 5px;
-    width: 100%;
-    line-height: 22px;
-    cursor: text;
+  #editPrescriptionForm .bootstrap-tagsinput {
+    background: #fff;
+    border: 1px solid #d8d6de;
   }
   
   .bootstrap-tagsinput input {

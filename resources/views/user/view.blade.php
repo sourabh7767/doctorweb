@@ -13,7 +13,7 @@
     }
     #copyModalView .modal-body{height: 300px}
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
+{{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/web/bootstrap-multiselect.css') }}"> --}}
 <link rel="stylesheet" href="{{ asset('css/web/bootstrap-tagsinput.css') }}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/extensions/toastr.min.css') }}">
@@ -142,16 +142,6 @@
               <!-- /.card-body -->
 
             </div>
-
-            <select name="cars" id="cars" multiple multiselect-search="true">
-              <option value="1">Audi</option>
-              <option  value="2">BMW</option>
-              <option  value="3">Mercedes</option>
-              <option value="4">Volvo</option>
-              <option value="5">Lexus</option>
-              <option value="6">Tesla</option>
-            </select>
-
             <!-- /.card -->
         </div>
        </div>   
@@ -253,25 +243,19 @@
 
           <!-- Modal Body -->
           <div class="modal-body">
-            <div class="container">
-              <div class="row">
                 <h4>Users</h4>
                 <select class="js-select2" id="multiple-Prescriptio" multiple="multiple">
                   <option class="" disabled>select users</option>
                   </select>
                   <div id="errorUserNotSelectedOuter" style="color:red;"></div>
-              </div>
-              <div class="row">
-                <select name="cars" id="cars" multiple multiselect-search="true">
+                {{-- <select name="cars" id="cars" multiple multiselect-search="true">
                   <option value="1">Audi</option>
                   <option  value="2">BMW</option>
                   <option  value="3">Mercedes</option>
                   <option value="4">Volvo</option>
                   <option value="5">Lexus</option>
                   <option value="6">Tesla</option>
-                </select>
-              </div>
-          </div>
+                </select> --}}
           </div>
            
             
@@ -349,7 +333,6 @@
 <script src="{{ asset('js/web/multiselect-dropdown.js') }}"></script>
 <script src="{{ asset('js/web/bootstrap-tagsinput.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
 <script src="{{ asset('js/theme/extensions/toastr.min.js') }}"></script>
 <script>
     $(".js-select2").select2({
@@ -357,7 +340,7 @@
       placeholder : "Select Users",
       // allowHtml: true,
       allowClear: true,
-      tags: true
+      tags: true,
     });
 </script>
 

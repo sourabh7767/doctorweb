@@ -11,8 +11,8 @@ $(document).ready(function () {
             success: function (response) {
                 $('.loader').hide();
                 $('#addPrescriptionForm')[0].reset();
-                $('#createTemp').hide();
                 $("#tagsInput").tagsinput('removeAll');
+                $('#createTemp').hide();
                 toastr.success(response.message, 'Success!', toastCofig);
                 window.location.href = '/user/home';
             },

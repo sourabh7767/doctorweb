@@ -484,11 +484,21 @@ i.las.la-sign-out-alt {
     max-height: 493px;
     overflow: auto;
 }
+
+.editModal {
+    background: #7b7273;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 13px;
+}
 /* End MidArea Css */
 .detailsForm {
     height: 100%;
-    max-height: 611px;
-    overflow: auto;
 }
 
 .field {
@@ -519,7 +529,16 @@ position: fixed;
 }
 
 /* Start CreateTemp Css */
-#addPrescriptionForm {
+#addPrescriptionForm, #AddButtonForm {
     padding: 0px 7px 0 0;
 }
 /* End CreateTemp Css */
+
+/* start edit button */
+
+/* end edit button */
+
+body .multiselect-dropdown
+{
+    width: 100% !important;
+}

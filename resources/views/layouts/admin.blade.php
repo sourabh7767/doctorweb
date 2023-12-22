@@ -15,13 +15,13 @@
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
-        <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}">
+         {{-- <link rel="stylesheet" href="{{ asset('fontawesome/css/all.css') }}"> --}}
         <link rel="stylesheet" href="{{ asset('fontawesome/css/fontawesome.css') }}">
-        <link rel="stylesheet" href="{{ asset('fontawesome/css/regular.css') }}">
-        <link rel="stylesheet" href="{{ asset('fontawesome/css/solid.css') }}">
+        {{-- <link rel="stylesheet" href="{{ asset('fontawesome/css/regular.css') }}"> --}}
+        <link rel="stylesheet" href="{{ asset('fontawesome/css/solid.css') }}"> 
         <script href="{{ asset('fontawesome/js/all.min.js') }}"></script>
-        <!-- <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"> -->
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> -->
+         <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> 
 
         <!-- BEGIN: Vendor CSS-->
         <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/vendors.min.css') }}">

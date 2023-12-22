@@ -310,7 +310,49 @@
                                         <span class="crossValue"><i class="las la-times"></i></span>
                                     </div> --}}
                                     <div id="searchResults"></div>
-                                    
+                                    <div class="modal fade" id="editPrescription" tabindex="-1" aria-labelledby="editPrescriptionLabel" aria-hidden="true" data-bs-backdrop="static" >
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header d-block border-0 p-0 mb-2">
+                                                    <h5 class="modal-title" id="createTempaLabel">Create Trauma Template</h5>
+                                                    <p class="modal-subtext">Edit fields and create fast access template</p>
+                                                </div>
+                                                <div class="modal-body p-0">
+                                                    <form class="addBtnForm" id="addPrescriptionForm">
+                                                        @csrf
+                                                        <div class="form-group mb-2">
+                                                            <input type="text" value="" placeholder="Name..." class="customControlInputs" name="name">
+                                                            <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
+                                                        </div>
+                                                        <div class="form-group mb-2">
+                                                            <input type="text" value="" placeholder="Description..." class="customControlInputs" name="description">
+                                                            <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
+                                                        </div>
+                                                        <div class="form-group mb-2">
+                                                            <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="diagn">
+                                                            <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
+                                                        </div>
+                                                        <div class="form-group mb-2">
+                                                            <textarea class="customControlInputs" id="" rows="6" placeholder="Rekomendjdjas..." name="objective"></textarea>
+                                                            <div id="prescription-objective-error" class="messageprescription" data-form="prescription"></div>
+                                                        </div>
+                                                        <div class="form-group mb-2">
+                                                            <textarea class="customControlInputs" id="" rows="6" placeholder="Rekomendjdjas..." name="recomend"></textarea>
+                                                            <div id="prescription-recomend-error" class="messageprescription" data-form="prescription"></div>
+                                                        </div>
+                                                        <div class="u-tagsinput mb-2">
+                                                            <input id="tagsInput" placeholder="Tags" type="text" value="" data-role="tagsinput" class="customControlInputs" name="tags">
+                                                            <div id="prescription-tags-error" class="messageprescription" data-form="prescription"></div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer border-0 p-0">
+                                                <button type="button" class="clearBtn" data-bs-dismiss="modal" onclick="clearErrors();">Close</button>
+                                                <button type="button" class="secondryBtn" id="submitPrescription" >Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     
                                 </div>
                             </div>
