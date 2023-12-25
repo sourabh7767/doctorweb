@@ -3434,3 +3434,26 @@ tr.group {
 .dark-layout .bootstrap-touchspin .bootstrap-touchspin-injected .disabled-max-min {
   background-color: #b8c2cc !important;
   opacity: 1; }
+  .select2-container--classic .select2-results_option--highlighted, .select2-container--default .select2-results_option--highlighted {
+    background-color: #eaeaeb !important;
+    color: #000 !important;
+}
+.select2-results__option:before {
+    content: "";
+    display: inline-block;
+    position: relative;
+    height: 20px;
+    width: 20px;
+    border: 1px solid #7367f0;
+    border-radius: 4px;
+    margin-right: 20px;
+    vertical-align: middle;
+    background: none !important;
+}
+.select2-container--default .select2-selection--multiple {
+    border-width: 1px !important;
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border-color: #f77750;
+    border-width: 1px !important;
+}
