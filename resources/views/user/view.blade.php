@@ -342,6 +342,7 @@
 <script src="{{ asset('js/theme/extensions/toastr.min.js') }}"></script>
 <script>
    $(".selectTow").select2({
+    placeholder : "Select users",
 });</script>
 
 <script>
