@@ -111,9 +111,12 @@ $(document).on('click', '.crossValue' ,function (e) {
     
   });
   $(document).on('click', '.cardArea' ,function (e) {
-    // $(".cardArea").removeClass("active");
-    isActive =  $(this).hasClass('active');
-    $(this).toggleClass('active');
+    var $this = $(this);
+    var isActive = $this.hasClass('active');
+    $(".cardArea").removeClass("active");
+    if (!isActive) {
+        $this.addClass('active');
+    }
       $('.loader').show();
     var cardBody = $(this).find('.cardBody');
     var cardId = cardBody.data('id');
@@ -458,6 +461,7 @@ $('#changePasswordForm')[0].reset();
 $('.buttonAppend').on('click', '.tag-data', function() {
     
     var buttonId = $(this).data('button-id');
+    // var $container = $('#cardItemValueButton_' + buttonId);
     var buttonPosition = $(this).data('button-position');
     if (!$('#cardItemValueButton_' + buttonId).hasClass('active')) {
         $('#cardItemValueButton_' + buttonId).addClass('active');
@@ -534,7 +538,7 @@ $('.buttonAppend').on('click', '.tag-data', function() {
     //     $(this).toggleClass('active');
     // });
 
-    $(document).on('click', '.tag', function () {
+    $(document).on('click', '.tags', function () {
     //$('.tag').on('click', function () {
         
         $('.loader').show();
@@ -542,7 +546,7 @@ $('.buttonAppend').on('click', '.tag-data', function() {
         var cardItemValueTag = $('#cardItemValueTag_' + dataId);
         $(this).toggleClass('active');
         cardItemValueTag.toggleClass('active', $(this).hasClass('active'));
-        var activeTags = $('.tag.active');
+        var activeTags = $('.tags.active');
         var searchData = [];
         activeTags.each(function () {
             var tagData = {

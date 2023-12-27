@@ -29,21 +29,25 @@ table.dataTable>thead .sorting:after, table.dataTable>thead .sorting_asc:after, 
     vertical-align: middle;
   }
   .select2-results__option[aria-selected=true]:before {
-    font-family:"Font Awesome 5 Free";
-    content: "\f058";
-    color: #fff;
+    font-family: "Font Awesome 5 Free";
+    content: "✓";
+    color: #7367f0;
     background-color: transparent;
-    border: 1px solid blue;
-    display: inline-block;
+    border: 2px solid #7367f0;
     padding-left: 3px;
-  }
+    font-size: 15px;
+    width: 23px;
+    height: 23px;
+    font-weight: 700;
+    display: inline-block;
+}
   .select2-container--default .select2-results__option[aria-selected=true] {
       background-color: #fff;
   }
   .select2-container--default .select2-results__option--highlighted[aria-selected] {
-      background-color: #eaeaeb;
-      color: #272727;
-  }
+    background-color: #eaeaeb !important;
+    color: #272727 !important;
+}
   .select2-container--default .select2-selection--multiple {
       margin-bottom: 10px;
   }

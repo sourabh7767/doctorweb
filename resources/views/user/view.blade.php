@@ -210,8 +210,11 @@
             <div class="container">
               <div class="row">
                 <h4>Users</h4>
-                <select class="js-select2" id="multiple-checkboxes" multiple="multiple">
+                {{-- <select class="js-select2" id="multiple-checkboxes" multiple="multiple">
                   <option class="" disabled>select users</option>
+                  </select> --}}
+                  <select multiple multiselect-search="true" id="multiple-checkboxes" class="selectTow">
+             
                   </select>
                   <div id="errorUserNotSelected" style="color:red;"></div>
               </div>
@@ -244,8 +247,11 @@
           <!-- Modal Body -->
           <div class="modal-body">
                 <h4>Users</h4>
-                <select class="js-select2" id="multiple-Prescriptio" multiple="multiple">
+                {{-- <select class="js-select2" id="multiple-Prescriptio" multiple="multiple">
                   <option class="" disabled>select users</option>
+                  </select> --}}
+                  <select multiple multiselect-search="true" id="multiple-Prescription" class="selectTow">
+             
                   </select>
                   <div id="errorUserNotSelectedOuter" style="color:red;"></div>
                 {{-- <select name="cars" id="cars" multiple multiselect-search="true">
@@ -326,23 +332,16 @@
       </div>
   </div>
 </div>
-
 {{-- ================================================== --}}
 </section>
 @push('page_script')
-<script src="{{ asset('js/web/multiselect-dropdown.js') }}"></script>
+{{-- <script src="{{ asset('js/web/multiselect-dropdown.js') }}"></script> --}}
 <script src="{{ asset('js/web/bootstrap-tagsinput.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{{ asset('js/theme/extensions/toastr.min.js') }}"></script>
 <script>
-    $(".js-select2").select2({
-      closeOnSelect : false,
-      placeholder : "Select Users",
-      // allowHtml: true,
-      allowClear: true,
-      tags: true,
-    });
-</script>
+   $(".selectTow").select2({
+});</script>
 
 <script>
   let toastCofig = {
@@ -408,8 +407,8 @@
                   
                   var eventModal = new bootstrap.Modal(document.getElementById('copyModalView'));
                   eventModal.show()
-                  $('.js-select2').html("");
-                  $('.js-select2').html(response);
+                  $('.selectTow').html("");
+                  $('.selectTow').html(response);
                 },
                 error: function (error) {
                     console.error('Error:', error);
@@ -419,9 +418,9 @@
     });
     $('#copyModalView').on('shown.bs.modal', function () {
       $('#saveCopiedData').click(function () {
-        $('#multiple-checkboxes').multiselect({
-          includeSelectAllOption: true,
-        });
+        // $('#multiple-checkboxes').multiselect({
+        //   includeSelectAllOption: true,
+        // });
         // Hide the first modal
         var prescriptionId = $('.prescription').data('id');
         var selectedUsers = $('#multiple-checkboxes').val();
@@ -459,8 +458,8 @@
                   
                   var eventModal = new bootstrap.Modal(document.getElementById('copyAllPrescreptionModal'));
                   eventModal.show()
-                  $('.js-select2').html("");
-                  $('.js-select2').html(response);
+                  $('.selectTow').html("");
+                  $('.selectTow').html(response);
                 },
                 error: function (error) {
                     console.error('Error:', error);
@@ -470,11 +469,11 @@
         // $('#saveMultipleCopiedData').click(function () {
           $(document).on('click', '#saveMultipleCopiedData', function () {
             var userId = $(this).data('id');
-            $('#multiple-Prescriptiom').multiselect({
-            includeSelectAllOption: true,
-          });
+          //   $('#multiple-Prescriptiom').multiselect({
+          //   includeSelectAllOption: true,
+          // });
           // Hide the first modal
-          var selectedUsers = $('#multiple-Prescriptio').val();
+          var selectedUsers = $('#multiple-Prescription').val();
           if (!selectedUsers || selectedUsers.length === 0) {
             $("#errorUserNotSelectedOuter").html("Please select at least one user.");
             return false;

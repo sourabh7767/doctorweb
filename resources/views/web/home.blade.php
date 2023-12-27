@@ -197,7 +197,7 @@
                                 <div class="col-md-8">
                                 @foreach ($item->customTags as $tag)
                                     <div class="cardItemValue" id="cardItemValueTag_{{@$tag->id}}">
-                                            <span class="tag tagTitle" data-tag="{{ @$tag->tag }}" data-type="true" data-id="{{ @$tag->id }}">{{@$tag->tag}} 
+                                            <span class="tag tagTitle tags" data-tag="{{ @$tag->tag }}" data-type="true" data-id="{{ @$tag->id }}">{{@$tag->tag}} 
                                             </span>
                                             <span class="crossValue crossValue1 customtagdelete" data-id="{{ @$tag->id }}"><i class="las la-times"></i></span>
                                     </div>
@@ -314,11 +314,11 @@
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header d-block border-0 p-0 mb-2">
-                                                    <h5 class="modal-title" id="createTempaLabel">Create Trauma Template</h5>
+                                                    <h5 class="modal-title" id="createTempaLabel">Update Trauma Template</h5>
                                                     <p class="modal-subtext">Edit fields and create fast access template</p>
                                                 </div>
                                                 <div class="modal-body p-0">
-                                                    <form class="addBtnForm" id="addPrescriptionForm">
+                                                    <form class="addBtnForm" id="EdidPrescriptionForm">
                                                         @csrf
                                                         <div class="form-group mb-2">
                                                             <input type="text" value="" placeholder="Name..." class="customControlInputs" name="name">
@@ -348,7 +348,7 @@
                                                 </div>
                                                 <div class="modal-footer border-0 p-0">
                                                 <button type="button" class="clearBtn" data-bs-dismiss="modal" onclick="clearErrors();">Close</button>
-                                                <button type="button" class="secondryBtn" id="submitPrescription" >Save</button>
+                                                <button type="button" class="secondryBtn" id="submitEditPrescription" >Save</button>
                                                 </div>
                                             </div>
                                         </div>
