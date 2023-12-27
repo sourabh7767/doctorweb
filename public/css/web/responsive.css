@@ -33,6 +33,10 @@
     }
     .cardArea.active:hover {
         background: linear-gradient(to right, #7fc6ec, #35abeb);
+        
+    }
+    .cardArea.active:hover {
+        filter: blur(2px);
     }
     .cardItemValue.active span:hover {
         color: #fff;
