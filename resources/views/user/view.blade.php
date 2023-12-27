@@ -11,7 +11,8 @@
         overflow-y: auto !important;
         overflow-x:hidden
     }
-    #copyModalView .modal-body{height: 300px}
+    #copyModalView .modal-body{height: 200px}
+    #copyAllPrescreptionModal .modal-body{height: 200px}
 </style>
 {{-- <link rel="stylesheet" type="text/css" href="{{ asset('css/web/bootstrap-multiselect.css') }}"> --}}
 <link rel="stylesheet" href="{{ asset('css/web/bootstrap-tagsinput.css') }}">
