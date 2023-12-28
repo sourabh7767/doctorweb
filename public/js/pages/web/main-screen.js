@@ -497,7 +497,7 @@ $('.buttonAppend').on('click', '.tag-data', function() {
             success: function (response) {
                 // Update input field based on button position
                 if (response.description) {
-                    const replaceText = response.description;
+                    const replaceText = response.description.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escape special characters
                     const textarea = document.getElementById(getTextareaId(buttonPosition));
                     textarea.value = textarea.value.replace(new RegExp(replaceText, 'g'), '').trim();
                 }
