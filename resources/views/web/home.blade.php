@@ -337,12 +337,12 @@
                                                         </div>
                                                         <div class="form-group mb-2">
                                                             {{-- <input type="text" name="objective" class="customControlInputs form-control" id="edit_objective" style="height: 100px;"> --}}
-                                                            <textarea class="customControlInputs" id="" rows="6" placeholder="Rekomendjdjas..." name="objective" id="edit_objective"></textarea>
+                                                            <textarea class="customControlInputs" rows="6" placeholder="Rekomendjdjas..." name="objective" id="edit_objective"></textarea>
                                                             <div id="prescription-objective-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                         <div class="form-group mb-2">
                                                             {{-- <input type="text" name="recomend" class="customControlInputs form-control" id="edit_recomend" style="height: 100px;"> --}}
-                                                            <textarea class="customControlInputs" id="" rows="6" placeholder="Rekomendjdjas..." name="recomend" id="edit_recomend"></textarea>
+                                                            <textarea class="customControlInputs"  rows="6" placeholder="Rekomendjdjas..." name="recomend" id="edit_recomend"></textarea>
                                                             <div id="prescription-recomend-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                         <div class="u-tagsinput mb-2">

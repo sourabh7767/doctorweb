@@ -532,6 +532,10 @@ position: fixed;
 #addPrescriptionForm, #AddButtonForm {
     padding: 0px 7px 0 0;
 }
+
+#EdidPrescriptionForm, #AddButtonForm {
+    padding: 0px 7px 0 0;
+}
 /* End CreateTemp Css */
 
 /* start edit button */

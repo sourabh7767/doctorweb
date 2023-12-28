@@ -631,7 +631,7 @@ $('.buttonAppend').on('click', '.tag-data', function() {
     });
 
         $(document).on('click', '.editPrescriptionUser', function () {
-            $("#edit_objective").html("abc")
+            $('.loader').show();
         // var eventModal = new bootstrap.Modal(document.getElementById('editPrescriptionAdmin'));
         // eventModal.show();
         var prescreptionId = $(this).data('id');
@@ -653,6 +653,7 @@ $('.buttonAppend').on('click', '.tag-data', function() {
                           ids.push(tag.id);
                         });
                         $('#tagIds').val(ids);
+                        $('.loader').hide();
                         console.log(tagValues)
                     //   console.log(response.object);
                   },
