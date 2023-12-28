@@ -303,7 +303,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="edit_description" class="form-label">Description:</label>
-                  <textarea type="text" name="description" class="form-control" id="edit_description" rows="3"></textarea>
+                  <input type="text" name="description" class="form-control" id="edit_description" >
                 </div>
                 <div class="mb-3">
                     <label for="edit_diagn" class="form-label">Diagn</label>
@@ -311,11 +311,11 @@
                 </div>
                 <div class="mb-3">
                   <label for="edit_objective" class="form-label">Objective:</label>
-                  <input type="text" name="objective" class="form-control" id="edit_objective">
+                  <textarea type="text" name="objective" class="form-control" id="edit_objective" rows="3"></textarea>
                 </div>
                 <div class="mb-3">
                   <label for="edit_recomend" class="form-label">Recommendation:</label>
-                  <input type="text" name="recomend" class="form-control" id="edit_recomend">
+                  <textarea type="text" name="recomend" class="form-control" id="edit_recomend" rows="3"></textarea>
                 </div>
                 <div class="mb-3">
                   <input id="tagsInputprescreption" type="text" value="" data-role="tagsinput" class="presccreption form-control" name="tags">
