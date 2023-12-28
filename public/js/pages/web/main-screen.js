@@ -664,21 +664,24 @@ $('.buttonAppend').on('click', '.tag-data', function() {
             });
 
     $('#submitEditPrescription').on('click', function () {
+        $('.loader').show();
         var formData = $("#EdidPrescriptionForm").serialize();
         $.ajax({
             url: site_url + '/user/edit/prescreption',
             type: 'POST',
             data:formData,
             success: function (response) {
+
               console.log(response.object)
                 $('#editPrescription').modal('hide');
                 $('#EdidPrescriptionForm')[0].reset();
                 $("#tagsInputprescreption").tagsinput('removeAll');
+                $('.loader').hide();
                   toastr.success(response.message, 'Success!', toastCofig);
                 console.log(response);
             },
             error: function (xhr, status, error) {
-            $('.loader').hide();
+                $('.loader').hide();
             var response = JSON.parse(xhr.responseText);
             console.log(response)
             if (response.errors) {  
