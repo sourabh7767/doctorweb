@@ -44,6 +44,8 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::post('/get-button-description', 'Web\HomeController@getButtonDescription')->name('getButtonDescription');
         Route::get('/prescription/data', 'Web\HomeController@getPrescription')->name('getPrescription');
         Route::post('/delete/left/tags', 'Web\HomeController@deleteLeftTags')->name('deleteLeftTags');
+        Route::get('get/edit/prescreption/{id}','Web\HomeController@getPrescriptionEdit')->name('user.getPrescriptionEdit');
+        Route::post('/edit/prescreption', 'Web\HomeController@editPrescreption')->name('user.editPrescreption');
  
     });
     

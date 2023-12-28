@@ -629,4 +629,83 @@ $('.buttonAppend').on('click', '.tag-data', function() {
             }
         });
     });
+
+        $(document).on('click', '.editPrescriptionUser', function () {
+            $("#edit_objective").html("abc")
+        // var eventModal = new bootstrap.Modal(document.getElementById('editPrescriptionAdmin'));
+        // eventModal.show();
+        var prescreptionId = $(this).data('id');
+        $.ajax({
+                  url: site_url + '/user/get/edit/prescreption/' + prescreptionId,
+                  type: 'get',
+                  data:prescreptionId,
+                  success: function (response) {
+                      $("#edit_name").val(response.object.name)
+                      $("#edit_description").val(response.object.description)
+                     $("#edit_diagn").val(response.object.diagn)
+                     $("#edit_objective").val(response.object.objective)
+                     $("#edit_recomend").val(response.object.recomend)
+                     $("#prescreprionId").val(response.object.id);
+                     $("#UserId").val(response.object.user_id);
+                     var ids = [];
+                      var tagValues = response.tags.map(function(tag) {
+                          $('#tagsInputprescreption').tagsinput('add', tag.tags);
+                          ids.push(tag.id);
+                        });
+                        $('#tagIds').val(ids);
+                        console.log(tagValues)
+                    //   console.log(response.object);
+                  },
+                  error: function (error) {
+                      console.error('Error:', error);
+                  }
+              });
+            });
+
+    $('#submitEditPrescription').on('click', function () {
+        var formData = $("#EdidPrescriptionForm").serialize();
+        $.ajax({
+            url: site_url + '/user/edit/prescreption',
+            type: 'POST',
+            data:formData,
+            success: function (response) {
+              console.log(response.object)
+                $('#editPrescription').modal('hide');
+                $('#EdidPrescriptionForm')[0].reset();
+                $("#tagsInputprescreption").tagsinput('removeAll');
+                  toastr.success(response.message, 'Success!', toastCofig);
+                console.log(response);
+            },
+            error: function (xhr, status, error) {
+            $('.loader').hide();
+            var response = JSON.parse(xhr.responseText);
+            console.log(response)
+            if (response.errors) {  
+                $.each(response.errors, function (field, errors) {
+                    if (errors.length > 0) {
+                        firstError = errors[0];
+                        return false; 
+                    }
+                });
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: firstError,
+                });
+                }else{
+                    Swal.fire({
+                        icon: "question",
+                        title: "Oops...",
+                        text: "Something went Wrong!",
+                        footer: '<a href="#">Why do I have this issue?</a>'
+                      }).then(function() {
+                        window.location.href = '/user/home';
+                      });
+                }
+        }
+        });
+        
+    });
+
+
 });
