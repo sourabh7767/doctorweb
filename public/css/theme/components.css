@@ -3065,8 +3065,8 @@ body:after {
 
 .select2-container--classic .select2-results__option[aria-selected='true'],
 .select2-container--default .select2-results__option[aria-selected='true'] {
-  background-color: currentColor !important;
-  color: #000 !important; }
+  background-color: none;
+  color: black; }
 
 .select2-container--classic .select2-results__option i,
 .select2-container--classic .select2-results__option svg,
@@ -3434,3 +3434,4 @@ tr.group {
 .dark-layout .bootstrap-touchspin .bootstrap-touchspin-injected .disabled-max-min {
   background-color: #b8c2cc !important;
   opacity: 1; }
+  

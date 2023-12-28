@@ -320,28 +320,33 @@
                                                 <div class="modal-body p-0">
                                                     <form class="addBtnForm" id="EdidPrescriptionForm">
                                                         @csrf
+                                                        <input type="hidden" name="prescreprion_id" id="prescreprionId">
+                                                        <input type="hidden" name="user_id" id="UserId">
+                                                        <input type="hidden" name="tag_ids" id="tagIds">
                                                         <div class="form-group mb-2">
-                                                            <input type="text" value="" placeholder="Name..." class="customControlInputs" name="name">
+                                                            <input type="text" value="" placeholder="Name..." class="customControlInputs" name="name" id="edit_name">
                                                             <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                         <div class="form-group mb-2">
-                                                            <input type="text" value="" placeholder="Description..." class="customControlInputs" name="description">
+                                                            <input type="text" value="" placeholder="Description..." class="customControlInputs" name="description" id="edit_description">
                                                             <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                         <div class="form-group mb-2">
-                                                            <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="diagn">
+                                                            <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="diagn" id="edit_diagn">
                                                             <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                         <div class="form-group mb-2">
-                                                            <textarea class="customControlInputs" id="" rows="6" placeholder="Rekomendjdjas..." name="objective"></textarea>
+                                                            {{-- <input type="text" name="objective" class="customControlInputs form-control" id="edit_objective" style="height: 100px;"> --}}
+                                                            <textarea class="customControlInputs" id="" rows="6" placeholder="Rekomendjdjas..." name="objective" id="edit_objective"></textarea>
                                                             <div id="prescription-objective-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                         <div class="form-group mb-2">
-                                                            <textarea class="customControlInputs" id="" rows="6" placeholder="Rekomendjdjas..." name="recomend"></textarea>
+                                                            {{-- <input type="text" name="recomend" class="customControlInputs form-control" id="edit_recomend" style="height: 100px;"> --}}
+                                                            <textarea class="customControlInputs" id="" rows="6" placeholder="Rekomendjdjas..." name="recomend" id="edit_recomend"></textarea>
                                                             <div id="prescription-recomend-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                         <div class="u-tagsinput mb-2">
-                                                            <input id="tagsInput" placeholder="Tags" type="text" value="" data-role="tagsinput" class="customControlInputs" name="tags">
+                                                            <input id="tagsInputprescreption" type="text" value="" data-role="tagsinput" class="presccreption form-control" name="tags">
                                                             <div id="prescription-tags-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                     </form>
