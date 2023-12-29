@@ -40,6 +40,9 @@
         background: linear-gradient(to right, #4e97be, #237dae);
         color :#fff
     }
+    .cardArea.active:hover .titleTxt, .cardArea.active:hover .description {
+        color: #fff;
+    }
     .cardItemValue.active span:hover {
         color: #fff;
     }
