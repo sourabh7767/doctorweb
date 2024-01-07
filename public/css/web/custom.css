@@ -546,3 +546,7 @@ body .multiselect-dropdown
 {
     width: 100% !important;
 }
+
+.removed{
+    display: none !important;
+}

@@ -5,8 +5,8 @@ $(document).ready(function () {
         $('.loader').show();
         var formData = $("#addPrescriptionForm").serialize();
         $.ajax({
-            type: "POST",  
-            url: site_url + "/user/add/prescription",  
+            type: "POST",
+            url: site_url + "/user/add/prescription",
             data: formData,
             success: function (response) {
                 $('.loader').hide();
@@ -19,12 +19,12 @@ $(document).ready(function () {
             error: function (xhr, status, error) {
                 $('.loader').hide();
                 var response = JSON.parse(xhr.responseText);
-                
-                if (response.errors) {  
+
+                if (response.errors) {
                     $.each(response.errors, function (field, errors) {
                         if (errors.length > 0) {
                             firstError = errors[0];
-                            return false; 
+                            return false;
                         }
                     });
                     Swal.fire({
@@ -32,22 +32,22 @@ $(document).ready(function () {
                         title: "Oops...",
                         text: firstError,
                     });
-                    }else{
-                        Swal.fire({
-                            icon: "question",
-                            title: "Oops...",
-                            text: "Something went Wrong!",
-                            footer: '<a href="#">Why do I have this issue?</a>'
-                          }).then(function() {
-                            window.location.href = '/user/home';
-                          });
-                    }
+                } else {
+                    Swal.fire({
+                        icon: "question",
+                        title: "Oops...",
+                        text: "Something went Wrong!",
+                        footer: '<a href="#">Why do I have this issue?</a>'
+                    }).then(function () {
+                        window.location.href = '/user/home';
+                    });
+                }
             }
         });
-        });
+    });
 
 
-// start center card functionality
+    // start center card functionality
 
     $('#searchInput').on('input', function () {
         var searchTerm = $(this).val();
@@ -60,21 +60,21 @@ $(document).ready(function () {
             type: 'POST',
             url: site_url + '/user/get/prescription/list',
             data: {
-            '_token': $('meta[name="csrf-token"]').attr('content'),
+                '_token': $('meta[name="csrf-token"]').attr('content'),
                 searchTerm: searchTerm,
             },
             success: function (data) {
                 $('#searchResults').html(data);
-               // $('.loader').hide();
+                // $('.loader').hide();
             },
-            
+
         });
     });
 
-$(document).on('click', '.crossValue' ,function (e) {   
-  var cardArea = $(this).closest('.cardArea');
-  var prescriptionId = cardArea.find('.cardBody').data('id');
-  
+    $(document).on('click', '.crossValue', function (e) {
+        var cardArea = $(this).closest('.cardArea');
+        var prescriptionId = cardArea.find('.cardBody').data('id');
+
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -108,86 +108,86 @@ $(document).on('click', '.crossValue' ,function (e) {
             }
             $('.loader').hide();
         });
-    
-  });
-  $(document).on('click', '.cardArea' ,function (e) {
-    var $this = $(this);
-    var isActive = $this.hasClass('active');
-    $(".cardArea").removeClass("active");
-    if (!isActive) {
-        $this.addClass('active');
-    }
-      $('.loader').show();
-    var cardBody = $(this).find('.cardBody');
-    var cardId = cardBody.data('id');
-    $('#to_diagn').val('');
-    $('#to_objective').val('');
-    $('#to_recomend').val('');
-    $.ajax({
-        type: 'get',
-        url: site_url + '/user/prescription/data', 
-        data:{card_id:cardId},
-        
-        success: function (data) {
-            var prescriptionData = data.object;
-            if(!isActive){
-                $('#to_diagn').val(function (_, currentValue) {
-                    if(currentValue === ""){
-                        
-                        return currentValue + prescriptionData.diagn;
-                    }else{
-                        
-                        return currentValue + '\n' + prescriptionData.diagn;
-                    }
-                    
-                });
 
-                $('#to_objective').val(function (_, currentValue) {
-                    if(currentValue === ""){
-                        return currentValue + prescriptionData.objective;
-                    }else{
-                        return currentValue + '\n' + prescriptionData.objective;
-                    }
-                });
+    });
+    $(document).on('click', '.cardArea', function (e) {
+        var $this = $(this);
+        var isActive = $this.hasClass('active');
+        $(".cardArea").removeClass("active");
+        if (!isActive) {
+            $this.addClass('active');
+        }
+        $('.loader').show();
+        var cardBody = $(this).find('.cardBody');
+        var cardId = cardBody.data('id');
+        $('#to_diagn').val('');
+        $('#to_objective').val('');
+        $('#to_recomend').val('');
+        $.ajax({
+            type: 'get',
+            url: site_url + '/user/prescription/data',
+            data: { card_id: cardId },
 
-                $('#to_recomend').val(function (_, currentValue) {
-                    if(currentValue === ""){
-                        return currentValue + prescriptionData.recomend;
-                    }else{
-                        return currentValue + '\n' + prescriptionData.recomend;
-                    }
-                    
-                });
-            }
-            $('.loader').hide();
-            // toastr.success(data.message, 'Success!', toastCofig);   
-        },
+            success: function (data) {
+                var prescriptionData = data.object;
+                if (!isActive) {
+                    $('#to_diagn').val(function (_, currentValue) {
+                        if (currentValue === "") {
+
+                            return currentValue + prescriptionData.diagn;
+                        } else {
+
+                            return currentValue + '\n' + prescriptionData.diagn;
+                        }
+
+                    });
+
+                    $('#to_objective').val(function (_, currentValue) {
+                        if (currentValue === "") {
+                            return currentValue + prescriptionData.objective;
+                        } else {
+                            return currentValue + '\n' + prescriptionData.objective;
+                        }
+                    });
+
+                    $('#to_recomend').val(function (_, currentValue) {
+                        if (currentValue === "") {
+                            return currentValue + prescriptionData.recomend;
+                        } else {
+                            return currentValue + '\n' + prescriptionData.recomend;
+                        }
+
+                    });
+                }
+                $('.loader').hide();
+                // toastr.success(data.message, 'Success!', toastCofig);   
+            },
+        });
+
     });
 
-  });
-
-function copyToClipboard(element) {
-    var copyText = $(element).val();
-    navigator.clipboard.writeText(copyText)
-    toastr.success("Copied", 'Success!', toastCofig);
-}
-    $('.copy').on('click', function() {
+    function copyToClipboard(element) {
+        var copyText = $(element).val();
+        navigator.clipboard.writeText(copyText)
+        toastr.success("Copied", 'Success!', toastCofig);
+    }
+    $('.copy').on('click', function () {
         var targetID = $(this).data('target-id');
         copyToClipboard('#' + targetID);
     });
 
 
-// end center card functionality
+    // end center card functionality
 
-        $(document).on('click', '#saveButtons' ,function (event) {
+    $(document).on('click', '#saveButtons', function (event) {
         event.preventDefault();
         $('.loader').show();
         var formData = $('#AddButtonForm').serialize();
         $.ajax({
             type: 'POST',
-            url: site_url + '/user/add/buttons', 
-            data:formData,
-            
+            url: site_url + '/user/add/buttons',
+            data: formData,
+
             success: function (data) {
                 $('#addBtnModal').modal('hide');
                 $('#AddButtonForm')[0].reset();
@@ -196,22 +196,22 @@ function copyToClipboard(element) {
                 var buttonHTML = '<div class="cardItemValue" id="cardItemValueButton_' + newButton.id + '">' +
                     '<span class="tag tag-data" data-button-position="' + newButton.place + '" data-button-id="' + newButton.id + '">' + newButton.title + '</span>' +
                     '<span class="crossValue buttondeleteCrose" data-button-id="' + newButton.id + '"><i class="las la-times"></i></span>' +
-                '</div>';
-                
-                    $('.buttonAppend').append(buttonHTML);
+                    '</div>';
+
+                $('.buttonAppend').append(buttonHTML);
                 $('.loader').hide();
                 toastr.success(data.message, 'Success!', toastCofig);
-                  
+
             },
             error: function (xhr, status, error) {
                 $('.loader').hide();
                 var response = JSON.parse(xhr.responseText);
-                
-                if (response.errors) {  
+
+                if (response.errors) {
                     $.each(response.errors, function (field, errors) {
                         if (errors.length > 0) {
                             firstError = errors[0];
-                            return false; 
+                            return false;
                         }
                     });
                     Swal.fire({
@@ -219,27 +219,27 @@ function copyToClipboard(element) {
                         title: "Oops...",
                         text: firstError,
                     });
-                    }else{
-                        Swal.fire({
-                            icon: "question",
-                            title: "Oops...",
-                            text: "Something went Wrong!",
-                          }).then(function() {
-                            window.location.href = '/user/home';
-                          });
-                    }
+                } else {
+                    Swal.fire({
+                        icon: "question",
+                        title: "Oops...",
+                        text: "Something went Wrong!",
+                    }).then(function () {
+                        window.location.href = '/user/home';
+                    });
+                }
             }
         });
     });
-    $('#changePasswordButton').on('click', function(event) {
+    $('#changePasswordButton').on('click', function (event) {
         event.preventDefault();
         var formData = $('#changePasswordForm').serialize();
         $('.loader').show();
         $.ajax({
             type: 'POST',
-            url: site_url + '/user/change-password', 
-            data:formData,
-            
+            url: site_url + '/user/change-password',
+            data: formData,
+
             success: function (data) {
                 $('#changePasswordModel').modal('hide');
                 $('#changePasswordForm')[0].reset();
@@ -249,12 +249,12 @@ function copyToClipboard(element) {
             error: function (xhr, status, error) {
                 $('.loader').hide();
                 var response = JSON.parse(xhr.responseText);
-                
-                if (response.errors) {  
+
+                if (response.errors) {
                     $.each(response.errors, function (field, errors) {
                         if (errors.length > 0) {
                             firstError = errors[0];
-                            return false; 
+                            return false;
                         }
                     });
                     Swal.fire({
@@ -262,274 +262,276 @@ function copyToClipboard(element) {
                         title: "Oops...",
                         text: firstError,
                     });
-                    }else if(response.error){
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: response.error,
-                          })
+                } else if (response.error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: response.error,
+                    })
 
-                    }
-                    else{
-                        Swal.fire({
-                            icon: "question",
-                            title: "Oops...",
-                            text: 'something went wrong',
-                          })
-                    }
+                }
+                else {
+                    Swal.fire({
+                        icon: "question",
+                        title: "Oops...",
+                        text: 'something went wrong',
+                    })
+                }
             }
         });
 
     });
-    
-    $(document).on('click', '.buttondeleteCrose' ,function (e) {
-          var button = $(this);
-          var buttonId = $(this).data('button-id');
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.value) {
-                        $('.loader').show();
-                        $.ajax({
-                            type: 'post',
-                            url: site_url + '/user/delete/button',
-                            data: {
-                                '_token': $('meta[name="csrf-token"]').attr('content'),
-                                'button_id': buttonId
-                            },
-                            success: function (data) {
-                                toastr.success(data.message, 'Success!', toastCofig);
-                                button.closest('.cardItemValue').remove();
-                            },
-                            error: function (error) {
-                                console.error('Error deleting button:', error);
-                            }
-                        });
-                    }
-                    $('.loader').hide();
-                });
-            
-          });
 
-          $('#addLableSubmit').on('click', function(event) {
-            event.preventDefault();
-            var formData = $('#searchableTags').serialize();
-            $('.loader').show();
-            $.ajax({
-                type: 'POST',
-                url: site_url + '/user/add/search/tags', 
-                data:formData,
-                
-                success: function (data) {
-                    $('.loader').hide();
-                    $('#addOnBtnModal').modal('hide');
-                    $('#searchableTags')[0].reset();
-                    $("#tagsInput").tagsinput('removeAll');
-                    
-                   // Assuming data.newCustomSearch is an array with one element
-                   var newCustomSearchHTML = `
+    $(document).on('click', '.buttondeleteCrose', function (e) {
+        var button = $(this);
+        var buttonId = $(this).data('button-id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                $('.loader').show();
+                $.ajax({
+                    type: 'post',
+                    url: site_url + '/user/delete/button',
+                    data: {
+                        '_token': $('meta[name="csrf-token"]').attr('content'),
+                        'button_id': buttonId
+                    },
+                    success: function (data) {
+                        toastr.success(data.message, 'Success!', toastCofig);
+                        button.closest('.cardItemValue').remove();
+                    },
+                    error: function (error) {
+                        console.error('Error deleting button:', error);
+                    }
+                });
+            }
+            $('.loader').hide();
+        });
+
+    });
+
+    $('#addLableSubmit').on('click', function (event) {
+        event.preventDefault();
+        var formData = $('#searchableTags').serialize();
+        $('.loader').show();
+        $.ajax({
+            type: 'POST',
+            url: site_url + '/user/add/search/tags',
+            data: formData,
+
+            success: function (data) {
+                $('.loader').hide();
+                $('#addOnBtnModal').modal('hide');
+                $('#searchableTags')[0].reset();
+                $("#tagsInput").tagsinput('removeAll');
+
+                // Assuming data.newCustomSearch is an array with one element
+                var newCustomSearchHTML = `
                    <li class="leftCardItems row" data-id="${data.newCustomSearch[0].id}">
                        <h6 class="cardItemHead col-md-4">${data.newCustomSearch[0].title}</h6>
                        <div class="col-md-8">
                            ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
-                               ? data.newCustomSearch[0].custom_tags.map(tag => `
+                        ? data.newCustomSearch[0].custom_tags.map(tag => `
                                    <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
                                        <span class="tag" data-tag="${tag.tag}" data-type="true">${tag.tag}</span>
                                        <span class="crossValue crossValue1 customtagdelete" data-id="${tag.id}"><i class="las la-times"></i></span>
                                    </div>
                                `).join('')
-                               : ''}
+                        : ''}
                        </div>
                    </li>
                `;
                 $('#UlTags').append(newCustomSearchHTML);
                 toastr.success(data.message, 'Success!', toastCofig);
-                },
-                error: function (xhr, status, error) {
-                    $('.loader').hide();
-                    var response = JSON.parse(xhr.responseText);
-                    
-                    if (response.errors) {  
-                        $.each(response.errors, function (field, errors) {
-                            if (errors.length > 0) {
-                                firstError = errors[0];
-                                return false; 
-                            }
-                        });
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: firstError,
-                        });
-                        }else{
-                            Swal.fire({
-                                icon: "question",
-                                title: "Oops...",
-                                text: "Something went Wrong!",
-                              })
+            },
+            error: function (xhr, status, error) {
+                $('.loader').hide();
+                var response = JSON.parse(xhr.responseText);
+
+                if (response.errors) {
+                    $.each(response.errors, function (field, errors) {
+                        if (errors.length > 0) {
+                            firstError = errors[0];
+                            return false;
                         }
+                    });
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: firstError,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "question",
+                        title: "Oops...",
+                        text: "Something went Wrong!",
+                    })
                 }
-            });
-    
+            }
         });
-        $('#submitUpdateProfile').on('click', function(event) {
-            event.preventDefault();
-            $('.loader').show();
-            var formData = new FormData($('#UpdateProfileForm')[0]);
-        
+
+    });
+    $('#submitUpdateProfile').on('click', function (event) {
+        event.preventDefault();
+        $('.loader').show();
+        var formData = new FormData($('#UpdateProfileForm')[0]);
+
+        $.ajax({
+            url: '/user/update-profile',
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $('.loader').hide();
+                $('#updateProfileModal').modal('hide');
+                toastr.success(data.message, 'Success!', toastCofig);
+
+            },
+            error: function (xhr, status, error) {
+                $('.loader').hide();
+                var response = JSON.parse(xhr.responseText);
+
+                if (response.errors) {
+                    $.each(response.errors, function (field, errors) {
+                        if (errors.length > 0) {
+                            firstError = errors[0];
+                            return false;
+                        }
+                    });
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: firstError,
+                    });
+                }
+            }
+        });
+    });
+
+    $(function () {
+        $("#change_old_pass_eye").click(function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+            $("#change_old_pass").attr("type", type);
+        });
+    });
+    $(function () {
+        $("#change_new_pass_eye").click(function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+            $("#change_new_pass").attr("type", type);
+        });
+    });
+    $(function () {
+        $("#change_confirm_pass_eye").click(function () {
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
+            $("#change_confirm_pass").attr("type", type);
+        });
+    });
+
+    $('#getProfileData').on('click', function (event) {
+        $.ajax({
+            type: 'GET',
+            url: site_url + '/user/get-profile-data',
+            success: function (data) {
+
+                $('#preview').attr('src', data.profile_image);
+
+                $('#updateFull_name').val(data.full_name);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+    $('#clearChangePasswordForm').on('click', function (event) {
+        event.preventDefault();
+        $('#changePasswordForm')[0].reset();
+    });
+
+    $('.buttonAppend').on('click', '.tag-data', function () {
+
+        var buttonId = $(this).data('button-id');
+        // var $container = $('#cardItemValueButton_' + buttonId);
+        var buttonPosition = $(this).data('button-position');
+        if (!$('#cardItemValueButton_' + buttonId).hasClass('active')) {
+            $('#cardItemValueButton_' + buttonId).addClass('active');
             $.ajax({
-                url: '/user/update-profile',
-                method: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                success: function(data) {
-                    $('.loader').hide();
-                    $('#updateProfileModal').modal('hide');
-                    toastr.success(data.message, 'Success!', toastCofig);
-                    
+                url: site_url + '/user/get-button-description',
+                type: 'POST',
+                data: { button_id: buttonId, '_token': $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
+                    if (response.description) {
+                        // Update input field based on button position
+                        const textarea = document.getElementById(getTextareaId(buttonPosition));
+                        const currentValue = textarea.value;
+
+                        if (currentValue === "") {
+                            textarea.value = response.description;
+                        } else {
+                            textarea.value = currentValue + '\n' + response.description;
+                        }
+                    } else {
+                        console.error('Button description not found.');
+                    }
                 },
                 error: function (xhr, status, error) {
-                    $('.loader').hide();
-                    var response = JSON.parse(xhr.responseText);
-                    
-                    if (response.errors) {  
-                        $.each(response.errors, function (field, errors) {
-                            if (errors.length > 0) {
-                                firstError = errors[0];
-                                return false; 
-                            }
-                        });
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: firstError,
-                        });
-                    }
+                    console.error('Error: ' + error);
                 }
             });
-        });
-    
-        $(function () {
-            $("#change_old_pass_eye").click(function () {
-                $(this).toggleClass("fa-eye fa-eye-slash");
-                var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
-                $("#change_old_pass").attr("type", type);
-            });
-        });
-        $(function () {
-            $("#change_new_pass_eye").click(function () {
-                $(this).toggleClass("fa-eye fa-eye-slash");
-                var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
-                $("#change_new_pass").attr("type", type);
-            });
-        });
-        $(function () {
-            $("#change_confirm_pass_eye").click(function () {
-                $(this).toggleClass("fa-eye fa-eye-slash");
-                var type = $(this).hasClass("fa-eye-slash") ? "text" : "password";
-                $("#change_confirm_pass").attr("type", type);
-            });
-        });
-        
-        $('#getProfileData').on('click', function(event) {
-    $.ajax({
-        type: 'GET',
-        url: site_url + '/user/get-profile-data', 
-        success: function (data) {
-            
-            $('#preview').attr('src',data.profile_image);
-
-            $('#updateFull_name').val(data.full_name);
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
-});
-$('#clearChangePasswordForm').on('click', function(event) {
-    event.preventDefault();
-$('#changePasswordForm')[0].reset();
-});
-
-$('.buttonAppend').on('click', '.tag-data', function() {
-    
-    var buttonId = $(this).data('button-id');
-    // var $container = $('#cardItemValueButton_' + buttonId);
-    var buttonPosition = $(this).data('button-position');
-    if (!$('#cardItemValueButton_' + buttonId).hasClass('active')) {
-        $('#cardItemValueButton_' + buttonId).addClass('active');
-        $.ajax({
-            url: site_url + '/user/get-button-description',
-            type: 'POST',
-            data: { button_id: buttonId, '_token': $('meta[name="csrf-token"]').attr('content') },
-            success: function (response) {
-                if (response.description) {
+        } else {
+            $('#cardItemValueButton_' + buttonId).removeClass('active');
+            $.ajax({
+                url: site_url + '/user/get-button-description',
+                type: 'POST',
+                data: { button_id: buttonId, '_token': $('meta[name="csrf-token"]').attr('content') },
+                success: function (response) {
                     // Update input field based on button position
-                    const textarea = document.getElementById(getTextareaId(buttonPosition));
-                    const currentValue = textarea.value;
-    
-                    if (currentValue === "") {
-                        textarea.value = response.description;
-                    } else {
-                        textarea.value = currentValue + '\n' + response.description;
+                    if (response.description) {
+                        const replaceText = response.description.replace(/[.*+?^${}()|[\]\\\n]/g, '\\$&'); // Escape special characters
+                        console.log(replaceText)
+                        const textarea = document.getElementById(getTextareaId(buttonPosition));
+                        console.log(textarea)
+                        textarea.value = textarea.value.replace(new RegExp(replaceText, 'g'), '').trim();
                     }
-                } else {
-                    console.error('Button description not found.');
+                },
+                error: function (xhr, status, error) {
+                    console.error('Er*/ror: ' + error);
                 }
-            },
-            error: function (xhr, status, error) {
-                console.error('Error: ' + error);
-            }
-        });
-    } else {
-        $('#cardItemValueButton_' + buttonId).removeClass('active');
-        $.ajax({
-            url: site_url + '/user/get-button-description',
-            type: 'POST',
-            data: { button_id: buttonId, '_token': $('meta[name="csrf-token"]').attr('content') },
-            success: function (response) {
-                // Update input field based on button position
-                if (response.description) {
-                    const replaceText = response.description.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escape special characters
-                    const textarea = document.getElementById(getTextareaId(buttonPosition));
-                    textarea.value = textarea.value.replace(new RegExp(replaceText, 'g'), '').trim();
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error('Error: ' + error);
-            }
-        });
-    }
-    
-    // Function to get the textarea ID based on the button position
-    function getTextareaId(buttonPosition) {
-        switch (buttonPosition) {
-            case 1:
-                return 'to_diagn';
-            case 2:
-                return 'to_objective';
-            case 3:
-                return 'to_recomend';
-            default:
-                console.error('Invalid button position.');
-                return '';
+            });
         }
-    }
-    
+
+        // Function to get the textarea ID based on the button position
+        function getTextareaId(buttonPosition) {
+            switch (buttonPosition) {
+                case 1:
+                    return 'to_diagn';
+                case 2:
+                    return 'to_objective';
+                case 3:
+                    return 'to_recomend';
+                default:
+                    console.error('Invalid button position.');
+                    return '';
+            }
+        }
+
         // $(this).toggleClass('active');
     });
 
     // $(document).on('click', 'button.secondryOutline', function() {
     //     $(this).toggleClass('active');
     // });
-    
+
     // $(document).on('click', 'button.secondryOutline.active', function() {
     //     $(this).toggleClass('active');
     // });
@@ -539,8 +541,8 @@ $('.buttonAppend').on('click', '.tag-data', function() {
     // });
 
     $(document).on('click', '.tags', function () {
-    //$('.tag').on('click', function () {
-        
+        //$('.tag').on('click', function () {
+
         $('.loader').show();
         var dataId = $(this).data('id');
         var cardItemValueTag = $('#cardItemValueTag_' + dataId);
@@ -563,27 +565,27 @@ $('.buttonAppend').on('click', '.tag-data', function() {
             $('.loader').hide();
             return true;
         }
-        
+
         $.ajax({
             type: 'POST',
             url: site_url + '/user/get/prescription/list',
             data: {
-            '_token': $('meta[name="csrf-token"]').attr('content'),
+                '_token': $('meta[name="csrf-token"]').attr('content'),
                 searchTerm: searchDataString,
-                type:true
+                type: true
             },
             success: function (data) {
                 $('.loader').hide();
-                data = '\n'+data;
-                
+                data = '\n' + data;
+
                 $('#searchResults').html(data);
             },
-            
+
         });
     });
 
     $('#removeAllData').on('click', function () {
-        
+
         $('#searchResults').html('');
         $(".cardItemValue").removeClass('active');
         $('#to_diagn').val("");
@@ -592,7 +594,7 @@ $('.buttonAppend').on('click', '.tag-data', function() {
         $("#searchInput").val("");
         $(".tagTitle").removeClass('active');
     });
-    
+
     $(document).on('click', '.customtagdelete', function () {
         var tagId = $(this).data('id');
         var deleteButton = $(this);
@@ -621,7 +623,7 @@ $('.buttonAppend').on('click', '.tag-data', function() {
                             deleteButton.closest('.leftCardItems').remove();
                         }
                         toastr.success(data.message, 'Success!', toastCofig);
-                        if(data.count == 0){
+                        if (data.count == 0) {
                             window.location.href = '/user/home';
                         }
                     },
@@ -630,38 +632,38 @@ $('.buttonAppend').on('click', '.tag-data', function() {
         });
     });
 
-        $(document).on('click', '.editPrescriptionUser', function () {
-            $('.loader').show();
+    $(document).on('click', '.editPrescriptionUser', function () {
+        $('.loader').show();
         // var eventModal = new bootstrap.Modal(document.getElementById('editPrescriptionAdmin'));
         // eventModal.show();
         var prescreptionId = $(this).data('id');
         $.ajax({
-                  url: site_url + '/user/get/edit/prescreption/' + prescreptionId,
-                  type: 'get',
-                  data:prescreptionId,
-                  success: function (response) {
-                      $("#edit_name").val(response.object.name)
-                      $("#edit_description").val(response.object.description)
-                     $("#edit_diagn").val(response.object.diagn)
-                     $("#edit_objective").val(response.object.objective)
-                     $("#edit_recomend").val(response.object.recomend)
-                     $("#prescreprionId").val(response.object.id);
-                     $("#UserId").val(response.object.user_id);
-                     var ids = [];
-                      var tagValues = response.tags.map(function(tag) {
-                          $('#tagsInputprescreption').tagsinput('add', tag.tags);
-                          ids.push(tag.id);
-                        });
-                        $('#tagIds').val(ids);
-                        $('.loader').hide();
-                        console.log(tagValues)
-                    //   console.log(response.object);
-                  },
-                  error: function (error) {
-                      console.error('Error:', error);
-                  }
-              });
-            });
+            url: site_url + '/user/get/edit/prescreption/' + prescreptionId,
+            type: 'get',
+            data: prescreptionId,
+            success: function (response) {
+                $("#edit_name").val(response.object.name)
+                $("#edit_description").val(response.object.description)
+                $("#edit_diagn").val(response.object.diagn)
+                $("#edit_objective").val(response.object.objective)
+                $("#edit_recomend").val(response.object.recomend)
+                $("#prescreprionId").val(response.object.id);
+                $("#UserId").val(response.object.user_id);
+                var ids = [];
+                var tagValues = response.tags.map(function (tag) {
+                    $('#tagsInputprescreption').tagsinput('add', tag.tags);
+                    ids.push(tag.id);
+                });
+                $('#tagIds').val(ids);
+                $('.loader').hide();
+                console.log(tagValues)
+                //   console.log(response.object);
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            }
+        });
+    });
 
     $('#submitEditPrescription').on('click', function () {
         $('.loader').show();
@@ -669,46 +671,46 @@ $('.buttonAppend').on('click', '.tag-data', function() {
         $.ajax({
             url: site_url + '/user/edit/prescreption',
             type: 'POST',
-            data:formData,
+            data: formData,
             success: function (response) {
 
-              console.log(response.object)
+                console.log(response.object)
                 $('#editPrescription').modal('hide');
                 $('#EdidPrescriptionForm')[0].reset();
                 $("#tagsInputprescreption").tagsinput('removeAll');
                 $('.loader').hide();
-                  toastr.success(response.message, 'Success!', toastCofig);
+                toastr.success(response.message, 'Success!', toastCofig);
                 console.log(response);
             },
             error: function (xhr, status, error) {
                 $('.loader').hide();
-            var response = JSON.parse(xhr.responseText);
-            console.log(response)
-            if (response.errors) {  
-                $.each(response.errors, function (field, errors) {
-                    if (errors.length > 0) {
-                        firstError = errors[0];
-                        return false; 
-                    }
-                });
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: firstError,
-                });
-                }else{
+                var response = JSON.parse(xhr.responseText);
+                console.log(response)
+                if (response.errors) {
+                    $.each(response.errors, function (field, errors) {
+                        if (errors.length > 0) {
+                            firstError = errors[0];
+                            return false;
+                        }
+                    });
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: firstError,
+                    });
+                } else {
                     Swal.fire({
                         icon: "question",
                         title: "Oops...",
                         text: "Something went Wrong!",
                         footer: '<a href="#">Why do I have this issue?</a>'
-                      }).then(function() {
+                    }).then(function () {
                         window.location.href = '/user/home';
-                      });
+                    });
                 }
-        }
+            }
         });
-        
+
     });
 
 
