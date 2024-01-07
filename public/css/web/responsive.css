@@ -32,17 +32,14 @@
         background-image: linear-gradient(to right, #fcd06f, #ffb429);
     }
     .cardArea.active:hover {
-        background: linear-gradient(to right, #7fc6ec, #35abeb);
-        
+        background: linear-gradient(to right, #7fc6ec, #007ec3) !important;
     }
     .cardArea.active:hover {
         /* filter: blur(2px); */
         background: linear-gradient(to right, #4e97be, #237dae);
         color :#fff
     }
-    .cardArea.active:hover .titleTxt, .cardArea.active:hover .description {
-        color: #fff;
-    }
+    
     .cardItemValue.active span:hover {
         color: #fff;
     }
