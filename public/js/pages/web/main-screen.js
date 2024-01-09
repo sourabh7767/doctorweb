@@ -166,14 +166,19 @@ $(document).ready(function () {
 
     });
 
-    function copyToClipboard(element) {
+    function copyToClipboard(element , button) {
         var copyText = $(element).val();
         navigator.clipboard.writeText(copyText)
+            $(button).addClass("copyActive");
+            setTimeout(function () {
+                $(button).removeClass("copyActive");
+            }, 2500);
         toastr.success("Copied", 'Success!', toastCofig);
     }
     $('.copy').on('click', function () {
+        button = this;
         var targetID = $(this).data('target-id');
-        copyToClipboard('#' + targetID);
+        copyToClipboard('#' + targetID ,button);
     });
 
 

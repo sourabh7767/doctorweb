@@ -74,6 +74,17 @@ input, textarea{color: #fff;width: 100%;}
     color: #fff;
     padding: 3px 10px;
     border-radius: 10px;
+    transition: all 0.3s;
+}
+.secondryBtn:active
+{
+    padding: 3px 8px;
+    background: linear-gradient(to right, #4CAF50 , #30852d);
+    box-shadow: -3px 4px 3px 3px rgba(0, 0, 0, 0.3);
+}
+.copyActive
+{
+    background-image: linear-gradient(to right, #4287f5 , #4753c4);
 }
 input:focus-visible,textarea:focus-visible {
     outline: 0;
@@ -345,6 +356,10 @@ i.las.la-sign-out-alt {
     font-size: 9px;
     -webkit-text-stroke: 1px;
 }
+#addBtnModal .form-check-inline input, #addBtnModal .form-check-inline textarea
+{
+    width: auto;
+}
 #addBtnModal .form-check-inline {
     margin-right: 0rem !important;
     padding: 0;
@@ -401,6 +416,12 @@ i.las.la-sign-out-alt {
     padding: 13px 18px;
     border-radius: 15px;
     transition: all 0.3s;
+}
+.clearBtn:active
+{
+    padding: 12px 17px;
+    box-shadow: -3px 4px 3px 3px rgba(0, 0, 0, 0.3);
+    background-image: linear-gradient(to right, #e556f5, #fa41e1);
 }
 .leftCard .addOnBtn
 {
@@ -549,4 +570,24 @@ body .multiselect-dropdown
 
 .removed{
     display: none !important;
+}
+.delAllCross {
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    background-image: linear-gradient(to right, #93291E, #ED213A);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.delAllCross i{
+    color: #fff;
+    font-size: 13px;
+}
+.delAllCross.active
+{
+    background: #93191E;
 }

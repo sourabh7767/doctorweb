@@ -11,6 +11,14 @@
         background: linear-gradient(to right, #93291E, #ED213A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
         color: #fff !important;
     }
+    .secondryBtn:hover
+    {
+        box-shadow: -3px 4px 3px 3px rgba(0, 0, 0, 0.3);
+        background-image: linear-gradient(to right, #4CAF50 , #20e64b);
+    }
+    .copyActive:hover {
+        background-image: linear-gradient(to right, #4287f5 , #229df5);
+    }
     .clearBtn:hover
     {
         box-shadow: -3px 4px 3px 3px rgba(0, 0, 0, 0.3);
@@ -39,8 +47,11 @@
         background: linear-gradient(to right, #4e97be, #237dae);
         color :#fff
     }
-    
     .cardItemValue.active span:hover {
         color: #fff;
+    }
+    .delAllCross:hover
+    {
+        background: #93191E;
     }
 }

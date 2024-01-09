@@ -123,7 +123,10 @@
         <div class="container-fluid">
             <!-- Start Buttons Row -->
             <!-- Start Buttons Row -->
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" id="remove"><g fill="white"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/></g></svg>
+           <span class="bin" id="remove">
+                <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" id="remove"><g fill="white"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/></g></svg> -->
+                <i class="fas fa-trash" id=""></i>
+           </span>
             <div class="main-wrapper">
                
                 <div class="buttons-wrapper">
@@ -132,7 +135,7 @@
                         <div class="cardItemValue" id="cardItemValueButton_{{@$button->id}}">
                             <span class="tag tag-data" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}">{{$button->title}}
                             </span>
-                            <span class="crossValue buttondeleteCrose remove " data-button-id="{{ @$button->id }}"><i class="las la-times"></i></span>
+                            <span class="crossValue buttondeleteCrose removed remove " data-button-id="{{ @$button->id }}"><i class="las la-times"></i></span>
                         </div>
                         {{-- <button class="secondryOutline" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}"><span class="btnText">{{$button->title}}</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button> --}}
                         @endforeach
@@ -159,7 +162,7 @@
                                                 <textarea class="customControlInputs" id="" rows="11" placeholder="Rekomendjdjas..." name="description"></textarea>
                                             </div>
                                             <h4 class="modal-title mt-3">Choose Label</h4>
-                                            <div class="labelContainer mt-3 mb-3    ">
+                                            <div class="labelContainer mt-2 mb-3">
                                                 <div class="form-check form-check-inline ps-0">
                                                     <input type="radio" id="test1" value="{{App\Models\Button::First_Label}}" name="place" checked>
                                                     <label for="test1">First Label</label>
@@ -201,7 +204,7 @@
                                     <div class="cardItemValue" id="cardItemValueTag_{{@$tag->id}}">
                                             <span class="tag tagTitle tags" data-tag="{{ @$tag->tag }}" data-type="true" data-id="{{ @$tag->id }}">{{@$tag->tag}} 
                                             </span>
-                                            <span class="crossValue crossValue1 customtagdelete" data-id="{{ @$tag->id }}"><i class="las la-times"></i></span>
+                                            <span class="crossValue crossValue1 customtagdelete removed remove" data-id="{{ @$tag->id }}" ><i class="las la-times"></i></span>
                                     </div>
                                 @endforeach
                                 </div>
@@ -456,6 +459,7 @@
  <script>
   $(document).on('click', '#remove', function() {
     $('.remove').toggleClass('removed');
+    $('.bin').toggleClass("delAllCross");
 });
  </script>
 
