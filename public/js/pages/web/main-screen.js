@@ -200,7 +200,7 @@ $(document).ready(function () {
                 var newButton = data.newButton;
                 var buttonHTML = '<div class="cardItemValue" id="cardItemValueButton_' + newButton.id + '">' +
                     '<span class="tag tag-data" data-button-position="' + newButton.place + '" data-button-id="' + newButton.id + '">' + newButton.title + '</span>' +
-                    '<span class="crossValue buttondeleteCrose" data-button-id="' + newButton.id + '"><i class="las la-times"></i></span>' +
+                    '<span class="crossValue buttondeleteCrose removed remove" data-button-id="' + newButton.id + '"><i class="las la-times"></i></span>' +
                     '</div>';
 
                 $('.buttonAppend').append(buttonHTML);
@@ -346,7 +346,7 @@ $(document).ready(function () {
                         ? data.newCustomSearch[0].custom_tags.map(tag => `
                                    <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
                                        <span class="tag" data-tag="${tag.tag}" data-type="true">${tag.tag}</span>
-                                       <span class="crossValue crossValue1 customtagdelete" data-id="${tag.id}"><i class="las la-times"></i></span>
+                                       <span class="crossValue crossValue1 customtagdelete removed remove" data-id="${tag.id}"><i class="las la-times"></i></span>
                                    </div>
                                `).join('')
                         : ''}

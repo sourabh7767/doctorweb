@@ -571,6 +571,19 @@ body .multiselect-dropdown
 .removed{
     display: none !important;
 }
+#remove {
+    display: inline-block;
+    cursor: pointer;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    background-image: linear-gradient(to right, #93291E, #ED213A);
+    width: 27px;
+    height: 27px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  /* float:left; */
+}
 .delAllCross {
     display: inline-block;
     cursor: pointer;
