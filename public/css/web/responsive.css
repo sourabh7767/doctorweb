@@ -50,8 +50,4 @@
     .cardItemValue.active span:hover {
         color: #fff;
     }
-    .delAllCross:hover
-    {
-        background: #93191E;
-    }
 }

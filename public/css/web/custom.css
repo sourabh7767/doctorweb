@@ -452,7 +452,11 @@ i.las.la-sign-out-alt {
     font-size: 13px;
     padding: 5px 13px;
 }
-/* Start LeftArea Css */
+.leftBtmBtn
+{
+    height: 50px;
+}
+/* ENd LeftArea Css */
 /* Start MidArea Css */
 .cardArea {
     background: #f9cc65;
@@ -573,36 +577,16 @@ body .multiselect-dropdown
 .removed{
     display: none !important;
 }
-#remove {
-    /* display: inline-block; */
-    cursor: pointer;
-    /* border: 1px solid #fff;
-    border-radius: 50%;
-    background-image: linear-gradient(to right, #93291E, #ED213A);
-    width: 30px;
-    height: 30px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center; */
-  /* float:left; */
+.bin.delAllCross i{
+    color: #6e0b0b;
 }
-.delAllCross {
-    display: inline-block;
-    cursor: pointer;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    background-image: linear-gradient(to right, #93291E, #ED213A);
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.delAllCross i{
+.bin i {
     color: #fff;
-    font-size: 13px;
+    transition: all 0.3s;
+    cursor: pointer;
+    display: block;
+    font-size: 16px;
 }
-.delAllCross.active
-{
-    background: #93191E;
+.bin:hover {
+    color:#ffffffd4;
 }
