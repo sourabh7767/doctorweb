@@ -578,7 +578,7 @@ body .multiselect-dropdown
     display: none !important;
 }
 .bin.delAllCross i{
-    color: #6e0b0b;
+    color: #00B4DB !important;
 }
 .bin i {
     color: #fff;
@@ -587,6 +587,6 @@ body .multiselect-dropdown
     display: block;
     font-size: 16px;
 }
-.bin:hover {
+.bin:hover i {
     color:#ffffffd4;
 }

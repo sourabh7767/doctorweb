@@ -44,11 +44,11 @@ class HomeController extends Controller
         try {
             DB::beginTransaction();
             $presriptionObj = new Prescription();
-                $presriptionObj->diagn = $request->input('diagn');
-                $presriptionObj->objective = $request->input('objective');
-                $presriptionObj->recomend = $request->input('recomend');
-                $presriptionObj->name = $request->input('name');
-                $presriptionObj->description = $request->input('description');
+                $presriptionObj->diagn = replaceWithDate($request->input('diagn'));
+                $presriptionObj->objective = replaceWithDate($request->input('objective'));
+                $presriptionObj->recomend = replaceWithDate($request->input('recomend'));
+                $presriptionObj->name = replaceWithDate($request->input('name'));
+                $presriptionObj->description = replaceWithDate($request->input('description'));
                 $presriptionObj->user_id = auth()->guard('web')->user()->id;
                 $presriptionObj->save();
            
@@ -129,8 +129,8 @@ class HomeController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
         $buttonObj = Button::create([
-            'title' => $request->title,
-            'description' => $request->description,
+            'title' => replaceWithDate($request->title),
+            'description' => replaceWithDate($request->description),
             'place' => $request->place,
             'user_id' => auth()->user()->id
         ]);
@@ -184,7 +184,7 @@ class HomeController extends Controller
         try {
             DB::beginTransaction();
             $customSearchObj = new CustomSearch(); 
-            $customSearchObj->title = $request->title;
+            $customSearchObj->title = replaceWithDate($request->title);
             $customSearchObj->user_id = $userObj->id;
             $customSearchObj->save();
             $emplodedTags = explode(',',$request->input('tags'));
@@ -273,11 +273,11 @@ class HomeController extends Controller
         try {
             DB::beginTransaction();
             $presriptionObj = Prescription::find($request->prescreprion_id);
-                $presriptionObj->diagn = $request->input('diagn');
-                $presriptionObj->objective = $request->input('objective');
-                $presriptionObj->recomend = $request->input('recomend');
-                $presriptionObj->name = $request->input('name');
-                $presriptionObj->description = $request->input('description');
+            $presriptionObj->diagn = replaceWithDate($request->input('diagn'));
+            $presriptionObj->objective = replaceWithDate($request->input('objective'));
+            $presriptionObj->recomend = replaceWithDate($request->input('recomend'));
+            $presriptionObj->name = replaceWithDate($request->input('name'));
+            $presriptionObj->description = replaceWithDate($request->input('description'));
                 $presriptionObj->user_id = $request->input('user_id');
                 $presriptionObj->save();
                 $ids = explode(',',$request->tag_ids);

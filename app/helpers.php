@@ -122,3 +122,17 @@ if (! function_exists('forbiddenResponse')) {
         return response()->json($returnArr, 403);
     }
 }
+
+if(!function_exists('replaceWithDate')){
+    function replaceWithDate($inputText){
+        $formattedText = preg_replace_callback('/&&DATE&&/', function () {
+            return now()->toDateString();
+        }, $inputText);
+
+        $formattedText = preg_replace_callback('/&&DATE\+(\d+)&&/', function ($matches) {
+            $incrementValue = isset($matches[1]) ? (int)$matches[1] : 0;
+            return now()->addDays($incrementValue)->toDateString();
+        }, $formattedText);
+        return $formattedText;
+    }
+}
