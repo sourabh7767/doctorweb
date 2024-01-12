@@ -126,7 +126,7 @@ if (! function_exists('forbiddenResponse')) {
 if(!function_exists('replaceWithDate')){
     function replaceWithDate($inputText){
         $formattedText = preg_replace_callback('/&&DATE&&/', function () {
-            return now()->toDateString();
+            return now()->format('d/m/Y');
         }, $inputText);
 
         $formattedText = preg_replace_callback('/&&DATE\+(\d+)&&/', function ($matches) {
