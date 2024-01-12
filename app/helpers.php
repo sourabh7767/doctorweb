@@ -131,7 +131,7 @@ if(!function_exists('replaceWithDate')){
 
         $formattedText = preg_replace_callback('/&&DATE\+(\d+)&&/', function ($matches) {
             $incrementValue = isset($matches[1]) ? (int)$matches[1] : 0;
-            return now()->addDays($incrementValue)->toDateString();
+            return now()->addDays($incrementValue)->format('d/m/Y');
         }, $formattedText);
         return $formattedText;
     }
