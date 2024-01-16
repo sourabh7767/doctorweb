@@ -505,30 +505,32 @@ $(document).ready(function () {
                         const hasNewlineResult = hasNewline(response.description);
                     
                         if (hasNewlineResult) {
-                            console.log("Yes newline character.");
+                            console.log("Yes, there is a newline character.");
                     
                             // Perform operations for newline
-                            const withoutSpaceAndNewLine = response.description.replace(/\s/g, '');
-                            console.log("Modified description:", withoutSpaceAndNewLine);
+                            const abc = response.description.replace(/\s/g, '');
+                            console.log("Modified description:", abc);
                     
-                            const replaceText = replaceWithDate(withoutSpaceAndNewLine)
-                                .replace(/[.*+?^${}()|[\]\\\n]/g, ''); // Escape special characters
+                            const replaceText = replaceWithDate(abc)
+                                .replace(/\n/g, ''); // Remove only newline characters
                             console.log("Replace Text:", replaceText);
                     
                             const textarea = document.getElementById(getTextareaId(buttonPosition));
-                            var replaceWithoutSpaceAndNewLine = textarea.value.replace(/\s/g, '');
-                            textarea.value = replaceWithoutSpaceAndNewLine.replace(new RegExp(replaceText, 'g'), '').trim();
+                            var pop = textarea.value.replace(/\n/g, '');
+                            textarea.value = pop.replace(new RegExp(replaceText, 'g'), '').trim();
                         } else {
-                            console.log("No newline");
+                            console.log("No newline character found.");
                     
                             // Perform operations without newline
                             const replaceText = replaceWithDate(response.description)
-                                .replace(/[.*+?^${}()|[\]\\\n\r]/g, '\\$&'); // Escape special characters
+                                .replace(/\n/g, ''); // Remove only newline characters
                     
                             const textarea = document.getElementById(getTextareaId(buttonPosition));
                             textarea.value = textarea.value.replace(new RegExp(replaceText, 'g'), '').trim();
                         }
                     }
+                    
+                    
                     
                 },
                 error: function (xhr, status, error) {
