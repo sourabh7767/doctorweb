@@ -505,31 +505,40 @@ $(document).ready(function () {
                         const hasNewlineResult = hasNewline(response.description);
                     
                         if (hasNewlineResult) {
-                            console.log("Yes, there is a newline character.");
-                    
-                            // Perform operations for newline
-                            const abc = response.description.replace(/\s/g, '');
-                            console.log("Modified description:", abc);
-                    
-                            const replaceText = replaceWithDate(abc)
-                                .replace(/\n/g, ''); // Remove only newline characters
-                            console.log("Replace Text:", replaceText);
-                    
-                            const textarea = document.getElementById(getTextareaId(buttonPosition));
-                            var pop = textarea.value.replace(/\n/g, '');
-                            textarea.value = pop.replace(new RegExp(replaceText, 'g'), '').trim();
+                            const replaceText = replaceWithDate(response.description)
+                            .replace(/\s/g, ''); // Remove only newline characters
+                                console.log("Replace Text:", replaceText);
+                                
+                                const textarea = document.getElementById(getTextareaId(buttonPosition));
+                                
+                                // Get the content of the textarea
+                                const textareaContent = textarea.value.replace(/\s/g, '');
+                                const regex = new RegExp(replaceText);
+                                const match = regex.exec(textareaContent);
+                                console.log("textareaContent Text:", textareaContent);
+                            
+                            // Check if the textarea content exactly matches the modified string
+                            if (match && match.index !== -1) {
+                                console.dir(match)
+                                 var foundString = match[0];
+                                textarea.value = foundString.replace(new RegExp(foundString, 'g'), '').trim();
+                                console.log("Found String:", foundString);
+                            } else {
+                                // If it doesn't match, handle the case accordingly
+                                console.log("String not found in textarea");
+                            }
+                            // var pop = textarea.value.replace(/\s/g, '');
                         } else {
                             console.log("No newline character found.");
                     
                             // Perform operations without newline
                             const replaceText = replaceWithDate(response.description)
-                                .replace(/\n/g, ''); // Remove only newline characters
+                                .replace(/[.*+?^${}()|[\]\\\n\r]/g, '\\$&'); // Escape special characters
                     
                             const textarea = document.getElementById(getTextareaId(buttonPosition));
                             textarea.value = textarea.value.replace(new RegExp(replaceText, 'g'), '').trim();
                         }
                     }
-                    
                     
                     
                 },
