@@ -502,11 +502,34 @@ $(document).ready(function () {
                 success: function (response) {
                     // Update input field based on button position
                     if (response.description) {
-                        const replaceText = replaceWithDate(response.description)
-                            .replace(/[.*+?^${}()|[\]\\\n\r]/g, '\\$&'); // Escape special characters
-                        const textarea = document.getElementById(getTextareaId(buttonPosition));
-                        textarea.value = textarea.value.replace(new RegExp(replaceText, 'g'), '').trim();
+                        const hasNewlineResult = hasNewline(response.description);
+                    
+                        if (hasNewlineResult) {
+                            console.log("Yes newline character.");
+                    
+                            // Perform operations for newline
+                            const withoutSpaceAndNewLine = response.description.replace(/\s/g, '');
+                            console.log("Modified description:", withoutSpaceAndNewLine);
+                    
+                            const replaceText = replaceWithDate(withoutSpaceAndNewLine)
+                                .replace(/[.*+?^${}()|[\]\\\n]/g, ''); // Escape special characters
+                            console.log("Replace Text:", replaceText);
+                    
+                            const textarea = document.getElementById(getTextareaId(buttonPosition));
+                            var replaceWithoutSpaceAndNewLine = textarea.value.replace(/\s/g, '');
+                            textarea.value = replaceWithoutSpaceAndNewLine.replace(new RegExp(replaceText, 'g'), '').trim();
+                        } else {
+                            console.log("No newline");
+                    
+                            // Perform operations without newline
+                            const replaceText = replaceWithDate(response.description)
+                                .replace(/[.*+?^${}()|[\]\\\n\r]/g, '\\$&'); // Escape special characters
+                    
+                            const textarea = document.getElementById(getTextareaId(buttonPosition));
+                            textarea.value = textarea.value.replace(new RegExp(replaceText, 'g'), '').trim();
+                        }
                     }
+                    
                 },
                 error: function (xhr, status, error) {
                     console.error('Er*/ror: ' + error);
@@ -729,6 +752,13 @@ $(document).ready(function () {
         });
     
         return formattedText;
+    }
+    function hasNewline(inputString) {
+        // Regular expression to match newline character
+        const newlineRegex = /\n/;
+    
+        // Test if the inputString contains any newline character
+        return newlineRegex.test(inputString);
     }
 
 });
