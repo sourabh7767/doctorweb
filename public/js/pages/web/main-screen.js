@@ -134,27 +134,27 @@ $(document).ready(function () {
                     $('#to_diagn').val(function (_, currentValue) {
                         if (currentValue === "") {
 
-                            return currentValue + prescriptionData.diagn;
+                            return replaceWithDate(currentValue + prescriptionData.diagn);
                         } else {
 
-                            return currentValue + '\n' + prescriptionData.diagn;
+                            return replaceWithDate(currentValue + '\n' + prescriptionData.diagn);
                         }
 
                     });
 
                     $('#to_objective').val(function (_, currentValue) {
                         if (currentValue === "") {
-                            return currentValue + prescriptionData.objective;
+                            return replaceWithDate(currentValue + prescriptionData.objective);
                         } else {
-                            return currentValue + '\n' + prescriptionData.objective;
+                            return replaceWithDate(currentValue + '\n' + prescriptionData.objective);
                         }
                     });
 
                     $('#to_recomend').val(function (_, currentValue) {
                         if (currentValue === "") {
-                            return currentValue + prescriptionData.recomend;
+                            return replaceWithDate(currentValue + prescriptionData.recomend);
                         } else {
-                            return currentValue + '\n' + prescriptionData.recomend;
+                            return replaceWithDate(currentValue + '\n' + prescriptionData.recomend);
                         }
 
                     });
@@ -345,7 +345,7 @@ $(document).ready(function () {
                            ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
                         ? data.newCustomSearch[0].custom_tags.map(tag => `
                                    <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
-                                       <span class="tag" data-tag="${tag.tag}" data-type="true">${tag.tag}</span>
+                                       <span class="tag tagTitle tags" data-tag="${tag.tag}" data-type="true" data-id="${tag.id}">${tag.tag}</span>
                                        <span class="crossValue crossValue1 customtagdelete removed remove" data-id="${tag.id}"><i class="las la-times"></i></span>
                                    </div>
                                `).join('')
@@ -479,13 +479,13 @@ $(document).ready(function () {
                         // Update input field based on button position
                         const textarea = document.getElementById(getTextareaId(buttonPosition));
                         const currentValue = textarea.value;
-
+        
                         if (currentValue === "") {
-                            textarea.value = response.description;
+                            textarea.value = replaceWithDate(response.description);
                         } else {
-                            textarea.value = currentValue + '\n' + response.description;
+                            textarea.value = currentValue + '\n' + replaceWithDate(response.description);
                         }
-                    } else {
+                    }  else {
                         console.error('Button description not found.');
                     }
                 },
@@ -502,10 +502,9 @@ $(document).ready(function () {
                 success: function (response) {
                     // Update input field based on button position
                     if (response.description) {
-                        const replaceText = response.description.replace(/[.*+?^${}()|[\]\\\n]/g, '\\$&'); // Escape special characters
-                        console.log(replaceText)
+                        const replaceText = replaceWithDate(response.description)
+                            .replace(/[.*+?^${}()|[\]\\\n\r]/g, '\\$&'); // Escape special characters
                         const textarea = document.getElementById(getTextareaId(buttonPosition));
-                        console.log(textarea)
                         textarea.value = textarea.value.replace(new RegExp(replaceText, 'g'), '').trim();
                     }
                 },
@@ -717,6 +716,19 @@ $(document).ready(function () {
         });
 
     });
-
+    function replaceWithDate(inputText) {
+        let formattedText = inputText.replace(/&&DATE&&/g, function () {
+            return new Date().toLocaleDateString('en-GB');
+        });
+    
+        formattedText = formattedText.replace(/&&DATE\+(\d+)&&/g, function (match, p1) {
+            const incrementValue = parseInt(p1, 10) || 0;
+            const currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() + incrementValue);
+            return currentDate.toLocaleDateString('en-GB');
+        });
+    
+        return formattedText;
+    }
 
 });
