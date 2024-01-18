@@ -463,90 +463,40 @@ $(document).ready(function () {
         $('#changePasswordForm')[0].reset();
     });
 
+
     $('.buttonAppend').on('click', '.tag-data', function () {
 
-        var buttonId = $(this).data('button-id');
-        // var $container = $('#cardItemValueButton_' + buttonId);
-        var buttonPosition = $(this).data('button-position');
-        if (!$('#cardItemValueButton_' + buttonId).hasClass('active')) {
-            $('#cardItemValueButton_' + buttonId).addClass('active');
-            $.ajax({
-                url: site_url + '/user/get-button-description',
-                type: 'POST',
-                data: { button_id: buttonId, '_token': $('meta[name="csrf-token"]').attr('content') },
-                success: function (response) {
-                    if (response.description) {
-                        // Update input field based on button position
-                        const textarea = document.getElementById(getTextareaId(buttonPosition));
-                        const currentValue = textarea.value;
-        
-                        if (currentValue === "") {
-                            textarea.value = replaceWithDate(response.description);
-                        } else {
-                            textarea.value = currentValue + '\n' + replaceWithDate(response.description);
-                        }
-                    }  else {
-                        console.error('Button description not found.');
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error: ' + error);
-                }
-            });
-        } else {
-            $('#cardItemValueButton_' + buttonId).removeClass('active');
-            $.ajax({
-                url: site_url + '/user/get-button-description',
-                type: 'POST',
-                data: { button_id: buttonId, '_token': $('meta[name="csrf-token"]').attr('content') },
-                success: function (response) {
-                    // Update input field based on button position
-                    if (response.description) {
-                        const hasNewlineResult = hasNewline(response.description);
-                    
-                        if (hasNewlineResult) {
-                            const replaceText = replaceWithDate(response.description)
-                            .replace(/\s/g, ''); // Remove only newline characters
-                                console.log("Replace Text:", replaceText);
-                                
-                                const textarea = document.getElementById(getTextareaId(buttonPosition));
-                                
-                                // Get the content of the textarea
-                                const textareaContent = textarea.value.replace(/\s/g, '');
-                                const regex = new RegExp(replaceText);
-                                const match = regex.exec(textareaContent);
-                                console.log("textareaContent Text:", textareaContent);
-                            
-                            // Check if the textarea content exactly matches the modified string
-                            if (match && match.index !== -1) {
-                                console.dir(match)
-                                 var foundString = match[0];
-                                textarea.value = foundString.replace(new RegExp(foundString, 'g'), '').trim();
-                                console.log("Found String:", foundString);
+            var buttonId = $(this).data('button-id');
+            // var $container = $('#cardItemValueButton_' + buttonId);
+            var buttonPosition = $(this).data('button-position');
+            // if (!$('#cardItemValueButton_' + buttonId).hasClass('active')) {
+                $.ajax({
+                    url: site_url + '/user/get-button-description',
+                    type: 'POST',
+                    data: { button_id: buttonId, '_token': $('meta[name="csrf-token"]').attr('content') },
+                    success: function (response) {
+                        var description = response.description;
+                        var lineCount = (description.match(/\r\n|\r|\n/g) || []).length + 1;
+                        var textarea = document.getElementById(getTextareaId(buttonPosition));
+                        var button = $('#cardItemValueButton_' + buttonId);
+                        if (button.hasClass('active')) {
+                            if (lineCount > 1) {
+                                description.split(/\r\n|\r|\n/).forEach(function (line) {
+                                    textarea.value = textarea.value.replace(line + '\n', '');
+                                });
                             } else {
-                                // If it doesn't match, handle the case accordingly
-                                console.log("String not found in textarea");
+                                textarea.value = textarea.value.replace(description + '\n', '');
                             }
-                            // var pop = textarea.value.replace(/\s/g, '');
+                            button.removeClass('active');
                         } else {
-                            console.log("No newline character found.");
-                    
-                            // Perform operations without newline
-                            const replaceText = replaceWithDate(response.description)
-                                .replace(/[.*+?^${}()|[\]\\\n\r]/g, '\\$&'); // Escape special characters
-                    
-                            const textarea = document.getElementById(getTextareaId(buttonPosition));
-                            textarea.value = textarea.value.replace(new RegExp(replaceText, 'g'), '').trim();
+                                textarea.value = textarea.value + description + '\n';
+                                button.addClass('active');
                         }
-                    }
-                    
-                    
-                },
-                error: function (xhr, status, error) {
-                    console.error('Er*/ror: ' + error);
-                }
-            });
-        }
+  
+                    },
+                });
+
+
 
         // Function to get the textarea ID based on the button position
         function getTextareaId(buttonPosition) {

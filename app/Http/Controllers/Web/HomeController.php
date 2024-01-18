@@ -219,7 +219,7 @@ class HomeController extends Controller
         $button = Button::find($buttonId);
 
         if ($button) {
-            return response()->json(['description' => $button->description]);
+            return response()->json(['description' => replaceWithDate($button->description)]);
         } else {
             return response()->json(['error' => 'Button not found'], 404);
         }
