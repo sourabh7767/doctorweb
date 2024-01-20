@@ -462,9 +462,7 @@ $(document).ready(function () {
         event.preventDefault();
         $('#changePasswordForm')[0].reset();
     });
-
-
-    $('.buttonAppend').on('click', '.tag-data', function () {
+        $('.buttonAppend').on('click', '.tag-data', function () {
 
             var buttonId = $(this).data('button-id');
             // var $container = $('#cardItemValueButton_' + buttonId);
@@ -482,7 +480,11 @@ $(document).ready(function () {
                         if (button.hasClass('active')) {
                             if (lineCount > 1) {
                                 description.split(/\r\n|\r|\n/).forEach(function (line) {
-                                    textarea.value = textarea.value.replace(line + '\n', '');
+                                    console.log(line);
+                                    if (line.trim() !== '') {
+                                        textarea.value = textarea.value.replace(line + '\n', '');
+                                    }
+                                    // console.log(textarea.value);
                                 });
                             } else {
                                 textarea.value = textarea.value.replace(description + '\n', '');
