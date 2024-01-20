@@ -479,6 +479,7 @@ $(document).ready(function () {
                         var button = $('#cardItemValueButton_' + buttonId);
                         if (button.hasClass('active')) {
                             if (lineCount > 1) {
+                               
                                 description.split(/\r\n|\r|\n/).forEach(function (line) {
                                     console.log(line);
                                     if (line.trim() !== '') {
@@ -487,7 +488,10 @@ $(document).ready(function () {
                                     // console.log(textarea.value);
                                 });
                             } else {
-                                textarea.value = textarea.value.replace(description + '\n');
+                                 var regex = new RegExp("[" + description + "]", "g");
+                                    textarea.value = textarea.value.replace(regex, '');
+                                    textarea.value = textarea.value.replace(/\n/g, '');
+                                // textarea.value = textarea.value.replace(description + '\n');
                             }
                             button.removeClass('active');
                         } else {
