@@ -134,7 +134,7 @@ $(document).ready(function () {
                     $('#to_diagn').val(function (_, currentValue) {
                         if (currentValue === "") {
 
-                            return replaceWithDate(currentValue + prescriptionData.diagn);
+                            return replaceWithDate(currentValue + prescriptionData.diagn + '\n');
                         } else {
 
                             return replaceWithDate(currentValue + '\n' + prescriptionData.diagn);
@@ -144,7 +144,7 @@ $(document).ready(function () {
 
                     $('#to_objective').val(function (_, currentValue) {
                         if (currentValue === "") {
-                            return replaceWithDate(currentValue + prescriptionData.objective);
+                            return replaceWithDate(currentValue + prescriptionData.objective + '\n');
                         } else {
                             return replaceWithDate(currentValue + '\n' + prescriptionData.objective);
                         }
@@ -152,7 +152,7 @@ $(document).ready(function () {
 
                     $('#to_recomend').val(function (_, currentValue) {
                         if (currentValue === "") {
-                            return replaceWithDate(currentValue + prescriptionData.recomend);
+                            return replaceWithDate(currentValue + prescriptionData.recomend + '\n');
                         } else {
                             return replaceWithDate(currentValue + '\n' + prescriptionData.recomend);
                         }
@@ -487,7 +487,7 @@ $(document).ready(function () {
                                     // console.log(textarea.value);
                                 });
                             } else {
-                                textarea.value = textarea.value.replace(description + '\n', '');
+                                textarea.value = textarea.value.replace(description + '\n');
                             }
                             button.removeClass('active');
                         } else {
