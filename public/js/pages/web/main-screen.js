@@ -162,7 +162,7 @@ $(document).ready(function () {
                 $('.loader').hide();
                 // toastr.success(data.message, 'Success!', toastCofig);   
             },
-        });
+        }); 
 
     });
 
