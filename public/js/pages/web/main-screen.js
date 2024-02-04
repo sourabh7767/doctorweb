@@ -134,27 +134,27 @@ $(document).ready(function () {
                     $('#to_diagn').val(function (_, currentValue) {
                         if (currentValue === "") {
 
-                            return currentValue + prescriptionData.diagn;
+                            return replaceWithDate(currentValue + prescriptionData.diagn + '\n');
                         } else {
 
-                            return currentValue + '\n' + prescriptionData.diagn;
+                            return replaceWithDate(currentValue + '\n' + prescriptionData.diagn);
                         }
 
                     });
 
                     $('#to_objective').val(function (_, currentValue) {
                         if (currentValue === "") {
-                            return currentValue + prescriptionData.objective;
+                            return replaceWithDate(currentValue + prescriptionData.objective + '\n');
                         } else {
-                            return currentValue + '\n' + prescriptionData.objective;
+                            return replaceWithDate(currentValue + '\n' + prescriptionData.objective);
                         }
                     });
 
                     $('#to_recomend').val(function (_, currentValue) {
                         if (currentValue === "") {
-                            return currentValue + prescriptionData.recomend;
+                            return replaceWithDate(currentValue + prescriptionData.recomend + '\n');
                         } else {
-                            return currentValue + '\n' + prescriptionData.recomend;
+                            return replaceWithDate(currentValue + '\n' + prescriptionData.recomend);
                         }
 
                     });
@@ -162,7 +162,7 @@ $(document).ready(function () {
                 $('.loader').hide();
                 // toastr.success(data.message, 'Success!', toastCofig);   
             },
-        });
+        }); 
 
     });
 
@@ -345,7 +345,7 @@ $(document).ready(function () {
                            ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
                         ? data.newCustomSearch[0].custom_tags.map(tag => `
                                    <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
-                                       <span class="tag" data-tag="${tag.tag}" data-type="true">${tag.tag}</span>
+                                       <span class="tag tagTitle tags" data-tag="${tag.tag}" data-type="true" data-id="${tag.id}">${tag.tag}</span>
                                        <span class="crossValue crossValue1 customtagdelete removed remove" data-id="${tag.id}"><i class="las la-times"></i></span>
                                    </div>
                                `).join('')
@@ -462,58 +462,85 @@ $(document).ready(function () {
         event.preventDefault();
         $('#changePasswordForm')[0].reset();
     });
+        $('.buttonAppend').on('click', '.tag-data', function () {
 
-    $('.buttonAppend').on('click', '.tag-data', function () {
+            var buttonId = $(this).data('button-id');
+            // var $container = $('#cardItemValueButton_' + buttonId);
+            var buttonPosition = $(this).data('button-position');
+            // if (!$('#cardItemValueButton_' + buttonId).hasClass('active')) {
+                $.ajax({
+                    url: site_url + '/user/get-button-description',
+                    type: 'POST',
+                    data: { button_id: buttonId, '_token': $('meta[name="csrf-token"]').attr('content') },
+                    success: function (response) {
+                        var description = response.description;
+                        var lineCount = (description.match(/\r\n|\r|\n/g) || []).length + 1;
+                        var textarea = document.getElementById(getTextareaId(buttonPosition));
+                        var button = $('#cardItemValueButton_' + buttonId);
+                        if (button.hasClass('active')) {
+                            if (lineCount > 1) {
+                               
+                                description.split(/\r\n|\r|\n/).forEach(function (line) {
+                                    console.log(line);
+                                    if (line.trim() !== '') {
+                                        textarea.value = textarea.value.replace(line + '\n', '');
+                                    }
+                                    // console.log(textarea.value);
+                                });
+                            } else {
+                                description.split(/\r\n|\r|\n/).forEach(function (line) {
+                                    console.log(line);
+                                    if (line.trim() !== '') {
+                                        textarea.value = textarea.value.replace(line + '\n', '');
+                                    }
+                                    // console.log(textarea.value);
+                                });
 
-        var buttonId = $(this).data('button-id');
-        // var $container = $('#cardItemValueButton_' + buttonId);
-        var buttonPosition = $(this).data('button-position');
-        if (!$('#cardItemValueButton_' + buttonId).hasClass('active')) {
-            $('#cardItemValueButton_' + buttonId).addClass('active');
-            $.ajax({
-                url: site_url + '/user/get-button-description',
-                type: 'POST',
-                data: { button_id: buttonId, '_token': $('meta[name="csrf-token"]').attr('content') },
-                success: function (response) {
-                    if (response.description) {
-                        // Update input field based on button position
-                        const textarea = document.getElementById(getTextareaId(buttonPosition));
-                        const currentValue = textarea.value;
-
-                        if (currentValue === "") {
-                            textarea.value = response.description;
+                                 
+                                    // textarea.value = textarea.value.replace(regex, '');
+                                    // textarea.value = textarea.value.replace(/\n/g, '');
+                                // textarea.value = textarea.value.replace(description + '\n');
+                            }
+                            button.removeClass('active');
                         } else {
-                            textarea.value = currentValue + '\n' + response.description;
+                                textarea.value = textarea.value + description + '\n';
+                                button.addClass('active');
                         }
-                    } else {
-                        console.error('Button description not found.');
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error: ' + error);
-                }
-            });
-        } else {
-            $('#cardItemValueButton_' + buttonId).removeClass('active');
-            $.ajax({
-                url: site_url + '/user/get-button-description',
-                type: 'POST',
-                data: { button_id: buttonId, '_token': $('meta[name="csrf-token"]').attr('content') },
-                success: function (response) {
-                    // Update input field based on button position
-                    if (response.description) {
-                        const replaceText = response.description.replace(/[.*+?^${}()|[\]\\\n]/g, '\\$&'); // Escape special characters
-                        console.log(replaceText)
-                        const textarea = document.getElementById(getTextareaId(buttonPosition));
-                        console.log(textarea)
-                        textarea.value = textarea.value.replace(new RegExp(replaceText, 'g'), '').trim();
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.error('Er*/ror: ' + error);
-                }
-            });
-        }
+  
+                    },
+                });
+
+            //     if (button.hasClass('active')) {
+            //         if (lineCount > 1) {
+                       
+            //             description.split(/\r\n|\r|\n/).forEach(function (line) {
+            //                 console.log(line);
+            //                 if (line.trim() !== '') {
+            //                     textarea.value = textarea.value.replace(line + '\n', '');
+            //                 }
+            //                 // console.log(textarea.value);
+            //             });
+            //         } else {
+            //             description.split(/\r\n|\r|\n/).forEach(function (line) {
+            //                 console.log(line);
+            //                 if (line.trim() !== '') {
+            //                     textarea.value = textarea.value.replace(line + '\n', '');
+            //                 }
+            //                 // console.log(textarea.value);
+            //             });
+
+                         
+            //                 // textarea.value = textarea.value.replace(regex, '');
+            //                 // textarea.value = textarea.value.replace(/\n/g, '');
+            //             // textarea.value = textarea.value.replace(description + '\n');
+            //         }
+            //         button.removeClass('active');
+            //     } else {
+            //             textarea.value = textarea.value + description + '\n';
+            //             button.addClass('active');
+            //     }
+
+            // },
 
         // Function to get the textarea ID based on the button position
         function getTextareaId(buttonPosition) {
@@ -717,6 +744,26 @@ $(document).ready(function () {
         });
 
     });
-
+    function replaceWithDate(inputText) {
+        let formattedText = inputText.replace(/&&DATE&&/g, function () {
+            return new Date().toLocaleDateString('en-GB');
+        });
+    
+        formattedText = formattedText.replace(/&&DATE\+(\d+)&&/g, function (match, p1) {
+            const incrementValue = parseInt(p1, 10) || 0;
+            const currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() + incrementValue);
+            return currentDate.toLocaleDateString('en-GB');
+        });
+    
+        return formattedText;
+    }
+    function hasNewline(inputString) {
+        // Regular expression to match newline character
+        const newlineRegex = /\n/;
+    
+        // Test if the inputString contains any newline character
+        return newlineRegex.test(inputString);
+    }
 
 });
