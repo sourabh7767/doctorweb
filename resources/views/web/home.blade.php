@@ -23,10 +23,10 @@
 </head>
 
 <body class="bg">
-    <div class="loader " style="display: none;">
-        <div class="spinner-grow text-primary spinner-border-xl" role="status">
+    <div class="loader" style="display: none;">
+        {{-- <div class="spinner-grow text-primary spinner-border-xl" role="status">
             <span class="visually-hidden">Loading...</span>
-        </div>
+        </div> --}}
     </div>
     <!-- Start Header Section -->
     <header class="header">
