@@ -543,7 +543,7 @@ i.las.la-sign-out-alt {
 {
 position: fixed;
     z-index: 9999;
-    background: #648edb0a;
+    /* background: #648edb0a; */
     height: 100%;
     width: 100%;
     display: flex;
