@@ -549,7 +549,7 @@ position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(7px);
+    /* backdrop-filter: blur(7px); */
 }
 .swal2-popup{
 	backdrop-filter: blur(7px);
