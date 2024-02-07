@@ -23,7 +23,7 @@
 </head>
 
 <body class="bg">
-    <div class="loader" style="display: none;">
+    <div class="loader1" style="display: none;">
         {{-- <div class="spinner-grow text-primary spinner-border-xl" role="status">
             <span class="visually-hidden">Loading...</span>
         </div> --}}

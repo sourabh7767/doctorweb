@@ -29,6 +29,11 @@ Route::middleware('prevent-back-history')->group(function (){
     Route::get('/', 'Web\AuthController@webIndex')->name('web.index')->middleware('guest');
     Route::post('/signup', 'Web\AuthController@signup')->name('signup');
     Route::post('/user/login', 'Web\AuthController@userLogin')->name('userLogin');
+    Route::get('/user/forget/password/view', 'Web\AuthController@forgetPasswordView')->name('forgetPasswordView');
+    Route::post('/user/forget/password', 'Web\AuthController@forgetPassword')->name('forgetPassword');
+    Route::any('/user/verify/otp/view/{id?}', 'Web\AuthController@verifyOtp')->name('verifyOtpView');
+    Route::any('/user/change/password/view/{id?}', 'Web\AuthController@changePassword')->name('changePasswordWeb');
+    Route::get('/user/resend/otp/{id?}', 'Web\AuthController@resendOtp')->name('resendOtpWeb');
     Route::middleware('auth:web')->prefix('user')->group(function(){
         Route::get('/home', 'Web\HomeController@webHome')->name('web.home');
         Route::get('/user-logout', 'Web\AuthController@userLogout')->name('userLogout');
