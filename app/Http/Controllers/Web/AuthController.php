@@ -89,7 +89,7 @@ class AuthController extends Controller
         $userObj->update([
             'password' => Hash::make($request->change_new_pass),
         ]);
-        return redirect('/')->with('success',"Password Change Successfully");
+        return redirect('/')->with('success',"Password Updated Successfully. Please login into your account.");
     }
     public function userLogout(Request $request){
 
