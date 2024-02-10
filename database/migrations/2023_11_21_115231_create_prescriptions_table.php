@@ -15,9 +15,9 @@ class CreatePrescriptionsTable extends Migration
     {
         Schema::create('prescriptions', function (Blueprint $table) {
             $table->id();
-            $table->string('diagn');
-            $table->string('objective');
-            $table->string('recomend');
+            $table->text('diagn');
+            $table->text('objective');
+            $table->text('recomend');
             $table->bigInteger('user_id');
             $table->softDeletes();
             $table->timestamps();
