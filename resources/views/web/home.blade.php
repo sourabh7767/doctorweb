@@ -417,7 +417,9 @@
  <script>
     function clearErrors() {
     $('.messageprescription').html('');
-    $('#addPrescriptionForm')[0].reset();;
+    $('#addPrescriptionForm')[0].reset();
+    $("#EdidPrescriptionForm")[0].reset();
+    $("#tagsInputprescreption").tagsinput('removeAll');
 }
  </script>
  <script>
