@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\CustomSearch;
 use App\Models\CustomSearchTag;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Button;
 use App\Models\Prescription;
@@ -24,6 +25,7 @@ class HomeController extends Controller
         // $middleIndex = $buttons->count() / 2;
         // $buttons1 = $buttons->slice(0, $middleIndex);
         // $buttons2 = $buttons->slice($middleIndex);
+        // dd(auth()->user());
         $user = Auth::user();
         $customSearchObj = CustomSearch::where('user_id',auth()->user()->id)->with('customTags')->get();
         // dd($customSearchObj);
@@ -208,7 +210,7 @@ class HomeController extends Controller
         $user = Auth::user(); // Assuming you are using Laravel's built-in authentication
         $data = [
             'full_name' => $user->full_name,
-            'profile_image' => $user->profile_image, // Replace with the actual field name
+            'profile_image' => $user->profile_image, 
         ];
 
         return response()->json($data);
@@ -303,6 +305,99 @@ class HomeController extends Controller
         $prescreption = Prescription::find($id);
         $tags = PrescriptionTag::where('prescription_id',$prescreption->id)->get();
         return response()->json(['success' => true,'object' => $prescreption , 'tags' => $tags]);
+    }
+
+    public function getAllUserCards(Request $request,CustomSearch $prescription)
+    {
+        if ($request->ajax()) {
+            $totalCards = CustomSearch::where('user_id','!=',auth()->user()->id)->count();
+            $prescriptions = $prescription->getAllCards($request);
+             $setFilteredRecords = $totalCards;
+            if(!empty($search)){
+                $setFilteredRecords = $prescription->getAllCards($request,true);
+            }
+            return datatables()->of($prescriptions)
+                ->addIndexColumn()
+                ->addColumn('user_id', function ($prescription) {
+                   $email = $prescription->user->email;
+                    return $prescription->user->full_name. " "."($email)";
+                })
+                ->addColumn('created_at', function ($prescription) {
+                     return $prescription->created_at->diffForHumans();
+                 })
+                 ->addColumn('updated_at', function ($prescription) {
+                    return $prescription->updated_at->diffForHumans();
+                })
+                ->addColumn('action', function ($prescription) {
+                $btn = '';
+                $btn = '<a href="#" title="View" ><i style="color:white;" class="fas fa-heart" data-id="'.$prescription->id.'"></i></a>&nbsp;&nbsp;';
+                return $btn;
+            })
+                ->rawColumns([
+                'action',
+            ])
+            ->setTotalRecords($totalCards)
+            ->setFilteredRecords($setFilteredRecords)
+            ->skipPaging()
+            ->make(true);
+        }
+
+        return view('web.all-user-cards');
+    }
+    public function viewCards($ids)
+    {
+        // $ids = explode("",$id);
+       $tags = CustomSearchTag::where('custom_search_id',$ids)->pluck('tag')->toArray();
+       $emplodedIds =  [];
+    //    dd($Prescriptions);
+       $Prescriptions = Prescription::whereHas('tags', function ($query) use ($tags) {
+        $query->whereIn('tags', $tags);
+    })->get();
+    if($Prescriptions){
+        return view('web.copy-template',compact('Prescriptions'))->render();
+    }
+    
+    }
+    public function copyGroup($id){
+        $newUserId = auth()->user()->id;
+        $groupNames = CustomSearch::find($id);
+        $groupNamesTags = CustomSearchTag::where('custom_search_id',$id)->get();
+        $tags = CustomSearchTag::where('custom_search_id',$id)->pluck('tag')->toArray();
+        if(!empty($groupNames)){
+            $groupNames->download_count = $groupNames->download_count + 1;
+            $groupNames->save();
+            $newGroupName = $groupNames->replicate();
+            $newGroupName->user_id = $newUserId;
+            $newGroupName->download_count = 0;
+            $newGroupName->created_at = Carbon::now();
+            $newGroupName->updated_at = Carbon::now();
+            $newGroupName->save();
+        }
+        if(!empty($groupNamesTags)){
+            $Prescriptions = Prescription::whereHas('tags', function ($query) use ($tags) {
+                $query->whereIn('tags', $tags);
+            })->get();
+            foreach ($groupNamesTags as $groupNameTag) {
+                $newGroupNameTag = $groupNameTag->replicate();
+                $newGroupNameTag->user_id = $newUserId;
+                $newGroupNameTag->custom_search_id = $newGroupName->id;
+                $newGroupNameTag->created_at = Carbon::now();
+                $newGroupNameTag->updated_at = Carbon::now();
+                $newGroupNameTag->save();
+            }
+        }
+        
+        if(!empty($Prescriptions)){
+            foreach ($Prescriptions as $prescription) {
+                $newPrescription = $prescription->replicate();
+                $newPrescription->user_id = $newUserId;
+                $newPrescription->created_at = Carbon::now();
+                $newPrescription->updated_at = Carbon::now();
+                $newPrescription->save();
+            }
+        }
+        return response()->json(["message" =>"success"]);
+        
     }
 
 }

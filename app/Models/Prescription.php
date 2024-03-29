@@ -14,4 +14,5 @@ class Prescription extends Model
     public function tags(){
         return $this->hasMany(PrescriptionTag::class);
     }
+    
 }

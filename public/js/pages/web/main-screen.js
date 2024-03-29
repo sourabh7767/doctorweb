@@ -443,12 +443,11 @@ $(document).ready(function () {
         });
     });
 
-    $('#getProfileData').on('click', function (event) {
+        $(document).on('click', '#getProfileData', function (event) {
         $.ajax({
             type: 'GET',
             url: site_url + '/user/get-profile-data',
             success: function (data) {
-
                 $('#preview').attr('src', data.profile_image);
 
                 $('#updateFull_name').val(data.full_name);
@@ -765,5 +764,79 @@ $(document).ready(function () {
         // Test if the inputString contains any newline character
         return newlineRegex.test(inputString);
     }
+
+  
+    var table;
+    $(document).ready(function() {
+        console.log(site_url, '======site_url');
+        table = $('#cardsTable').DataTable({
+            ajax: site_url + "/user/groups/",
+            createdRow: function( row, data, dataIndex ) {
+                //         // Set the data-status attribute, and add a class
+                        $(row).attr('data-href', 'user/groups/view/'+data.id);
+                        $(row).attr('data-id', data.id);
+                
+                
+                    },
+            columns: [
+                {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false,className:'getCenter'},
+                { data: 'title', name: 'title' ,className: 'pointers'},
+                { data: 'user_id', name: 'user_id' ,className:'getCenter' },
+                { data: 'download_count', name: 'download_count',className:'getCenter' },
+                { data: 'created_at', name: 'created_at',className:'getCenter'},
+                { data: 'updated_at', name: 'updated_at' ,className:'getCenter'},
+                { data: 'action', name: 'action', orderable: false, searchable: false},
+            ]
+        });
+        $(document).on('click', '.fa-heart', function (e) {
+            e.preventDefault();
+            var element = $(this);
+            var groupId = element.data("id"); 
+            element.addClass('heart-effect');
+            // Perform AJAX request to copy data
+            $.ajax({
+                url: site_url + '/user/groups/copy/' + groupId, // Assuming the URL to copy data is set in the href attribute
+                type: 'GET',
+                success: function(response) {
+                    // Handle success if needed
+                    toastr.success(response.message, 'Success!', toastCofig);
+                    console.log('Data copied successfully');
+                    table.ajax.reload(null, false);
+                },
+                error: function(xhr, status, error) {
+                    // Handle error if needed
+                    console.error(error);
+                },
+                complete: function() {
+                    // Remove heart effect after a delay
+                    setTimeout(function() {
+                        element.removeClass('heart-effect');
+                    }, 1000); // Adjust the duration (in milliseconds) as needed
+                }
+            });
+        });
+        $('#cardsTable').on('click', 'tbody td:nth-child(2)', function() {
+            var rowData = $(this).closest('tr').data(); // Get data attributes of the clicked row
+            var cardId = rowData.id; // Assuming 'id' is the attribute containing the card ID
+            var url = site_url + '/user/groups/view/' + cardId;
+            $.ajax({
+                url: site_url + '/user/groups/view/' + cardId, // Assuming this URL hits your controller action
+                type: 'GET',
+                success: function(response) {
+                    console.log(response);
+                    // Populate modal with data
+                    // $('#cardModal .modal-body').html(response);
+                    $('#searchResults').html(response); // Assuming the response contains HTML for the modal body
+                    $('#copyPrescriptionModal').modal('show'); // Show the modal
+                },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    console.error(error);
+                }
+            });
+            // // Navigate to the URL
+        });
+    });
+   
 
 });

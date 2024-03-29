@@ -48,6 +48,7 @@
                         <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateProfileModal" id="getProfileData"> <i class="las la-edit"></i> <span>Update Profile</span></a>
                         <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changePasswordModel"><i class="las la-key"></i> <span>Change Password </span></a>
                         <a class="dropdown-item" href="{{route('userLogout')}}"><i class="las la-sign-out-alt"></i><span>Logout</span></a>
+                        <a class="dropdown-item" href="{{route('groups')}}"><i class="fas fa-receipt"></i><span>Groups</span></a>
                         </div>
                     </div>
                 </div>
@@ -450,20 +451,20 @@
     }
  </script>
  
- <script>
-     let toastCofig = {
-                closeButton: true,
-                tapToDismiss: false,
-                timeOut: 2000,
-            }
+    <script>
+        let toastCofig = {
+                    closeButton: true,
+                    tapToDismiss: false,
+                    timeOut: 2000,
+                }
 
-            @if(session('success'))
-                toastr.success("{{ session('success') }}", 'Success!', toastCofig);
-            @endif
-            @if(session('error'))
-                toastr.error("{{ session('error') }}", 'Error!',  toastCofig);
-            @endif
- </script>
+                @if(session('success'))
+                    toastr.success("{{ session('success') }}", 'Success!', toastCofig);
+                @endif
+                @if(session('error'))
+                    toastr.error("{{ session('error') }}", 'Error!',  toastCofig);
+                @endif
+    </script>
  <script>
   $(document).on('click', '#remove', function() {
     $('.remove').toggleClass('removed');

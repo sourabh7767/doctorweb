@@ -51,7 +51,10 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::post('/delete/left/tags', 'Web\HomeController@deleteLeftTags')->name('deleteLeftTags');
         Route::get('get/edit/prescreption/{id}','Web\HomeController@getPrescriptionEdit')->name('user.getPrescriptionEdit');
         Route::post('/edit/prescreption', 'Web\HomeController@editPrescreption')->name('user.editPrescreption');
- 
+        Route::get('/groups', 'Web\HomeController@getAllUserCards')->name("groups");
+        Route::get('/groups/view/{id}', 'Web\HomeController@viewCards');
+        Route::get('/groups/copy/{id}', 'Web\HomeController@copyGroup')->name('copyGroup');
+        
     });
     
     Route::middleware('auth:admin')->prefix('admin')->group(function(){
