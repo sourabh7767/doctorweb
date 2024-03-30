@@ -47,8 +47,8 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateProfileModal" id="getProfileData"> <i class="las la-edit"></i> <span>Update Profile</span></a>
                         <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changePasswordModel"><i class="las la-key"></i> <span>Change Password </span></a>
+                        <a class="dropdown-item" href="{{route('groups')}}"><i class="fas fa-receipt"></i><span>Library</span></a>
                         <a class="dropdown-item" href="{{route('userLogout')}}"><i class="las la-sign-out-alt"></i><span>Logout</span></a>
-                        <a class="dropdown-item" href="{{route('groups')}}"><i class="fas fa-receipt"></i><span>Groups</span></a>
                         </div>
                     </div>
                 </div>

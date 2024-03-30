@@ -780,9 +780,9 @@ $(document).ready(function () {
                     },
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false,className:'getCenter'},
-                { data: 'title', name: 'title' ,className: 'pointers'},
-                { data: 'user_id', name: 'user_id' ,className:'getCenter' },
-                { data: 'download_count', name: 'download_count',className:'getCenter' },
+                { data: 'title', name: 'title' ,className:'pointers'},
+                { data: 'user_id', name: 'user_id' ,className:'getCenter'},
+                { data: 'download_count', name: 'download_count',className:'getCenter'},
                 { data: 'created_at', name: 'created_at',className:'getCenter'},
                 { data: 'updated_at', name: 'updated_at' ,className:'getCenter'},
                 { data: 'action', name: 'action', orderable: false, searchable: false},

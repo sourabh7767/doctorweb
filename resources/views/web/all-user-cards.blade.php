@@ -55,6 +55,7 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
 .heart-effect {
         /* Define your desired effect here */
         animation: heartBeat 1s;
+        color:peru;
     }
 
     @keyframes heartBeat {
@@ -74,12 +75,19 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
             transform: scale(1);
         }
     }
+    table.table-bordered.dataTable tbody td:nth-child(2){
+        color:#A5e5ff;
+    }
     .pointers{
+        
       cursor: pointer;
       text-align: center;
     }
     .getCenter {
       text-align: center;
+    }
+    .card{
+        border: #474747;
     }
     </style>
 </head>
@@ -193,7 +201,7 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
             <div class="col-12">
               <div class="card data-table">
                  <div class="card-header">
-                    <h4 class="m-0"><i class="fas fa-receipt mr-2"></i>&nbsp;{{ __('Groups') }}</h4>
+                    <h4 class="m-0"><i class="fas fa-receipt mr-2"></i>&nbsp;{{ __('Library') }}</h4>
                   <!--<a href="{{ route('users.create') }}" class="dt-button create-new btn btn-primary"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create New User</a>-->
                 </div>
               
@@ -207,7 +215,7 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
                       <th>Author</th>
                       <th>Downloads</th>
                       <th>Created At</th>
-                       <th>Updated_at</th>
+                       <th>Update At</th>
                       <th data-orderable="false" style="color:white;">Action</th>
                     </tr>
                     </thead>
