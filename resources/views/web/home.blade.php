@@ -20,6 +20,84 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/extensions/toastr.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/plugins/extensions/ext-component-toastr.css') }}">
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <style>
+    .panel-container {
+      position: relative;
+      display: block;
+      width: 300px; /* Set a wider width for the container */
+      height: 300px; /* Set a fixed height for the container */
+      overflow: hidden; /* Ensure that the panel does not overflow */
+      align-items: flex-start; /* Align items at the start of the flex container */
+    }
+  
+    .panel {
+       /* Adjusted width for the panel with padding */
+      height: 3%; /* Initial height */
+      padding-top: 10px;
+      padding-bottom: 50px;
+      padding-left: 20px;
+      padding-right: 20px;
+      background-color: #474747;
+      border: 1px solid #ccc;
+      transition: height 0.5s; /* Smooth transition for height change */
+      position: relative; /* Ensure the button is positioned relative to this panel */
+      z-index: 1; /* Ensure the panel is above the button */
+      display: flex; /* Use flexbox for layout */
+      flex-direction: column; /* Arrange items vertically */
+      border-radius: 10px;
+    }
+  
+    .expanded {
+      height: 240px; /* Expanded height */
+    }
+  
+    .toggle-button-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+  
+    .toggle-button {
+      width: 40px; /* Set a fixed width for the button */
+      height: 40px; /* Set a fixed height for the button */
+      padding: 0; /* Remove padding */
+      text-align: center;
+      z-index: 999; /* Ensure the button is on top of other elements */
+      background-color: #ddd; /* Set background color to light grey */
+      border: none;
+      border-radius: 50%; /* Make the button round */
+      cursor: pointer;
+      transition: transform 0.3s ease; /* Smooth transition for rotation */
+      display: flex; /* Use flexbox for icon alignment */
+      justify-content: center; /* Align icon horizontally */
+      align-items: center; /* Align icon vertically */
+    }
+  
+    .toggle-button i {
+      color: black; /* Set color for the icon to black */
+      transition: transform 0.3s ease; /* Smooth transition for rotation */
+    }
+  
+    .rotate {
+      transform: rotate(90deg); /* Rotate the arrow 90 degrees */
+    }
+  
+    .additional-buttons {
+      opacity: 0; /* Initially hide the additional buttons */
+      transition: opacity 0.4s ease-in-out; /* Add transition for opacity */
+      margin-top: 20px; /* Add margin to separate the buttons from the button */
+    }
+  
+    .panel.expanded .additional-buttons {
+      opacity: 1; /* Show the additional buttons when panel is expanded */
+    }
+    .selected {
+    background-color: red;
+    border-radius: 10px;
+    padding: 7px;
+  }
+  </style>
 </head>
 
 <body class="bg">
@@ -40,14 +118,20 @@
                         <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" id="remove"><g fill="white"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/></g></svg> -->
                         <i class="fas fa-trash" id=""></i>
                     </span>
+                    @php
+                        $class = request()->is('user/home')?'selected':'';
+                        $class1 = request()->is('user/groups')?'selected':'';
+                    @endphp
+                    {{-- {{dd(request()->is('user/*'))}} --}}
+                    <a href="{{route('web.home')}}"><i class="fa fa-desktop {{$class}}" aria-hidden="true" style="font-size: 32px;color:#fff;text-align:center;"></i></a>
+                        <a href="{{route('groups')}}"><i class="fas fa-receipt {{$class1}}" style="font-size: 32px;color:#fff;text-align:center;"></i></a>
                     <div class="dropdown menuDropdown">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span><i class="las la-bars"></i></span>
-                        </a>
+                        </a>                    
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateProfileModal" id="getProfileData"> <i class="las la-edit"></i> <span>Update Profile</span></a>
                         <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#changePasswordModel"><i class="las la-key"></i> <span>Change Password </span></a>
-                        <a class="dropdown-item" href="{{route('groups')}}"><i class="fas fa-receipt"></i><span>Library</span></a>
                         <a class="dropdown-item" href="{{route('userLogout')}}"><i class="las la-sign-out-alt"></i><span>Logout</span></a>
                         </div>
                     </div>
@@ -251,8 +335,31 @@
                                     </div>
                                 </div>
                             </div>
+                            {{-- ========================================================================= --}}
+                    <div class="panel-container">
+                        @foreach ($customSearchObj as $item)
+                        <div class="panel" id="panel">
+                          <div class="toggle-button-container">
+                            <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}</p>
+                            <button class="toggle-button toggleOnClass"><i>&gt;</i></button>
+                          </div>
+                          <div class="additional-buttons">
+                          @foreach ($item->customTags as $tag)
+                          <div class="cardItemValue" id="cardItemValueTag_{{@$tag->id}}">
+                                  <span class="tag tagTitle tags" data-tag="{{ @$tag->tag }}" data-type="true" data-id="{{ @$tag->id }}">{{@$tag->tag}} 
+                                  </span>
+                                  <span class="crossValue crossValue1 customtagdelete removed remove" data-id="{{ @$tag->id }}" ><i class="las la-times"></i></span>
+                          </div>
+                      @endforeach
+                        </div>
+                        </div>
+                        @endforeach
+                      </div>
+
+                    {{-- ================================================================================ --}}
                         <!-- End AddBtn modal -->
                     </div>
+                    
                 </div>
                 <!-- End LeftSection -->
                 <!-- Start RightSection -->
@@ -471,7 +578,25 @@
     $('.bin').toggleClass("delAllCross");
 });
  </script>
-
+    
+    <script>
+        $(document).on('click', '.toggleOnClass', function() {
+            var panel = $(this).closest('.panel'); // Find the closest panel to the clicked toggle button
+            var additionalButtons = panel.find(".additional-buttons");
+            var arrowIcon = $(this).find("i");
+    
+            if (!panel.hasClass("expanded")) { // If panel is not expanded
+                panel.addClass("expanded");
+                additionalButtons.addClass("expanded");
+                arrowIcon.addClass("rotate");
+            } else { // If panel is expanded
+                panel.removeClass("expanded");
+                additionalButtons.removeClass("expanded");
+                arrowIcon.removeClass("rotate");
+            }
+        });
+    </script>
+    
   <!-- End Js -->
  </body>
  </html>

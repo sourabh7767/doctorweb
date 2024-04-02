@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\CopyPrescriptionRecord;
 use App\Models\CustomSearch;
 use App\Models\CustomSearchTag;
 use Carbon\Carbon;
@@ -309,18 +310,19 @@ class HomeController extends Controller
 
     public function getAllUserCards(Request $request,CustomSearch $prescription)
     {
+        $totalCards = CustomSearch::where('user_id','!=',auth()->user()->id)->count();
+        $totalPrescreptions = Prescription::where('user_id','!=',auth()->user()->id)->count();
         if ($request->ajax()) {
-            $totalCards = CustomSearch::where('user_id','!=',auth()->user()->id)->count();
             $prescriptions = $prescription->getAllCards($request);
              $setFilteredRecords = $totalCards;
             if(!empty($search)){
                 $setFilteredRecords = $prescription->getAllCards($request,true);
             }
             return datatables()->of($prescriptions)
-                ->addIndexColumn()
+                // ->addIndexColumn()
                 ->addColumn('user_id', function ($prescription) {
                    $email = $prescription->user->email;
-                    return $prescription->user->full_name. " "."($email)";
+                    return !empty($prescription->user->full_name) ? $prescription->user->full_name  : $email;
                 })
                 ->addColumn('created_at', function ($prescription) {
                      return $prescription->created_at->diffForHumans();
@@ -328,13 +330,27 @@ class HomeController extends Controller
                  ->addColumn('updated_at', function ($prescription) {
                     return $prescription->updated_at->diffForHumans();
                 })
+                ->addColumn('template_count', function ($prescription) {
+                    $tags = CustomSearchTag::where('custom_search_id',$prescription->id)->pluck('tag')->toArray();
+                    $Prescriptions = Prescription::whereHas('tags', function ($query) use ($tags) {
+                     $query->whereIn('tags', $tags);
+                 })->count();
+                    return $Prescriptions;
+                })
                 ->addColumn('action', function ($prescription) {
+                    $recordObj = CopyPrescriptionRecord::where('group_id',$prescription->id)->get();
                 $btn = '';
-                $btn = '<a href="#" title="View" ><i style="color:white;" class="fas fa-heart" data-id="'.$prescription->id.'"></i></a>&nbsp;&nbsp;';
+                if(!empty($recordObj) && count($recordObj)>0){
+                    $btn = '<a href="#" title="View" ><i style="color:#37c6ff;" class="fas fa-heart allreadyCopied"></i></a>&nbsp;&nbsp;';
+                }else{
+                    $btn = '<a href="#" title="View" ><i style="color:white;" class="fas fa-heart copyData" data-id="'.$prescription->id.'"></i></a>&nbsp;&nbsp;';
+                }
+                
                 return $btn;
             })
                 ->rawColumns([
                 'action',
+                'template_count'
             ])
             ->setTotalRecords($totalCards)
             ->setFilteredRecords($setFilteredRecords)
@@ -342,7 +358,7 @@ class HomeController extends Controller
             ->make(true);
         }
 
-        return view('web.all-user-cards');
+        return view('web.all-user-cards',compact('totalCards','totalPrescreptions'));
     }
     public function viewCards($ids)
     {
@@ -364,6 +380,10 @@ class HomeController extends Controller
         $groupNamesTags = CustomSearchTag::where('custom_search_id',$id)->get();
         $tags = CustomSearchTag::where('custom_search_id',$id)->pluck('tag')->toArray();
         if(!empty($groupNames)){
+            $recordObj = new CopyPrescriptionRecord();
+            $recordObj->user_id = $newUserId;
+            $recordObj->group_id = $groupNames->id;
+            $recordObj->save();
             $groupNames->download_count = $groupNames->download_count + 1;
             $groupNames->save();
             $newGroupName = $groupNames->replicate();

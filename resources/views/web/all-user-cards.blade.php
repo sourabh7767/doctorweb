@@ -75,20 +75,28 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
             transform: scale(1);
         }
     }
-    table.table-bordered.dataTable tbody td:nth-child(2){
+    table.table-bordered.dataTable tbody td:nth-child(1){
         color:#A5e5ff;
     }
     .pointers{
         
       cursor: pointer;
       text-align: center;
+      color: #fff;
     }
     .getCenter {
       text-align: center;
+      
     }
     .card{
         border: #474747;
     }
+    .selected {
+    background-color: red;
+    border-radius: 10px;
+    padding: 10px;
+  }
+ 
     </style>
 </head>
 
@@ -110,6 +118,13 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
                         <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" id="remove"><g fill="white"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/></g></svg> -->
                         <a href="{{route('web.home')}}"><i class="fas fa-arrow-left" id=""></i></a>
                     </span>
+                    @php
+                     $class = request()->is('user/home')?'selected':'';
+                        $class1 = request()->is('user/groups')?'selected':'';
+                @endphp
+                {{-- {{dd(request()->is('user/*'))}} --}}
+                <a href="{{route('web.home')}}"><i class="fa fa-desktop {{$class}}" aria-hidden="true" style="font-size: 32px;color:#fff;text-align:center;"></i></a>
+                    <a href="{{route('groups')}}"><i class="fas fa-receipt {{$class1}}" style="font-size: 32px;color:#fff;text-align:center;"></i></a>
                     <div class="dropdown menuDropdown">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span><i class="las la-bars"></i></span>
@@ -201,7 +216,9 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
             <div class="col-12">
               <div class="card data-table">
                  <div class="card-header">
-                    <h4 class="m-0"><i class="fas fa-receipt mr-2"></i>&nbsp;{{ __('Library') }}</h4>
+                    <h4 class="m-0" style="text-align: center;font-size:30px;">&nbsp;{{ __('Library') }} </h4><div style="text-align: center;">{{$totalCards}} Groups <br>
+                        {{$totalPrescreptions}} Templates Available.</div>
+                    
                   <!--<a href="{{ route('users.create') }}" class="dt-button create-new btn btn-primary"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create New User</a>-->
                 </div>
               
@@ -210,12 +227,13 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
                   <table id="cardsTable" class="table table-bordered table-hover">
                     <thead>
                     <tr>
-                      <th style="color:white;">S.No</th>
+                      {{-- <th style="color:white;">S.No</th> --}}
                       <th>Title</th>
                       <th>Author</th>
                       <th>Downloads</th>
                       <th>Created At</th>
                        <th>Update At</th>
+                       <th>Templates</th>
                       <th data-orderable="false" style="color:white;">Action</th>
                     </tr>
                     </thead>

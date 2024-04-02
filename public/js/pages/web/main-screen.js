@@ -353,7 +353,27 @@ $(document).ready(function () {
                        </div>
                    </li>
                `;
+               var newPanelHTML = `
+                    <div class="panel" id="panel">
+                        <div class="toggle-button-container">
+                            <p style="margin: 0; flex-grow: 1;">${data.newCustomSearch[0].title}</p>
+                            <button class="toggle-button toggleOnClass"><i>&gt;</i></button>
+                        </div>
+                        <div class="additional-buttons">
+                            ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
+                            ? data.newCustomSearch[0].custom_tags.map(tag => `
+                                <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
+                                    <span class="tag tagTitle tags" data-tag="${tag.tag}" data-type="true" data-id="${tag.id}">${tag.tag}</span>
+                                    <span class="crossValue crossValue1 customtagdelete removed remove" data-id="${tag.id}"><i class="las la-times"></i></span>
+                                </div>
+                            `).join('')
+                            : ''}
+                        </div>
+                    </div>
+                `;
                 $('#UlTags').append(newCustomSearchHTML);
+                $('.panel-container').append(newPanelHTML);
+                
                 toastr.success(data.message, 'Success!', toastCofig);
             },
             error: function (xhr, status, error) {
@@ -624,6 +644,12 @@ $(document).ready(function () {
         $('#to_recomend').val("");
         $("#searchInput").val("");
         $(".tagTitle").removeClass('active');
+        var panel = $(".toggleOnClass").closest('.panel');
+        panel.removeClass("expanded");
+        var additionalButtons = panel.find(".additional-buttons");
+        var arrowIcon = panel.find("i");
+        additionalButtons.removeClass("expanded");
+        arrowIcon.removeClass("rotate");
     });
 
     $(document).on('click', '.customtagdelete', function () {
@@ -769,7 +795,10 @@ $(document).ready(function () {
     var table;
     $(document).ready(function() {
         console.log(site_url, '======site_url');
+        
         table = $('#cardsTable').DataTable({
+            "bLengthChange": false,
+            pageLength: 50,
             ajax: site_url + "/user/groups/",
             createdRow: function( row, data, dataIndex ) {
                 //         // Set the data-status attribute, and add a class
@@ -778,17 +807,23 @@ $(document).ready(function () {
                 
                 
                     },
+                    
             columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false,className:'getCenter'},
+                // {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false,className:'getCenter'},
                 { data: 'title', name: 'title' ,className:'pointers'},
                 { data: 'user_id', name: 'user_id' ,className:'getCenter'},
                 { data: 'download_count', name: 'download_count',className:'getCenter'},
                 { data: 'created_at', name: 'created_at',className:'getCenter'},
                 { data: 'updated_at', name: 'updated_at' ,className:'getCenter'},
+                { data: 'template_count', name: 'template_count' ,className:'getCenter'},
                 { data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
-        $(document).on('click', '.fa-heart', function (e) {
+        
+        $(document).on('click', '.allreadyCopied', function (e) {
+            toastr.error("Group already copied", 'Error!', toastCofig);
+        });
+        $(document).on('click', '.copyData', function (e) {
             e.preventDefault();
             var element = $(this);
             var groupId = element.data("id"); 
@@ -815,7 +850,7 @@ $(document).ready(function () {
                 }
             });
         });
-        $('#cardsTable').on('click', 'tbody td:nth-child(2)', function() {
+        $('#cardsTable').on('click', 'tbody td:nth-child(1)', function() {
             var rowData = $(this).closest('tr').data(); // Get data attributes of the clicked row
             var cardId = rowData.id; // Assuming 'id' is the attribute containing the card ID
             var url = site_url + '/user/groups/view/' + cardId;
