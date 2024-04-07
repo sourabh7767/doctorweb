@@ -590,3 +590,14 @@ body .multiselect-dropdown
 .bin:hover i {
     color:#ffffffd4;
 }
+.receiptIcons {
+    margin-right: 3px;
+}
+.receiptIcons i {
+    font-size: 20px;
+    color: #fff;
+}
+.receiptIcons i.selected
+{
+    background: #c045eb;
+}

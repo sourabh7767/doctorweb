@@ -177,32 +177,43 @@ class HomeController extends Controller
     {
         $userObj = auth()->user();
         $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'tags' => 'required',
+            'title' => 'required_without:tags',
+            'tags' => 'required_without:title',
         ]);
     
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
         try {
-            DB::beginTransaction();
-            $customSearchObj = new CustomSearch(); 
-            $customSearchObj->title = $request->title;
-            $customSearchObj->user_id = $userObj->id;
-            $customSearchObj->save();
-            $emplodedTags = explode(',',$request->input('tags'));
-            foreach($emplodedTags as $value){
-                $customSearchTagObj = new CustomSearchTag();
-                $customSearchTagObj->tag = $value;
-                $customSearchTagObj->custom_search_id = $customSearchObj->id;
-                $customSearchTagObj->user_id = $userObj->id;
-                $customSearchTagObj->save();
+            // DB::beginTransaction();
+            if(!empty($request->input('title'))){
+                $customSearchObj = new CustomSearch(); 
+                $customSearchObj->title = $request->title;
+                $customSearchObj->user_id = $userObj->id;
+                $customSearchObj->save();
             }
-            $tags = CustomSearch::with('customTags')->where('id',$customSearchObj->id)->get();
-            DB::commit();
+            $emplodedTags = explode(',',$request->input('tags'));
+            if(!empty($request->input('tags'))){
+                foreach($emplodedTags as $value){
+                    $customSearchTagObj = new CustomSearchTag();
+                    $customSearchTagObj->tag = $value;
+                    $customSearchTagObj->custom_search_id = $request->customSearchObj_id;
+                    $customSearchTagObj->user_id = $userObj->id;
+                    $customSearchTagObj->save();
+                }
+            }
+            $count = count($emplodedTags);
+            if(!empty($request->customSearchObj_id)){
+                $tags = CustomSearch::with(['customTags' => function($query) use($count) {
+                    $query->orderBy('created_at', 'desc')->take($count)->get();
+                }])->where('id', $request->customSearchObj_id)->get();
+            }else{
+                $tags = CustomSearch::with('customTags')->where('id',$customSearchObj->id)->get();
+            }
+            // DB::commit();
             return response()->json(['success'=> true ,'message'=> 'Lable added successfully!','newCustomSearch' => $tags]);
         } catch (\Throwable $th) {
-            DB::rollBack();
+            // DB::rollBack();
             return response()->json(['error'=> true ,'message'=> $th->getMessage()]);
         }
     }

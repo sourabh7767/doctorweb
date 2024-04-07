@@ -54,6 +54,9 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::get('/groups', 'Web\HomeController@getAllUserCards')->name("groups");
         Route::get('/groups/view/{id}', 'Web\HomeController@viewCards');
         Route::get('/groups/copy/{id}', 'Web\HomeController@copyGroup')->name('copyGroup');
+        Route::post('/123', 'Web\HomeController@copyGroup')->name('inner.lable.store');
+
+        
         
     });
     

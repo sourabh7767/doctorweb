@@ -121,9 +121,11 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
                      $class = request()->is('user/home')?'selected':'';
                         $class1 = request()->is('user/groups')?'selected':'';
                 @endphp
-                {{-- {{dd(request()->is('user/*'))}} --}}
-                <a href="{{route('web.home')}}"><i class="fa fa-desktop {{$class}}" aria-hidden="true" style="font-size: 32px;color:#fff;text-align:center;"></i></a>
-                    <a href="{{route('groups')}}"><i class="fas fa-receipt {{$class1}}" style="font-size: 32px;color:#fff;text-align:center;"></i></a>
+                
+                    <div class="receiptContainer">
+                        <a href="{{route('web.home')}}" class="receiptIcons"><i class="fa fa-desktop {{$class}}" aria-hidden="true"></i></a>
+                        <a href="{{route('groups')}}" class="receiptIcons"><i class="fas fa-receipt {{$class1}}"></i></a>
+                    </div>
                     <div class="dropdown menuDropdown">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span><i class="las la-bars"></i></span>

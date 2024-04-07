@@ -338,41 +338,126 @@ $(document).ready(function () {
                 $("#tagsInput").tagsinput('removeAll');
 
                 // Assuming data.newCustomSearch is an array with one element
-                var newCustomSearchHTML = `
-                   <li class="leftCardItems row" data-id="${data.newCustomSearch[0].id}">
-                       <h6 class="cardItemHead col-md-4">${data.newCustomSearch[0].title}</h6>
-                       <div class="col-md-8">
-                           ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
-                        ? data.newCustomSearch[0].custom_tags.map(tag => `
-                                   <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
-                                       <span class="tag tagTitle tags" data-tag="${tag.tag}" data-type="true" data-id="${tag.id}">${tag.tag}</span>
-                                       <span class="crossValue crossValue1 customtagdelete removed remove" data-id="${tag.id}"><i class="las la-times"></i></span>
-                                   </div>
-                               `).join('')
-                        : ''}
-                       </div>
-                   </li>
-               `;
-               var newPanelHTML = `
-                    <div class="panel" id="panel">
-                        <div class="toggle-button-container">
-                            <p style="margin: 0; flex-grow: 1;">${data.newCustomSearch[0].title}</p>
-                            <button class="toggle-button toggleOnClass"><i>&gt;</i></button>
-                        </div>
-                        <div class="additional-buttons">
-                            ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
-                            ? data.newCustomSearch[0].custom_tags.map(tag => `
-                                <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
-                                    <span class="tag tagTitle tags" data-tag="${tag.tag}" data-type="true" data-id="${tag.id}">${tag.tag}</span>
-                                    <span class="crossValue crossValue1 customtagdelete removed remove" data-id="${tag.id}"><i class="las la-times"></i></span>
-                                </div>
-                            `).join('')
-                            : ''}
-                        </div>
+            //     var newCustomSearchHTML = `
+            //        <li class="leftCardItems row" data-id="${data.newCustomSearch[0].id}">
+            //            <h6 class="cardItemHead col-md-4">${data.newCustomSearch[0].title}</h6>
+            //            <div class="col-md-8">
+            //                ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
+            //             ? data.newCustomSearch[0].custom_tags.map(tag => `
+            //                        <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
+            //                            <span class="tag tagTitle tags" data-tag="${tag.tag}" data-type="true" data-id="${tag.id}">${tag.tag}</span>
+            //                            <span class="crossValue crossValue1 customtagdelete removed remove" data-id="${tag.id}"><i class="las la-times"></i></span>
+            //                        </div>
+            //                    `).join('')
+            //             : ''}
+            //            </div>
+            //        </li>
+            //    `;
+            var newPanelHTML = `
+            <div class="panel" id="panel">
+                <div class="toggle-button-container">
+                    <p style="margin: 0; flex-grow: 1;color:#ffff;">${data.newCustomSearch && data.newCustomSearch.length > 0 ? data.newCustomSearch[0].title : 'Title Placeholder'}</p>
+                    <span class="addOnBtn me-2" data-bs-toggle="modal" data-bs-target="#addOnBtnModalTags" ><i class="las la-plus tagId" data-id="${data.newCustomSearch && data.newCustomSearch.length > 0 ? data.newCustomSearch[0].id : '123'}"></i></span>
+                    <div class="d-flex">
+                        <button class="toggle-button toggleOnClass">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
-                `;
-                $('#UlTags').append(newCustomSearchHTML);
+                </div>
+                <div class="additional-buttons newtag_${data.newCustomSearch[0].id}"">
+                    ${data.newCustomSearch && data.newCustomSearch.length > 0 && data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
+                    ? data.newCustomSearch[0].custom_tags.map(tag => `
+                        <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
+                            <span class="tag tagTitle tags" data-tag="${tag.tag}" data-type="true" data-id="${tag.id}">${tag.tag}</span>
+                            <span class="crossValue crossValue1 customtagdelete removed remove" data-id="${tag.id}"><i class="las la-times"></i></span>
+                        </div>
+                    `).join('')
+                    : ''}
+                </div>
+            </div>
+        `;
+        
+                // $('#UlTags').append(newCustomSearchHTML);
                 $('.panel-container').append(newPanelHTML);
+                
+                toastr.success(data.message, 'Success!', toastCofig);
+            },
+            error: function (xhr, status, error) {
+                $('.loader').hide();
+                var response = JSON.parse(xhr.responseText);
+
+                if (response.errors) {
+                    $.each(response.errors, function (field, errors) {
+                        if (errors.length > 0) {
+                            firstError = errors[0];
+                            return false;
+                        }
+                    });
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: firstError,
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "question",
+                        title: "Oops...",
+                        text: "Something went Wrong!",
+                    })
+                }
+            }
+        });
+
+    });
+        $(document).on('click', '.tagId', function (event) {
+        var id = $(this).data('id');
+        $("#customSearchObj_id").val(id);
+    });
+    $('#addLableSubmitTag').on('click', function (event) {
+        event.preventDefault();
+       var customId =  $("#customSearchObj_id").val();
+        var formData = $('#addTags').serialize();
+        $('.loader').show();
+        $.ajax({
+            type: 'POST',
+            url: site_url + '/user/add/search/tags',
+            data: formData,
+
+            success: function (data) {
+                $('.loader').hide();
+                $('#addOnBtnModalTags').modal('hide');
+                $('#addTags')[0].reset();
+                $("#tagsInput").tagsinput('removeAll');
+
+                // Assuming data.newCustomSearch is an array with one element
+            //     var newCustomSearchHTML = `
+            //        <li class="leftCardItems row" data-id="${data.newCustomSearch[0].id}">
+            //            <h6 class="cardItemHead col-md-4">${data.newCustomSearch[0].title}</h6>
+            //            <div class="col-md-8">
+            //                ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
+            //             ? data.newCustomSearch[0].custom_tags.map(tag => `
+            //                        <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
+            //                            <span class="tag tagTitle tags" data-tag="${tag.tag}" data-type="true" data-id="${tag.id}">${tag.tag}</span>
+            //                            <span class="crossValue crossValue1 customtagdelete removed remove" data-id="${tag.id}"><i class="las la-times"></i></span>
+            //                        </div>
+            //                    `).join('')
+            //             : ''}
+            //            </div>
+            //        </li>
+            //    `;
+            var newPanelHTML = `
+                    ${data.newCustomSearch && data.newCustomSearch.length > 0 && data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
+                    ? data.newCustomSearch[0].custom_tags.map(tag => `
+                        <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
+                            <span class="tag tagTitle tags" data-tag="${tag.tag}" data-type="true" data-id="${tag.id}">${tag.tag}</span>
+                            <span class="crossValue crossValue1 customtagdelete removed remove" data-id="${tag.id}"><i class="las la-times"></i></span>
+                        </div>
+                    `).join('')
+                    : ''}
+        `;
+        
+                // $('#UlTags').append(newCustomSearchHTML);
+                $('.newtag_'+customId).append(newPanelHTML);
                 
                 toastr.success(data.message, 'Success!', toastCofig);
             },

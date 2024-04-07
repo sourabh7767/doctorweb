@@ -24,33 +24,40 @@
     .panel-container {
       position: relative;
       display: block;
-      width: 300px; /* Set a wider width for the container */
-      height: 300px; /* Set a fixed height for the container */
-      overflow: hidden; /* Ensure that the panel does not overflow */
+      width: 80%; /* Set a wider width for the container */
+      max-width: 100%;
+      height: 210px; /* Set a fixed height for the container */
+      overflow: auto; /* Ensure that the panel does not overflow */
       align-items: flex-start; /* Align items at the start of the flex container */
+      padding-right: 6px;
     }
   
     .panel {
        /* Adjusted width for the panel with padding */
-      height: 3%; /* Initial height */
+      height: auto; /* Initial height */
       padding-top: 10px;
-      padding-bottom: 50px;
+      padding-bottom: 10px;
       padding-left: 20px;
       padding-right: 20px;
       background-color: #474747;
-      border: 1px solid #ccc;
+      border: 1px solid #add8e6;
       transition: height 0.5s; /* Smooth transition for height change */
       position: relative; /* Ensure the button is positioned relative to this panel */
       z-index: 1; /* Ensure the panel is above the button */
       display: flex; /* Use flexbox for layout */
       flex-direction: column; /* Arrange items vertically */
       border-radius: 10px;
+      margin-bottom: 10px;
     }
-  
+    .panel:last-child
+    {
+        margin-bottom: 0;
+    }
     .expanded {
       height: 240px; /* Expanded height */
     }
   
+    .panel.expanded{height: auto !important;}
     .toggle-button-container {
       display: flex;
       align-items: center;
@@ -59,12 +66,12 @@
     }
   
     .toggle-button {
-      width: 40px; /* Set a fixed width for the button */
-      height: 40px; /* Set a fixed height for the button */
+      width: 33px; /* Set a fixed width for the button */
+      height: 33px; /* Set a fixed height for the button */
       padding: 0; /* Remove padding */
       text-align: center;
       z-index: 999; /* Ensure the button is on top of other elements */
-      background-color: #ddd; /* Set background color to light grey */
+      background: linear-gradient(to right, #e556f5, #8f2fde); /* Set background color to light grey */
       border: none;
       border-radius: 50%; /* Make the button round */
       cursor: pointer;
@@ -75,8 +82,9 @@
     }
   
     .toggle-button i {
-      color: black; /* Set color for the icon to black */
+      color: #fff; /* Set color for the icon to black */
       transition: transform 0.3s ease; /* Smooth transition for rotation */
+      font-size:12px;
     }
   
     .rotate {
@@ -86,11 +94,18 @@
     .additional-buttons {
       opacity: 0; /* Initially hide the additional buttons */
       transition: opacity 0.4s ease-in-out; /* Add transition for opacity */
-      margin-top: 20px; /* Add margin to separate the buttons from the button */
+      margin-top: 10px; /* Add margin to separate the buttons from the button */
+      overflow: hidden;
+      display: none;
     }
   
     .panel.expanded .additional-buttons {
       opacity: 1; /* Show the additional buttons when panel is expanded */
+      display: block;
+    }
+    .additional-buttons.expanded
+    {
+        height: auto;
     }
     .selected {
     background-color: red;
@@ -122,9 +137,10 @@
                         $class = request()->is('user/home')?'selected':'';
                         $class1 = request()->is('user/groups')?'selected':'';
                     @endphp
-                    {{-- {{dd(request()->is('user/*'))}} --}}
-                    <a href="{{route('web.home')}}"><i class="fa fa-desktop {{$class}}" aria-hidden="true" style="font-size: 32px;color:#fff;text-align:center;"></i></a>
-                        <a href="{{route('groups')}}"><i class="fas fa-receipt {{$class1}}" style="font-size: 32px;color:#fff;text-align:center;"></i></a>
+                    <div class="receiptContainer">
+                        <a href="{{route('web.home')}}" class="receiptIcons"><i class="fa fa-desktop {{$class}}" aria-hidden="true"></i></a>
+                        <a href="{{route('groups')}}" class="receiptIcons"><i class="fas fa-receipt {{$class1}}"></i></a>
+                    </div>
                     <div class="dropdown menuDropdown">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span><i class="las la-bars"></i></span>
@@ -286,7 +302,7 @@
                 <!-- Start LeftSection -->
                 <div class="col-md-5 col-lg-5 mb-3 mb-md-0">
                     <div class="leftCard">
-                        <ul class="leftCardMenus" id="UlTags">
+                        {{-- <ul class="leftCardMenus" id="UlTags">
                             @foreach ($customSearchObj as $item)
                             <li class="leftCardItems row" {{@$item->id}}>
                                 <h6 class="cardItemHead col-md-4">{{@$item->title}}</h6>
@@ -302,11 +318,11 @@
                             </li>
                             @endforeach
                            
-                        </ul>
-                        <span class="addOnBtn mt-5" data-bs-toggle="modal" data-bs-target="#addOnBtnModal"><i class="las la-plus"></i></span>
-                        <div class="leftBtmBtn mt-3 text-end">
+                        </ul> --}}
+                        {{-- <span class="addOnBtn mt-5" data-bs-toggle="modal" data-bs-target="#addOnBtnModal"><i class="las la-plus"></i></span> --}}
+                        {{-- <div class="leftBtmBtn mt-3 text-end">
                             <button class="clearBtn" id="removeAllData">Clear</button>
-                        </div>
+                        </div> --}}
                         
                         <!-- Start AddBtn modal -->
                             <!-- Modal -->
@@ -315,6 +331,126 @@
                                     <div class="modal-content">
                                         <div class="modal-header d-block border-0 p-0 mb-2">
                                             <h5 class="modal-title" id="addOnBtnLabel">Create Labels</h5>
+                                            {{-- <p class="modal-subtext">Edit field and create fast access template</p> --}}
+                                        </div>
+                                        <div class="modal-body p-0">
+                                            <form class="addLabelsForm" id="searchableTags">
+                                                @csrf
+                                                <div class="form-group mb-2">
+                                                    <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="title">
+                                                </div>
+                                                {{-- <div class="u-tagsinput">
+                                                    <input id="tagsInput" type="text" value="" data-role="tagsinput" class="customControlInputs" name="tags">
+                                                </div> --}}
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer border-0 p-0">
+                                        <button type="button" class="clearBtn" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="secondryBtn" id="addLableSubmit">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="addOnBtnModalTags" tabindex="-1" aria-labelledby="addOnBtnLabel" aria-hidden="true" data-bs-backdrop="static">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header d-block border-0 p-0 mb-2">
+                                            <h5 class="modal-title" id="addOnBtnLabel">Tags</h5>
+                                            {{-- <p class="modal-subtext">Edit field and create fast access template</p> --}}
+                                        </div>
+                                        <div class="modal-body p-0">
+                                            <form class="addLabelsForm" id="addTags">
+                                                @csrf
+                                                <input type="hidden" name="customSearchObj_id" id="customSearchObj_id">
+                                                {{-- <div class="form-group mb-2">
+                                                    <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="title">
+                                                </div> --}}
+                                                <div class="u-tagsinput">
+                                                    <input id="tagsInput" type="text" value="" data-role="tagsinput" class="customControlInputs" name="tags">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer border-0 p-0">
+                                        <button type="button" class="clearBtn" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="secondryBtn" id="addLableSubmitTag">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- ========================================================================= --}}
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="panel-container">
+                                @foreach ($customSearchObj as $item)
+
+                                <div class="panel" id="panel">
+                                  <div class="toggle-button-container">
+                                    <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}</p>
+                                    <span class="addOnBtn me-2" data-bs-toggle="modal" data-bs-target="#addOnBtnModalTags" ><i class="las la-plus tagId" data-id="{{$item->id}}"></i></span>
+                                    <div class="d-flex">
+                                        <button class="toggle-button toggleOnClass">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                  </div>
+                                  <div class="additional-buttons newtag_{{$item->id}}">
+                                    @forelse ($item->customTags as $tag)
+                                    @if (!empty($tag))
+                                    <div class="cardItemValue" id="cardItemValueTag_{{@$tag->id}}">
+                                        <span class="tag tagTitle tags" data-tag="{{ @$tag->tag }}" data-type="true" data-id="{{ @$tag->id }}">{{@$tag->tag}} 
+                                        </span>
+                                        <span class="crossValue crossValue1 customtagdelete removed remove" data-id="{{ @$tag->id }}" ><i class="las la-times"></i></span>
+                                    </div>  
+                                    @endif
+                                    
+                                    @empty
+                                        
+                                    @endforelse
+                                </div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <div class="outerModalBtn">
+                                <span class="addOnBtn me-2" data-bs-toggle="modal" data-bs-target="#addOnBtnModal"><i class="las la-plus"></i></span>
+                            </div>
+                            
+                        </div>
+                        <div class="leftBtmBtn mt-3 text-end">
+                            <button class="clearBtn" id="removeAllData">Clear</button>
+                        </div>
+                        <!-- Start InnerCollapseLabelBtn Modal -->
+                            <!-- Modal -->
+                            <div class="modal fade" id="InnerCollapseLabelBtn" tabindex="-1" aria-labelledby="InnerCollapseLabel" aria-hidden="true" data-bs-backdrop="static">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header d-block border-0 p-0 mb-2">
+                                            <h5 class="modal-title" id="InnerCollapseLabel">Create Labels</h5>
+                                            {{-- <p class="modal-subtext">Edit field and create fast access template</p> --}}
+                                        </div>
+                                        <div class="modal-body p-0">
+                                            <form class="addLabelsForm" id="searchableTags" action="{{route('inner.lable.store')}}">
+                                                @csrf
+                                                <div class="form-group mb-2">
+                                                    <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="title">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer border-0 p-0">
+                                        <button type="button" class="clearBtn" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="secondryBtn" id="addLableSubmit">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <!-- End InnerCollapseLabelBtn Modal -->
+                         <!-- Start OuterModalBtn Modal -->
+                            <!-- Modal -->
+                            <div class="modal fade" id="outerModalBtn" tabindex="-1" aria-labelledby="outerModalBtnLabel" aria-hidden="true" data-bs-backdrop="static">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header d-block border-0 p-0 mb-2">
+                                            <h5 class="modal-title" id="outerModalBtn">Create Labels</h5>
                                             {{-- <p class="modal-subtext">Edit field and create fast access template</p> --}}
                                         </div>
                                         <div class="modal-body p-0">
@@ -335,27 +471,7 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- ========================================================================= --}}
-                    <div class="panel-container">
-                        @foreach ($customSearchObj as $item)
-                        <div class="panel" id="panel">
-                          <div class="toggle-button-container">
-                            <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}</p>
-                            <button class="toggle-button toggleOnClass"><i>&gt;</i></button>
-                          </div>
-                          <div class="additional-buttons">
-                          @foreach ($item->customTags as $tag)
-                          <div class="cardItemValue" id="cardItemValueTag_{{@$tag->id}}">
-                                  <span class="tag tagTitle tags" data-tag="{{ @$tag->tag }}" data-type="true" data-id="{{ @$tag->id }}">{{@$tag->tag}} 
-                                  </span>
-                                  <span class="crossValue crossValue1 customtagdelete removed remove" data-id="{{ @$tag->id }}" ><i class="las la-times"></i></span>
-                          </div>
-                      @endforeach
-                        </div>
-                        </div>
-                        @endforeach
-                      </div>
-
+                        <!-- End OuterModalBtn Modal -->
                     {{-- ================================================================================ --}}
                         <!-- End AddBtn modal -->
                     </div>
