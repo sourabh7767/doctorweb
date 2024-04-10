@@ -12,6 +12,11 @@ body
     display: flex;
     flex-direction: column;
 }
+.form-control:focus
+{
+    box-shadow: none ;
+    border-color: transparent;
+}
 .scroll-hide {	
     overflow: hidden;	
 }
@@ -378,7 +383,7 @@ i.las.la-sign-out-alt {
     transition: all 0.3s;
 }
 .leftCardMenus{
-    max-height: calc(100vh - 302px);
+    max-height: calc(65vh - 302px);
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -600,4 +605,41 @@ body .multiselect-dropdown
 .receiptIcons i.selected
 {
     background: #c045eb;
+}
+.dataTables_filter input[type="search"]
+{
+    min-width: 440px;
+    width: 100%;
+}
+#cardsTable th, #cardsTable td
+{
+    text-align: center; 
+    border: 0;
+}
+#cardsTable_wrapper .col-md-6 {
+    width: 100% !important;
+    flex: 0 0 100% !important;
+    max-width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+#cardsTable_filter
+{
+    margin-bottom: 40px;
+}
+#cardsTable_filter label{font-size: 0;}
+div.dataTables_wrapper div.dataTables_paginate
+{
+    display: flex;
+    margin-top: 40px !important;
+    margin-bottom: 40px !important;
+}
+#midSecCardBody
+{
+    padding: 0 7rem;
+}
+.leftCardMenusArea{
+    width: 90%;
+    max-width: 100%;
 }

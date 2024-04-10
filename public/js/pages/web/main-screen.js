@@ -324,6 +324,7 @@ $(document).ready(function () {
 
     $('#addLableSubmit').on('click', function (event) {
         event.preventDefault();
+        var customId =  $("#customSearchObj_id").val();
         var formData = $('#searchableTags').serialize();
         $('.loader').show();
         $.ajax({
@@ -357,7 +358,6 @@ $(document).ready(function () {
             <div class="panel" id="panel">
                 <div class="toggle-button-container">
                     <p style="margin: 0; flex-grow: 1;color:#ffff;">${data.newCustomSearch && data.newCustomSearch.length > 0 ? data.newCustomSearch[0].title : 'Title Placeholder'}</p>
-                    <span class="addOnBtn me-2" data-bs-toggle="modal" data-bs-target="#addOnBtnModalTags" ><i class="las la-plus tagId" data-id="${data.newCustomSearch && data.newCustomSearch.length > 0 ? data.newCustomSearch[0].id : '123'}"></i></span>
                     <div class="d-flex">
                         <button class="toggle-button toggleOnClass">
                             <i class="fas fa-chevron-right"></i>
@@ -365,14 +365,13 @@ $(document).ready(function () {
                     </div>
                 </div>
                 <div class="additional-buttons newtag_${data.newCustomSearch[0].id}"">
-                    ${data.newCustomSearch && data.newCustomSearch.length > 0 && data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
-                    ? data.newCustomSearch[0].custom_tags.map(tag => `
-                        <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
-                            <span class="tag tagTitle tags" data-tag="${tag.tag}" data-type="true" data-id="${tag.id}">${tag.tag}</span>
-                            <span class="crossValue crossValue1 customtagdelete removed remove" data-id="${tag.id}"><i class="las la-times"></i></span>
-                        </div>
-                    `).join('')
-                    : ''}
+                <div class="d-flex justify-content-between">
+                    <div class="leftCardMenusArea">
+                    <ul class="leftCardMenus ul_${data.newCustomSearch[0].id}" id="UlTags">
+                    </ul>
+                    </div>
+                <span class="addOnBtn me-0" data-bs-toggle="modal" data-bs-target="#addOnBtnModalTags" ><i class="las la-plus tagId" data-id="${data.newCustomSearch && data.newCustomSearch.length > 0 ? data.newCustomSearch[0].id : '123'}"></i></span>
+                </div>
                 </div>
             </div>
         `;
@@ -455,9 +454,24 @@ $(document).ready(function () {
                     `).join('')
                     : ''}
         `;
+        var newCustomSearchHTML = `
+        <li class="leftCardItems row" data-id="${data.newCustomSearch[0].id}">
+            <h6 class="cardItemHead col-md-4">${data.newCustomSearch[0].title}</h6>
+            <div class="col-md-8">
+                ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
+             ? data.newCustomSearch[0].custom_tags.map(tag => `
+                        <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
+                            <span class="tag tagTitle tags" data-tag="${tag.tag}" data-type="true" data-id="${tag.id}">${tag.tag}</span>
+                            <span class="crossValue crossValue1 customtagdelete removed remove" data-id="${tag.id}"><i class="las la-times"></i></span>
+                        </div>
+                    `).join('')
+             : ''}
+            </div>
+        </li>
+    `;
         
                 // $('#UlTags').append(newCustomSearchHTML);
-                $('.newtag_'+customId).append(newPanelHTML);
+                $('.ul_'+customId).append(newCustomSearchHTML);
                 
                 toastr.success(data.message, 'Success!', toastCofig);
             },
@@ -883,6 +897,8 @@ $(document).ready(function () {
         
         table = $('#cardsTable').DataTable({
             "bLengthChange": false,
+            "search": "Search records...",
+            "info": false,
             pageLength: 50,
             ajax: site_url + "/user/groups/",
             createdRow: function( row, data, dataIndex ) {
@@ -896,14 +912,15 @@ $(document).ready(function () {
             columns: [
                 // {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false,className:'getCenter'},
                 { data: 'title', name: 'title' ,className:'pointers'},
+                { data: 'template_count', name: 'template_count' ,className:'getCenter'},
                 { data: 'user_id', name: 'user_id' ,className:'getCenter'},
                 { data: 'download_count', name: 'download_count',className:'getCenter'},
                 { data: 'created_at', name: 'created_at',className:'getCenter'},
                 { data: 'updated_at', name: 'updated_at' ,className:'getCenter'},
-                { data: 'template_count', name: 'template_count' ,className:'getCenter'},
                 { data: 'action', name: 'action', orderable: false, searchable: false},
             ]
         });
+        $('input[type=search]').attr('placeholder', 'Search records...');
         
         $(document).on('click', '.allreadyCopied', function (e) {
             toastr.error("Group already copied", 'Error!', toastCofig);
