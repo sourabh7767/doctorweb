@@ -348,7 +348,8 @@ class HomeController extends Controller
             return datatables()->of($prescriptions)
                 // ->addIndexColumn()
                 ->addColumn('template_count', function ($prescription) {
-                    $tags = CustomSearchTag::where('custom_search_id',$prescription->id)->pluck('tag')->toArray();
+                    $ids = CustomSearch::where('parent_id',$prescription->id)->pluck('id')->toArray();
+                    $tags = CustomSearchTag::whereIn('custom_search_id',$ids)->pluck('tag')->toArray();
                     $Prescriptions = Prescription::whereHas('tags', function ($query) use ($tags) {
                      $query->whereIn('tags', $tags);
                  })->count();
