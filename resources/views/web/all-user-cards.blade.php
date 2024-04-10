@@ -1,13 +1,4 @@
-
-
-
-
-
-
-
-
-
- <!doctype html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -96,6 +87,10 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
     border-radius: 10px;
     padding: 10px;
   }
+  /* .dataTables_wrapper{
+    display: block;
+  } */
+  
  
     </style>
 </head>
@@ -216,30 +211,34 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
         <div class="row">
             <div class="col-12">
               <div class="card data-table">
-                 <div class="card-header">
-                    <h4 class="m-0" style="text-align: center;font-size:30px;">&nbsp;{{ __('Library') }} </h4><div style="text-align: center;">{{$totalCards}} Groups <br>
-                        {{$totalPrescreptions}} Templates Available.</div>
+                 <div class="card-header d-flex justify-content-center align-item-center">
+                    <h4 class="m-0" style="text-align: center;font-size:30px;">&nbsp;{{ __('Library') }} </h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div style="text-align: center;">&nbsp;&nbsp;{{$totalCards}}  Groups <br>
+                        {{$totalPrescreptions}} Templates <br>Available.</div>
                     
                   <!--<a href="{{ route('users.create') }}" class="dt-button create-new btn btn-primary"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create New User</a>-->
                 </div>
               
                 <!-- /.card-header -->
-                <div class="card-body">
-                  <table id="cardsTable" class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                      {{-- <th style="color:white;">S.No</th> --}}
-                      <th>Title</th>
-                      <th>Author</th>
-                      <th>Downloads</th>
-                      <th>Created At</th>
-                       <th>Update At</th>
-                       <th>Templates</th>
-                      <th data-orderable="false" style="color:white;">Action</th>
-                    </tr>
-                    </thead>
-                
-                  </table>
+                <div class="card-body" id="midSecCardBody">
+                    <div class="table-responsive">
+                        <table id="cardsTable" class="table table-bordered table-hover mt-5">
+                            <thead>
+                            <tr>
+                              {{-- <th style="color:white;">S.No</th> --}}
+                              <th>Title</th>
+                              <th>Templates</th>
+                              <th>Author</th>
+                              <th>Downloads</th>
+                              <th>Created At</th>
+                               <th>Update At</th>
+                              <th data-orderable="false" style="color:white;">Action</th>
+                            </tr>
+                            </thead>
+                        
+                          </table>
+                    </div>
+                  
                 </div>
             
                 <!-- /.card-body -->
@@ -281,6 +280,9 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
  <script src="{{ asset('js/pages/web/main-screen.js') }}"></script>
  <script src="{{ asset('js/web/bootstrap-tagsinput.min.js') }}"></script>
  <script>
+    $(document).ready(function () {
+        $(".dataTables_wrapper dt-bootstrap4 no-footer").addClass("heart-effect");
+    });
   let toastCofig = {
              closeButton: true,
              tapToDismiss: false,

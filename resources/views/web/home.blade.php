@@ -21,16 +21,16 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/plugins/extensions/ext-component-toastr.css') }}">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <style>
-    .panel-container {
-      position: relative;
-      display: block;
-      width: 80%; /* Set a wider width for the container */
-      max-width: 100%;
-      height: 210px; /* Set a fixed height for the container */
-      overflow: auto; /* Ensure that the panel does not overflow */
-      align-items: flex-start; /* Align items at the start of the flex container */
-      padding-right: 6px;
-    }
+   .panel-container {
+    position: relative;
+    display: block;
+    width: 90%;
+    max-width: 100%;
+    height: 330px;
+    overflow: auto;
+    align-items: flex-start;
+    padding-right: 12px;
+}
   
     .panel {
        /* Adjusted width for the panel with padding */
@@ -330,14 +330,14 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header d-block border-0 p-0 mb-2">
-                                            <h5 class="modal-title" id="addOnBtnLabel">Create Labels</h5>
+                                            <h5 class="modal-title" id="addOnBtnLabel">Create Group</h5>
                                             {{-- <p class="modal-subtext">Edit field and create fast access template</p> --}}
                                         </div>
                                         <div class="modal-body p-0">
                                             <form class="addLabelsForm" id="searchableTags">
                                                 @csrf
                                                 <div class="form-group mb-2">
-                                                    <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="title">
+                                                    <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="group_name">
                                                 </div>
                                                 {{-- <div class="u-tagsinput">
                                                     <input id="tagsInput" type="text" value="" data-role="tagsinput" class="customControlInputs" name="tags">
@@ -363,9 +363,9 @@
                                             <form class="addLabelsForm" id="addTags">
                                                 @csrf
                                                 <input type="hidden" name="customSearchObj_id" id="customSearchObj_id">
-                                                {{-- <div class="form-group mb-2">
+                                                <div class="form-group mb-2">
                                                     <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="title">
-                                                </div> --}}
+                                                </div>
                                                 <div class="u-tagsinput">
                                                     <input id="tagsInput" type="text" value="" data-role="tagsinput" class="customControlInputs" name="tags">
                                                 </div>
@@ -382,19 +382,46 @@
                             {{-- ========================================================================= --}}
                         <div class="d-flex align-items-center justify-content-between">
                             <div class="panel-container">
-                                @foreach ($customSearchObj as $item)
+                                @foreach ($customSearchParent as $item)
 
                                 <div class="panel" id="panel">
                                   <div class="toggle-button-container">
                                     <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}</p>
-                                    <span class="addOnBtn me-2" data-bs-toggle="modal" data-bs-target="#addOnBtnModalTags" ><i class="las la-plus tagId" data-id="{{$item->id}}"></i></span>
+                                    
                                     <div class="d-flex">
                                         <button class="toggle-button toggleOnClass">
                                             <i class="fas fa-chevron-right"></i>
                                         </button>
                                     </div>
                                   </div>
-                                  <div class="additional-buttons newtag_{{$item->id}}">
+                                  <div class="additional-buttons">
+                                    <div class="d-flex justify-content-between">
+                                    <div class="leftCardMenusArea">
+                                    <ul class="leftCardMenus ul_{{$item->id}}" id="UlTags">
+                                        @foreach ($customSearchObj as $groupNames)
+                                        @if ($item->id == $groupNames->parent_id)
+                                        <li class="leftCardItems row" {{@$groupNames->id}}>
+                                            <h6 class="cardItemHead col-md-4">{{@$groupNames->title}}</h6>
+                                            <div class="col-md-8">
+
+                                            @foreach ($groupNames->customTags as $tag)
+                                                <div class="cardItemValue" id="cardItemValueTag_{{@$tag->id}}">
+                                                        <span class="tag tagTitle tags" data-tag="{{ @$tag->tag }}" data-type="true" data-id="{{ @$tag->id }}">{{@$tag->tag}} 
+                                                        </span>
+                                                        <span class="crossValue crossValue1 customtagdelete removed remove" data-id="{{ @$tag->id }}" ><i class="las la-times"></i></span>
+                                                </div>
+                                            @endforeach
+                                            </div>
+                                        </li>
+                                        @endif
+                                        @endforeach
+                                       
+                                        </ul>
+                                    </div>
+                                    <span class="addOnBtn me-0" data-bs-toggle="modal" data-bs-target="#addOnBtnModalTags" ><i class="las la-plus tagId" data-id="{{$item->id}}"></i></span>
+                                </div>
+                                  </div>
+                                  {{-- <div class="additional-buttons newtag_{{$item->id}}">
                                     @forelse ($item->customTags as $tag)
                                     @if (!empty($tag))
                                     <div class="cardItemValue" id="cardItemValueTag_{{@$tag->id}}">
@@ -407,7 +434,8 @@
                                     @empty
                                         
                                     @endforelse
-                                </div>
+                                </div> --}}
+
                                 </div>
                                 @endforeach
                             </div>

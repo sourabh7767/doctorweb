@@ -28,9 +28,11 @@ class HomeController extends Controller
         // $buttons2 = $buttons->slice($middleIndex);
         // dd(auth()->user());
         $user = Auth::user();
-        $customSearchObj = CustomSearch::where('user_id',auth()->user()->id)->with('customTags')->get();
+        $customSearchObj = CustomSearch::where('user_id',auth()->user()->id)->with('customTags','groupNames')->get();
         // dd($customSearchObj);
-        return view('web.home',compact('user','buttons','customSearchObj'));
+        $customSearchParent = CustomSearch::where('user_id',auth()->user()->id)->where('parent_id',0)->get();
+        // dd($customSearchObj);
+        return view('web.home',compact('user','buttons','customSearchObj','customSearchParent'));
     }
     public function addPrescription(Request $request)
     {
@@ -177,39 +179,53 @@ class HomeController extends Controller
     {
         $userObj = auth()->user();
         $validator = Validator::make($request->all(), [
-            'title' => 'required_without:tags',
-            'tags' => 'required_without:title',
+            'group_name' => 'required_without_all:title,tags',
+            'title' => 'sometimes|required_without:group_name',
+            'tags' => 'sometimes|required_without:group_name',
+        ], [
+            'group_name.required_without_all' => 'The group name field is required .',
+            'title.required_without' => 'The title field is required .',
+            'tags.required_without' => 'The tags field is required .',
         ]);
     
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
         try {
+            $customSearchObj = new CustomSearch(); 
             // DB::beginTransaction();
-            if(!empty($request->input('title'))){
-                $customSearchObj = new CustomSearch(); 
-                $customSearchObj->title = $request->title;
+            if(!empty($request->input('group_name'))){
+                $customSearchObj->title = $request->group_name;
                 $customSearchObj->user_id = $userObj->id;
                 $customSearchObj->save();
+                $tags = CustomSearch::with('customTags','groupNames')->where('id',$customSearchObj->id)->get();
+                return response()->json(['success'=> true ,'message'=> 'Lable added successfully!','newCustomSearch' => $tags]);
+            }
+            if(!empty($request->input('title'))){
+                $customSearchObj->title = $request->title;
+                $customSearchObj->parent_id = $request->customSearchObj_id;
+                $customSearchObj->user_id = $userObj->id;
+                $customSearchObj->save();
+                
             }
             $emplodedTags = explode(',',$request->input('tags'));
             if(!empty($request->input('tags'))){
                 foreach($emplodedTags as $value){
                     $customSearchTagObj = new CustomSearchTag();
                     $customSearchTagObj->tag = $value;
-                    $customSearchTagObj->custom_search_id = $request->customSearchObj_id;
+                    $customSearchTagObj->custom_search_id = $customSearchObj->id;
                     $customSearchTagObj->user_id = $userObj->id;
                     $customSearchTagObj->save();
                 }
             }
-            $count = count($emplodedTags);
-            if(!empty($request->customSearchObj_id)){
-                $tags = CustomSearch::with(['customTags' => function($query) use($count) {
-                    $query->orderBy('created_at', 'desc')->take($count)->get();
-                }])->where('id', $request->customSearchObj_id)->get();
-            }else{
-                $tags = CustomSearch::with('customTags')->where('id',$customSearchObj->id)->get();
-            }
+            // $count = count($emplodedTags);
+            // if(!empty($request->customSearchObj_id)){
+            //     $tags = CustomSearch::with(['customTags' => function($query) use($count) {
+            //         $query->orderBy('created_at', 'desc')->take($count)->get();
+            //     }])->where('id', $request->customSearchObj_id)->get();
+            // }else{
+                $tags = CustomSearch::with('customTags','groupNames')->where('id',$customSearchObj->id)->get();
+            // }
             // DB::commit();
             return response()->json(['success'=> true ,'message'=> 'Lable added successfully!','newCustomSearch' => $tags]);
         } catch (\Throwable $th) {
@@ -321,7 +337,7 @@ class HomeController extends Controller
 
     public function getAllUserCards(Request $request,CustomSearch $prescription)
     {
-        $totalCards = CustomSearch::where('user_id','!=',auth()->user()->id)->count();
+        $totalCards = CustomSearch::where('user_id','!=',auth()->user()->id)->where('parent_id',0)->count();
         $totalPrescreptions = Prescription::where('user_id','!=',auth()->user()->id)->count();
         if ($request->ajax()) {
             $prescriptions = $prescription->getAllCards($request);
@@ -331,6 +347,13 @@ class HomeController extends Controller
             }
             return datatables()->of($prescriptions)
                 // ->addIndexColumn()
+                ->addColumn('template_count', function ($prescription) {
+                    $tags = CustomSearchTag::where('custom_search_id',$prescription->id)->pluck('tag')->toArray();
+                    $Prescriptions = Prescription::whereHas('tags', function ($query) use ($tags) {
+                     $query->whereIn('tags', $tags);
+                 })->count();
+                    return $Prescriptions;
+                })
                 ->addColumn('user_id', function ($prescription) {
                    $email = $prescription->user->email;
                     return !empty($prescription->user->full_name) ? $prescription->user->full_name  : $email;
@@ -341,18 +364,12 @@ class HomeController extends Controller
                  ->addColumn('updated_at', function ($prescription) {
                     return $prescription->updated_at->diffForHumans();
                 })
-                ->addColumn('template_count', function ($prescription) {
-                    $tags = CustomSearchTag::where('custom_search_id',$prescription->id)->pluck('tag')->toArray();
-                    $Prescriptions = Prescription::whereHas('tags', function ($query) use ($tags) {
-                     $query->whereIn('tags', $tags);
-                 })->count();
-                    return $Prescriptions;
-                })
+               
                 ->addColumn('action', function ($prescription) {
                     $recordObj = CopyPrescriptionRecord::where('group_id',$prescription->id)->get();
                 $btn = '';
                 if(!empty($recordObj) && count($recordObj)>0){
-                    $btn = '<a href="#" title="View" ><i style="color:#37c6ff;" class="fas fa-heart allreadyCopied"></i></a>&nbsp;&nbsp;';
+                    $btn = '<a href="#" title="View" ><i style="color:#53dd4a;" class="fas fa-heart allreadyCopied"></i></a>&nbsp;&nbsp;';
                 }else{
                     $btn = '<a href="#" title="View" ><i style="color:white;" class="fas fa-heart copyData" data-id="'.$prescription->id.'"></i></a>&nbsp;&nbsp;';
                 }
@@ -371,10 +388,11 @@ class HomeController extends Controller
 
         return view('web.all-user-cards',compact('totalCards','totalPrescreptions'));
     }
-    public function viewCards($ids)
+    public function viewCards($id)
     {
         // $ids = explode("",$id);
-       $tags = CustomSearchTag::where('custom_search_id',$ids)->pluck('tag')->toArray();
+        $ids = CustomSearch::where('parent_id',$id)->pluck('id')->toArray();
+       $tags = CustomSearchTag::whereIn('custom_search_id',$ids)->pluck('tag')->toArray();
        $emplodedIds =  [];
     //    dd($Prescriptions);
        $Prescriptions = Prescription::whereHas('tags', function ($query) use ($tags) {

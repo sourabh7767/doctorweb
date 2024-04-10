@@ -42,7 +42,7 @@ class CustomSearch extends Model
         // if(empty($column)){
         //     $column = 'id';
         // }
-        $query = self::query()->where('user_id','!=',auth()->user()->id)->with('user');
+        $query = self::query()->where('user_id','!=',auth()->user()->id)->where('parent_id',0)->with('user');
 
         if(!empty($request)){
 
@@ -67,5 +67,8 @@ class CustomSearch extends Model
 
         $query = $query->get();
         return $query;
+    }
+    public function groupNames(){
+        return $this->hasMany(self::class,'parent_id','id');
     }
 }
