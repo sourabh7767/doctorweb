@@ -358,7 +358,7 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header d-block border-0 p-0 mb-2">
-                                            <h5 class="modal-title" id="addOnBtnLabel">Create Group</h5>
+                                            <h5 class="modal-title" id="addOnBtnLabel">Edit Group</h5>
                                             {{-- <p class="modal-subtext">Edit field and create fast access template</p> --}}
                                         </div>
                                         <div class="modal-body p-0">
@@ -375,7 +375,7 @@
                                         </div>
                                         <div class="modal-footer border-0 p-0">
                                         <button type="button" class="clearBtn" data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="secondryBtn" id="addLableSubmit">Save</button>
+                                        <button type="button" class="secondryBtn" id="updateGroupName">Save</button>
                                         </div>
                                     </div>
                                 </div>
@@ -416,7 +416,7 @@
 
                                 <div class="panel" id="panel">
                                     <div class="d-flex align-items-center">
-                                        <span class="editModal abc" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
+                                        <span class="editModal editMainGroup" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
                                     </div>
                                   <div class="toggle-button-container">
                                     <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}&nbsp;&nbsp;</p>
@@ -773,6 +773,60 @@
             }
         });
         
+    </script>
+    <script>
+//         $(document).on('click', '.editMainGroup', function(e){
+                    
+// alert()
+//                     var lableId = $(this).data('id'); 
+//                     $("#editMaingroupId").val(lableId);
+
+//         });
+//         <script>
+        $(document).on('click', '.editMainGroup', function(e){
+                    var lableId = $(this).data('id'); 
+                    $("#editMaingroupId").val(lableId);
+             $.ajax({
+                 url: site_url + '/user/groups/editMainGroup/' + lableId, // Assuming this URL hits your controller action
+                 type: 'GET',
+                 success: function(response) {
+                     console.log(response);
+                     $("#group_name").val(response.group)
+                     
+                 },
+                 error: function(xhr, status, error) {
+                     // Handle error
+                     console.error(error);
+                 }
+             });
+
+             
+        });
+    </script>
+    <script>
+                     $("#updateGroupName").click(function() {
+        // Serialize the form data
+        var formData = $("#editMaingroupIdForm").serialize();
+        
+        // Send the form data using AJAX
+        $.ajax({
+            type: "POST",
+            url: site_url + "/user/groups/updateGroupName", // Replace with your endpoint URL
+            data: formData,
+            success: function(response) {
+                // Handle success response
+                $("#editMaingroup").modal('hide');
+                toastr.success(response.message, 'Success!', toastCofig);
+                window.location.reload();
+                // Optionally, do something with the response
+            },
+            error: function(xhr, status, error) {
+                toastr.error("Error saving form data:", error, toastCofig);
+                console.error(error);
+            }
+        });
+    });
+
     </script>
     
   <!-- End Js -->

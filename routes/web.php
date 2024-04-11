@@ -55,7 +55,9 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::get('/groups/view/{id}', 'Web\HomeController@viewCards');
         Route::post('/groups/editGroupName', 'Web\HomeController@editGroupName');
         Route::get('/groups/copy/{id}', 'Web\HomeController@copyGroup')->name('copyGroup');
-        Route::post('/123', 'Web\HomeController@copyGroup')->name('inner.lable.store');
+        Route::any('/groups/editMainGroup/{id?}', 'Web\HomeController@editMainGroup')->name('editMainGroup');
+        Route::any('/groups/updateGroupName/{id?}', 'Web\HomeController@updateGroupName')->name('updateGroupName');
+        Route::post('/inner/lable/store', 'Web\HomeController@copyGroup')->name('inner.lable.store');
 
         
         

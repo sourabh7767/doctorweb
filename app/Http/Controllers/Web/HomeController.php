@@ -510,5 +510,30 @@ class HomeController extends Controller
         return response()->json(["message" =>"success"]);
         
     }
+    public function editMainGroup(Request $request,$id = false){
+        if($request->isMethod("GET")){
+            $data = CustomSearch::find($id);
+            if(!empty($data)){
+                return response()->json(['group' => $data->title]);
+            }else{
+                return response()->json(['error'=> 'Data not found']); 
+            }
+        }
+       
+    }
+    public function updateGroupName(Request $request){
+        $data = CustomSearch::find($request->group_lable);
+        if(!empty($data)){
+            $data->title = $request->group_name;
+            try {
+                if($data->save()){
+                    return response()->json(['success' => "Updated"]);
+                }
+            } catch (\Throwable $th) {
+                return response()->json(['error' => $th]);
+            }
+           
+        }
+    }
 
 }
