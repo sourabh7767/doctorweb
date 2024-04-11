@@ -488,11 +488,19 @@ class HomeController extends Controller
                     })->get();
                     if(!empty($Prescriptions)){
                         foreach ($Prescriptions as $prescription) {
+                            $prescriptionTags = PrescriptionTag::where('prescription_id',$prescription->id)->get();
                             $newPrescription = $prescription->replicate();
                             $newPrescription->user_id = $newUserId;
                             $newPrescription->created_at = Carbon::now();
                             $newPrescription->updated_at = Carbon::now();
                             $newPrescription->save();
+                            foreach($prescriptionTags as $prescriptionTag){
+                                $newPrescriptionTags = $prescriptionTag->replicate();
+                                $newPrescriptionTags->prescription_id = $newPrescription->id ;
+                                $newPrescriptionTags->user_id = $newUserId ;
+                                $newPrescriptionTags->save();
+
+                            }
                         }
                     }
                 }
