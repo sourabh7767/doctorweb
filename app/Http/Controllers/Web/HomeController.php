@@ -367,7 +367,7 @@ class HomeController extends Controller
                 })
                
                 ->addColumn('action', function ($prescription) {
-                    $recordObj = CopyPrescriptionRecord::where('group_id',$prescription->id)->get();
+                    $recordObj = CopyPrescriptionRecord::where('group_id',$prescription->id)->where('user_id',auth()->user()->id)->get();
                 $btn = '';
                 if(!empty($recordObj) && count($recordObj)>0){
                     $btn = '<a href="#" title="View" ><i style="color:#53dd4a;" class="fas fa-heart allreadyCopied"></i></a>&nbsp;&nbsp;';
