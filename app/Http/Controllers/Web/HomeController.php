@@ -404,7 +404,7 @@ class HomeController extends Controller
     }
     
     }
-    public function copyGroup($id){
+    public function copyGroup1($id){
         $newUserId = auth()->user()->id;
         $groupNames = CustomSearch::find($id);
         $groupNamesTags = CustomSearchTag::where('custom_search_id',$id)->get();
@@ -444,6 +444,59 @@ class HomeController extends Controller
                 $newPrescription->created_at = Carbon::now();
                 $newPrescription->updated_at = Carbon::now();
                 $newPrescription->save();
+            }
+        }
+        return response()->json(["message" =>"success"]);
+        
+    }
+    public function copyGroup($id){
+        $newUserId = auth()->user()->id;
+        $groupNames = CustomSearch::find($id);
+        
+        if(!empty($groupNames)){
+            $recordObj = new CopyPrescriptionRecord();
+            $recordObj->user_id = $newUserId;
+            $recordObj->group_id = $groupNames->id;
+            $recordObj->save();
+            $groupNames->download_count = $groupNames->download_count + 1;
+            $groupNames->save();
+            $newGroupName = $groupNames->replicate();
+            $newGroupName->download_count = 0;
+            $newGroupName->user_id = $newUserId;
+            $newGroupName->save();
+        }
+        $innerGroups = CustomSearch::where('parent_id',$groupNames->id)->get();
+        if(!empty($innerGroups)){
+            foreach($innerGroups as $value){
+                $newInnerGroup =  $value->replicate();
+                $newInnerGroup->user_id = $newUserId;
+                $newInnerGroup->parent_id = $newGroupName->id;
+                $newInnerGroup->save();
+                $groupNamesTags = CustomSearchTag::where('custom_search_id',$value->id)->get();
+                if(!empty($groupNamesTags)){
+                    foreach($groupNamesTags as  $groupNamesTag){
+                        $newTags = $groupNamesTag->replicate();
+                        $newTags->custom_search_id = $newInnerGroup->id;
+                        $newTags->user_id = $newUserId;
+                        $newTags->save();
+                    }
+                }
+                $tags = CustomSearchTag::where('custom_search_id',$value->id)->pluck('tag')->toArray();
+                if(!empty($tags)){
+                    $Prescriptions = Prescription::whereHas('tags', function ($query) use ($tags) {
+                        $query->whereIn('tags', $tags);
+                    })->get();
+                    if(!empty($Prescriptions)){
+                        foreach ($Prescriptions as $prescription) {
+                            $newPrescription = $prescription->replicate();
+                            $newPrescription->user_id = $newUserId;
+                            $newPrescription->created_at = Carbon::now();
+                            $newPrescription->updated_at = Carbon::now();
+                            $newPrescription->save();
+                        }
+                    }
+                }
+               
             }
         }
         return response()->json(["message" =>"success"]);

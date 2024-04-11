@@ -973,6 +973,31 @@ $(document).ready(function () {
             });
             // // Navigate to the URL
         });
+        // $(document).on('click', '.las la-pen', function() {
+            // $('.abc').on('click', function (event) {
+                $(document).on('click','.abc',function(){
+                    alet();
+            // var lableId = $(this).data('id'); 
+            // $("#editMaingroupId").val(lableId);// Get data attributes of the clicked row
+            // // var cardId = rowData.id; // Assuming 'id' is the attribute containing the card ID
+            // var url = site_url + '/user/groups/view/' + cardId;
+            // $.ajax({
+            //     url: site_url + '/user/groups/view/' + cardId, // Assuming this URL hits your controller action
+            //     type: 'GET',
+            //     success: function(response) {
+            //         console.log(response);
+            //         // Populate modal with data
+            //         // $('#cardModal .modal-body').html(response);
+            //         $('#searchResults').html(response); // Assuming the response contains HTML for the modal body
+            //         $('#copyPrescriptionModal').modal('show'); // Show the modal
+            //     },
+            //     error: function(xhr, status, error) {
+            //         // Handle error
+            //         console.error(error);
+            //     }
+            // });
+            // // Navigate to the URL
+        });
     });
    
 

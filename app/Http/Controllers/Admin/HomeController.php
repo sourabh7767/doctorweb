@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Button;
+use App\Models\CustomSearch;
 use App\Models\Prescription;
 use App\Models\PrescriptionTag;
 use Illuminate\Http\Request;
@@ -164,6 +165,13 @@ class HomeController extends Controller
         $prescreption = Prescription::find($id);
         $tags = PrescriptionTag::where('prescription_id',$prescreption->id)->get();
         return response()->json(['success' => true,'object' => $prescreption , 'tags' => $tags]);
+    }
+    public function editGroupName(Request $request){
+        if(!empty($request->all()));
+        $customeSearchObj = CustomSearch::find($request->group_lable);
+        $customeSearchObj->title = $request->title;
+        $customeSearchObj->save();
+        return response()->json(['success' => true,'message'=>'Group (successfully']);
     }
     
 }

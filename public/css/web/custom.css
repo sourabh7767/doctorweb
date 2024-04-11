@@ -643,3 +643,7 @@ div.dataTables_wrapper div.dataTables_paginate
     width: 90%;
     max-width: 100%;
 }
+
+.paginate_button li a{
+    background-color: red !important;
+}

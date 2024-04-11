@@ -352,6 +352,36 @@
                                 </div>
                             </div>
 
+
+                            {{-- edit main group  --}}
+                            <div class="modal fade" id="editMaingroup" tabindex="-1" aria-labelledby="addOnBtnLabel" aria-hidden="true" data-bs-backdrop="static">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header d-block border-0 p-0 mb-2">
+                                            <h5 class="modal-title" id="addOnBtnLabel">Create Group</h5>
+                                            {{-- <p class="modal-subtext">Edit field and create fast access template</p> --}}
+                                        </div>
+                                        <div class="modal-body p-0">
+                                            <form class="addLabelsForm" id="editMaingroupIdForm">
+                                                @csrf
+                                                <input type="hidden" name="group_lable" id="editMaingroupId" value="">
+                                                <div class="form-group mb-2">
+                                                    <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="group_name" id="group_name">
+                                                </div>
+                                                {{-- <div class="u-tagsinput">
+                                                    <input id="tagsInput" type="text" value="" data-role="tagsinput" class="customControlInputs" name="tags">
+                                                </div> --}}
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer border-0 p-0">
+                                        <button type="button" class="clearBtn" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="secondryBtn" id="addLableSubmit">Save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+{{-- end --}}
+
                             <div class="modal fade" id="addOnBtnModalTags" tabindex="-1" aria-labelledby="addOnBtnLabel" aria-hidden="true" data-bs-backdrop="static">
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
@@ -385,8 +415,11 @@
                                 @foreach ($customSearchParent as $item)
 
                                 <div class="panel" id="panel">
+                                    <div class="d-flex align-items-center">
+                                        <span class="editModal abc" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
+                                    </div>
                                   <div class="toggle-button-container">
-                                    <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}</p>
+                                    <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}&nbsp;&nbsp;</p>
                                     
                                     <div class="d-flex">
                                         <button class="toggle-button toggleOnClass">
@@ -739,6 +772,7 @@
                 arrowIcon.removeClass("rotate");
             }
         });
+        
     </script>
     
   <!-- End Js -->

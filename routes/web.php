@@ -53,6 +53,7 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::post('/edit/prescreption', 'Web\HomeController@editPrescreption')->name('user.editPrescreption');
         Route::get('/groups', 'Web\HomeController@getAllUserCards')->name("groups");
         Route::get('/groups/view/{id}', 'Web\HomeController@viewCards');
+        Route::post('/groups/editGroupName', 'Web\HomeController@editGroupName');
         Route::get('/groups/copy/{id}', 'Web\HomeController@copyGroup')->name('copyGroup');
         Route::post('/123', 'Web\HomeController@copyGroup')->name('inner.lable.store');
 
