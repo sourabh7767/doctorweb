@@ -666,4 +666,5 @@ div.dataTables_wrapper div.dataTables_paginate
 }
 .paginate_button.active a {
     background: #7a7a7a !important;
+    border-color: #9f9b9b;
 }
