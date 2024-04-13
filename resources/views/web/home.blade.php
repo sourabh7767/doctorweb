@@ -420,7 +420,11 @@
                                         <span class="editModal editMainGroup" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
                                     </div>
                                   <div class="toggle-button-container">
-                                    <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}&nbsp;&nbsp;</p>
+                                    <div>
+                                        <span class="editModal editMainGroup" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
+                                        <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}&nbsp;&nbsp;</p>
+                                    </div>
+                                    
                                     
                                     <div class="d-flex">
                                         <button class="toggle-button toggleOnClass">
