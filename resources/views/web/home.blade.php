@@ -71,7 +71,8 @@
       padding: 0; /* Remove padding */
       text-align: center;
       z-index: 999; /* Ensure the button is on top of other elements */
-      background: linear-gradient(to right, #e556f5, #8f2fde); /* Set background color to light grey */
+      /* background: linear-gradient(to right, #e556f5, #8f2fde); Set background color to light grey */
+      background: #7a7a7a;
       border: none;
       border-radius: 50%; /* Make the button round */
       cursor: pointer;
