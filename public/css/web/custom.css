@@ -658,4 +658,5 @@ div.dataTables_wrapper div.dataTables_paginate
     
     width: 32px;
     height: 32px;
+    cursor: pointer;
 }
