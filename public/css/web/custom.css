@@ -660,3 +660,10 @@ div.dataTables_wrapper div.dataTables_paginate
     height: 32px;
     cursor: pointer;
 }
+.paginate_button a {
+    background: #474747 !important;
+    color: #fff !important;
+}
+.paginate_button.active a {
+    background: #7a7a7a !important;
+}
