@@ -416,9 +416,9 @@
                                 @foreach ($customSearchParent as $item)
 
                                 <div class="panel" id="panel">
-                                    <div class="d-flex align-items-center">
+                                    <!-- <div class="d-flex align-items-center">
                                         <span class="editModal editMainGroup" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
-                                    </div>
+                                    </div> -->
                                   <div class="toggle-button-container">
                                     <div>
                                         <span class="editModal editMainGroup" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
