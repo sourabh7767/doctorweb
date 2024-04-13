@@ -40,7 +40,7 @@
       padding-left: 20px;
       padding-right: 20px;
       background-color: #474747;
-      border: 1px solid #add8e6;
+      border: 1px solid #7b7273;
       transition: height 0.5s; /* Smooth transition for height change */
       position: relative; /* Ensure the button is positioned relative to this panel */
       z-index: 1; /* Ensure the panel is above the button */
