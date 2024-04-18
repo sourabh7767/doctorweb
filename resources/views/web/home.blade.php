@@ -570,6 +570,15 @@
                                                 <form class="addBtnForm" id="addPrescriptionForm">
                                                     @csrf
                                                     <div class="form-group mb-2">
+                                                        {{-- <input type="text" value="" placeholder="Name..." class="customControlInputs" name="name"> --}}
+                                                        <select name="parent_groups" id="parent_groups" class="customControlInputs">
+                                                            @foreach ($customSearchParent as $item)
+                                                            <option value="{{$item->id}}">{{$item->title}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <div id="prescription-parent_groups-error" class="messageprescription" data-form="prescription"></div>
+                                                    </div>
+                                                    <div class="form-group mb-2">
                                                         <input type="text" value="" placeholder="Name..." class="customControlInputs" name="name">
                                                         <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
@@ -796,6 +805,7 @@
                  url: site_url + '/user/groups/editMainGroup/' + lableId, // Assuming this URL hits your controller action
                  type: 'GET',
                  success: function(response) {
+                    getDropDown();
                      console.log(response);
                      $("#group_name").val(response.group)
                      
@@ -820,6 +830,7 @@
             url: site_url + "/user/groups/updateGroupName", // Replace with your endpoint URL
             data: formData,
             success: function(response) {
+                getDropDown();
                 // Handle success response
                 $("#editMaingroup").modal('hide');
                 toastr.success(response.message, 'Success!', toastCofig);

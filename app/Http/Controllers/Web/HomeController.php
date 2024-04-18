@@ -31,12 +31,16 @@ class HomeController extends Controller
         $customSearchObj = CustomSearch::where('user_id',auth()->user()->id)->with('customTags','groupNames')->get();
         // dd($customSearchObj);
         $customSearchParent = CustomSearch::where('user_id',auth()->user()->id)->where('parent_id',0)->get();
+        if($request->ajax()){
+            return response()->json(['success'=>$customSearchParent]);
+        }
         // dd($customSearchObj);
         return view('web.home',compact('user','buttons','customSearchObj','customSearchParent'));
     }
     public function addPrescription(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'parent_groups' => 'required',
             'diagn' => 'required',
             'objective' => 'required',
             'recomend' => 'required',
@@ -55,6 +59,7 @@ class HomeController extends Controller
                 $presriptionObj->name = $request->input('name');
                 $presriptionObj->description = $request->input('description');
                 $presriptionObj->user_id = auth()->guard('web')->user()->id;
+                $presriptionObj->parent_group_id = $request->parent_groups;
                 $presriptionObj->save();
            
             $emplodedTags = explode(',',$request->input('tags'));

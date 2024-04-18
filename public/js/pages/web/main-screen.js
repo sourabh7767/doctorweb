@@ -1,6 +1,36 @@
 var site_url = window.location.protocol + '//' + window.location.host;
 
 $(document).ready(function () {
+    function getDropDown(){
+        // Code to append divs
+
+        // Make an AJAX request to fetch updated dropdown values
+        $.ajax({
+            url: '/user/home', // Assuming this is your route to fetch dropdown values
+            method: 'GET',
+            success: function(response) {
+                console.log(response)
+                // Assuming response is an array of dropdown options
+                var options = response.success;
+
+                // Clear existing dropdown options
+                $('#parent_groups').empty();
+
+                // Append new options to the dropdown
+                $.each(options, function(index, value) {
+                    $('#parent_groups').append($('<option>', {
+                        value: value.id,
+                        text: value.title
+                    }));
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+
+
     $("#submitPrescription").click(function () {
         $('.loader').show();
         var formData = $("#addPrescriptionForm").serialize();
@@ -333,6 +363,7 @@ $(document).ready(function () {
             data: formData,
 
             success: function (data) {
+                getDropDown();
                 $('.loader').hide();
                 $('#addOnBtnModal').modal('hide');
                 $('#searchableTags')[0].reset();
@@ -973,6 +1004,7 @@ $(document).ready(function () {
             });
             // // Navigate to the URL
         });
+        
         // $(document).on('click', '.las la-pen', function() {
             // $('.abc').on('click', function (event) {
         //         $(document).on('click', '.abc', function(e){
