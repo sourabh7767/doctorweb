@@ -406,6 +406,7 @@ $(document).ready(function () {
             </div>
         `;
 
+
         // var newPanelHTML = `
         //     <div class="panel" id="panel">
         //         <div class="toggle-button-container">
@@ -434,7 +435,29 @@ $(document).ready(function () {
         
                 // $('#UlTags').append(newCustomSearchHTML);
                 $('.panel-container').append(newPanelHTML);
-                
+                 $.ajax({
+                    url:site_url +  '/user/home', // Assuming this is your route to fetch dropdown values
+                    method: 'GET',
+                    success: function(response) {
+                        console.log(response)
+                        // Assuming response is an array of dropdown options
+                        var options = response.success;
+
+                        // Clear existing dropdown options
+                        $('#parent_groups').empty();
+
+                        // Append new options to the dropdown
+                        $.each(options, function(index, value) {
+                            $('#parent_groups').append($('<option>', {
+                                value: value.id,
+                                text: value.title
+                            }));
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
                 toastr.success(data.message, 'Success!', toastCofig);
             },
             error: function (xhr, status, error) {
