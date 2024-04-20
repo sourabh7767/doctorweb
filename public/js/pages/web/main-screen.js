@@ -363,7 +363,6 @@ $(document).ready(function () {
             data: formData,
 
             success: function (data) {
-                getDropDown();
                 $('.loader').hide();
                 $('#addOnBtnModal').modal('hide');
                 $('#searchableTags')[0].reset();
@@ -406,6 +405,32 @@ $(document).ready(function () {
                 </div>
             </div>
         `;
+
+        // var newPanelHTML = `
+        //     <div class="panel" id="panel">
+        //         <div class="toggle-button-container">
+        //         <div class="toggleTxtContainer">
+        //         <p style="margin: 0; flex-grow: 1;color:#ffff">${data.newCustomSearch[0].title}&nbsp;&nbsp;</p>
+        //         <span class="editModal editMainGroup me-2" data-id="${data.newCustomSearch[0].id}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i data-id="${data.newCustomSearch[0].id} class="las la-pen"></i></span>
+        //         <span class="editModal removeGroup me-2" data-id="${data.newCustomSearch[0].id}" data-bs-toggle="modal" ><i data-id="${data.newCustomSearch[0].id} class="fas fa-trash"></i></span>
+        //         </div>
+        //             <div class="d-flex">
+        //                 <button class="toggle-button toggleOnClass">
+        //                     <i class="fas fa-chevron-right"></i>
+        //                 </button>
+        //             </div>
+        //         </div>
+        //         <div class="additional-buttons newtag_${data.newCustomSearch[0].id}"">
+        //         <div class="d-flex justify-content-between">
+        //             <div class="leftCardMenusArea">
+        //             <ul class="leftCardMenus ul_${data.newCustomSearch[0].id}" id="UlTags">
+        //             </ul>
+        //             </div>
+        //         <span class="addOnBtn me-0" data-bs-toggle="modal" data-bs-target="#addOnBtnModalTags" ><i class="las la-plus tagId" data-id="${data.newCustomSearch && data.newCustomSearch.length > 0 ? data.newCustomSearch[0].id : '123'}"></i></span>
+        //         </div>
+        //         </div>
+        //     </div>
+        // `;
         
                 // $('#UlTags').append(newCustomSearchHTML);
                 $('.panel-container').append(newPanelHTML);
@@ -1034,5 +1059,44 @@ $(document).ready(function () {
         // });
     });
    
+
+});
+$(document).on('click', '.removeGroup', function (e) {
+    var cardArea = $(this).closest('.panel');
+    var groupId = $(this).data('id');
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.value) {
+            $('.loader').show();
+            $.ajax({
+                type: 'post',
+                url: site_url + '/user/delete/group', // Update with your actual route
+                data: {
+                    '_token': $('meta[name="csrf-token"]').attr('content'),
+                    'group_id': groupId
+                },
+                success: function (data) {
+                    toastr.success(data.message, 'Success!', toastCofig);
+                    cardArea.remove(); // Remove the card from the DOM
+                    $('.loader').hide();
+                },
+                error: function (error) {
+                    $('.loader').hide();
+                    toastr.error("Error deleting prescription:", 'Error!', toastCofig);
+                    console.error('Error deleting prescription:', error);
+                    // Handle error if needed
+                }
+            });
+        }
+        $('.loader').hide();
+    });
 
 });

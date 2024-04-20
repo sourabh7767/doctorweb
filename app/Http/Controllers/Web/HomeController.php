@@ -541,4 +541,19 @@ class HomeController extends Controller
         }
     }
 
+    public function deleteGroup(Request $request){
+        $maingroup = CustomSearch::find($request->group_id);
+        if(!empty($maingroup)){
+            CustomSearch::where('parent_id',$request->group_id)->delete();
+            Prescription::where('parent_group_id',$maingroup->id)->delete();
+            if($maingroup->delete()){
+                return response()->json(['success' => "Deleted"]); 
+            }else{
+                return response()->json(['error' => "Something went wrong"]);
+            }
+        }else{
+            return response()->json(['error' => "search not found"]);
+        }
+    }
+
 }

@@ -420,10 +420,10 @@
                                         <span class="editModal editMainGroup" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
                                     </div> -->
                                   <div class="toggle-button-container">
-                                    <div class="toggleTxtContainer">
+                                    <div class="toggleTxtContainer" data-id="{{@$item->id}}">
                                         <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}&nbsp;&nbsp;</p>
                                         <span class="editModal editMainGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
-                                        <span class="editModal editMainGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="fas fa-trash"></i></span>
+                                        <span class="editModal removeGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" ><i class="fas fa-trash"></i></span>
                                     </div>
                                     
                                     
@@ -805,7 +805,6 @@
                  url: site_url + '/user/groups/editMainGroup/' + lableId, // Assuming this URL hits your controller action
                  type: 'GET',
                  success: function(response) {
-                    getDropDown();
                      console.log(response);
                      $("#group_name").val(response.group)
                      
@@ -830,11 +829,11 @@
             url: site_url + "/user/groups/updateGroupName", // Replace with your endpoint URL
             data: formData,
             success: function(response) {
-                getDropDown();
                 // Handle success response
                 $("#editMaingroup").modal('hide');
                 toastr.success(response.message, 'Success!', toastCofig);
                 window.location.reload();
+                getDropDown();
                 // Optionally, do something with the response
             },
             error: function(xhr, status, error) {
