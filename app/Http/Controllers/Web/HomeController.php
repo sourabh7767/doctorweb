@@ -545,6 +545,10 @@ class HomeController extends Controller
         $maingroup = CustomSearch::find($request->group_id);
         if(!empty($maingroup)){
             CustomSearch::where('parent_id',$request->group_id)->delete();
+            $prescreptionIds = Prescription::where('parent_group_id',$maingroup->id)->pluck("id","id")->toArray();
+            if($prescreptionIds){
+                PrescriptionTag::whereIn("prescription_id",$prescreptionIds)->delete();
+            }
             Prescription::where('parent_group_id',$maingroup->id)->delete();
             if($maingroup->delete()){
                 return response()->json(['success' => "Deleted"]); 
