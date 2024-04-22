@@ -58,7 +58,8 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::any('/groups/editMainGroup/{id?}', 'Web\HomeController@editMainGroup')->name('editMainGroup');
         Route::any('/groups/updateGroupName/{id?}', 'Web\HomeController@updateGroupName')->name('updateGroupName');
         Route::post('/inner/lable/store', 'Web\HomeController@copyGroup')->name('inner.lable.store');
-        Route::post('/delete/group', 'Web\HomeController@deleteGroup')->name('deleteGroup');
+        Route::post('/delete/group/{id?}', 'Web\HomeController@deleteGroup')->name('deleteGroup');
+        Route::post('/delete/deleteOwnRecord/{id?}', 'Web\HomeController@deleteOwnRecord')->name('deleteOwnRecord');
         
         
     });

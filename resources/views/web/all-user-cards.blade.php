@@ -213,8 +213,8 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
               <div class="card data-table">
                  <div class="card-header d-flex justify-content-center align-item-center">
                     <h4 class="m-0" style="text-align: center;font-size:40px;">&nbsp;{{ __('Library') }} </h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div style="text-align: center;">&nbsp;&nbsp;{{$totalCards}}  groups <br>
-                        {{$totalPrescreptions}} templates <br>available.</div>
+                    <div style="text-align: center;">&nbsp;&nbsp;{{$totalgroups}}  groups <br>
+                        {{$actuallTotalPrescriptiom}} templates <br>available.</div>
                     
                   <!--<a href="{{ route('users.create') }}" class="dt-button create-new btn btn-primary"><i class="fas fa-plus"></i>&nbsp;&nbsp;Create New User</a>-->
                 </div>

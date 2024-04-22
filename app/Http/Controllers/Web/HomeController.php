@@ -23,10 +23,6 @@ class HomeController extends Controller
     }
     public function webHome(Request $request){
         $buttons = Button::where('user_id',auth()->user()->id)->get();
-        // $middleIndex = $buttons->count() / 2;
-        // $buttons1 = $buttons->slice(0, $middleIndex);
-        // $buttons2 = $buttons->slice($middleIndex);
-        // dd(auth()->user());
         $user = Auth::user();
         $customSearchObj = CustomSearch::where('user_id',auth()->user()->id)->with('customTags','groupNames')->get();
         // dd($customSearchObj);
@@ -208,7 +204,7 @@ class HomeController extends Controller
             }
             if(!empty($request->input('title'))){
                 $customSearchObj->title = $request->title;
-                $customSearchObj->parent_id = $request->customSearchObj_id;
+                $customSearchObj->parent_id = !empty($request->customSearchObj_id) ? $request->customSearchObj_id : 0;
                 $customSearchObj->user_id = $userObj->id;
                 $customSearchObj->save();
                 
@@ -312,6 +308,7 @@ class HomeController extends Controller
             $presriptionObj->objective = $request->input('objective');
             $presriptionObj->recomend = $request->input('recomend');
             $presriptionObj->name = $request->input('name');
+            $presriptionObj->parent_group_id = $request->input('parent_groups');
             $presriptionObj->description = $request->input('description');
                 $presriptionObj->user_id = $request->input('user_id');
                 $presriptionObj->save();
@@ -353,11 +350,8 @@ class HomeController extends Controller
             return datatables()->of($prescriptions)
                 // ->addIndexColumn()
                 ->addColumn('template_count', function ($prescription) {
-                    $ids = CustomSearch::where('parent_id',$prescription->id)->pluck('id')->toArray();
-                    $tags = CustomSearchTag::whereIn('custom_search_id',$ids)->pluck('tag')->toArray();
-                    $Prescriptions = Prescription::whereHas('tags', function ($query) use ($tags) {
-                     $query->whereIn('tags', $tags);
-                 })->count();
+                    $ids = CustomSearch::where('id',$prescription->id)->pluck('id')->toArray();
+                    $Prescriptions = Prescription::whereIn('parent_group_id',$ids)->count();
                     return $Prescriptions;
                 })
                 ->addColumn('user_id', function ($prescription) {
@@ -375,7 +369,7 @@ class HomeController extends Controller
                     $recordObj = CopyPrescriptionRecord::where('group_id',$prescription->id)->where('user_id',auth()->user()->id)->get();
                 $btn = '';
                 if(!empty($recordObj) && count($recordObj)>0){
-                    $btn = '<a href="#" title="View" ><i style="color:#53dd4a;" class="fas fa-heart allreadyCopied"></i></a>&nbsp;&nbsp;';
+                    $btn = '<a href="#" title="View" ><i style="color:#53dd4a;" class="fas fa-heart allreadyCopied" data-id="'.$prescription->id.'"></i></a>&nbsp;&nbsp;';
                 }else{
                     $btn = '<a href="#" title="View" ><i style="color:white;" class="fas fa-heart copyData" data-id="'.$prescription->id.'"></i></a>&nbsp;&nbsp;';
                 }
@@ -391,19 +385,19 @@ class HomeController extends Controller
             ->skipPaging()
             ->make(true);
         }
+        $actuallTotalPrescriptiom = Prescription::count();
+        $totalgroups = CustomSearch::where('parent_id',0)->count();
 
-        return view('web.all-user-cards',compact('totalCards','totalPrescreptions'));
+        return view('web.all-user-cards',compact('totalCards','totalPrescreptions','actuallTotalPrescriptiom','totalgroups'));
     }
     public function viewCards($id)
     {
         // $ids = explode("",$id);
-        $ids = CustomSearch::where('parent_id',$id)->pluck('id')->toArray();
-       $tags = CustomSearchTag::whereIn('custom_search_id',$ids)->pluck('tag')->toArray();
-       $emplodedIds =  [];
+        $ids = CustomSearch::where('id',$id)->pluck('id')->toArray();
+    //    $tags = CustomSearchTag::whereIn('custom_search_id',$ids)->pluck('tag')->toArray();
+    //    $emplodedIds =  [];
     //    dd($Prescriptions);
-       $Prescriptions = Prescription::whereHas('tags', function ($query) use ($tags) {
-        $query->whereIn('tags', $tags);
-    })->get();
+       $Prescriptions = Prescription::whereIn('parent_group_id',$ids)->get();
     if($Prescriptions){
         return view('web.copy-template',compact('Prescriptions'))->render();
     }
@@ -415,10 +409,6 @@ class HomeController extends Controller
         $groupNamesTags = CustomSearchTag::where('custom_search_id',$id)->get();
         $tags = CustomSearchTag::where('custom_search_id',$id)->pluck('tag')->toArray();
         if(!empty($groupNames)){
-            $recordObj = new CopyPrescriptionRecord();
-            $recordObj->user_id = $newUserId;
-            $recordObj->group_id = $groupNames->id;
-            $recordObj->save();
             $groupNames->download_count = $groupNames->download_count + 1;
             $groupNames->save();
             $newGroupName = $groupNames->replicate();
@@ -427,6 +417,11 @@ class HomeController extends Controller
             $newGroupName->created_at = Carbon::now();
             $newGroupName->updated_at = Carbon::now();
             $newGroupName->save();
+            $recordObj = new CopyPrescriptionRecord();
+            $recordObj->user_id = $newUserId;
+            $recordObj->group_id = $groupNames->id;
+            $recordObj->new_group_id = $newGroupName->id;
+            $recordObj->save();
         }
         if(!empty($groupNamesTags)){
             $Prescriptions = Prescription::whereHas('tags', function ($query) use ($tags) {
@@ -459,19 +454,22 @@ class HomeController extends Controller
         $groupNames = CustomSearch::find($id);
         
         if(!empty($groupNames)){
-            $recordObj = new CopyPrescriptionRecord();
-            $recordObj->user_id = $newUserId;
-            $recordObj->group_id = $groupNames->id;
-            $recordObj->save();
+           
             $groupNames->download_count = $groupNames->download_count + 1;
             $groupNames->save();
             $newGroupName = $groupNames->replicate();
             $newGroupName->download_count = 0;
             $newGroupName->user_id = $newUserId;
             $newGroupName->save();
+            $recordObj = new CopyPrescriptionRecord();
+            $recordObj->user_id = $newUserId;
+            $recordObj->group_id = $groupNames->id;
+            $recordObj->new_group_id = $newGroupName->id;
+            $recordObj->save();
         }
         $innerGroups = CustomSearch::where('parent_id',$groupNames->id)->get();
-        if(!empty($innerGroups)){
+        
+        if(count($innerGroups) !=0){
             foreach($innerGroups as $value){
                 $newInnerGroup =  $value->replicate();
                 $newInnerGroup->user_id = $newUserId;
@@ -486,16 +484,13 @@ class HomeController extends Controller
                         $newTags->save();
                     }
                 }
-                $tags = CustomSearchTag::where('custom_search_id',$value->id)->pluck('tag')->toArray();
-                if(!empty($tags)){
-                    $Prescriptions = Prescription::whereHas('tags', function ($query) use ($tags) {
-                        $query->whereIn('tags', $tags);
-                    })->get();
+                $Prescriptions = Prescription::where('parent_group_id', $groupNames->id)->get();
                     if(!empty($Prescriptions)){
                         foreach ($Prescriptions as $prescription) {
                             $prescriptionTags = PrescriptionTag::where('prescription_id',$prescription->id)->get();
                             $newPrescription = $prescription->replicate();
                             $newPrescription->user_id = $newUserId;
+                            $newPrescription->parent_group_id = $newInnerGroup->id;
                             $newPrescription->created_at = Carbon::now();
                             $newPrescription->updated_at = Carbon::now();
                             $newPrescription->save();
@@ -508,10 +503,32 @@ class HomeController extends Controller
                             }
                         }
                     }
+            }
+        }else{
+            $Prescriptions = Prescription::where('parent_group_id', $groupNames->id)->get();
+            if(!empty($Prescriptions)){
+                foreach ($Prescriptions as $prescription) {
+                    $prescriptionTags = PrescriptionTag::where('prescription_id',$prescription->id)->get();
+                    $newPrescription = $prescription->replicate();
+                    $newPrescription->user_id = $newUserId;
+                    $newPrescription->parent_group_id = $newGroupName->id;
+                    $newPrescription->created_at = Carbon::now();
+                    $newPrescription->updated_at = Carbon::now();
+                    $newPrescription->save();
+                    foreach($prescriptionTags as $prescriptionTag){
+                        $newPrescriptionTags = $prescriptionTag->replicate();
+                        $newPrescriptionTags->prescription_id = $newPrescription->id ;
+                        $newPrescriptionTags->user_id = $newUserId ;
+                        $newPrescriptionTags->save();
+
+                    }
                 }
-               
             }
         }
+                   
+                // }
+               
+           
         return response()->json(["message" =>"success"]);
         
     }
@@ -557,6 +574,26 @@ class HomeController extends Controller
             }
         }else{
             return response()->json(['error' => "search not found"]);
+        }
+    }
+    public function deleteOwnRecord($id){
+        if(!empty($id)){
+            $newPrescriptiom = CopyPrescriptionRecord::where('group_id',$id)->first();
+            if(!empty($newPrescriptiom)){
+                CustomSearch::where('id',$newPrescriptiom->new_group_id)->delete();
+                $prescreptionIds = Prescription::where('parent_group_id',$newPrescriptiom->new_group_id)->pluck("id")->toArray();
+                if($prescreptionIds){
+                    PrescriptionTag::whereIn("prescription_id",$prescreptionIds)->delete();
+                }
+                Prescription::where('parent_group_id',$newPrescriptiom->new_group_id)->delete();
+                if($newPrescriptiom->delete()){
+                    return response()->json(['success' => "Deleted"]); 
+                }else{
+                    return response()->json(['error' => "Something went wrong"]);
+                }
+            }else{
+                return response()->json(['error' => "search not found"]);
+            }
         }
     }
 

@@ -368,26 +368,14 @@ $(document).ready(function () {
                 $('#searchableTags')[0].reset();
                 $("#tagsInput").tagsinput('removeAll');
 
-                // Assuming data.newCustomSearch is an array with one element
-            //     var newCustomSearchHTML = `
-            //        <li class="leftCardItems row" data-id="${data.newCustomSearch[0].id}">
-            //            <h6 class="cardItemHead col-md-4">${data.newCustomSearch[0].title}</h6>
-            //            <div class="col-md-8">
-            //                ${data.newCustomSearch[0].custom_tags && data.newCustomSearch[0].custom_tags.length > 0
-            //             ? data.newCustomSearch[0].custom_tags.map(tag => `
-            //                        <div class="cardItemValue" id="cardItemValueTag_${tag.id}">
-            //                            <span class="tag tagTitle tags" data-tag="${tag.tag}" data-type="true" data-id="${tag.id}">${tag.tag}</span>
-            //                            <span class="crossValue crossValue1 customtagdelete removed remove" data-id="${tag.id}"><i class="las la-times"></i></span>
-            //                        </div>
-            //                    `).join('')
-            //             : ''}
-            //            </div>
-            //        </li>
-            //    `;
             var newPanelHTML = `
             <div class="panel" id="panel">
                 <div class="toggle-button-container">
-                    <p style="margin: 0; flex-grow: 1;color:#ffff;">${data.newCustomSearch && data.newCustomSearch.length > 0 ? data.newCustomSearch[0].title : 'Title Placeholder'}</p>
+                <div class="toggleTxtContainer" data-id="${data.newCustomSearch[0].id}">
+                    <p style="margin: 0; flex-grow: 1;color:#ffff;">${data.newCustomSearch && data.newCustomSearch.length > 0 ? data.newCustomSearch[0].title : 'Title Placeholder'}&nbsp;&nbsp;</p>
+                    <span class="editModal editMainGroup me-2" data-id="${data.newCustomSearch[0].id}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
+                    <span class="editModal removeGroup me-2" data-id="${data.newCustomSearch[0].id}" data-bs-toggle="modal" ><i class="fas fa-trash"></i></span>
+                    </div>
                     <div class="d-flex">
                         <button class="toggle-button toggleOnClass">
                             <i class="fas fa-chevron-right"></i>
@@ -407,32 +395,6 @@ $(document).ready(function () {
         `;
 
 
-        // var newPanelHTML = `
-        //     <div class="panel" id="panel">
-        //         <div class="toggle-button-container">
-        //         <div class="toggleTxtContainer">
-        //         <p style="margin: 0; flex-grow: 1;color:#ffff">${data.newCustomSearch[0].title}&nbsp;&nbsp;</p>
-        //         <span class="editModal editMainGroup me-2" data-id="${data.newCustomSearch[0].id}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i data-id="${data.newCustomSearch[0].id} class="las la-pen"></i></span>
-        //         <span class="editModal removeGroup me-2" data-id="${data.newCustomSearch[0].id}" data-bs-toggle="modal" ><i data-id="${data.newCustomSearch[0].id} class="fas fa-trash"></i></span>
-        //         </div>
-        //             <div class="d-flex">
-        //                 <button class="toggle-button toggleOnClass">
-        //                     <i class="fas fa-chevron-right"></i>
-        //                 </button>
-        //             </div>
-        //         </div>
-        //         <div class="additional-buttons newtag_${data.newCustomSearch[0].id}"">
-        //         <div class="d-flex justify-content-between">
-        //             <div class="leftCardMenusArea">
-        //             <ul class="leftCardMenus ul_${data.newCustomSearch[0].id}" id="UlTags">
-        //             </ul>
-        //             </div>
-        //         <span class="addOnBtn me-0" data-bs-toggle="modal" data-bs-target="#addOnBtnModalTags" ><i class="las la-plus tagId" data-id="${data.newCustomSearch && data.newCustomSearch.length > 0 ? data.newCustomSearch[0].id : '123'}"></i></span>
-        //         </div>
-        //         </div>
-        //     </div>
-        // `;
-        
                 // $('#UlTags').append(newCustomSearchHTML);
                 $('.panel-container').append(newPanelHTML);
                  $.ajax({
@@ -884,6 +846,13 @@ $(document).ready(function () {
                 $("#edit_recomend").val(response.object.recomend)
                 $("#prescreprionId").val(response.object.id);
                 $("#UserId").val(response.object.user_id);
+                $("#parent_groups option").each(function() {
+                    // Check if the current option's value matches the selected value
+                    if ($(this).val() == response.object.parent_group_id) {
+                        // If it matches, mark it as selected
+                        $(this).prop("selected", true);
+                    }
+                });
                 var ids = [];
                 var tagValues = response.tags.map(function (tag) {
                     $('#tagsInputprescreption').tagsinput('add', tag.tags);
@@ -1002,7 +971,36 @@ $(document).ready(function () {
         $('input[type=search]').attr('placeholder', 'Search records...');
         
         $(document).on('click', '.allreadyCopied', function (e) {
-            toastr.error("Group already copied", 'Error!', toastCofig);
+            e.preventDefault();
+            var element = $(this);
+            var groupId = element.data("id"); 
+            element.addClass('heart-effect');
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            // Perform AJAX request to copy data
+            $.ajax({
+                url: site_url + '/user/delete/deleteOwnRecord/' + groupId, // Assuming the URL to copy data is set in the href attribute
+                type: 'POST',
+                headers: {
+                    // Include CSRF token in the headers
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                success: function(response) {
+                    // Handle success if needed
+                    toastr.success(response.message, 'Success!', toastCofig);
+                    console.log('Data copied successfully');
+                    table.ajax.reload(null, false);
+                },
+                error: function(xhr, status, error) {
+                    // Handle error if needed
+                    console.error(error);
+                },
+                complete: function() {
+                    // Remove heart effect after a delay
+                    setTimeout(function() {
+                        element.removeClass('heart-effect');
+                    }, 1000); // Adjust the duration (in milliseconds) as needed
+                }
+            });
         });
         $(document).on('click', '.copyData', function (e) {
             e.preventDefault();

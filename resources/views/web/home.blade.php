@@ -635,6 +635,15 @@
                                                         <input type="hidden" name="user_id" id="UserId">
                                                         <input type="hidden" name="tag_ids" id="tagIds">
                                                         <div class="form-group mb-2">
+                                                            {{-- <input type="text" value="" placeholder="Name..." class="customControlInputs" name="name"> --}}
+                                                            <select name="parent_groups" id="parent_groups" class="customControlInputs">
+                                                                @foreach ($customSearchParent as $item)
+                                                                <option value="{{$item->id}}">{{$item->title}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <div id="prescription-parent_groups-error" class="messageprescription" data-form="prescription"></div>
+                                                        </div>
+                                                        <div class="form-group mb-2">
                                                             <input type="text" value="" placeholder="Name..." class="customControlInputs" name="name" id="edit_name">
                                                             <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
