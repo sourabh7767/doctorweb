@@ -490,7 +490,7 @@ class HomeController extends Controller
                             $prescriptionTags = PrescriptionTag::where('prescription_id',$prescription->id)->get();
                             $newPrescription = $prescription->replicate();
                             $newPrescription->user_id = $newUserId;
-                            $newPrescription->parent_group_id = $newInnerGroup->id;
+                            $newPrescription->parent_group_id = $newGroupName->id;
                             $newPrescription->created_at = Carbon::now();
                             $newPrescription->updated_at = Carbon::now();
                             $newPrescription->save();

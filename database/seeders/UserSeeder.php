@@ -24,6 +24,20 @@ class UserSeeder extends Seeder
                 'phone_number' => '123456789',
                 'password' => Hash::make('admin@123')
             ]);
+            DB::table('users')->insert([
+                [
+                    'full_name' => 'laksh',
+                    'email' => 'laksh@yopmail.com',
+                    'phone_number' => '1223456789',
+                    'password' => Hash::make('admin@123')
+                    ],
+                    [
+                        'full_name' => 'money',
+                        'email' => 'sssingh70875@gmail.com',
+                        'phone_number' => '1223456789',
+                        'password' => Hash::make('admin@123')
+                        ]
+                    ]);
         }
     }
 }
