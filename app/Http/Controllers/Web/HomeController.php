@@ -484,6 +484,8 @@ class HomeController extends Controller
                         $newTags->save();
                     }
                 }
+            }
+
                 $Prescriptions = Prescription::where('parent_group_id', $groupNames->id)->get();
                     if(!empty($Prescriptions)){
                         foreach ($Prescriptions as $prescription) {
@@ -503,7 +505,6 @@ class HomeController extends Controller
                             }
                         }
                     }
-            }
         }else{
             $Prescriptions = Prescription::where('parent_group_id', $groupNames->id)->get();
             if(!empty($Prescriptions)){
