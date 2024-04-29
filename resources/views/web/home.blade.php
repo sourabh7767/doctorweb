@@ -26,9 +26,8 @@
     display: block;
     width: 90%;
     max-width: 100%;
-    height: 330px;
+    max-height: 100vh;
     overflow: auto;
-    align-items: flex-start;
     padding-right: 12px;
 }
   

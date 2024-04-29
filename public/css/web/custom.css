@@ -599,11 +599,19 @@ body .multiselect-dropdown
     color:#ffffffd4;
 }
 .receiptIcons {
-    margin-right: 3px;
+    margin-right: 0px;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
 }
 .receiptIcons i {
-    font-size: 20px;
+    font-size: 18px;
     color: #fff;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
 }
 .receiptIcons i.selected
 {
