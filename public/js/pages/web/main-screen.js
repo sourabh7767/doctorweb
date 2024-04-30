@@ -369,7 +369,7 @@ $(document).ready(function () {
                 $("#tagsInput").tagsinput('removeAll');
 
             var newPanelHTML = `
-            <div class="panel" id="panel">
+            <div class="panel expanded" id="panel">
                 <div class="toggle-button-container">
                 <div class="toggleTxtContainer" data-id="${data.newCustomSearch[0].id}">
                     <p style="margin: 0; flex-grow: 1;color:#ffff;">${data.newCustomSearch && data.newCustomSearch.length > 0 ? data.newCustomSearch[0].title : 'Title Placeholder'}&nbsp;&nbsp;</p>
@@ -784,12 +784,12 @@ $(document).ready(function () {
         $('#to_recomend').val("");
         $("#searchInput").val("");
         $(".tagTitle").removeClass('active');
-        var panel = $(".toggleOnClass").closest('.panel');
-        panel.removeClass("expanded");
-        var additionalButtons = panel.find(".additional-buttons");
-        var arrowIcon = panel.find("i");
-        additionalButtons.removeClass("expanded");
-        arrowIcon.removeClass("rotate");
+        // var panel = $(".toggleOnClass").closest('.panel');
+        // panel.removeClass("expanded");
+        // var additionalButtons = panel.find(".additional-buttons");
+        // var arrowIcon = panel.find("i");
+        // additionalButtons.removeClass("expanded");
+        // arrowIcon.removeClass("rotate");
     });
 
     $(document).on('click', '.customtagdelete', function () {

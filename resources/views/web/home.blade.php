@@ -138,8 +138,8 @@
                         $class1 = request()->is('user/groups')?'selected':'';
                     @endphp
                     <div class="receiptContainer">
-                        <a href="{{route('web.home')}}" class="receiptIcons"><i class="fa fa-desktop {{$class}}" aria-hidden="true"></i></a>
-                        <a href="{{route('groups')}}" class="receiptIcons"><i class="fas fa-receipt {{$class1}}"></i></a>
+                        <a href="{{route('web.home')}}" class="receiptIcons {{$class}}"><i class="fa fa-desktop" aria-hidden="true"></i></a>
+                        <a href="{{route('groups')}}" class="receiptIcons {{$class1}}"><i class="fas fa-receipt"></i></a>
                     </div>
                     <div class="dropdown menuDropdown">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -414,7 +414,7 @@
                             <div class="panel-container">
                                 @foreach ($customSearchParent as $item)
 
-                                <div class="panel" id="panel">
+                                <div class="panel expanded" id="panel">
                                     <!-- <div class="d-flex align-items-center">
                                         <span class="editModal editMainGroup" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
                                     </div> -->

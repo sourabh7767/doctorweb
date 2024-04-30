@@ -384,6 +384,8 @@ i.las.la-sign-out-alt {
     height: 650px;
     max-height: 100%;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
 }
 .leftCardMenus{
     max-height: calc(65vh - 302px);
@@ -460,9 +462,9 @@ i.las.la-sign-out-alt {
     font-size: 13px;
     padding: 5px 13px;
 }
-.leftBtmBtn
-{
+.leftBtmBtn {
     height: 50px;
+    margin-top: auto !important;
 }
 /* ENd LeftArea Css */
 /* Start MidArea Css */
@@ -600,18 +602,17 @@ body .multiselect-dropdown
 }
 .receiptIcons {
     margin-right: 0px;
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-}
-.receiptIcons i {
-    font-size: 18px;
-    color: #fff;
-    padding: 10px;
-    display: flex;
+    display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    border-radius: 8px;
+    text-align: center;
+    padding: 10px !important;
+    border-radius: 8px !important;
+}
+.receiptIcons i {
+    color: #fff;
+    width: 20px;
+    object-fit: contain;
 }
 .receiptIcons i.selected
 {
