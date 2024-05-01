@@ -51,17 +51,24 @@ class HomeController extends Controller
     }
     public function saveCopiedData(Request $request)
     {
+        // die("dd");
         $prescriptionId = $request->input('prescription_id');
         $selectedUsers = $request->input('selected_users');
         $originalPrescription = Prescription::find($prescriptionId);
+        $mainGroup = CustomSearch::find($originalPrescription->parent_group_id);
         $originalPrescriptionTags = PrescriptionTag::where('prescription_id',$prescriptionId)->get();
         try {
             DB::beginTransaction();
         foreach ($selectedUsers as $userId) {
+            if(!empty($mainGroup)){
+                $newMainGroup = $mainGroup->replicate();
+                $newMainGroup->user_id = $userId;
+                $newMainGroup->save();
+            }
             $newPrescription = $originalPrescription->replicate();
 
             $newPrescription->user_id = $userId;
-
+            $newPrescription->parent_group_id = $newMainGroup->id;
             $newPrescription->save();
             foreach($originalPrescriptionTags as $originalPrescriptionTag){
                 $newPrescriptionTag = $originalPrescriptionTag->replicate();
@@ -83,41 +90,80 @@ class HomeController extends Controller
         $users = User::where('id','!=',$request->user_id)->where('role','!=',User::ROLE_ADMIN)->get();
         return view('user.select-user',compact('users'))->render();
     }
-
     public function saveAllCopiedData(Request $request)
     {
-        $abc = [];
         $user = $request->user_id;
         $selectedUsers = $request->input('selected_users');
+        $record = [];
         try {
-            DB::beginTransaction();
-    
             foreach ($selectedUsers as $userId) {
                 $originalPrescriptions = Prescription::where('user_id', $user)->get();
-                $abc[] = $originalPrescriptions;
-                foreach ($originalPrescriptions as $originalPrescription) {
-                    $newPrescription = $originalPrescription->replicate();
-                    $newPrescription->user_id = $userId;
-                    $newPrescription->save();
-    
-                    $originalPrescriptionTags = PrescriptionTag::where('prescription_id', $originalPrescription->id)->get();
-    
-                    foreach ($originalPrescriptionTags as $originalPrescriptionTag) {
-                        $newPrescriptionTag = $originalPrescriptionTag->replicate();
-                        $newPrescriptionTag->user_id = $userId;
-                        $newPrescriptionTag->prescription_id = $newPrescription->id;
-                        $newPrescriptionTag->save();
+                if(!empty($originalPrescriptions)){
+                    foreach ($originalPrescriptions as $value) {
+                        $mainGroup = CustomSearch::find($value->parent_group_id);
+                        if (array_key_exists($value->parent_group_id, $record)) {
+                            $newPrescription = $value->replicate();
+                            $newPrescription->parent_group_id = $value->parent_group_id;
+                            $newPrescription->user_id = $userId;
+                            $newPrescription->save();
+                        }else{
+                            $newMainGroup = $mainGroup->replicate();
+                            $newMainGroup->user_id = $userId;
+                            $newMainGroup->save();
+
+                            $newPrescription = $value->replicate();
+                            $newPrescription->parent_group_id = $newMainGroup->id;
+                            $newPrescription->user_id = $userId;
+                            $newPrescription->save();
+                            $record[$value->parent_group_id] = [$newMainGroup->id];
+                        }
+                       
                     }
+                    
                 }
             }
-    
-            DB::commit();
+            
             return response()->json(['success' => true , 'message' =>  'Prescriptions copied']);
         } catch (\Throwable $th) {
-            DB::rollBack();
             return response()->json(['error' => true , 'message' =>  'Prescriptions not copied']);
         }
     }
+
+    // public function saveAllCopiedData(Request $request)
+    // {
+    //     $abc = [];
+    //     $user = $request->user_id;
+    //     $selectedUsers = $request->input('selected_users');
+    //     try {
+    //         DB::beginTransaction();
+    
+    //         foreach ($selectedUsers as $userId) {
+    //             $originalPrescriptions = Prescription::where('user_id', $user)->get();
+    //             $abc[] = $originalPrescriptions;
+    //             foreach ($originalPrescriptions as $originalPrescription) {
+    //                 $newPrescription = $originalPrescription->replicate();
+    //                 $newPrescription->user_id = $userId;
+    //                 $newPrescription->save();
+    
+    //                 $originalPrescriptionTags = PrescriptionTag::where('prescription_id', $originalPrescription->id)->get();
+    
+    //                 foreach ($originalPrescriptionTags as $originalPrescriptionTag) {
+    //                     $newPrescriptionTag = $originalPrescriptionTag->replicate();
+    //                     $newPrescriptionTag->user_id = $userId;
+    //                     $newPrescriptionTag->prescription_id = $newPrescription->id;
+    //                     $newPrescriptionTag->save();
+    //                 }
+    //             }
+    //         }
+    
+    //         DB::commit();
+    //         return response()->json(['success' => true , 'message' =>  'Prescriptions copied']);
+    //     } catch (\Throwable $th) {
+    //         DB::rollBack();
+    //         return response()->json(['error' => true , 'message' =>  'Prescriptions not copied']);
+    //     }
+    // }
+    
     public function editPrescreption(Request $request)
     {
         $validator = Validator::make($request->all(), [

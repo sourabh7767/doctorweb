@@ -600,6 +600,9 @@ body .multiselect-dropdown
 .bin:hover i {
     color:#ffffffd4;
 }
+.receiptIcons.selected {
+    background: #c045eb !important;
+}
 .receiptIcons {
     margin-right: 0px;
     display: inline-flex !important;

@@ -118,8 +118,8 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
                 @endphp
                 
                     <div class="receiptContainer">
-                        <a href="{{route('web.home')}}" class="receiptIcons"><i class="fa fa-desktop {{$class}}" aria-hidden="true"></i></a>
-                        <a href="{{route('groups')}}" class="receiptIcons"><i class="fas fa-receipt {{$class1}}"></i></a>
+                        <a href="{{route('web.home')}}" class="receiptIcons {{$class}}"><i class="fa fa-desktop" aria-hidden="true"></i></a>
+                        <a href="{{route('groups')}}" class="receiptIcons {{$class1}}"><i class="fas fa-receipt "></i></a>
                     </div>
                     <div class="dropdown menuDropdown">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
