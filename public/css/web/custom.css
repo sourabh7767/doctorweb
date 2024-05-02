@@ -611,10 +611,10 @@ body .multiselect-dropdown
     text-align: center;
     padding: 10px !important;
     border-radius: 8px !important;
+    width: 40px;
 }
 .receiptIcons i {
     color: #fff;
-    width: 20px;
     object-fit: contain;
 }
 .receiptIcons i.selected
