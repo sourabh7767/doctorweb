@@ -689,3 +689,10 @@ position: absolute
 .receiptContainer {
     margin: 0 auto;
 }
+
+.outerModalBtn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translate(0px, -50%);
+}
