@@ -477,11 +477,12 @@
                                 </div>
                                 @endforeach
                             </div>
-                            <div class="outerModalBtn">
-                                <span class="addOnBtn me-2" data-bs-toggle="modal" data-bs-target="#addOnBtnModal"><i class="las la-plus"></i></span>
-                            </div>
+                            
                             
                         </div>
+                        <div class="outerModalBtn">
+                                <span class="addOnBtn me-2" data-bs-toggle="modal" data-bs-target="#addOnBtnModal"><i class="las la-plus"></i></span>
+                            </div>
                         <div class="leftBtmBtn mt-3 text-end">
                             <button class="clearBtn" id="removeAllData">Clear</button>
                         </div>
