@@ -369,7 +369,7 @@ $(document).ready(function () {
                 $("#tagsInput").tagsinput('removeAll');
 
             var newPanelHTML = `
-            <div class="panel expanded" id="panel">
+            <div class="panel" id="panel">
                 <div class="toggle-button-container">
                 <div class="toggleTxtContainer" data-id="${data.newCustomSearch[0].id}">
                     <p style="margin: 0; flex-grow: 1;color:#ffff;">${data.newCustomSearch && data.newCustomSearch.length > 0 ? data.newCustomSearch[0].title : 'Title Placeholder'}&nbsp;&nbsp;</p>
