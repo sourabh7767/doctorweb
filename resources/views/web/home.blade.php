@@ -26,7 +26,7 @@
     display: block;
     width: 90%;
     max-width: 100%;
-    max-height: 100vh;
+    max-height: 76vh;
     overflow: auto;
     padding-right: 12px;
 }
