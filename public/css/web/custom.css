@@ -616,6 +616,7 @@ body .multiselect-dropdown
 .receiptIcons i {
     color: #fff;
     object-fit: contain;
+    font-size:15px;
 }
 .receiptIcons i.selected
 {
@@ -679,4 +680,12 @@ div.dataTables_wrapper div.dataTables_paginate
 .paginate_button.active a {
     background: #7a7a7a !important;
     border-color: #9f9b9b !important;
+}
+#remove
+{
+position: absolute
+}
+
+.receiptContainer {
+    margin: 0 auto;
 }
