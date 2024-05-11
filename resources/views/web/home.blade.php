@@ -3,8 +3,8 @@
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>Built Better</title>
-  <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+  <title>AvacadoKiwi</title>
+  <link rel="icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
    .panel-container {
     position: relative;
     display: block;
-    width: 90%;
+    width: 95%;
     max-width: 100%;
     max-height: 550px;
     overflow: auto;
@@ -38,8 +38,10 @@
       padding-bottom: 10px;
       padding-left: 20px;
       padding-right: 20px;
-      background-color: #474747;
-      border: 1px solid #7b7273;
+      /* background-color: #474747;
+      border: 1px solid #7b7273; */
+      background-color: #4a4a4a;
+      border: 1px solid #383838;
       transition: height 0.5s; /* Smooth transition for height change */
       position: relative; /* Ensure the button is positioned relative to this panel */
       z-index: 1; /* Ensure the panel is above the button */
