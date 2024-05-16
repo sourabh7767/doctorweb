@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Avacadokiwis</title>
+        <title>Avacadokiwi</title>
         <link rel="icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon" />
         <!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" 
         rel="stylesheet" type="text/css" /> -->

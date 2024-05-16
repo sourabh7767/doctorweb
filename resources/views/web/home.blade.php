@@ -265,24 +265,24 @@
                                         <form class="addBtnForm" id="AddButtonForm">
                                             @csrf
                                             <div class="form-group mb-2">
-                                                <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="title">
+                                                <input type="text" value="" placeholder="Button Name..." class="customControlInputs" name="title">
                                             </div>
                                             <div class="form-group">
-                                                <textarea class="customControlInputs" id="" rows="11" placeholder="Rekomendjdjas..." name="description"></textarea>
+                                                <textarea class="customControlInputs" id="" rows="11" placeholder="Button Text..." name="description"></textarea>
                                             </div>
-                                            <h4 class="modal-title mt-3">Choose Label</h4>
+                                            <h4 class="modal-title mt-3">Display content in:</h4>
                                             <div class="labelContainer mt-2 mb-3">
                                                 <div class="form-check form-check-inline ps-0">
                                                     <input type="radio" id="test1" value="{{App\Models\Button::First_Label}}" name="place" checked>
-                                                    <label for="test1">First Label</label>
+                                                    <label for="test1">Diagnoze</label>
                                                 </div>
                                                 <div class="form-check form-check-inline ">
                                                     <input type="radio" id="test2" value="{{App\Models\Button::S_LABLE}}" name="place">
-                                                    <label for="test2">S Label</label>
+                                                    <label for="test2">Objektīvās atr.</label>
                                                 </div>
                                                 <div class="form-check form-check-inline ">
                                                     <input type="radio" id="test3" value="{{App\Models\Button::THIRD_LABLE}}" name="place">
-                                                    <label for="test3">Third Label</label>
+                                                    <label for="test3">Rekomendācijas</label>
                                                 </div>
                                             </div>
                                         </form>
@@ -555,7 +555,7 @@
                             <div class="bgContain midContainer">
                                 <form class="">
                                     <div class="form-group">
-                                        <input type="search" class="formControl" placeholder="Maklot poc nosaukuma" id="searchInput">
+                                        <input type="search" class="formControl" placeholder="Meklēt pēc nosaukuma" id="searchInput">
                                     </div>
                                 </form>
                                 <span class="addOnBtn mt-2 mb-1 m-auto" data-bs-toggle="modal" data-bs-target="#createTemp"><i class="las la-plus"></i></span>
@@ -565,7 +565,7 @@
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header d-block border-0 p-0 mb-2">
-                                                <h5 class="modal-title" id="createTempaLabel">Create Trauma Template</h5>
+                                                <h5 class="modal-title" id="createTempaLabel">Create Template</h5>
                                                 <p class="modal-subtext">Edit fields and create fast access template</p>
                                             </div>
                                             <div class="modal-body p-0">
@@ -581,23 +581,23 @@
                                                         <div id="prescription-parent_groups-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                     <div class="form-group mb-2">
-                                                        <input type="text" value="" placeholder="Name..." class="customControlInputs" name="name">
+                                                        <input type="text" value="" placeholder="Template Name..." class="customControlInputs" name="name">
                                                         <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                     <div class="form-group mb-2">
-                                                        <input type="text" value="" placeholder="Description..." class="customControlInputs" name="description">
+                                                        <input type="text" value="" placeholder="Template Description..." class="customControlInputs" name="description">
                                                         <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                     <div class="form-group mb-2">
-                                                        <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="diagn">
+                                                        <input type="text" value="" placeholder="Diagnoze..." class="customControlInputs" name="diagn">
                                                         <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                     <div class="form-group mb-2">
-                                                        <textarea class="customControlInputs" id="" rows="6" placeholder="Rekomendjdjas..." name="objective"></textarea>
+                                                        <textarea class="customControlInputs" id="" rows="6" placeholder="Objektīvās atradnes..." name="objective"></textarea>
                                                         <div id="prescription-objective-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                     <div class="form-group mb-2">
-                                                        <textarea class="customControlInputs" id="" rows="6" placeholder="Rekomendjdjas..." name="recomend"></textarea>
+                                                        <textarea class="customControlInputs" id="" rows="6" placeholder="Rekomendācijas..." name="recomend"></textarea>
                                                         <div id="prescription-recomend-error" class="messageprescription" data-form="prescription"></div>
                                                     </div>
                                                     <div class="u-tagsinput mb-2">
@@ -646,25 +646,25 @@
                                                             <div id="prescription-parent_groups-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                         <div class="form-group mb-2">
-                                                            <input type="text" value="" placeholder="Name..." class="customControlInputs" name="name" id="edit_name">
+                                                            <input type="text" value="" placeholder="Template Name..." class="customControlInputs" name="name" id="edit_name">
                                                             <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                         <div class="form-group mb-2">
-                                                            <input type="text" value="" placeholder="Description..." class="customControlInputs" name="description" id="edit_description">
+                                                            <input type="text" value="" placeholder="Template Description..." class="customControlInputs" name="description" id="edit_description">
                                                             <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                         <div class="form-group mb-2">
-                                                            <input type="text" value="" placeholder="Nosaukums..." class="customControlInputs" name="diagn" id="edit_diagn">
+                                                            <input type="text" value="" placeholder="Diagnoze..." class="customControlInputs" name="diagn" id="edit_diagn">
                                                             <div id="prescription-diagn-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                         <div class="form-group mb-2">
                                                             {{-- <input type="text" name="objective" class="customControlInputs form-control" id="edit_objective" style="height: 100px;"> --}}
-                                                            <textarea class="customControlInputs" rows="6" placeholder="Rekomendjdjas..." name="objective" id="edit_objective"></textarea>
+                                                            <textarea class="customControlInputs" rows="6" placeholder="Objektīvās atradnes..." name="objective" id="edit_objective"></textarea>
                                                             <div id="prescription-objective-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                         <div class="form-group mb-2">
                                                             {{-- <input type="text" name="recomend" class="customControlInputs form-control" id="edit_recomend" style="height: 100px;"> --}}
-                                                            <textarea class="customControlInputs"  rows="6" placeholder="Rekomendjdjas..." name="recomend" id="edit_recomend"></textarea>
+                                                            <textarea class="customControlInputs"  rows="6" placeholder="Rekomendācijas..." name="recomend" id="edit_recomend"></textarea>
                                                             <div id="prescription-recomend-error" class="messageprescription" data-form="prescription"></div>
                                                         </div>
                                                         <div class="u-tagsinput mb-2">

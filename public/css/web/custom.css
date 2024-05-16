@@ -482,7 +482,7 @@ i.las.la-sign-out-alt {
     cursor: pointer;
     border: 1px solid #000;
     margin-right: 5px;
-    transition: all 0.5s;
+    transition: all 0s;
 }
 .titleTxt {
     font-size: 14px;
