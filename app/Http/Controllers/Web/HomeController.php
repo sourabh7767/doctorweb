@@ -87,7 +87,10 @@ class HomeController extends Controller
             // if ($prescriptionTags) {
             //     $Prescriptions = Prescription::whereIn('id', $priscriptionid)->where('user_id',auth()->user()->id)->get();
             // }
-            $Prescriptions = Prescription::where('user_id', auth()->user()->id)->whereHas('tags', function ($query) use ($explodeSearch) {
+            // $Prescriptions = Prescription::where('user_id', auth()->user()->id)->whereHas('tags', function ($query) use ($explodeSearch) {
+            //     $query->whereIn('tags', $explodeSearch);
+            // }, '=', count($explodeSearch))->get();
+            $Prescriptions = Prescription::select('id','name','description','user_id')->where('user_id', auth()->user()->id)->whereHas('tags', function ($query) use ($explodeSearch) {
                 $query->whereIn('tags', $explodeSearch);
             }, '=', count($explodeSearch))->get();
         }else{
