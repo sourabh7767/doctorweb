@@ -95,14 +95,16 @@ class HomeController extends Controller
             // }, '=', count($explodeSearch))->get();
             $Prescriptions = DB::table('prescriptions as p')
             ->select('p.id', 'p.name', 'p.description', 'p.user_id')
-            ->join('prescription_tags as pt', 'p.id', '=', 'pt.prescription_id')
+            ->leftJoin('prescription_tags as pt', 'p.id', '=', 'pt.prescription_id')
             ->where('p.user_id', auth()->user()->id)
             ->whereNull('p.deleted_at')
-            ->where('pt.tags', $explodeSearch)
             ->whereNull('pt.deleted_at')
+            ->whereIn('pt.tags', $explodeSearch)
             ->groupBy('p.id', 'p.name', 'p.description', 'p.user_id')
-            ->havingRaw('COUNT(*) = 1')
+            ->havingRaw('COUNT(DISTINCT pt.tags) = ?', [count($explodeSearch)])
+            // ->havingRaw('SUM(pt.tags NOT IN (?)) = 0', [implode(',', $explodeSearch)])
             ->get();
+                        
         }else{
             if ($searchTerm) {
                 $Prescriptions = Prescription::where('user_id', auth()->user()->id)
