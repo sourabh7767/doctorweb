@@ -90,9 +90,20 @@ class HomeController extends Controller
             // $Prescriptions = Prescription::where('user_id', auth()->user()->id)->whereHas('tags', function ($query) use ($explodeSearch) {
             //     $query->whereIn('tags', $explodeSearch);
             // }, '=', count($explodeSearch))->get();
-            $Prescriptions = Prescription::select('id','name','description','user_id')->where('user_id', auth()->user()->id)->whereHas('tags', function ($query) use ($explodeSearch) {
-                $query->whereIn('tags', $explodeSearch);
-            }, '=', count($explodeSearch))->get();
+            // $Prescriptions = Prescription::select('id','name','description','user_id')->where('user_id', auth()->user()->id)->whereHas('tags', function ($query) use ($explodeSearch) {
+            //     $query->whereIn('tags1', $explodeSearch);
+            // }, '=', count($explodeSearch))->get();
+            $Prescriptions = DB::table('prescriptions')
+            ->select('id', 'name', 'description', 'user_id')
+            ->where('user_id', auth()->user()->id)
+            ->whereNull('deleted_at')
+            ->where(function ($query) use ($explodeSearch) {
+                $query->whereRaw(
+                    "(select count(*) from prescription_tags where prescriptions.id = prescription_tags.prescription_id and tags = ? and prescription_tags.deleted_at is null) = 1",
+                    [$explodeSearch]
+                );
+            })
+            ->get();
         }else{
             if ($searchTerm) {
                 $Prescriptions = Prescription::where('user_id', auth()->user()->id)
