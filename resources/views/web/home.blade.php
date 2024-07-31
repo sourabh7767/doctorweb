@@ -270,7 +270,7 @@
                         @foreach ($buttons as $button)
                         <div class="cardItemValue list-item" id="cardItemValueButton_{{@$button->id}}" data-id="{{@$button->id}}">
                           <div class="item-content">
-                            <span class="order">{{$button->place}}</span>
+                            <span class="order"></span>
                             <span class="tag tag-data" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}">{{$button->title}}</span>
                             <span class="crossValue buttondeleteCrose removed remove" data-button-id="{{ @$button->id }}"><i class="las la-times"></i></span>
                           </div>
