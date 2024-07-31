@@ -60,6 +60,8 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::post('/inner/lable/store', 'Web\HomeController@copyGroup')->name('inner.lable.store');
         Route::post('/delete/group/{id?}', 'Web\HomeController@deleteGroup')->name('deleteGroup');
         Route::post('/delete/deleteOwnRecord/{id?}', 'Web\HomeController@deleteOwnRecord')->name('deleteOwnRecord');
+        // update/order/tags
+        Route::post('/update/order/tags', 'Web\HomeController@updateOrderOfTags')->name('updateOrderOfTags');
         
         
     });

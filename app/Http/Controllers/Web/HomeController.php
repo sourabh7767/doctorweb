@@ -22,7 +22,7 @@ class HomeController extends Controller
         $this->middleware('auth:web')->except('webHome');
     }
     public function webHome(Request $request){
-        $buttons = Button::where('user_id',auth()->user()->id)->get();
+        $buttons = Button::where('user_id',auth()->user()->id)->orderBy('order')->get();
         $user = Auth::user();
         $customSearchObj = CustomSearch::where('user_id',auth()->user()->id)->with('customTags','groupNames')->get();
         // dd($customSearchObj);
@@ -611,6 +611,16 @@ class HomeController extends Controller
                 return response()->json(['error' => "search not found"]);
             }
         }
+    }
+    public function updateOrderOfTags(Request $request)
+    {
+        foreach($request->sortedIDs as $key => $values){
+            $tagId = str_replace("cardItemValueButton_","",$values);
+            $buttonObj = Button::find($tagId);
+            $buttonObj->order = $key;
+            $buttonObj->save();
+        }
+        return response()->json(['success',true]);
     }
 
 }

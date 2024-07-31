@@ -20,7 +20,25 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/extensions/toastr.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('css/theme/plugins/extensions/ext-component-toastr.css') }}">
   <meta name="csrf-token" content="{{ csrf_token() }}">
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
   <style>
+    .item-content {
+    /* padding: 10px; */
+    /* background: #fff; */
+    /* border: 1px solid #ccc; */
+    /* margin: 5px 0; */
+    transition: transform 1s ease, box-shadow 1s ease;
+    /* Added transform and box-shadow for better visual effect */
+}
+
+.sortable-placeholder {
+    border: 1px dashed #ccc;
+    height: 40px;
+    margin: 5px 0;
+    background-color: #f0f0f0;
+}
    .panel-container {
     position: relative;
     display: block;
@@ -239,14 +257,24 @@
             <div class="main-wrapper">
                
                 <div class="buttons-wrapper">
-                    <div class="btnGroup w-100 me-2 buttonAppend">
+                    {{-- <div class="btnGroup w-100 me-2 buttonAppend">
                         @foreach ($buttons as $button)
                         <div class="cardItemValue" id="cardItemValueButton_{{@$button->id}}">
                             <span class="tag tag-data" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}">{{$button->title}}
                             </span>
                             <span class="crossValue buttondeleteCrose removed remove " data-button-id="{{ @$button->id }}"><i class="las la-times"></i></span>
                         </div>
-                        {{-- <button class="secondryOutline" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}"><span class="btnText">{{$button->title}}</span> <span class="crossValue buttondeleteCrose"><i class="las la-times"></i></span></button> --}}
+                        @endforeach
+                    </div> --}}
+                    <div class="btnGroup w-100 me-2 buttonAppend container">
+                        @foreach ($buttons as $button)
+                        <div class="cardItemValue list-item" id="cardItemValueButton_{{@$button->id}}" data-id="{{@$button->id}}">
+                          <div class="item-content">
+                            <span class="order">{{$button->place}}</span>
+                            <span class="tag tag-data" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}">{{$button->title}}</span>
+                            <span class="crossValue buttondeleteCrose removed remove" data-button-id="{{ @$button->id }}"><i class="las la-times"></i></span>
+                          </div>
+                        </div>
                         @endforeach
                     </div>
                     <span class="addOnBtn m-auto m-md-0 mt-2 mt-md-0" data-bs-toggle="modal" data-bs-target="#addBtnModal">
@@ -725,6 +753,9 @@
  <script src="{{ asset('js/web/scripts.js') }}"></script>
  <script src="{{ asset('js/pages/web/main-screen.js') }}"></script>
  <script src="{{ asset('js/web/bootstrap-tagsinput.min.js') }}"></script>
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/Draggable.min.js"></script>
  <script>
     function clearErrors() {
     $('.messageprescription').html('');
@@ -855,6 +886,153 @@
     });
 
     </script>
+
+{{-- <script>
+    var rowSize = 5; // => container height / number of items
+    var container = document.querySelector(".container");
+    var listItems = Array.from(document.querySelectorAll(".list-item")); // Array of elements
+    var sortables = listItems.map(Sortable); // Array of sortables
+    var total = sortables.length;
+  
+    gsap.to(container, {duration: 0.5, autoAlpha: 1 });
+  
+    function changeIndex(item, to) {
+      // Change position in array
+      arrayMove(sortables, item.index, to);
+  
+      // Change element's position in DOM. Not always necessary. Just showing how.
+      if (to === total - 1) {
+        container.appendChild(item.element);
+      } else {
+        var i = item.index > to ? to : to + 1;
+        container.insertBefore(item.element, container.children[i]);
+      }
+  
+      // Set index for each sortable
+      sortables.forEach((sortable, index) => sortable.setIndex(index));
+    }
+  
+    function Sortable(element, index) {
+      var content = element.querySelector(".item-content");
+      var order = element.querySelector(".order");
+  
+      var animation = gsap.to(content, { duration: 0.3, boxShadow: "rgba(0,0,0,0.2) 0px 16px 32px 0px", force3D: true, scale: 1.1, paused: true });
+  
+      var dragger = new Draggable(element, {
+        onPress: downAction,
+        onRelease: upAction,
+        onDrag: dragAction,
+        cursor: "inherit",
+        type: "x"
+      });
+  
+      // Public properties and methods
+      var sortable = {
+        dragger: dragger,
+        element: element,
+        index: index,
+        setIndex: setIndex
+      };
+  
+      gsap.set(element, { x: index * rowSize });
+  
+      function setIndex(index) {
+        sortable.index = index;
+        order.textContent = index + 1;
+  
+        // Don't layout if you're dragging
+        if (!dragger.isDragging) layout();
+      }
+  
+      function downAction() {
+        animation.play();
+        this.update();
+      }
+  
+      function dragAction() {
+        // Calculate the current index based on element's position
+        var index = clamp(Math.round(this.x / rowSize), 0, total - 1);
+  
+        if (index !== sortable.index) {
+          changeIndex(sortable, index);
+        }
+      }
+  
+      function upAction() {
+        animation.reverse();
+        layout();
+      }
+  
+      function layout() {
+        gsap.to(element, { duration: 0.3, x: sortable.index * rowSize });
+      }
+  
+      return sortable;
+    }
+  
+    // Changes an elements's position in array
+    function arrayMove(array, from, to) {
+      array.splice(to, 0, array.splice(from, 1)[0]);
+    }
+  
+    // Clamps a value to a min/max
+    function clamp(value, a, b) {
+      return value < a ? a : value > b ? b : value;
+    }
+</script> --}}
+
+<script>
+    // $(function() {
+    //     $(".btnGroup").sortable({
+    //         placeholder: "sortable-placeholder",
+    //         update: function(event, ui) {
+    //             // Optional: Send the new order to the server
+    //             var sortedIDs = $(this).sortable("toArray");
+    //             console.log(sortedIDs);
+    //         }
+    //     });
+    // });
+    $(function() {
+        $(".btnGroup").sortable({
+            placeholder: "sortable-placeholder",
+            helper: "clone",
+            delay: 15,
+            distance: 1,
+            cursor: "move",
+            tolerance: "pointer",
+            start: function(event, ui) {
+                ui.placeholder.height(ui.helper.outerHeight());
+            },
+            update: function(event, ui) {
+                var sortedIDs = $(this).sortable("toArray");
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                console.log(sortedIDs);
+                $.ajax({
+                    type: "POST",
+                    headers: {
+                    // Include CSRF token in the headers
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    url: site_url + "/user/update/order/tags", // Replace with your endpoint URL
+                    data: {
+                        "sortedIDs" : sortedIDs,
+                    },
+                    success: function(response) {
+                        console.log(response);
+                        // Optionally, do something with the response
+                    },
+                    error: function(xhr, status, error) {
+                        toastr.error("Error saving form data:", error, toastCofig);
+                        console.error(error);
+                    }
+                });
+                // Optionally send the new order to the server here
+            }
+        });
+    });
+
+</script>
+
     
   <!-- End Js -->
  </body>
