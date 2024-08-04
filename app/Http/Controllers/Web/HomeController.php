@@ -256,6 +256,7 @@ class HomeController extends Controller
             'full_name' => $user->full_name,
             'profile_image' => $user->profile_image, 
         ];
+        sleep(4);
 
         return response()->json($data);
     }
