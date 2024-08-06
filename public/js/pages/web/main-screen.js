@@ -373,8 +373,8 @@ $(document).ready(function () {
                 <div class="toggle-button-container">
                 <div class="toggleTxtContainer" data-id="${data.newCustomSearch[0].id}">
                     <p style="margin: 0; flex-grow: 1;color:#ffff;">${data.newCustomSearch && data.newCustomSearch.length > 0 ? data.newCustomSearch[0].title : 'Title Placeholder'}&nbsp;&nbsp;</p>
-                    <span class="editModal editMainGroup me-2" data-id="${data.newCustomSearch[0].id}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
-                    <span class="editModal removeGroup me-2" data-id="${data.newCustomSearch[0].id}" data-bs-toggle="modal" ><i class="fas fa-trash"></i></span>
+                    <span class="editModal removeEdit removed editMainGroup me-2" data-id="${data.newCustomSearch[0].id}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
+                    <span class="editModal remove removed removeGroup me-2" data-id="${data.newCustomSearch[0].id}" data-bs-toggle="modal" ><i class="fas fa-trash"></i></span>
                     </div>
                     <div class="d-flex">
                         <button class="toggle-button toggleOnClass">

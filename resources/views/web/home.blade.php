@@ -153,6 +153,8 @@
                         <!-- <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" id="remove"><g fill="white"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/></g></svg> -->
                         <i class="fas fa-trash" id=""></i>
                     </span>
+                    
+                    
                     @php
                         $class = request()->is('user/home')?'selected':'';
                         $class1 = request()->is('user/groups')?'selected':'';
@@ -160,6 +162,9 @@
                     <div class="receiptContainer">
                         <a href="{{route('web.home')}}" class="receiptIcons {{$class}}"><i class="fa fa-desktop" aria-hidden="true"></i></a>
                         <a href="{{route('groups')}}" class="receiptIcons {{$class1}}"><i class="fas fa-receipt"></i></a>
+                        {{-- <span class="bin me-10" id=""> --}}
+                        <i class="fas la-pen remove removed" style="color:#fff" id="editActiveToggleButton"></i>
+                    {{-- </span> --}}
                     </div>
                     <div class="dropdown menuDropdown">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -451,8 +456,8 @@
                                   <div class="toggle-button-container">
                                     <div class="toggleTxtContainer" data-id="{{@$item->id}}">
                                         <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}&nbsp;&nbsp;</p>
-                                        <span class="editModal editMainGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
-                                        <span class="editModal removeGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" ><i class="fas fa-trash"></i></span>
+                                        <span class="editModal removeEdit removed editMainGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
+                                        <span class="editModal remove removed removeGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" ><i class="fas fa-trash"></i></span>
                                     </div>
                                     
                                     
@@ -810,6 +815,14 @@
   $(document).on('click', '#remove', function() {
     $('.remove').toggleClass('removed');
     $('.bin').toggleClass("delAllCross");
+    if (!$('.removeEdit').hasClass('removed')) {
+        // alert()
+        $('.removeEdit').addClass('removed');
+    }
+});
+
+$(document).on('click', '#editActiveToggleButton', function() {
+    $('.removeEdit').toggleClass('removed');
 });
  </script>
     
