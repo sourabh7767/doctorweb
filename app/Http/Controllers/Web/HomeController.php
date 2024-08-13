@@ -181,7 +181,7 @@ class HomeController extends Controller
                 'user_id' => auth()->user()->id
             ]);
         }
-        return response()->json(['success' => true,'message' => "Button added Successfull!",'newButton' => $buttonObj]);
+        return response()->json(['success' => true,'message' => "Button updated Successfull!",'newButton' => $buttonObj]);
     }
     public function editButton($id){
         $button = Button::find($id);
