@@ -363,6 +363,27 @@ i.las.la-sign-out-alt {
     font-size: 9px;
     -webkit-text-stroke: 1px;
 }
+.editValue {
+    background: #00B4DB;
+    background: -webkit-linear-gradient(to right, #0083B0, #00B4DB);
+    background: linear-gradient(to right, #00B4DB, #0083B0);
+    border-radius: 50% !important;
+    width: 16px;
+    height: 16px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px !important;
+    color: #fff;
+    transition: all 0.3s !important;
+    z-index: 2;
+    position: relative;
+}
+.editValue i {
+    font-size: 9px;
+    -webkit-text-stroke: 1px;
+}
+
 #addBtnModal .form-check-inline input, #addBtnModal .form-check-inline textarea
 {
     width: auto;

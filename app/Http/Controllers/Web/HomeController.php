@@ -159,6 +159,35 @@ class HomeController extends Controller
         return response()->json(['success' => true,'message' => "Button added Successfull!",'newButton' => $buttonObj]);
     }
 
+    public function updateButton(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+            'place' => 'required',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+        $buttonId = $request->button_id;
+        // Find the button by its ID
+        $buttonObj = Button::find($buttonId);
+        if ($buttonObj) {
+            $buttonObj->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'place' => $request->place,
+                'user_id' => auth()->user()->id
+            ]);
+        }
+        return response()->json(['success' => true,'message' => "Button added Successfull!",'newButton' => $buttonObj]);
+    }
+    public function editButton($id){
+        $button = Button::find($id);
+        return response()->json(['success' => true,'message' => "button!",'button' => $button]);
+    }
+
     public function updateProfile(Request $request)
     {
         $model = auth()->user();

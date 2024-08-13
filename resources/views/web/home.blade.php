@@ -276,8 +276,8 @@
                         <div class="cardItemValue list-item" id="cardItemValueButton_{{@$button->id}}" data-id="{{@$button->id}}">
                           <div class="item-content">
                             <span class="order"></span>
-                            <span class="tag tag-data" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}">{{$button->title}}</span>
-                            <span class="crossValue buttondeleteCrose removed remove" data-button-id="{{ @$button->id }}"><i class="las la-times"></i></span>
+                            <span class="tag tag-data" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}" id="newId_{{$button->id}}">{{$button->title}}</span>
+                            <span class="crossValue buttondeleteCrose removed remove" data-button-id="{{ @$button->id }}" id="crossId_{{$button->id}}"><i class="las la-times"></i></span><span class="editValue removeEdit removed" id="editButton" data-id="{{@$button->id}}" data-bs-toggle="modal" data-bs-target="#editBtnModal" ><i class="las la-pen"></i></span>
                           </div>
                         </div>
                         @endforeach
@@ -328,6 +328,49 @@
                             </div>
                         </div>
                     <!-- End AddBtn modal -->
+                    {{-- edit buttons modal  --}}
+                    
+                </div>
+            </div>
+            <div class="modal fade" id="editBtnModal" tabindex="-1" aria-labelledby="addBtnModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header d-block border-0 p-0 mb-2">
+                            <h5 class="modal-title" id="addBtnModalLabel">Edit Button</h5>
+                            {{-- <p class="modal-subtext">Edit field and create fast access template</p> --}}
+                        </div>
+                        <div class="modal-body p-0">
+                            <form class="editBtnForm" id="editButtonForm">
+                                @csrf
+                                <div class="form-group mb-2">
+                                    <input type="text" value="" placeholder="Button Name..." class="customControlInputs" name="title" id="editTitle">
+                                    <input type="hidden" name="button_id" value="" id="hiddenButonId">
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="customControlInputs" id="" rows="11" placeholder="Button Text..." name="description" id="editDescription"></textarea>
+                                </div>
+                                <h4 class="modal-title mt-3">Display content in:</h4>
+                                <div class="labelContainer mt-2 mb-3">
+                                    <div class="form-check form-check-inline ps-0">
+                                        <input type="radio" id="edit1" value="{{App\Models\Button::First_Label}}" name="place">
+                                        <label for="edit1">Diagnoze</label>
+                                    </div>
+                                    <div class="form-check form-check-inline ">
+                                        <input type="radio" id="edit2" value="{{App\Models\Button::S_LABLE}}" name="place">
+                                        <label for="edit2">Objektīvās atr.</label>
+                                    </div>
+                                    <div class="form-check form-check-inline ">
+                                        <input type="radio" id="edit3" value="{{App\Models\Button::THIRD_LABLE}}" name="place">
+                                        <label for="edit3">Rekomendācijas</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer border-0 p-0">
+                        <button type="button" class="clearBtn" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="secondryBtn" id="editSubmitButton">Save</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- End Buttons Row -->

@@ -42,6 +42,8 @@ Route::middleware('prevent-back-history')->group(function (){
         Route::post('/get/prescription/list', 'Web\HomeController@getTraumaData')->name('getTraumaData');
         Route::post('/delete/card', 'Web\HomeController@deleteTraumaCard')->name('deleteTraumaCard');
         Route::post('/add/buttons', 'Web\HomeController@addTags')->name('addTags');
+        Route::get('/edit/buttons/{id}', 'Web\HomeController@editButton')->name('editButton');
+        Route::post('/update/buttons', 'Web\HomeController@updateButton')->name('updateButton');
         Route::post('/update-profile', 'Web\HomeController@updateProfile')->name('updateProfile');
         Route::post('/change-password', 'Web\AuthController@changePassword')->name('changePassword');
         Route::post('/delete/button', 'Web\HomeController@deleteButtons')->name('deleteButtons');

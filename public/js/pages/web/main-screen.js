@@ -1121,3 +1121,134 @@ $(document).on('click', '.removeGroup', function (e) {
     });
 
 });
+$(document).on('click', '#editButton', function (event) {
+    event.preventDefault();
+    $('.loader').show();
+    var butonId = $(this).data('id');
+     $.ajax({
+        type: 'GET',
+        url: site_url + '/user/edit/buttons/'+butonId,
+        // data: {formData},
+        success: function (data) {
+            console.log(data.button);
+            console.log();
+            $("#editTitle").val(data.button.title);
+            $('#editButtonForm textarea[name="description"]').val(data.button.description);
+            if (data.button.place == 1) {
+                $('#edit1').prop('checked', true);
+            } else if (data.button.place == 2) {
+                $('#edit2').prop('checked', true);
+            } else if (data.button.place == 3) {
+                $('#edit3').prop('checked', true);
+            }
+            // $("input[name='place'][value='" + data.button.place + "']").prop('checked', true);
+            $("#hiddenButonId").val(data.button.id);
+            $('.loader').hide();
+            // toastr.success(data.message, 'Success!', toastCofig);
+
+        },
+    });
+});
+
+$(document).on('click', '#editSubmitButton', function (event) {
+    event.preventDefault();
+    $('.loader').show();
+    // var thisButton = $(this);
+    var formData = $('#editButtonForm').serialize();
+    $.ajax({
+        type: 'post',
+        url: site_url + '/user/update/buttons/',
+        data: formData,
+        success: function (data) {
+            console.log(data);
+            $('#editBtnModal').modal('hide');
+            $('#editButtonForm')[0].reset();
+            $('#newId_' + data.newButton.id).text("");
+            $('#newId_' + data.newButton.id).text(data.newButton.title);
+            $('.loader').hide();
+            toastr.success(data.message, 'Success!', toastCofig);
+
+        },
+        error: function (xhr, status, error) {
+            $('.loader').hide();
+            var response = JSON.parse(xhr.responseText);
+
+            if (response.errors) {
+                $.each(response.errors, function (field, errors) {
+                    if (errors.length > 0) {
+                        firstError = errors[0];
+                        return false;
+                    }
+                });
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: firstError,
+                });
+            } else {
+                Swal.fire({
+                    icon: "question",
+                    title: "Oops...",
+                    text: "Something went Wrong!",
+                }).then(function () {
+                    window.location.href = '/user/home';
+                });
+            }
+        }
+    });
+});
+
+$("#editModal").on('click','editButton',function(){
+    $('#editBtnModal').modal('show');
+    var editButtonId = $("#editButton").val();
+    $.ajax({
+        type: 'GET',
+        url: site_url + '/user/edit/buttons',
+        data: { id: editButtonId },
+        success: function (data) {
+          console.log(data);
+          
+            // $('.buttonAppend').append(buttonHTML);
+            $('.loader').hide();
+            // toastr.success(data.message, 'Success!', toastCofig);
+            $('#editButtonForm input[name="title"]').val(data.title);
+            $('#editButtonForm textarea[name="description"]').val(data.description);
+            if (data.place === 'Diagnoze') {
+                $('#test1').prop('checked', true);
+            } else if (data.place === 'Objektīvās atr.') {
+                $('#test2').prop('checked', true);
+            } else if (data.place === 'Rekomendācijas') {
+                $('#test3').prop('checked', true);
+            }
+            $('.loader').hide();
+
+        },
+        error: function (xhr, status, error) {
+            $('.loader').hide();
+            var response = JSON.parse(xhr.responseText);
+
+            if (response.errors) {
+                $.each(response.errors, function (field, errors) {
+                    if (errors.length > 0) {
+                        firstError = errors[0];
+                        return false;
+                    }
+                });
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: firstError,
+                });
+            } else {
+                Swal.fire({
+                    icon: "question",
+                    title: "Oops...",
+                    text: "Something went Wrong!",
+                }).then(function () {
+                    window.location.href = '/user/home';
+                });
+            }
+        }
+    });
+
+})
