@@ -388,7 +388,7 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade flip-modal" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2"
+            <div class="modal fade flip-modal" id="" tabindex="-1" aria-labelledby="exampleModalLabel2"
                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
