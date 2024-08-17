@@ -277,7 +277,7 @@
                           <div class="item-content">
                             <span class="order"></span>
                             <span class="tag tag-data" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}" id="newId_{{$button->id}}">{{$button->title}}</span>
-                            <span class="crossValue buttondeleteCrose removed remove" data-button-id="{{ @$button->id }}" id="crossId_{{$button->id}}"><i class="las la-times"></i></span><span class="editValue removeEdit removed" id="editButton" data-id="{{@$button->id}}" data-bs-toggle="modal" data-bs-target="#editBtnModal" ><i class="las la-pen"></i></span>
+                            <span class="crossValue buttondeleteCrose removed remove" data-button-id="{{ @$button->id }}" id="crossId_{{$button->id}}"><i class="las la-times"></i></span><span class="editValue remove removed" id="editButton" data-id="{{@$button->id}}" data-bs-toggle="modal" data-bs-target="#editBtnModal" ><i class="las la-pen"></i></span>
                           </div>
                         </div>
                         @endforeach
@@ -350,20 +350,34 @@
                                     <textarea class="customControlInputs" id="" rows="11" placeholder="Button Text..." name="description" id="editDescription"></textarea>
                                 </div>
                                 <h4 class="modal-title mt-3">Display content in:</h4>
-                                <div class="labelContainer mt-2 mb-3">
-                                    <div class="form-check form-check-inline ps-0">
+                                <div class="labelContainer  mt-3 mb-3 d-flex flex-wrap gap-3">
+                                    <div class="formCheck ps-0">
                                         <input type="radio" id="edit1" value="{{App\Models\Button::First_Label}}" name="place">
                                         <label for="edit1">Diagnoze</label>
                                     </div>
-                                    <div class="form-check form-check-inline ">
+                                    <div class="formCheck">
                                         <input type="radio" id="edit2" value="{{App\Models\Button::S_LABLE}}" name="place">
                                         <label for="edit2">Objektīvās atr.</label>
                                     </div>
-                                    <div class="form-check form-check-inline ">
+                                    <div class="formCheck">
                                         <input type="radio" id="edit3" value="{{App\Models\Button::THIRD_LABLE}}" name="place">
                                         <label for="edit3">Rekomendācijas</label>
                                     </div>
                                 </div>
+                                {{-- <div class="labelContainer mt-3 mb-3 d-flex flex-wrap gap-3">
+                                    <div class="formCheck">
+                                        <input type="radio" id="test1" value="1" name="place" class="d-none">
+                                        <label for="test1">Diagnoze</label>
+                                    </div>
+                                    <div class="formCheck">
+                                        <input type="radio" id="test2" value="2" name="place" class="d-none">
+                                        <label for="test2">Objektīvās atr.</label>
+                                    </div>
+                                    <div class="formCheck">
+                                        <input type="radio" id="test3" value="3" name="place" class="d-none">
+                                        <label for="test3">Rekomendācijas</label>
+                                    </div>
+                                </div> --}}
                             </form>
                         </div>
                         <div class="modal-footer border-0 p-0">
@@ -499,7 +513,7 @@
                                   <div class="toggle-button-container">
                                     <div class="toggleTxtContainer" data-id="{{@$item->id}}">
                                         <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}&nbsp;&nbsp;</p>
-                                        <span class="editModal removeEdit removed editMainGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
+                                        <span class="editModal remove removed editMainGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
                                         <span class="editModal remove removed removeGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" ><i class="fas fa-trash"></i></span>
                                     </div>
                                     
