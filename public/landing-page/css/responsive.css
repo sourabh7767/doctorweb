@@ -1,0 +1,43 @@
+@media (min-width: 1200px)
+{
+    /* Start Hover Effect */
+    .primaryBtn:hover, .planCard .primaryBtn:hover 
+    {
+        color: #6442c7;
+        background: #fff;
+        border-color: #6442c7;
+    }
+    #home .primaryBtn:hover
+    {
+        color: #fff;
+        background: transparent;
+        border-color: #fff;
+    }
+    .contactUs .primaryBtn:hover
+    {
+        background: #fff;
+        color: #6442c7;
+    }
+}
+@media (min-width: 768px)
+{
+    .spce
+    {
+        padding: 0 13rem;
+    }
+}
+@media (max-width: 768px)
+{
+    .heroMobileImg, .featuresImg, .collaborateImg
+    {
+        max-width: 50%;
+    }
+    .heroHeading
+    {
+        font-size: 40px;
+    }
+}
+@media (max-width: 600px)
+{
+
+}

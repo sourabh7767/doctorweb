@@ -1,0 +1,508 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+/*==== Start Common css ====*/
+html
+{
+    scroll-behavior: smooth;
+    height: 100%;
+}
+body
+{ 
+    font-family: "Open Sans", sans-serif;
+    min-height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.scroll-hide {	
+    overflow: hidden;	
+}
+ul
+{
+    padding: 0 !important;
+    margin: 0;
+}
+ul li{list-style: none;}
+a{text-decoration: none !important;}
+.bg{background: #383838}
+.bgContain {
+    background: #474747;
+    width: auto;
+    display: block;
+    padding: 15px 26px;
+    border-radius: 13px;
+}
+textarea{resize: none;}
+.heroHeading
+{
+    font-size: 64px;
+    line-height: 1.2;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+}
+.heading
+{
+    font-size: 32px;
+    color: #4B4B4C;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+}
+.subHeading
+{
+    font-size: 20px;
+    color: #4B4B4C;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+}
+.description
+{
+    font-size: 16px;
+    color: #909090;
+    margin: 0;
+    line-height: 1.8;
+}
+.descriptionDark
+{
+    font-size: 16px;
+    color: #4B4B4C;
+    margin: 0;
+    line-height: 1.8;
+    font-weight: 700;
+}
+.primaryBtn
+{
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    background: #6442c7;
+    border: 2px solid #6442c7;
+    padding: 1rem 3rem 1rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 12px;
+    color: #fff;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    text-transform: uppercase;
+    -webkit-transition: background-color .3s ease-out;
+    -o-transition: background-color .3s ease-out;
+    transition: background-color .3s ease-out;
+}
+.spaceTop
+{
+    padding-top: 8rem;
+}
+/* Scrollbar Css Start */
+::-webkit-scrollbar{
+    width: 8px;
+    height: 10%;
+}
+::-webkit-scrollbar-track {
+    background-color:#fff
+}
+::-webkit-scrollbar-thumb {
+    background-color: #6442c7;
+}
+::-moz-scrollbar
+{
+    width: 8px;
+    height: 10%;
+}
+::-moz-scrollbar-track {
+    background-color:#fff
+}
+::-moz-scrollbar-thumb {
+    background-color:#6442c7;
+}
+/* Scrollbar Css End */
+img
+{
+    max-width: 100%;
+}
+/*======= Start Header Css ========*/
+.sticky {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    border: 0;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    border-radius: 0;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.sticky.fixed {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 9;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    padding-top: 1rem
+ 
+}
+@-webkit-keyframes slideInDown {
+    from {
+      -webkit-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
+      visibility: visible;
+    }
+  
+    to {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+@keyframes slideInDown {
+    from {
+      -webkit-transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -100%, 0);
+      visibility: visible;
+    }
+  
+    to {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+ .navbar-brand {
+    font-weight: 700;
+    color: #fff;
+    font-size: 1.7rem;
+    line-height: 1;
+    display: inline-block;
+    padding: 0;
+}
+.sticky.fixed .navbar-brand
+{
+    color: #4B4B4C;
+}
+.navbarNav
+{
+    gap: 25px;
+    display: flex;
+}
+.nav-link
+{
+    transition:  all 0.5s;
+    
+    font-size: 16px;
+}
+.sticky .nav-link
+{
+    color: #fff;
+}
+.sticky.fixed .nav-link
+{
+    color: #3b3b3b;
+}
+.nav-link.active
+{
+    color: #6442c7;
+}
+/*======= End Header Css ========*/
+/*======= Start HeroSection Css ========*/
+#home
+{
+    background: url('../img/bgImg.jpg') 50% no-repeat;
+    background-size: cover;
+    position: relative;
+    color: #fff;
+    padding: 7rem 0;
+    /* height: 100vh; */
+    z-index: 1;
+}
+#home::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+#home .description
+{
+    opacity: 0.7;
+    color: #fff;
+    
+}
+.watchVideo
+{
+    color: #fff;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.watchVideo i{
+    font-size: 3.5rem;
+}
+/*======= End HeroSection Css ========*/
+/*======= Start BrandSliders Css ========*/
+.brandSliders
+{
+    padding: 5rem 0;
+}
+.brandImg {
+    max-width: 100%;
+    width: auto !important;
+    /* height: 27px; */
+    object-fit: contain;
+    opacity: 0.6;
+}
+/*======= End BrandSliders Css ========*/
+/*======= Start AboutUs Css ========*/
+#about
+{
+    padding: 8rem 0;
+}
+.aboutContent
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+.aboutIcons
+{
+    font-size: 3.5rem;
+    color: #6442c7;
+    margin-bottom: 6px;
+}
+/*======= End AboutUs Css ========*/
+/*======= Start Features Css ========*/
+#features
+{
+    padding: 8rem 0;
+}
+.featuresTask li
+{
+    margin-bottom: 3rem;
+}
+.featuresTask li:last-child
+{
+    margin-bottom: 0rem;
+}
+/*======= End Features Css ========*/
+/*======= Start GetDone Css ========*/
+.getDone
+{
+    padding: 8rem 0;
+}
+/*======= End GetDone Css ========*/
+/*======= Start Collaborate Css ========*/
+.collaborate
+{
+    padding: 8rem 0;
+}
+.collaborateHead
+{
+    max-width: 31rem;
+}
+.collaborateIcons
+{
+    font-size: 2rem;
+    color: #6442c7;
+}
+/*======= End Collaborate Css ========*/
+/*======= End Clients Css ========*/
+#clients
+{
+    padding: 8rem 0;
+}
+.client-carousel-js
+{
+    padding: 8rem 0 0 0;
+}
+.clientImg {
+    height: 100px;
+    max-width: 100px;
+    width: 100%;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+.client-carousel-js .owl-dots
+{
+    margin-top: 3.5rem !important;
+}
+.client-carousel-js .owl-dot.active span
+{
+    background: #6442c7 !important;
+}
+/*======= End Clients Css ========*/
+/*======= start ContactUs Css ========*/
+.contactUs
+{
+    background: url('../img/banner.jpg') no-repeat 50% 50% fixed;
+    position: relative;
+    padding: 80px 0;
+    z-index: 1;
+    color: #fff;
+}
+.contactUs:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(100, 66, 199, 0.9);
+    z-index: -1;
+}
+.contactUs .heading
+{
+    color: #fff;
+}
+.contactUs .primaryBtn
+{
+    background: transparent;
+    border-color: #fff;
+}
+/*======= End ContactUs Css ========*/
+/*======= Start Pricing Css ========*/
+#pricing
+{
+    padding: 8rem 0;
+}
+.planCard {
+    background: #f8f8f8;
+    text-align: center;
+    padding: 3.25em 3.25em 3.25em 3.25em;
+    transition: all 0.5s;
+    cursor: pointer;
+    border: 1px solid;
+    border-color: #f8f8f8;
+}
+.planCard.active
+{
+    border-color: #cacaca;
+}
+.pricingDolr {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #3b3b3b;
+}
+.planCard .heroHeading
+{
+    color: #4B4B4C;
+    display: inline-flex;
+    gap: 3px;
+}
+.planTitle {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 400;
+}
+.planDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.planDetails li
+{
+    font-size: 16px;
+    color: #909090;
+}
+.planCard .primaryBtn
+{
+    margin-top: 2rem;
+    background: #ececec;
+    border-color: #ececec;
+    color: #1f1f1f;
+}
+.planCard.active .primaryBtn
+{
+    background: #6442c7;
+    color: #fff;
+    border-color: #6442c7;
+}
+/*======= End Pricing Css ========*/
+/*======= Start Subscribe Css ========*/
+.subscribe
+{
+    padding: 8rem 0;
+}
+.subscribeControl
+{
+    padding: 0.9rem 1.5rem;
+    border: 1px solid #ced4da;
+    border-right: 0;
+    border-radius: 30px 0 0 30px;
+}
+.subscribeInputGroup .input-group-text
+{
+    background: transparent;
+    padding: 0;
+    border: 0;
+}
+.subscribeInputGroup .input-group-text .primaryBtn
+{
+    border-radius: 0 30px 30px 0;
+}
+.subscribeInputGroup .input-group-text i
+{
+    font-size: 18px;
+    vertical-align: bottom;
+}
+/*======= End Subscribe Css ========*/
+/*======= Start Footer Css ========*/
+#footer
+{
+    padding: 60px 0 40px;
+}
+.socials {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+.socialIcons {
+    color: #C2C2C2;
+    font-size: 26px;
+}
+/*======= End Footer Css ========*/
+.progressbar {
+	position: relative;
+	width: 170px;
+	height: 170px;
+	margin: 1em;
+	transform: rotate(-90deg);
+}
+
+.progressbar__svg {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+.progressbar__svg-circle {
+	width: 100%;
+	height: 100%;
+	fill: none;
+	stroke-width: 10;
+	stroke-dasharray: 440;
+	stroke-dashoffset: 440;
+	stroke: hsl(0, 0%, 100%);
+	stroke-linecap: round;
+	transform: translate(5px, 5px);
+}
