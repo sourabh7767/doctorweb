@@ -230,7 +230,7 @@ $(document).ready(function () {
                 var newButton = data.newButton;
                 var buttonHTML = '<div class="cardItemValue" id="cardItemValueButton_' + newButton.id + '">' +
                     '<span class="tag tag-data" data-button-position="' + newButton.place + '" data-button-id="' + newButton.id + '">' + newButton.title + '</span>' +
-                    '<span class="crossValue buttondeleteCrose removed remove" data-button-id="' + newButton.id + '"><i class="las la-times"></i></span>' +
+                    '<span class="crossValue buttondeleteCrose removed remove" data-button-id="' + newButton.id + '"><i class="las la-times"></i></span><span class="editValue remove removed" id="editButton" data-id="' + newButton.id + '" data-bs-toggle="modal" data-bs-target="#editBtnModal" ><i class="las la-pen"></i></span>' +
                     '</div>';
 
                 $('.buttonAppend').append(buttonHTML);
