@@ -38,7 +38,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbarNav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#home">Home</a>
+                            <a class="nav-link" aria-current="page" href="#home">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#about">About</a>
@@ -205,7 +205,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                            <!-- <div class="chart mb-5 mb-sm-0" data-percent="74.5">
+                            <div class="chart mb-5 mb-sm-0" data-percent="74.5">
                                 <div class="chart-content">
                                 <div class="chart-title">Burn</div>
                                 <div class="chart-number">8,45</div>
@@ -220,7 +220,7 @@
                                 <div class="line line-center"></div>
                                 <div class="chart-type">Hours</div>
                                 </div>
-                            </div> -->
+                            </div> 
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <h3 class="heading mb-4">Get more done</h3>
@@ -539,6 +539,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="{{asset("landing-page/js/bootstrap.bundle.min.js")}}"></script>
     <script src="{{asset("landing-page/js/script.js")}}"></script>
+    <script src="{{asset("landing-page/metter.js")}}"></script>
+    {{-- <script>
+         $(window).scroll( function(){
+
+            $('.chart').each( function(i){
+                var bottom_of_object = $(this).offset().top + $(this).outerHeight();
+                var bottom_of_window = $(window).scrollTop() + $(window).height();
+                if( bottom_of_window > bottom_of_object ){
+                    $('.chart').easyPieChart({
+                    scaleColor:false,
+                    trackColor:'#ebedee',
+                    barColor: function(percent) {
+                        var ctx = this.renderer.getCtx();
+                        var canvas = this.renderer.getCanvas();
+                        var gradient = ctx.createLinearGradient(0,0,canvas.width,0);
+                            gradient.addColorStop(0, "#6442c7");
+                            gradient.addColorStop(1, "#bea7ff");
+                        return gradient;
+                    },
+                    lineWidth:6,
+                    lineCap: false,
+                    rotate:180,
+                    size:180,
+                    animate:1000
+                    });
+                }
+            }); 
+            });
+
+
+            $('.js-play').magnificPopup({
+            type: 'iframe',
+            removalDelay: 300,
+            mainClass: 'mfp-no-margins mfp-with-zoom', // class to remove default margin from left and right side
+            zoom: {
+                enabled: true,
+                duration: 300 // don't foget to change the duration also in CSS
+            }
+            });
+    </script> --}}
 </body>
 
 </html>

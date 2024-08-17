@@ -49,6 +49,10 @@ textarea{resize: none;}
     font-family: "Montserrat", sans-serif;
     margin: 0;
 }
+.nav-link:hover
+    {
+        color: #6442c7 !important;
+    }
 .subHeading
 {
     font-size: 20px;
@@ -212,10 +216,11 @@ img
 {
     color: #3b3b3b;
 }
-.nav-link.active
+.nav-link.active, .nav-item.active a
 {
-    color: #6442c7;
+    color: #6442c7 !important;
 }
+
 /*======= End Header Css ========*/
 /*======= Start HeroSection Css ========*/
 #home
@@ -506,3 +511,44 @@ img
 	stroke-linecap: round;
 	transform: translate(5px, 5px);
 }
+
+/* chart */
+.chart{
+    display: inline-block;
+    margin:0 20px;
+    position: relative;
+    color: #4d606f;
+  }
+  
+  .chart-content{
+    position: absolute;
+    top:28px;
+    left:40px;
+    right: 40px;
+    text-align: center;
+  }
+  
+  .chart-title{
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+  }
+  
+  .chart-number{
+    font-size: 2.5rem;
+    line-height: 1;
+    font-weight: 700;
+    color: #323c46;
+  }
+  
+  .line{
+    display: block;
+    width:3rem;
+    margin:0.5rem auto;
+    border-radius: 3px;
+    border-top: 3px solid #6442c7;
+  }
+  
+  .chart-type{
+    font-size:0.9rem;
+    font-weight: 600;
+  }
