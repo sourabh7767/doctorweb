@@ -1172,9 +1172,11 @@ $(document).on('click', '#editSubmitButton', function (event) {
         error: function (xhr, status, error) {
             $('.loader').hide();
             var response = JSON.parse(xhr.responseText);
-
+            console.log(response);
             if (response.errors) {
+                
                 $.each(response.errors, function (field, errors) {
+                    
                     if (errors.length > 0) {
                         firstError = errors[0];
                         return false;
