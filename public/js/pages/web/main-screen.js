@@ -1157,7 +1157,7 @@ $(document).on('click', '#editSubmitButton', function (event) {
     var formData = $('#editButtonForm').serialize();
     $.ajax({
         type: 'post',
-        url: site_url + '/user/update/buttons/',
+        url: site_url + '/user/update/buttons',
         data: formData,
         success: function (data) {
             console.log(data);
