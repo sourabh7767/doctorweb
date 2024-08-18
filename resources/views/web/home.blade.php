@@ -163,7 +163,7 @@
                         <a href="{{route('web.home')}}" class="receiptIcons {{$class}}"><i class="fa fa-desktop" aria-hidden="true"></i></a>
                         <a href="{{route('groups')}}" class="receiptIcons {{$class1}}"><i class="fas fa-receipt"></i></a>
                         {{-- <span class="bin me-10" id=""> --}}
-                        <i class="fas la-pen remove removed" style="color:#fff" id="editActiveToggleButton"></i>
+                        {{-- <i class="fas la-pen remove removed" style="color:#fff" id="editActiveToggleButton"></i> --}}
                     {{-- </span> --}}
                     </div>
                     <div class="dropdown menuDropdown">
