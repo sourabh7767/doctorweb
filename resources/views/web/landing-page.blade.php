@@ -28,11 +28,13 @@
 <body>
 
     <header id="header" class="sticky">
-        <nav class="navbar navbar-expand-lg">
+        <nav class="navbar navbar-expand-lg p-0">
             <div class="container">
                 <a class="navbar-brand" href="#">Morris.</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
@@ -77,30 +79,11 @@
                             </p>
                             <div class="d-flex flex-md-row flex-column align-md-items-center align-items-start gap-4">
                                 <a href="" class="primaryBtn text-uppercase">Download Now</a>
-                                <a href="" class="watchVideo">
+                                <a href="" class="watchVideo" data-bs-toggle="modal" data-bs-target="#watchVideo">
                                     <i class="fas fa-play-circle"></i>
                                     <span>Watch video</span>
                                 </a>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ...
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -384,34 +367,7 @@
                         </p>
                     </div>
                     <div class="col-lg-3">
-                        <a class="primaryBtn" data-bs-toggle="modal" data-bs-target="#exampleModal2">Contact us</a>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade flip-modal" id="" tabindex="-1" aria-labelledby="exampleModalLabel2"
-                aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel2">New message</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                    <input type="text" class="form-control" id="recipient-name">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="message-text" class="col-form-label">Message:</label>
-                                    <textarea class="form-control" id="message-text"></textarea>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Send message</button>
-                        </div>
+                        <a class="primaryBtn" data-bs-toggle="modal" data-bs-target="#contactUs">Contact us</a>
                     </div>
                 </div>
             </div>
@@ -533,7 +489,54 @@
             </div>
         </div>
     </footer>
-
+<!-- Start WatchVideo Modal -->
+        <div class="modal fade flip-modal" id="watchVideo" tabindex="-1" aria-labelledby="watchVideoLabel"
+        aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content flip">
+                    <span class="position-absolute" data-bs-dismiss="modal" aria-label="Close" style="top: -30px;
+                    right: 0;
+                    color: #fff;
+                    font-size: 20px; cursor: pointer;">
+                        <i class="fa-solid fa-xmark"></i>
+                    </span>
+                    <div class="modal-body px-0 py-0">
+                        <iframe width="100%" height="500" src="https://www.youtube.com/embed/fwIxyDx8Dck?si=IxOhneW0ZIXccDlc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End WatchVideo Modal -->
+        <!-- Start ContactUs Modal -->
+        <div class="modal fade" id="contactUs" tabindex="-1" aria-labelledby="contactUsLabel"
+        aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                        <h5 class="modal-title fs-2 fw-bold" id="contactUsLabel">Contact</h5>
+                        <button type="button" class="btn-close position-absolute text-sm" data-bs-dismiss="modal" aria-label="Close" style="top: 20px; right: 20px; font-size: 12px; color: #4B4B4C;"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="contactForm">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 mb-3">
+                                    <input type="text" class="form-control" id="name" placeholder="Name*">
+                                </div>
+                                <div class="col-sm-12 col-md-6 mb-3">
+                                    <input type="email" class="form-control" id="email" placeholder="Email*">
+                                </div>
+                                <div class="col-sm-12 mb-3">
+                                    <textarea class="form-control" id="message-text" placeholder="Message*" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <input class="primaryBtn d-block mx-auto" type="submit" value="Send Request">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- Start ContactUs Modal -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>

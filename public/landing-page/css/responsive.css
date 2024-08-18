@@ -18,6 +18,29 @@
         background: #fff;
         color: #6442c7;
     }
+    .nav-link:hover
+    {
+        color: #6442c7 !important;
+    }
+}
+@media (min-width: 992px)
+{
+    .navbarNav{
+        gap: 25px;
+        flex-direction: row;
+    }
+}
+@media (max-width: 992px)
+{
+    .nav-item.active .nav-link
+    {
+        background: #6442c7;
+        color: #fff !important;
+    }
+    .navbarNav
+    {
+        margin-top: 25px;
+    }
 }
 @media (min-width: 768px)
 {
