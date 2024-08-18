@@ -625,7 +625,7 @@ $(document).ready(function () {
 
             var buttonId = $(this).data('button-id');
             // var $container = $('#cardItemValueButton_' + buttonId);
-            var buttonPosition = $(this).data('button-position');
+            var buttonPosition = parseInt($(this).attr('data-button-position'));
             // if (!$('#cardItemValueButton_' + buttonId).hasClass('active')) {
                 $.ajax({
                     url: site_url + '/user/get-button-description',
