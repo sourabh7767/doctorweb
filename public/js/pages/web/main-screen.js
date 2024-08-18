@@ -1165,6 +1165,8 @@ $(document).on('click', '#editSubmitButton', function (event) {
             $('#editButtonForm')[0].reset();
             $('#newId_' + data.newButton.id).text("");
             $('#newId_' + data.newButton.id).text(data.newButton.title);
+            $('#newId_' + data.newButton.id).attr('data-button-position', data.newButton.place);
+            // data-button-position
             $('.loader').hide();
             toastr.success(data.message, 'Success!', toastCofig);
 
