@@ -54,6 +54,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#pricing">Pricing</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('web.index')}}">Login</a>
+                        </li>
                     </ul>
                 </div>
             </div>

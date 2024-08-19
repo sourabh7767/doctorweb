@@ -26,10 +26,10 @@ Route::middleware('prevent-back-history')->group(function (){
     Route::group(['prefix' => 'admin'], function(){  
         Auth::routes();    
     });
-    Route::get('/landing/page',function(){
+    Route::get('/',function(){
         return view('web.landing-page');
     });
-    Route::get('/', 'Web\AuthController@webIndex')->name('web.index')->middleware('guest');
+    Route::get('/login', 'Web\AuthController@webIndex')->name('web.index')->middleware('guest');
     Route::post('/signup', 'Web\AuthController@signup')->name('signup');
     Route::post('/user/login', 'Web\AuthController@userLogin')->name('userLogin');
     Route::get('/user/forget/password/view', 'Web\AuthController@forgetPasswordView')->name('forgetPasswordView');
