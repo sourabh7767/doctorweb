@@ -22,7 +22,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.css" />
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Title -->
-    <title>Homepage</title>
+    <title>Avacadokiwi</title>
+    <link rel="icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon" />
 </head>
 
 <body>
@@ -30,7 +31,7 @@
     <header id="header" class="sticky">
         <nav class="navbar navbar-expand-lg p-0">
             <div class="container">
-                <a class="navbar-brand" href="#">Morris.</a>
+                <a class="navbar-brand" href="#">Avacadokiwi</a>
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
