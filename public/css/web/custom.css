@@ -438,6 +438,9 @@ i.las.la-sign-out-alt {
     margin: 3px;
     font-size: 14px;
     align-items: center;
+    animation: fadeInAnimation ease 3s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 }
 .cardItemValue.active{
     background: #d464de;
@@ -719,4 +722,12 @@ position: absolute
     right: 10px;
     top: 50%;
     transform: translate(0px, -50%);
+}
+@keyframes fadeInAnimation {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
