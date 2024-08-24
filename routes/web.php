@@ -29,6 +29,9 @@ Route::middleware('prevent-back-history')->group(function (){
     Route::get('/',function(){
         return view('web.landing-page');
     });
+    Route::get('/test', function(){
+        return view('livewire.button');
+    })->middleware('guest');
     Route::get('/login', 'Web\AuthController@webIndex')->name('web.index')->middleware('guest');
     Route::post('/signup', 'Web\AuthController@signup')->name('signup');
     Route::post('/user/login', 'Web\AuthController@userLogin')->name('userLogin');

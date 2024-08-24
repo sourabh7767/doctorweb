@@ -22,7 +22,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+  @livewireStyles
   <style>
     .item-content {
     /* padding: 10px; */
@@ -137,10 +137,8 @@
 
 <body class="bg">
     <div class="loader1" style="display: none;">
-        {{-- <div class="spinner-grow text-primary spinner-border-xl" role="status">
-            <span class="visually-hidden">Loading...</span>
-        </div> --}}
     </div>
+    {{-- @livewire('progress-tracker') --}}
     <!-- Start Header Section -->
     <header class="header">
         <div class="container-fluid">
@@ -804,6 +802,8 @@
             </div> -->
             <!-- End Second Row -->
         </div>
+        {{-- @livewire('progress-tracker') --}}
+
     </section>
     <!-- End SecondRow -->
  <!-- Start Js -->
@@ -812,6 +812,7 @@
  <script src="{{ asset('js/theme/extensions/toastr.min.js') }}"></script>
  <script src="{{ asset('js/web/bootstrap.bundle.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@livewireScripts
  <script src="{{ asset('js/web/scripts.js') }}"></script>
  <script src="{{ asset('js/pages/web/main-screen.js') }}"></script>
  <script src="{{ asset('js/web/bootstrap-tagsinput.min.js') }}"></script>
@@ -931,7 +932,7 @@ $(document).on('click', '#editActiveToggleButton', function() {
         });
     </script>
     <script>
-                     $("#updateGroupName").click(function() {
+    $("#updateGroupName").click(function() {
         // Serialize the form data
         var formData = $("#editMaingroupIdForm").serialize();
         
@@ -1102,8 +1103,11 @@ $(document).on('click', '#editActiveToggleButton', function() {
     });
 
 </script>
-
+<script>
+    
+</script>
     
   <!-- End Js -->
+  
  </body>
  </html>

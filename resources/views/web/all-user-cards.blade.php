@@ -101,6 +101,11 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
             <span class="visually-hidden">Loading...</span>
         </div> --}}
     </div>
+    <div class="progress mt-3 d-none">
+        <div id="pbar" class="progress-bar bg-success " role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
+            0%
+        </div>
+    </div>
     <!-- Start Header Section -->
     <header class="header">
         <div class="container-fluid">

@@ -1002,19 +1002,72 @@ $(document).ready(function () {
                 }
             });
         });
+        // $(document).on('click', '.copyData', function (e) {
+        //     e.preventDefault();
+        //     var element = $(this);
+        //     var groupId = element.data("id"); 
+        //     element.addClass('heart-effect');
+        //     // Perform AJAX request to copy data
+        //     $.ajax({
+        //         url: site_url + '/user/groups/copy/' + groupId, // Assuming the URL to copy data is set in the href attribute
+        //         type: 'GET',
+        //         success: function(response) {
+        //             // Handle success if needed
+        //             toastr.success(response.message, 'Success!', toastCofig);
+        //             console.log('Data copied successfully');
+        //             table.ajax.reload(null, false);
+        //         },
+        //         error: function(xhr, status, error) {
+        //             // Handle error if needed
+        //             console.error(error);
+        //         },
+        //         complete: function() {
+        //             // Remove heart effect after a delay
+        //             setTimeout(function() {
+        //                 element.removeClass('heart-effect');
+        //             }, 1000); // Adjust the duration (in milliseconds) as needed
+        //         }
+        //     });
+        // });
+
         $(document).on('click', '.copyData', function (e) {
             e.preventDefault();
             var element = $(this);
-            var groupId = element.data("id"); 
+            var groupId = element.data("id");
+            var progressBar = $('#pbar');
+            
+            // Initialize progress bar
+            progressBar.css('width', '0%').text('0%');
+            progressBar.parent().removeClass("d-none");
+            
             element.addClass('heart-effect');
+            
+            // Simulate progress (since it's a GET request)
+            var width = 0;
+            var maxProgress = 80; // Maximum progress percentage
+            var interval = setInterval(function() {
+                if (width >= maxProgress) {
+                    clearInterval(interval);
+                    // Ensure the progress bar shows the maximum value
+                    progressBar.css('width', maxProgress + '%').text(maxProgress + '%');
+                    return;
+                }
+                width += 10; // Increment by 10%
+                progressBar.css('width', width + '%').text(width + '%');
+            }, 600);// Adjust the interval duration as needed
+
             // Perform AJAX request to copy data
             $.ajax({
-                url: site_url + '/user/groups/copy/' + groupId, // Assuming the URL to copy data is set in the href attribute
+                url: site_url + '/user/groups/copy/' + groupId,
                 type: 'GET',
                 success: function(response) {
                     // Handle success if needed
                     toastr.success(response.message, 'Success!', toastCofig);
                     console.log('Data copied successfully');
+                    progressBar.css('width', '100%').text('100%');
+
+                    // Force a reflow to ensure the progress bar is fully updated
+                    progressBar[0].offsetWidth;
                     table.ajax.reload(null, false);
                 },
                 error: function(xhr, status, error) {
@@ -1022,9 +1075,13 @@ $(document).ready(function () {
                     console.error(error);
                 },
                 complete: function() {
-                    // Remove heart effect after a delay
+                    // Ensure the progress bar is set to 100% and text is '100%'
+                    
+
+                    // Remove heart effect and hide progress bar after a delay
                     setTimeout(function() {
                         element.removeClass('heart-effect');
+                        progressBar.parent().hide(); // Hide progress bar container
                     }, 1000); // Adjust the duration (in milliseconds) as needed
                 }
             });

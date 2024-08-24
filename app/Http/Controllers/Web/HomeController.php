@@ -570,11 +570,8 @@ class HomeController extends Controller
                     }
                 }
             }
-        }
-                   
-                // }
-               
-           
+        }  
+           sleep(5);
         return response()->json(["message" =>"success"]);
         
     }
