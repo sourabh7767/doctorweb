@@ -975,6 +975,24 @@ $(document).ready(function () {
             var element = $(this);
             var groupId = element.data("id"); 
             element.addClass('heart-effect');
+            var progressBar = $('#pbar');
+            progressBar.css('width', '0%').text('0%');
+            progressBar.removeClass("d-none");
+        
+        
+            var startTime = Date.now();
+            var maxProgress = 80; // Maximum progress percentage
+            var intervalDuration = 200; // Interval duration in milliseconds
+            var width = 0;
+            var progressInterval = setInterval(function () {
+                if (width >= maxProgress) {
+                    clearInterval(progressInterval);
+                    progressBar.css('width', maxProgress + '%').text(maxProgress + '%');
+                    return;
+                }
+                width += 10; // Increment by 10%
+                progressBar.css('width', width + '%').text(width + '%');
+            }, intervalDuration);
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             // Perform AJAX request to copy data
             $.ajax({
@@ -986,9 +1004,27 @@ $(document).ready(function () {
                 },
                 success: function(response) {
                     // Handle success if needed
-                    toastr.success(response.message, 'Success!', toastCofig);
                     console.log('Data copied successfully');
-                    table.ajax.reload(null, false);
+                    clearInterval(progressInterval);
+                    
+                    // Ensure the progress bar is fully updated to 100%
+                    var elapsedTime = Date.now() - startTime;
+                    var minDisplayTime = (intervalDuration * (100 / 10)); // Total duration to simulate full progress
+                    var remainingTime = Math.max(0, minDisplayTime - elapsedTime);
+                    
+                    setTimeout(function () {
+                        progressBar.css('width', '100%').text('100%');
+                        // Force a reflow to ensure the progress bar is fully updated
+                        progressBar[0].offsetWidth;
+                        table.ajax.reload(null, false);
+                        
+                        // Remove heart effect and hide progress bar after a delay
+                        setTimeout(function () {
+                            element.removeClass('heart-effect');
+                            progressBar.addClass('d-none'); // Hide progress bar container
+                        }, 500); // Adjust the duration (in milliseconds) as needed
+                        toastr.success(response.message, 'Success!', toastCofig);
+                    }, remainingTime);
                 },
                 error: function(xhr, status, error) {
                     // Handle error if needed
@@ -1091,13 +1127,13 @@ $(document).ready(function () {
             e.preventDefault();
             var element = $(this);
             var groupId = element.data("id");
-            var progressBar = $('#pbar');
-        
+            
             // Initialize progress bar
+            element.addClass('heart-effect');
+            var progressBar = $('#pbar');
             progressBar.css('width', '0%').text('0%');
             progressBar.removeClass("d-none");
         
-            element.addClass('heart-effect');
         
             var startTime = Date.now();
             var maxProgress = 80; // Maximum progress percentage
@@ -1118,28 +1154,28 @@ $(document).ready(function () {
                 url: site_url + '/user/groups/copy/' + groupId,
                 type: 'GET',
                 success: function (response) {
-                    toastr.success(response.message, 'Success!', toastCofig);
                     console.log('Data copied successfully');
                     
                     clearInterval(progressInterval);
-        
+                    
                     // Ensure the progress bar is fully updated to 100%
                     var elapsedTime = Date.now() - startTime;
                     var minDisplayTime = (intervalDuration * (100 / 10)); // Total duration to simulate full progress
                     var remainingTime = Math.max(0, minDisplayTime - elapsedTime);
-        
+                    
                     setTimeout(function () {
                         progressBar.css('width', '100%').text('100%');
-        
+                        
                         // Force a reflow to ensure the progress bar is fully updated
                         progressBar[0].offsetWidth;
                         table.ajax.reload(null, false);
-        
+                        
                         // Remove heart effect and hide progress bar after a delay
                         setTimeout(function () {
                             element.removeClass('heart-effect');
                             progressBar.addClass('d-none'); // Hide progress bar container
-                        }, 1000); // Adjust the duration (in milliseconds) as needed
+                        }, 500); // Adjust the duration (in milliseconds) as needed
+                        toastr.success(response.message, 'Success!', toastCofig);
                     }, remainingTime); // Delay if the response is too fast
                 },
                 error: function (xhr, status, error) {
