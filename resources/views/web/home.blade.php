@@ -34,10 +34,13 @@
 }
 
 .sortable-placeholder {
-    border: 1px dashed #ccc;
-    height: 40px;
+    border: 1px dashed #8ebdcd;
+    /* height: 40px; */
     margin: 5px 0;
-    background-color: #f0f0f0;
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 1px 8px;
+    transition: all 0.5s
 }
    .panel-container {
     position: relative;
@@ -1071,8 +1074,10 @@ $(document).on('click', '#editActiveToggleButton', function() {
             distance: 1,
             cursor: "move",
             tolerance: "pointer",
+            
             start: function(event, ui) {
                 ui.placeholder.height(ui.helper.outerHeight());
+                ui.placeholder.width(ui.helper.outerWidth());
             },
             update: function(event, ui) {
                 var sortedIDs = $(this).sortable("toArray");

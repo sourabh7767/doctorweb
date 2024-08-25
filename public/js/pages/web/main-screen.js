@@ -39,7 +39,7 @@ $(document).ready(function () {
             url: site_url + "/user/add/prescription",
             data: formData,
             success: function (response) {
-                $('.loader').hide();
+                $c('.loader').hide();
                 $('#addPrescriptionForm')[0].reset();
                 $("#tagsInput").tagsinput('removeAll');
                 $('#createTemp').hide();
@@ -1030,62 +1030,124 @@ $(document).ready(function () {
         //     });
         // });
 
+        // $(document).on('click', '.copyData', function (e) {
+        //     e.preventDefault();
+        //     var element = $(this);
+        //     var groupId = element.data("id");
+        //     var progressBar = $('#pbar');
+            
+        //     // Initialize progress bar
+        //     progressBar.css('width', '0%').text('0%');
+        //     progressBar.removeClass("d-none");
+            
+        //     element.addClass('heart-effect');
+            
+        //     // Simulate progress (since it's a GET request)
+        //     var width = 0;
+        //     var maxProgress = 80; // Maximum progress percentage
+        //     var interval = setInterval(function() {
+        //         if (width >= maxProgress) {
+        //             clearInterval(interval);
+        //             // Ensure the progress bar shows the maximum value
+        //             progressBar.css('width', maxProgress + '%').text(maxProgress + '%');
+        //             return;
+        //         }
+        //         width += 10; // Increment by 10%
+        //         progressBar.css('width', width + '%').text(width + '%');
+        //     }, 600);
+
+        //     // Perform AJAX request to copy data
+        //     $.ajax({
+        //         url: site_url + '/user/groups/copy/' + groupId,
+        //         type: 'GET',
+        //         success: function(response) {
+        //             // Handle success if needed
+        //             toastr.success(response.message, 'Success!', toastCofig);
+        //             console.log('Data copied successfully');
+        //             progressBar.css('width', '100%').text('100%');
+
+        //             // Force a reflow to ensure the progress bar is fully updated
+        //             progressBar[0].offsetWidth;
+        //             table.ajax.reload(null, false);
+        //         },
+        //         error: function(xhr, status, error) {
+        //             // Handle error if needed
+        //             console.error(error);
+        //         },
+        //         complete: function() {
+        //             // Ensure the progress bar is set to 100% and text is '100%'
+                    
+
+        //             // Remove heart effect and hide progress bar after a delay
+        //             setTimeout(function() {
+        //                 element.removeClass('heart-effect');
+        //                 progressBar.addClass('d-none'); // Hide progress bar container
+        //             }, 1000); // Adjust the duration (in milliseconds) as needed
+        //         }
+        //     });
+        // });
+
         $(document).on('click', '.copyData', function (e) {
             e.preventDefault();
             var element = $(this);
             var groupId = element.data("id");
             var progressBar = $('#pbar');
-            
+        
             // Initialize progress bar
             progressBar.css('width', '0%').text('0%');
-            progressBar.parent().removeClass("d-none");
-            
+            progressBar.removeClass("d-none");
+        
             element.addClass('heart-effect');
-            
-            // Simulate progress (since it's a GET request)
-            var width = 0;
+        
+            var startTime = Date.now();
             var maxProgress = 80; // Maximum progress percentage
-            var interval = setInterval(function() {
+            var intervalDuration = 200; // Interval duration in milliseconds
+            var width = 0;
+            var progressInterval = setInterval(function () {
                 if (width >= maxProgress) {
-                    clearInterval(interval);
-                    // Ensure the progress bar shows the maximum value
+                    clearInterval(progressInterval);
                     progressBar.css('width', maxProgress + '%').text(maxProgress + '%');
                     return;
                 }
                 width += 10; // Increment by 10%
                 progressBar.css('width', width + '%').text(width + '%');
-            }, 600);// Adjust the interval duration as needed
-
+            }, intervalDuration);
+        
             // Perform AJAX request to copy data
             $.ajax({
                 url: site_url + '/user/groups/copy/' + groupId,
                 type: 'GET',
-                success: function(response) {
-                    // Handle success if needed
+                success: function (response) {
                     toastr.success(response.message, 'Success!', toastCofig);
                     console.log('Data copied successfully');
-                    progressBar.css('width', '100%').text('100%');
-
-                    // Force a reflow to ensure the progress bar is fully updated
-                    progressBar[0].offsetWidth;
-                    table.ajax.reload(null, false);
-                },
-                error: function(xhr, status, error) {
-                    // Handle error if needed
-                    console.error(error);
-                },
-                complete: function() {
-                    // Ensure the progress bar is set to 100% and text is '100%'
                     
-
-                    // Remove heart effect and hide progress bar after a delay
-                    setTimeout(function() {
-                        element.removeClass('heart-effect');
-                        progressBar.parent().hide(); // Hide progress bar container
-                    }, 1000); // Adjust the duration (in milliseconds) as needed
+                    clearInterval(progressInterval);
+        
+                    // Ensure the progress bar is fully updated to 100%
+                    var elapsedTime = Date.now() - startTime;
+                    var minDisplayTime = (intervalDuration * (100 / 10)); // Total duration to simulate full progress
+                    var remainingTime = Math.max(0, minDisplayTime - elapsedTime);
+        
+                    setTimeout(function () {
+                        progressBar.css('width', '100%').text('100%');
+        
+                        // Force a reflow to ensure the progress bar is fully updated
+                        progressBar[0].offsetWidth;
+                        table.ajax.reload(null, false);
+        
+                        // Remove heart effect and hide progress bar after a delay
+                        setTimeout(function () {
+                            element.removeClass('heart-effect');
+                            progressBar.addClass('d-none'); // Hide progress bar container
+                        }, 1000); // Adjust the duration (in milliseconds) as needed
+                    }, remainingTime); // Delay if the response is too fast
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
                 }
             });
         });
+        
         $('#cardsTable').on('click', 'tbody td:nth-child(1)', function() {
             var rowData = $(this).closest('tr').data(); // Get data attributes of the clicked row
             var cardId = rowData.id; // Assuming 'id' is the attribute containing the card ID

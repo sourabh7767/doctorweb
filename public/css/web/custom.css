@@ -438,7 +438,7 @@ i.las.la-sign-out-alt {
     margin: 3px;
     font-size: 14px;
     align-items: center;
-    animation: fadeInAnimation ease 3s;
+    animation: fadeInAnimation ease 0.8s;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
 }

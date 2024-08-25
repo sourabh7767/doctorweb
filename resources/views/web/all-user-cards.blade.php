@@ -101,11 +101,7 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
             <span class="visually-hidden">Loading...</span>
         </div> --}}
     </div>
-    <div class="progress mt-3 d-none">
-        <div id="pbar" class="progress-bar bg-success " role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
-            0%
-        </div>
-    </div>
+    
     <!-- Start Header Section -->
     <header class="header">
         <div class="container-fluid">
@@ -212,7 +208,12 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
     </header>
     <!-- End Header Section -->
     <!-- Start SecondRow -->
-    <section class="midSec mt-3">
+    <div class="progress" style="background-color: #47474747">
+        <div id="pbar" class="progress-bar bg-success d-none" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
+            0%
+        </div>
+    </div>
+    <section class="midSec">
         <div class="row">
             <div class="col-12">
               <div class="card data-table">
