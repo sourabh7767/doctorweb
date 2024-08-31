@@ -39,7 +39,7 @@
     /* height: 40px; */
     margin: 5px 0;
     /* background-color: transparent; */
-    background-color: #6c757d;
+    background-color: #2e2e2e;
     border-radius: 10px;
     padding: 1px 8px;
     transition: all 0.5s
