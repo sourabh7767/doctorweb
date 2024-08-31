@@ -34,10 +34,12 @@
 }
 
 .sortable-placeholder {
-    border: 1px dashed #8ebdcd;
+    border: none;
+    /* 1px dashed #8ebdcd; */
     /* height: 40px; */
     margin: 5px 0;
-    background-color: transparent;
+    /* background-color: transparent; */
+    background-color: #6c757d;
     border-radius: 10px;
     padding: 1px 8px;
     transition: all 0.5s
