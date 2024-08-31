@@ -1076,8 +1076,10 @@ $(document).on('click', '#editActiveToggleButton', function() {
             tolerance: "pointer",
             
             start: function(event, ui) {
+                console.log(ui.helper.outerWidth());
+                
                 ui.placeholder.height(ui.helper.outerHeight());
-                ui.placeholder.width(ui.helper.outerWidth());
+                ui.placeholder.width(100);
             },
             update: function(event, ui) {
                 var sortedIDs = $(this).sortable("toArray");
