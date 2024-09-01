@@ -44,7 +44,7 @@
     padding: 1px 8px;
     transition: all 0.5s
 }
-.ui-sortable-helpe{
+.ui-sortable-helper{
     background: #2e2e2e !important;
 }
    .panel-container {
