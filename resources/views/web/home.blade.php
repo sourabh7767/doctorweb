@@ -34,15 +34,18 @@
 }
 
 .sortable-placeholder {
-    border: none;
+    border: solid #2e2e2e;
     /* 1px dashed #8ebdcd; */
     /* height: 40px; */
-    margin: 5px 0;
+    margin: 3px;
     /* background-color: transparent; */
     background-color: #2e2e2e;
     border-radius: 10px;
     padding: 1px 8px;
     transition: all 0.5s
+}
+.ui-sortable-helpe{
+    background: #2e2e2e !important;
 }
    .panel-container {
     position: relative;
