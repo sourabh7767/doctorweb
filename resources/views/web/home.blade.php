@@ -1071,7 +1071,7 @@ $(document).on('click', '#editActiveToggleButton', function() {
     $(function() {
         $(".btnGroup").sortable({
             placeholder: "sortable-placeholder",
-            helper: "clone",
+            // helper: "clone",
             delay: 15,
             distance: 1,
             cursor: "move",
@@ -1079,8 +1079,8 @@ $(document).on('click', '#editActiveToggleButton', function() {
             
             start: function(event, ui) {
                 console.log(ui.helper.outerWidth());
-                
-                ui.placeholder.height(ui.helper.outerHeight());
+                // ui.helper.outerHeight()
+                // ui.placeholder.height(ui.helper.outerHeight());
                 ui.placeholder.width(100);
             },
             update: function(event, ui) {
