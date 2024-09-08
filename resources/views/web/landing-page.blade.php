@@ -49,7 +49,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#features">Features</a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link" href="#clients">Clients</a>
                         </li>
                         <li class="nav-item">
@@ -57,6 +57,14 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('web.index')}}">Login</a>
+                        </li> -->
+                    </ul>
+                    <ul class="userDetails gap-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#clients">Clients</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="loginBtn" href="{{route('web.index')}}">Login</a>
                         </li>
                     </ul>
                 </div>
@@ -75,14 +83,14 @@
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <h1 class="heroHeading">
-                                Simple and Powerful
+                                Simple, Precise and Powerful
                             </h1>
                             <p class="description my-4">
-                                There are many variations of passages of Lorem Ipsum
-                                available, but the majority have suffered alteration
+                                Best prescription tool available on the market. This web app is a selfstanding software
+                                created for medical professionals to make everyday writing routine effortless.
                             </p>
                             <div class="d-flex flex-md-row flex-column align-md-items-center align-items-start gap-4">
-                                <a href="" class="primaryBtn text-uppercase">Download Now</a>
+                                <!-- <a href="" class="primaryBtn text-uppercase">Download Now</a> -->
                                 <a href="" class="watchVideo" data-bs-toggle="modal" data-bs-target="#watchVideo">
                                     <i class="fas fa-play-circle"></i>
                                     <span>Watch video</span>
@@ -100,19 +108,25 @@
             <div class="container">
                 <div class="owl-carousel owl-theme brandOwl-carousel-js">
                     <div class="item">
-                        <img src="{{asset("landing-page/img/brands/1.png")}}" alt="HoolaHire" class="brandImg">
+                        <img src="{{asset("landing-page/img/brands/tos.png")}}" alt="HoolaHire" class="brandImg">
                     </div>
                     <div class="item">
-                        <img src="{{asset("landing-page/img/brands/2.png")}}" alt="Patel" class="brandImg">
+                        <img src="{{asset("landing-page/img/brands/orto.png")}}" alt="Patel" class="brandImg">
                     </div>
                     <div class="item">
-                        <img src="{{asset("landing-page/img/brands/3.png")}}" alt="Lioit" class="brandImg">
+                        <img src="{{asset("landing-page/img/brands/jurmalas.jpg")}}" alt="Lioit" class="brandImg">
                     </div>
                     <div class="item">
-                        <img src="{{asset("landing-page/img/brands/4.png")}}" alt="Whitney" class="brandImg">
+                        <img src="{{asset("landing-page/img/brands/avacadokiwi_logo3_png_bevel.png")}}" alt="Whitney" class="brandImg">
                     </div>
                     <div class="item">
-                        <img src="{{asset("landing-page/img/brands/5.png")}}" alt="Panax" class="brandImg">
+                        <img src="{{asset("landing-page/img/brands/aslimn.jpg")}}" alt="Panax" class="brandImg">
+                    </div>
+                    <div class="item">
+                        <img src="{{asset("landing-page/img/brands/pskus.png")}}" alt="Panax" class="brandImg">
+                    </div>
+                    <div class="item">
+                        <img src="{{asset("landing-page/img/brands/315413793_146115781508284_6223348106729794721_n.jpg")}}" alt="Panax" class="brandImg">
                     </div>
                 </div>
             </div>
@@ -123,30 +137,36 @@
         <section class="" id="about">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="col-sm-12 col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="1000">
                         <div class="aboutContent">
-                            <i class="fa-brands fa-wordpress aboutIcons"></i>
-                            <h4 class="subHeading">Modern</h4>
-                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod
-                            </p>
+                            <img src="{{asset("landing-page/img/intuitive.png")}}" alt="aboutImg" class="aboutImg">
+                            <h4 class="subHeading">Intuitive</h4>
+                            <p class="description">Very simple and straight forward design as well as well structured
+                                tutorial will make Your start carefree.</p>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-duration="1500">
+                    <div class="col-sm-12 col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="1500">
                         <div class="aboutContent">
-                            <i class="fa-solid fa-code aboutIcons"></i>
+                            <img src="{{asset("landing-page/img/customize.png")}}" alt="" class="aboutImg">
                             <h4 class="subHeading">Easy to customize</h4>
-                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod
+                            <p class="description">You can add any buttons, any templates , create new template groups
+                                and tags in Your work area.
                             </p>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-duration="2000">
+                    <div class="col-sm-12 col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="2000">
                         <div class="aboutContent">
-                            <i class="fa-brands fa-soundcloud aboutIcons"></i>
-                            <h4 class="subHeading">Light</h4>
-                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                                eiusmod
+                            <img src="{{asset("landing-page/img/1000.png")}}" alt="" class="aboutImg">
+                            <h4 class="subHeading">1000+ templates</h4>
+                            <p class="description">big library of templates ready to be used right now!
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-3" data-aos="fade-up" data-aos-duration="2000">
+                        <div class="aboutContent">
+                            <img src="{{asset("landing-page/img/free.png")}}" alt="" class="aboutImg">
+                            <h4 class="subHeading">Free </h4>
+                            <p class="description">Its completely free to use! No hidden costs !
                             </p>
                         </div>
                     </div>
@@ -162,26 +182,43 @@
                     <div class="col-sm-12 col-md-6" data-aos="fade-right" data-aos-duration="1200">
                         <img src="{{asset("landing-page/img/features.png")}}" alt="FeaturesMobile" class="featuresImg">
                     </div>
-                    <div class="col-sm-12 col-md-6">
-                        <h3 class="heading mb-3">Access tasks</h3>
-                        <ul class="mt-5 featuresTask">
-                            <li>
-                                <h4 class="descriptionDark">Font awesome</h4>
-                                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    Placeat, eum. Minus nesciunt</p>
-                            </li>
-                            <li>
-                                <h4 class="descriptionDark" style="color: #4B4B4C;">Bootstrap 4x</h4>
-                                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    Placeat, eum. Minus nesciunt</p>
-                            </li>
-                            <li>
-                                <h4 class="descriptionDark" style="color: #4B4B4C;">Valid html</h4>
-                                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                    Placeat, eum. Minus nesciunt</p>
-                            </li>
-                        </ul>
-                    </div>
+                        <div class="col-sm-12 col-md-6">
+                            <h3 class="heading mb-3">Problems we solve :</h3>
+                            <ul class="mt-5 featuresTask">
+                                <li>
+                                    <h4 class="descriptionDark">Precision</h4>
+                                    <ul>
+                                        <li class="description mb-0">- Fast and efortless access to the precise
+                                            prescription template You need</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h4 class="descriptionDark" style="color: #4B4B4C;">Customization</h4>
+                                    <ul>
+                                        <li class="description mb-0">- Template creation/customization.</li>
+                                        <li class="description mb-0">- Fast acess button creation/customization</li>
+                                    </ul>
+
+                                </li>
+                                <li>
+                                    <h4 class="descriptionDark" style="color: #4B4B4C;">Acessibility</h4>
+                                    <ul>
+                                        <li class="description mb-0">- Acess from any computer that has internet on it.
+                                        </li>
+                                        <li class="description mb-0">- No need to carry folders, notes, .doc files, .txt
+                                            files , everything is in one place</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <h4 class="descriptionDark" style="color: #4B4B4C;">Best Workflow</h4>
+                                    <ul>
+                                        <li class="description mb-0">- You are not dependant on any hospital provided
+                                            software</li>
+                                        <li class="description mb-0">- Have the same workflow everywhere You go </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
                 </div>
             </div>
           </div>
@@ -211,9 +248,8 @@
                     </div>
                     <div class="col-sm-12 col-md-6">
                         <h3 class="heading mb-4">Get more done</h3>
-                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe, atque
-                            iure ex corrupti, architecto delectus accusamus suscipit minus dolorem quibusdam incidunt
-                            culpa enim. Deserunt earum veniam temporibus excepturi fugiat dicta!
+                        <p class="description">On Average one prescription takes around 10-15 minutes to be created.
+                            With this App You can cut down this time to literally <b>couple of seconds.</b>
                         </p>
                     </div>
                 </div>
@@ -227,68 +263,59 @@
                     <div class="col-sm-12 col-md-7">
                         <div class="collaborateContent">
                             <div class="collaborateHead">
-                                <h3 class="heading mb-2">Collaborate on shared tasks</h3>
-                                <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas harum,
-                                hic officiis commodi reprehenderit explicabo</p>
+                                <h3 class="heading mb-2">Apps features</h3>
+                                <p class="description">Sign up for AvacadoKiwi and explore the best features Yourself
+                                </p>
                             </div>
                             <ul class="row mt-5">
                                 <li class="col-sm-12 col-md-6 mb-5">
                                     <div class="d-flex gap-3">
-                                        <i class="fas fa-wifi collaborateIcons"></i>
+                                     <img src="{{asset("landing-page/img/account.png")}}" alt="" class="collaborateIcons">                                        <div>
+                                            <h4 class="descriptionDark">Your own account </h4>
+                                            <p class="description">Your own playground , customize it as You would
+                                                customize Your own working desk</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="col-sm-12 col-md-6 mb-5">
+                                    <div class="d-flex gap-3">
+                                        <img src="{{asset("landing-page/img/stroage.png")}}" alt="" class="collaborateIcons">
                                         <div>
-                                            <h4 class="descriptionDark">Clean design</h4>
-                                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                                            <h4 class="descriptionDark">Universal storage </h4>
+                                            <p class="description">Store Your Templates where you can acess them in the
+                                                order You are used to
                                             </p>
                                         </div>
                                     </div>
                                 </li>
                                 <li class="col-sm-12 col-md-6 mb-5">
                                     <div class="d-flex gap-3">
-                                        <i class="fab fa-vine collaborateIcons"></i>
+                                        <img src="{{asset("landing-page/img/Library.png")}}" alt="" class="collaborateIcons">
                                         <div>
-                                            <h4 class="descriptionDark">Clean design</h4>
-                                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                                            <h4 class="descriptionDark">Library </h4>
+                                            <p class="description">You will find biggest prescription library for any
+                                                medical professional.
                                             </p>
                                         </div>
                                     </div>
                                 </li>
                                 <li class="col-sm-12 col-md-6 mb-5">
                                     <div class="d-flex gap-3">
-                                        <i class="fab fa-wordpress collaborateIcons"></i>
+                                        <img src="{{asset("landing-page/img/fastAccessBtn.png")}}" alt="" class="collaborateIcons">
                                         <div>
-                                            <h4 class="descriptionDark">Clean design</h4>
-                                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit
+                                            <h4 class="descriptionDark">Fast acess buttons </h4>
+                                            <p class="description">Write sophisticated sentences in a click of a
+                                                preprogrammed button
                                             </p>
                                         </div>
                                     </div>
                                 </li>
                                 <li class="col-sm-12 col-md-6 mb-5">
                                     <div class="d-flex gap-3">
-                                        <i class="fas fa-headphones collaborateIcons"></i>
+                                    <img src="{{asset("landing-page/img/free.png")}}" alt="" class="collaborateIcons">
                                         <div>
-                                            <h4 class="descriptionDark">Clean design</h4>
-                                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="col-sm-12 col-md-6 mb-5">
-                                    <div class="d-flex gap-3">
-                                        <i class="fas fa-signal collaborateIcons"></i>
-                                        <div>
-                                            <h4 class="descriptionDark">Clean design</h4>
-                                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                                            </p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="col-sm-12 col-md-6 mb-5">
-                                    <div class="d-flex gap-3">
-                                        <i class="fas fa-flask collaborateIcons"></i>
-                                        <div>
-                                            <h4 class="descriptionDark">Clean design</h4>
-                                            <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                                            </p>
+                                            <h4 class="descriptionDark">Free </h4>
+                                            <p class="description">Its free to use, seriously </p>
                                         </div>
                                     </div>
                                 </li>
@@ -316,12 +343,15 @@
                     <div class="col-sm-12 col-md-6">
                         <div class="owl-carousel owl-theme client-carousel-js text-center">
                             <div class="item">
-                                <img src="{{asset("landing-page/img/clients/1.jpg")}}" alt="" class="clientImg">
-                                <h4 class="subHeading mt-3 mb-1">James Thornton</h4>
+                                <img src="{{asset("landing-page/img/clients/m-salnikovs.png")}}" alt="" class="clientImg">
+                                <h4 class="subHeading mt-3 mb-1">M.Saļņikovs</h4>
                                 <p class="description">
-                                    «Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias harum aperiam ea. Tempore
-                                    cumque, debitis accusamus iusto beatae corporis illum quos illo itaque esse. Sapiente porro
-                                    pariatur necessitatibu!
+                                    It really makes my everyday tasks so much easier.
+                                    Working in emergency department amount of patients can be overwhelming and writing
+                                    prescriptions, objective findings, examination results for each and every patient is
+                                    not a quick task. This app allows me to work 10x faster resulting happy patients,
+                                    bigger patient flow, precise and thought through recommendations on a click of a
+                                    mouse button , Also a library of my collegues
                                 </p>
                             </div>
                             <div class="item">
@@ -366,8 +396,8 @@
                     </div>
                     <div class="col-lg-5 mb-4 mb-lg-0">
                         <p class="description text-white">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tenetur laboriosam voluptate,
-                            maiores iusto, distinctio officiis
+                            Feel free to cantact us regarding any question, suggestion or help , we will be glad to hear
+                            from You !
                         </p>
                     </div>
                     <div class="col-lg-3">
@@ -378,7 +408,7 @@
         </section>
         <!-- End ContactUs Section -->
         <!-- Start Pricing Section -->
-        <section class="pricing" id="pricing">
+        <!-- <section class="pricing" id="pricing">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-sm-12 col-md-8 text-center">
@@ -434,10 +464,10 @@
                 </div>
                </div>
             </div>
-        </section>
+        </section> -->
         <!-- End Pricing Section -->
         <!-- Start Subscribe Section -->
-        <section class="subscribe bg-light">
+        <!-- <section class="subscribe bg-light">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-6 text-center">
@@ -456,7 +486,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
         <!-- End Subscribe Section -->
     </main>
 
@@ -487,7 +517,7 @@
                         </li>
                     </ul>
                     <div class="copyright mt-2">
-                        <span class="description">© 2016 Brett. All rights reserved by <a href="">Murren20</a></span>
+                        <span class="description">© 2024 . All right reserved by <a href="">salnicoff</a></span>
                     </div>
                 </div>
             </div>
