@@ -277,7 +277,7 @@
                         </div>
                         @endforeach
                     </div> --}}
-                    <div class="btnGroup w-100 me-2 buttonAppend container">
+                    <div class="btnGroup w-100 me-2 buttonAppend">
                         @foreach ($buttons as $button)
                         <div class="cardItemValue list-item" id="cardItemValueButton_{{@$button->id}}" data-id="{{@$button->id}}">
                           <div class="item-content">
