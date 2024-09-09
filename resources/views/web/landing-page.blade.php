@@ -31,7 +31,7 @@
     <header id="header" class="sticky">
         <nav class="navbar navbar-expand-lg p-0">
             <div class="container">
-                <a class="navbar-brand" href="#">Avacadokiwi</a>
+                <a class="navbar-brand" href="#"><img class="collaborateIcons" src="{{asset("landing-page/img/brands/avacadokiwi_logo3_png_bevel.png")}}" alt=""></a>
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -116,9 +116,9 @@
                     <div class="item">
                         <img src="{{asset("landing-page/img/brands/jurmalas.jpg")}}" alt="Lioit" class="brandImg">
                     </div>
-                    <div class="item">
+                    {{-- <div class="item">
                         <img src="{{asset("landing-page/img/brands/avacadokiwi_logo3_png_bevel.png")}}" alt="Whitney" class="brandImg">
-                    </div>
+                    </div> --}}
                     <div class="item">
                         <img src="{{asset("landing-page/img/brands/aslimn.jpg")}}" alt="Panax" class="brandImg">
                     </div>
@@ -149,8 +149,8 @@
                         <div class="aboutContent">
                             <img src="{{asset("landing-page/img/customize.png")}}" alt="" class="aboutImg">
                             <h4 class="subHeading">Easy to customize</h4>
-                            <p class="description">You can add any buttons, any templates , create new template groups
-                                and tags in Your work area.
+                            <p class="description">You can add any buttons, any templates, 
+                                create new template groups and tags in Your work area.
                             </p>
                         </div>
                     </div>
@@ -158,7 +158,7 @@
                         <div class="aboutContent">
                             <img src="{{asset("landing-page/img/1000.png")}}" alt="" class="aboutImg">
                             <h4 class="subHeading">1000+ templates</h4>
-                            <p class="description">big library of templates ready to be used right now!
+                            <p class="description">Big library of templates ready to be used right now!
                             </p>
                         </div>
                     </div>
@@ -335,8 +335,8 @@
                 <div class="row justify-content-center">
                     <div class="col-sm-12 col-md-6 text-center">
                         <h3 class="heading mb-3">Clients says</h3>
-                        <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua</p>
+                        {{-- <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                            tempor incididunt ut labore et dolore magna aliqua</p> --}}
                     </div>
                 </div>
                 <div class="row justify-content-center">
