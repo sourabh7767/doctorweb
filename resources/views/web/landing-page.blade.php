@@ -39,9 +39,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbarNav">
+                    <ul class="navbarNav md:align-items-center">
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#home">Home</a>
+                            <a class="nav-link active" aria-current="page" href="#home">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#about">About</a>
@@ -49,24 +49,22 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#features">Features</a>
                         </li>
-                        <!-- <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="#clients">Clients</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#pricing">Pricing</a>
+                        <li class="nav-item mt-3 md:mt-0">
+                            <a class="loginBtn" href="https://doctor.minisquaretechnologies.com/login">Login</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{route('web.index')}}">Login</a>
-                        </li> -->
                     </ul>
-                    <ul class="userDetails gap-2">
+
+                    {{-- <ul class="userDetails gap-2">
                         <li class="nav-item">
                             <a class="nav-link" href="#clients">Clients</a>
                         </li>
                         <li class="nav-item">
                             <a class="loginBtn" href="{{route('web.index')}}">Login</a>
                         </li>
-                    </ul>
+                    </ul> --}}
                 </div>
             </div>
         </nav>
