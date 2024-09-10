@@ -52,19 +52,10 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#clients">Clients</a>
                         </li>
-                        <li class="nav-item mt-3 md:mt-0">
-                            <a class="loginBtn" href="https://doctor.minisquaretechnologies.com/login">Login</a>
-                        </li>
-                    </ul>
-
-                    {{-- <ul class="userDetails gap-2">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#clients">Clients</a>
-                        </li>
                         <li class="nav-item">
                             <a class="loginBtn" href="{{route('web.index')}}">Login</a>
                         </li>
-                    </ul> --}}
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -77,7 +68,10 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-sm-12 col-md-6">
-                            <img src="{{asset("landing-page/img/heroMobile.png")}}" alt="MobileImg" class="heroMobileImg">
+                        <video width="100%" height="270" loop autoplay muted playsinline>
+                            <source src="{{asset("landing-page/video/homeSmall.mp4")}}" type="video/mp4">
+                            <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
+                        </video>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <h1 class="heroHeading">
@@ -114,9 +108,9 @@
                     <div class="item">
                         <img src="{{asset("landing-page/img/brands/jurmalas.jpg")}}" alt="Lioit" class="brandImg">
                     </div>
-                    {{-- <div class="item">
+                     <div class="item">
                         <img src="{{asset("landing-page/img/brands/avacadokiwi_logo3_png_bevel.png")}}" alt="Whitney" class="brandImg">
-                    </div> --}}
+                    </div>
                     <div class="item">
                         <img src="{{asset("landing-page/img/brands/aslimn.jpg")}}" alt="Panax" class="brandImg">
                     </div>
@@ -178,7 +172,10 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-sm-12 col-md-6" data-aos="fade-right" data-aos-duration="1200">
-                        <img src="{{asset("landing-page/img/features.png")}}" alt="FeaturesMobile" class="featuresImg">
+                    <video width="100%" height="270" loop autoplay muted playsinline>
+                            <source src="{{asset("landing-page/video/problemsVideo.mp4")}}" type="video/mp4">
+                            <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
+                        </video>
                     </div>
                         <div class="col-sm-12 col-md-6">
                             <h3 class="heading mb-3">Problems we solve :</h3>
@@ -321,7 +318,10 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-5" data-aos="fade-up" data-aos-duration="1200">
-                        <img src="{{asset("landing-page/img/3-375x753.png")}}" alt="" class="collaborateImg">
+                        <video width="100%" height="270" loop autoplay muted playsinline>
+                            <source src="{{asset("landing-page/video/featureVideo.mp4")}}" type="video/mp4">
+                            <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
+                        </video>
                     </div>
                 </div>
             </div>
