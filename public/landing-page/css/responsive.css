@@ -1,11 +1,14 @@
-@media (min-width: 1600px)
+/* @media (min-width: 1399px)
 {
     #home{
         padding: 13rem 0 !important;
     }
-}
+} */
 @media (min-width: 1200px)
 {
+    #home{
+        padding: 13rem 0 !important;
+    }
     /* Start Hover Effect */
     .primaryBtn:hover, .planCard .primaryBtn:hover 
     {
