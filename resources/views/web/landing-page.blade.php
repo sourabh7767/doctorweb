@@ -85,7 +85,7 @@
                                 <!-- <a href="" class="primaryBtn text-uppercase">Download Now</a> -->
                                 <a href="" class="watchVideo" data-bs-toggle="modal" data-bs-target="#watchVideo">
                                     <i class="fas fa-play-circle"></i>
-                                    <span>Watch tutorial    </span>
+                                    <span>Watch Tutorial    </span>
                                 </a>
                             </div>
                         </div>
