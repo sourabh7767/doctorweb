@@ -168,13 +168,13 @@
           <div class="spce">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-sm-12 col-md-6" data-aos="fade-right" data-aos-duration="1200">
+                    <div class="col-sm-12 col-md-7" data-aos="fade-right" data-aos-duration="1200">
                     <video class="problemVideo" width="100%" height="270" loop autoplay muted playsinline>
                             <source src="{{asset("landing-page/video/problemsVideo.mp4")}}" type="video/mp4">
                             <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
                         </video>
                     </div>
-                        <div class="col-sm-12 col-md-6">
+                        <div class="col-sm-12 col-md-5">
                             <h3 class="heading mb-3">Problems we solve :</h3>
                             <ul class="mt-5 featuresTask">
                                 <li>
