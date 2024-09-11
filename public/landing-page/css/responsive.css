@@ -1,3 +1,9 @@
+@media (min-width: 1600px)
+{
+    #home{
+        padding: 13rem 0;
+    }
+}
 @media (min-width: 1200px)
 {
     /* Start Hover Effect */
