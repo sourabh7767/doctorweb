@@ -27,10 +27,9 @@ class HomeController extends Controller
 public function contactUs(Request $request,ContactUs $contactUs){
 
 	$rules = [
-            'full_name' => 'required',
+            'name' => 'required',
             'email' => 'required',
-            'category' => 'required|integer|min:1|max:3',
-            'description' => 'required'
+            'message' => 'required'
 
         ];
          $inputArr = $request->all();

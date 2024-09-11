@@ -29,6 +29,8 @@ Route::middleware('prevent-back-history')->group(function (){
     Route::get('/',function(){
         return view('web.landing-page');
     });
+    
+    Route::post('/contact-us', 'Web\AuthController@contactUs')->name('contact-us');
     Route::get('/test', function(){
         return view('livewire.button');
     })->middleware('guest');

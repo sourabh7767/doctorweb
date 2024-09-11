@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Mail\ResetPasswordMail;
 use App\Models\Button;
+use App\Models\ContactUs;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -213,5 +215,36 @@ class AuthController extends Controller
             session()->flash('error',"Otp is not sent");
             return redirect()->back()->with('error' , "Otp is not sent");
         }
+    }
+    public function contactUs(Request $request,ContactUs $contactUs){
+        $validated = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'message' => 'required'
+        ]);
+    
+        // Try to save the contact message
+        $contactUs->fill($validated);
+        
+        try {
+            $email = $validated['email'];
+            Mail::send('contact-us', [
+                'email' => $validated['email'],
+                'name' => $validated['name'],
+                'userMessage' => $validated['message'] // Ensure correct data is passed
+            ], function ($message) use ($email) {
+                $message->to("dot.salnicoff@gmail.com");
+                $message->subject('Contact-Us');
+            });
+        } catch (\Throwable $th) {
+            return returnErrorResponse($th->getMessage());
+        }
+        if($contactUs->save()){
+            session()->flash('success',"Message sent successfully");
+        }
+        session()->flash("error","Something went wrong!");
+        return response()->json(['success'=> true]);
+        // return returnErrorResponse("Something went wrong.");
+
     }
 }

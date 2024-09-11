@@ -16,6 +16,23 @@
     <link rel="stylesheet" type="text/css" href="{{asset("landing-page/css/custom.css")}}">
     <link rel="stylesheet" type="text/css" href="{{asset("landing-page/css/responsive.css")}}">
     <!-- OwlCarousel CDNs -->
+    <style>
+        
+        .loader{
+        /* position: absolute; */
+        z-index: 9999;
+        height: 100%;
+        }
+        .lds-roller {
+    display: inline-block;
+    /* height: 64px; */
+    /* width: 64px; */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 999999;
+}
+    </style>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
     <link rel="stylesheet"
@@ -66,6 +83,7 @@
         <section class="" id="home">
             <div class="spce">
                 <div class="container">
+                    
                     <div class="row align-items-center">
                         <div class="col-sm-12 col-md-6">
                         <video class="pe-4" width="100%" height="365" loop autoplay muted playsinline>
@@ -532,7 +550,7 @@
         </div>
         <!-- End WatchVideo Modal -->
         <!-- Start ContactUs Modal -->
-        <div class="modal fade" id="contactUs" tabindex="-1" aria-labelledby="contactUsLabel"
+        {{-- <div class="modal fade" id="contactUs" tabindex="-1" aria-labelledby="contactUsLabel"
         aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -541,16 +559,61 @@
                         <button type="button" class="btn-close position-absolute text-sm" data-bs-dismiss="modal" aria-label="Close" style="top: 20px; right: 20px; font-size: 12px; color: #4B4B4C;"></button>
                     </div>
                     <div class="modal-body">
-                        <form class="contactForm">
+                        <form class="contactForm" action="{{route("contact-us")}}" method="POST">
+                            @csrf
                             <div class="row">
                                 <div class="col-sm-12 col-md-6 mb-3">
-                                    <input type="text" class="form-control" id="name" placeholder="Name*">
+                                    <input type="text" class="form-control @error('name') is-invalid error @enderror" id="name" name="name" placeholder="Name*">
+                                    @error('name')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-sm-12 col-md-6 mb-3">
-                                    <input type="email" class="form-control" id="email" placeholder="Email*">
+                                    <input type="email" class="form-control @error('name') is-invalid error @enderror" id="email" name="email" placeholder="Email*">
+                                    @error('email')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="col-sm-12 mb-3">
-                                    <textarea class="form-control" id="message-text" placeholder="Message*" rows="5"></textarea>
+                                    <textarea class="form-control @error('name') is-invalid error @enderror" id="message-text" name="message" placeholder="Message*" rows="5"></textarea>
+                                    @error('message')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <input class="primaryBtn d-block mx-auto" type="submit" value="Send Request">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
+
+        <div class="modal fade" id="contactUs" tabindex="-1" aria-labelledby="contactUsLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header justify-content-center">
+                        <h5 class="modal-title fs-2 fw-bold" id="contactUsLabel">Contact</h5>
+                        <button type="button" class="btn-close position-absolute text-sm" data-bs-dismiss="modal"
+                            aria-label="Close" style="top: 20px; right: 20px; font-size: 12px; color: #4B4B4C;"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="spinner-border lds-roller loderGroup d-none" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                        <form class="contactForm" id="contactForm">
+                            @csrf
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6 mb-3">
+                                    <input type="text" class="form-control" id="name" name="name" placeholder="Name*">
+                                    <span class="invalid-feedback" id="error-name"></span>
+                                </div>
+                                <div class="col-sm-12 col-md-6 mb-3">
+                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email*">
+                                    <span class="invalid-feedback" id="error-email"></span>
+                                </div>
+                                <div class="col-sm-12 mb-3">
+                                    <textarea class="form-control" id="message-text" name="message" placeholder="Message*" rows="5"></textarea>
+                                    <span class="invalid-feedback" id="error-message"></span>
                                 </div>
                             </div>
                             <input class="primaryBtn d-block mx-auto" type="submit" value="Send Request">
@@ -564,8 +627,59 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="{{asset("landing-page/js/bootstrap.bundle.min.js")}}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{{asset("landing-page/js/script.js")}}"></script>
     <script src="{{asset("landing-page/metter.js")}}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.contactForm').on('submit', function (e) {
+                e.preventDefault(); // Prevent the default form submission
+                let formData = $(this).serialize(); // Serialize the form data
+                $(".loderGroup").removeClass("d-none");
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("contact-us") }}', // Laravel route for form submission
+                    data: formData,
+                    success: function (response) {
+                        // alert()
+                        console.log(response);
+                        
+                        if (response.success) {
+                            $(".loderGroup").addClass("d-none");
+                            alert('Message sent successfully!');
+                            $('#contactForm')[0].reset(); // Reset the form
+                            var contactModal = bootstrap.Modal.getInstance($('#contactUs')); // Get the modal instance
+                            contactModal.hide(); // Hide the modal
+                        }
+                    },
+                    error: function (xhr) {
+                        // Clear previous errors
+                        $(".loderGroup").removeClass("d-none");
+                        $('.invalid-feedback').text('');
+                        $('.form-control').removeClass('is-invalid');
+                        $(".loderGroup").addClass("d-none");
+                        if (xhr.status === 422) {
+                            $(".loderGroup").addClass("d-none");
+                            let errors = xhr.responseJSON.errors;
+    
+                            if (errors.name) {
+                                $('#name').addClass('is-invalid');
+                                $('#error-name').text(errors.name[0]);
+                            }
+                            if (errors.email) {
+                                $('#email').addClass('is-invalid');
+                                $('#error-email').text(errors.email[0]);
+                            }
+                            if (errors.message) {
+                                $('#message-text').addClass('is-invalid');
+                                $('#error-message').text(errors.message[0]);
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
     {{-- <script>
          $(window).scroll( function(){
 
