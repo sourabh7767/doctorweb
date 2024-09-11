@@ -260,14 +260,14 @@ img
 /*======= Start HeroSection Css ========*/
 #home
 {
-    background: url('../img/bgImg.jpg') 50% no-repeat;
+    background: url('../img/bg.gif') 50% no-repeat;
     background-size: cover;
     position: relative;
     color: #fff;
-    padding: 7rem 0;
-    /* height: 100vh; */
+    padding: 8rem 0;
     z-index: 1;
 }
+
 #home::before{
     content: '';
     position: absolute;
@@ -380,10 +380,10 @@ img
 {
     padding: 8rem 0;
 }
-.client-carousel-js
+/* .client-carousel-js
 {
     padding: 8rem 0 0 0;
-}
+} */
 .clientImg {
     height: 100px;
     max-width: 100px;

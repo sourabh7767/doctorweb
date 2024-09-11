@@ -39,7 +39,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbarNav md:align-items-center">
+                    <ul class="navbarNav align-items-lg-center">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#home">Home</a>
                         </li>
@@ -68,7 +68,7 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-sm-12 col-md-6">
-                        <video width="100%" height="270" loop autoplay muted playsinline>
+                        <video width="100%" height="365" loop autoplay muted playsinline>
                             <source src="{{asset("landing-page/video/homeSmall.mp4")}}" type="video/mp4">
                             <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
                         </video>
@@ -107,9 +107,6 @@
                     </div>
                     <div class="item">
                         <img src="{{asset("landing-page/img/brands/jurmalas.jpg")}}" alt="Lioit" class="brandImg">
-                    </div>
-                     <div class="item">
-                        <img src="{{asset("landing-page/img/brands/avacadokiwi_logo3_png_bevel.png")}}" alt="Whitney" class="brandImg">
                     </div>
                     <div class="item">
                         <img src="{{asset("landing-page/img/brands/aslimn.jpg")}}" alt="Panax" class="brandImg">
@@ -224,20 +221,20 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12 col-md-6">
-                            <div class="chart mb-5 mb-sm-0" data-percent="74.5">
+                            <div class="chart mb-5 mb-sm-0" data-percent="75">
                                 <div class="chart-content">
-                                <div class="chart-title">Burn</div>
-                                <div class="chart-number">8,45</div>
+                                <div class="chart-title"></div>
+                                <div class="chart-number">15</div>
                                 <div class="line line-center"></div>
-                                <div class="chart-type">Calories</div>
+                                <div class="chart-type">min</div>
                                 </div>
                             </div>
-                            <div class="chart" data-percent="55.5">
+                            <div class="chart" data-percent="5">
                                 <div class="chart-content">
-                                <div class="chart-title">Active time</div>
-                                <div class="chart-number">4:54</div>
+                                <div class="chart-title"></div>
+                                <div class="chart-number">10</div>
                                 <div class="line line-center"></div>
-                                <div class="chart-type">Hours</div>
+                                <div class="chart-type">seconds</div>
                                 </div>
                             </div> 
                     </div>
@@ -255,7 +252,7 @@
         <section class="collaborate bg-light">
             <div class="container">
                 <div class="row align-items-center">
-                    <div class="col-sm-12 col-md-7">
+                    <div class="col-sm-12 col-md-6">
                         <div class="collaborateContent">
                             <div class="collaborateHead">
                                 <h3 class="heading mb-2">Apps features</h3>
@@ -317,8 +314,8 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-5" data-aos="fade-up" data-aos-duration="1200">
-                        <video width="100%" height="270" loop autoplay muted playsinline>
+                    <div class="col-sm-12 col-md-6" data-aos="fade-up" data-aos-duration="1200">
+                        <video style="max-width: 100%;" width="620" height="450" loop autoplay muted playsinline>
                             <source src="{{asset("landing-page/video/featureVideo.mp4")}}" type="video/mp4">
                             <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
                         </video>
@@ -330,13 +327,7 @@
         <!-- Start ClientsSays Section -->
         <section class="" id="clients">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-sm-12 col-md-6 text-center">
-                        <h3 class="heading mb-3">Clients says</h3>
-                        {{-- <p class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua</p> --}}
-                    </div>
-                </div>
+                
                 <div class="row justify-content-center">
                     <div class="col-sm-12 col-md-6">
                         <div class="owl-carousel owl-theme client-carousel-js text-center">
@@ -349,7 +340,7 @@
                                     prescriptions, objective findings, examination results for each and every patient is
                                     not a quick task. This app allows me to work 10x faster resulting happy patients,
                                     bigger patient flow, precise and thought through recommendations on a click of a
-                                    mouse button , Also a library of my collegues
+                                    mouse button , Also a library of my collegues recommendations is very helpful.
                                 </p>
                             </div>
                             <div class="item">
