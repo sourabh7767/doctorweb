@@ -9,6 +9,18 @@
     #home{
         padding: 13rem 0 !important;
     }
+    .problemVideo{
+        z-index: 1;
+        transform: scale(1.7);
+        position: relative;
+
+    }
+    .featureVideo{
+        width: 100%;
+        transform: scale(1.4);
+        z-index: 1;
+        position: relative;
+    }
     /* Start Hover Effect */
     .primaryBtn:hover, .planCard .primaryBtn:hover 
     {

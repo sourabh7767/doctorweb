@@ -339,6 +339,10 @@ img
 {
     padding: 8rem 0;
 }
+.featuresTask{
+    z-index: 2;
+    position: relative;
+}
 .featuresTask li
 {
     margin-bottom: 3rem;
@@ -361,6 +365,10 @@ img
 }
 /*======= End GetDone Css ========*/
 /*======= Start Collaborate Css ========*/
+.collaborateContent{
+    z-index: 1;
+    position: relative;
+}
 .collaborate
 {
     padding: 8rem 0;

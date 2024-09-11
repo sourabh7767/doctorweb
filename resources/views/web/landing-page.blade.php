@@ -85,7 +85,7 @@
                                 <!-- <a href="" class="primaryBtn text-uppercase">Download Now</a> -->
                                 <a href="" class="watchVideo" data-bs-toggle="modal" data-bs-target="#watchVideo">
                                     <i class="fas fa-play-circle"></i>
-                                    <span>Watch video</span>
+                                    <span>Watch tutorial    </span>
                                 </a>
                             </div>
                         </div>
@@ -169,7 +169,7 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-sm-12 col-md-6" data-aos="fade-right" data-aos-duration="1200">
-                    <video width="100%" height="270" loop autoplay muted playsinline>
+                    <video class="problemVideo" width="100%" height="270" loop autoplay muted playsinline>
                             <source src="{{asset("landing-page/video/problemsVideo.mp4")}}" type="video/mp4">
                             <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
                         </video>
@@ -315,7 +315,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-md-6" data-aos="fade-up" data-aos-duration="1200">
-                        <video style="max-width: 100%;" width="620" height="450" loop autoplay muted playsinline>
+                        <video class="featureVideo" style="max-width: 100%;" width="100%" height="450" loop autoplay muted playsinline>
                             <source src="{{asset("landing-page/video/featureVideo.mp4")}}" type="video/mp4">
                             <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
                         </video>
