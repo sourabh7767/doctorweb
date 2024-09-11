@@ -343,7 +343,7 @@
                                     mouse button , Also a library of my collegues recommendations is very helpful.
                                 </p>
                             </div>
-                            <div class="item">
+                            {{-- <div class="item">
                                 <img src="{{asset("landing-page/img/clients/2.jpg")}}" alt="" class="clientImg">
                                 <h4 class="subHeading mt-3 mb-1">James Thornton</h4>
                                 <p class="description">
@@ -369,7 +369,7 @@
                                     cumque, debitis accusamus iusto beatae corporis illum quos illo itaque esse. Sapiente porro
                                     pariatur necessitatibu!
                                 </p>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
