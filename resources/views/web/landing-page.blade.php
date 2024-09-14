@@ -91,7 +91,7 @@
                             <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
                         </video>
                         </div>
-                        <div class="col-sm-12 col-md-6">
+                        <div class="col-sm-12 col-md-6" style="padding-left: 75px;">
                             <h1 class="heroHeading">
                                 Simple, Precise and Powerful
                             </h1>
