@@ -188,7 +188,7 @@
                 <div class="row align-items-center">
                     <div class="col-sm-12 col-md-7" data-aos="fade-right" data-aos-duration="1200">
                     <video class="problemVideo" width="100%" height="270" loop autoplay muted playsinline>
-                            <source src="{{asset("landing-page/video/problemsVideo.mp4")}}" type="video/mp4">
+                            <source src="{{asset("landing-page/video/problemsVideo.WEBM")}}" type="video/mp4">
                             <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
                         </video>
                     </div>
@@ -334,7 +334,7 @@
                     </div>
                     <div class="col-sm-12 col-md-6" data-aos="fade-up" data-aos-duration="1200">
                         <video class="featureVideo" style="max-width: 100%;" width="100%" height="450" loop autoplay muted playsinline>
-                            <source src="{{asset("landing-page/video/featureVideo.mp4")}}" type="video/mp4">
+                            <source src="{{asset("landing-page/video/featureVideo.WEBM")}}" type="video/mp4">
                             <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
                         </video>
                     </div>
@@ -633,6 +633,15 @@
     <script src="{{asset("landing-page/metter.js")}}"></script>
     <script>
         $(document).ready(function () {
+        $(document).on('click',".btn-close",function(e){
+            $('#name').removeClass('is-invalid');
+            $('#error-name').text('');
+            $('#email').removeClass('is-invalid');
+            $('#error-email').text('');
+            $('#message-text').removeClass('is-invalid');
+            $('#error-message').text('');
+        
+        })
             $('.contactForm').on('submit', function (e) {
                 e.preventDefault(); // Prevent the default form submission
                 let formData = $(this).serialize(); // Serialize the form data
@@ -647,7 +656,7 @@
                         
                         if (response.success) {
                             $(".loderGroup").addClass("d-none");
-                            alert('Message sent successfully!');
+                            alert(response.message);
                             $('#contactForm')[0].reset(); // Reset the form
                             var contactModal = bootstrap.Modal.getInstance($('#contactUs')); // Get the modal instance
                             contactModal.hide(); // Hide the modal

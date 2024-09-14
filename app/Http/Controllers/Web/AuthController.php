@@ -227,7 +227,7 @@ class AuthController extends Controller
         $contactUs->fill($validated);
         
         try {
-            $email = $validated['email'];
+            $email = $validated['email'];   
             Mail::send('contact-us', [
                 'email' => $validated['email'],
                 'name' => $validated['name'],
@@ -237,13 +237,14 @@ class AuthController extends Controller
                 $message->subject('Contact-Us');
             });
         } catch (\Throwable $th) {
-            return returnErrorResponse($th->getMessage());
+            return response()->json(['success'=> true,'message' => $th->getMessage()]);
+            // return returnErrorResponse($th->getMessage());
         }
         if($contactUs->save()){
             session()->flash('success',"Message sent successfully");
         }
         session()->flash("error","Something went wrong!");
-        return response()->json(['success'=> true]);
+        return response()->json(['success'=> true,'message' => "Message sent successfully!"]);
         // return returnErrorResponse("Something went wrong.");
 
     }
