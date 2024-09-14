@@ -188,7 +188,7 @@
                 <div class="row align-items-center">
                     <div class="col-sm-12 col-md-7" data-aos="fade-right" data-aos-duration="1200">
                     <video class="problemVideo" width="100%" height="270" loop autoplay muted playsinline>
-                            <source src="{{asset("landing-page/video/problemsVideo.webm")}}" type="video/mp4">
+                            <source src="{{asset("landing-page/video/featureVideo.webm")}}" type="video/mp4">
                             <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
                         </video>
                     </div>
@@ -334,7 +334,7 @@
                     </div>
                     <div class="col-sm-12 col-md-6" data-aos="fade-up" data-aos-duration="1200">
                         <video class="featureVideo" style="max-width: 100%;" width="100%" height="450" loop autoplay muted playsinline>
-                            <source src="{{asset("landing-page/video/featureVideo.webm")}}" type="video/mp4">
+                            <source src="{{asset("landing-page/video/problemsVideo.webm")}}" type="video/mp4">
                             <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
                         </video>
                     </div>
