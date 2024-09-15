@@ -652,10 +652,10 @@
                     data: formData,
                     success: function (response) {
                         // alert()
+                        $(".loderGroup").addClass("d-none");
                         console.log(response);
                         
                         if (response.success) {
-                            $(".loderGroup").addClass("d-none");
                             alert(response.message);
                             $('#contactForm')[0].reset(); // Reset the form
                             var contactModal = bootstrap.Modal.getInstance($('#contactUs')); // Get the modal instance
