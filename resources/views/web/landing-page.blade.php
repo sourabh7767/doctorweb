@@ -86,7 +86,7 @@
                     
                     <div class="row align-items-center">
                         <div class="col-sm-12 col-md-6">
-                        <video class="pe-4" width="100%" height="365" loop autoplay muted playsinline>
+                        <video class="pe-4" style="padding-top: 20px;" width="100%" height="365" loop autoplay muted playsinline>
                             <source src="{{asset("landing-page/video/homeSmall.webm")}}" type="video/mp4">
                             <!-- <source src="{{asset("landing-page/video/homeSmall.ogg")}}" type="video/ogg"> -->
                         </video>
