@@ -656,10 +656,11 @@
                         
                         if (response.success) {
                             $(".loderGroup").addClass("d-none");
-                            alert(response.message);
+                            
                             $('#contactForm')[0].reset(); // Reset the form
                             var contactModal = bootstrap.Modal.getInstance($('#contactUs')); // Get the modal instance
                             contactModal.hide(); // Hide the modal
+                            alert(response.message);
                         }
                     },
                     error: function (xhr) {
