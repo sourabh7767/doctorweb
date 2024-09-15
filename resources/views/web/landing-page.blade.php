@@ -656,11 +656,14 @@
                         console.log(response);
                         
                         if (response.success) {
-                            alert(response.message);
+                            setTimeout(function() {
+                                alert(response.message);
+                                // Code to execute after 1 second
+                            }, 1000);
                             $('#contactForm')[0].reset(); // Reset the form
                             var contactModal = bootstrap.Modal.getInstance($('#contactUs')); // Get the modal instance
                             contactModal.hide(); // Hide the modal
-                            alert(response.message);
+                            // alert(response.message);
                         }
                     },
                     error: function (xhr) {
