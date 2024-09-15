@@ -11,13 +11,13 @@
     }
     .problemVideo{
         z-index: 1;
-        /* transform: scale(1.99) translate(0px, 28px); */
+        transform: scale(1.99) translate(0px, 28px);
         position: relative;
 
     }
     .featureVideo{
         width: 100%;
-        /* transform: scale(1.4); */
+        transform: scale(1.4);
         z-index: 1;
         position: relative;
     }
