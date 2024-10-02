@@ -396,9 +396,9 @@
             </div>
         </div>
         <div id="container" class="container">
-        
             <!-- FORM SECTION -->
             <div class="row">
+                <a class="" href="#"><img class="collaborateIcons" src="{{asset("landing-page/img/brands/avacadokiwi_logo3_png_bevel.png")}}" alt=""></a>
                 <!-- SIGN UP -->
                 <div class="col align-items-center flex-col sign-up">
                     <div class="form-wrapper align-items-center">
