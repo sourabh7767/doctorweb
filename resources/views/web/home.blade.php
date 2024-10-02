@@ -50,9 +50,9 @@
    .panel-container {
     position: relative;
     display: block;
-    width: 95%;
+    width: 92%;
     max-width: 100%;
-    max-height: 550px;
+    max-height: 76vh;
     overflow: auto;
     padding-right: 12px;
 }

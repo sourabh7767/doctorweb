@@ -404,7 +404,7 @@ i.las.la-sign-out-alt {
     width: 100%;
     position: relative;
     transition: all 0.3s;
-    height: 670px;
+    height: 90vh;
     max-height: 100%;
     overflow: auto;
     display: flex;
@@ -493,6 +493,7 @@ i.las.la-sign-out-alt {
 .leftBtmBtn {
     height: 50px;
     margin-top: auto !important;
+    margin-right: -20px;
 }
 /* ENd LeftArea Css */
 /* Start MidArea Css */
@@ -732,3 +733,4 @@ position: absolute
         opacity: 1;
     }
 }
+

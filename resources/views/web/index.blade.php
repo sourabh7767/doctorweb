@@ -77,6 +77,17 @@
                 transition: .5s ease-in-out;
                 transition-delay: .1s;
             }
+            .logo_btn{
+                position: absolute;
+                top:30px;
+                left:30px
+            }
+            .collaborateIcons{
+                width: 50px;
+                height: 50px;
+                z-index: 222;
+                position:relative;
+            }
 
             .input-group {
                 position: relative;
@@ -398,7 +409,7 @@
         <div id="container" class="container">
             <!-- FORM SECTION -->
             <div class="row">
-                <a class="" href="#"><img class="collaborateIcons" src="{{asset("landing-page/img/brands/avacadokiwi_logo3_png_bevel.png")}}" alt=""></a>
+                <a class="logo_btn" href="{{url('')}}"><img class="collaborateIcons" src="{{asset("landing-page/img/brands/avacadokiwi_logo3_png_bevel.png")}}" alt=""></a>
                 <!-- SIGN UP -->
                 <div class="col align-items-center flex-col sign-up">
                     <div class="form-wrapper align-items-center">
