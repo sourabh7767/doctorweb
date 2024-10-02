@@ -233,7 +233,7 @@ class AuthController extends Controller
                 'name' => $validated['name'],
                 'userMessage' => $validated['message'] // Ensure correct data is passed
             ], function ($message) use ($email) {
-                $message->to("saurav7767@gmail.com");
+                $message->to("support@avacadokiwi.com");
                 $message->subject('Contact-Us');
             });
         } catch (\Throwable $th) {
