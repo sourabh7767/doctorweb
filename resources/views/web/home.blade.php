@@ -50,10 +50,10 @@
    .panel-container {
     position: relative;
     display: block;
-    width: 92%;
+    width: 100%;
     max-width: 100%;
-    max-height: 76vh;
-    overflow: auto;
+    /* max-height: 100vh; */
+    /* overflow: auto; */
     padding-right: 12px;
 }
   
@@ -508,82 +508,88 @@
                             </div>
 
                             {{-- ========================================================================= --}}
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="panel-container">
-                                @foreach ($customSearchParent as $item)
-
-                                <div class="panel" id="panel">
-                                    <!-- <div class="d-flex align-items-center">
-                                        <span class="editModal editMainGroup" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
-                                    </div> -->
-                                  <div class="toggle-button-container">
-                                    <div class="toggleTxtContainer" data-id="{{@$item->id}}">
-                                        <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}&nbsp;&nbsp;</p>
-                                        <span class="editModal remove removed editMainGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
-                                        <span class="editModal remove removed removeGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" ><i class="fas fa-trash"></i></span>
-                                    </div>
-                                    
-                                    
-                                    <div class="d-flex">
-                                        <button class="toggle-button toggleOnClass">
-                                            <i class="fas fa-chevron-right"></i>
-                                        </button>
-                                    </div>
-                                  </div>
-                                  <div class="additional-buttons">
-                                    <div class="d-flex justify-content-between">
-                                    <div class="leftCardMenusArea">
-                                    <ul class="leftCardMenus ul_{{$item->id}}" id="UlTags">
-                                        @foreach ($customSearchObj as $groupNames)
-                                        @if ($item->id == $groupNames->parent_id)
-                                        <li class="leftCardItems row" {{@$groupNames->id}}>
-                                            <h6 class="cardItemHead col-md-4">{{@$groupNames->title}}</h6>
-                                            <div class="col-md-8">
-
-                                            @foreach ($groupNames->customTags as $tag)
-                                                <div class="cardItemValue" id="cardItemValueTag_{{@$tag->id}}">
-                                                        <span class="tag tagTitle tags" data-tag="{{ @$tag->tag }}" data-type="true" data-id="{{ @$tag->id }}">{{@$tag->tag}} 
-                                                        </span>
-                                                        <span class="crossValue crossValue1 customtagdelete removed remove" data-id="{{ @$tag->id }}" ><i class="las la-times"></i></span>
-                                                </div>
-                                            @endforeach
+                            <div class="main2">
+                                <div class="d-flex align-items-start justify-content-between listingTemp ">
+                                    <div class="panel-container">
+                                        @foreach ($customSearchParent as $item)
+        
+                                        <div class="panel" id="panel">
+                                            <!-- <div class="d-flex align-items-center">
+                                                <span class="editModal editMainGroup" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
+                                            </div> -->
+                                          <div class="toggle-button-container">
+                                            <div class="toggleTxtContainer" data-id="{{@$item->id}}">
+                                                <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}&nbsp;&nbsp;</p>
+                                                <span class="editModal remove removed editMainGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
+                                                <span class="editModal remove removed removeGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" ><i class="fas fa-trash"></i></span>
                                             </div>
-                                        </li>
-                                        @endif
+                                            
+                                            
+                                            <div class="d-flex">
+                                                <button class="toggle-button toggleOnClass">
+                                                    <i class="fas fa-chevron-right"></i>
+                                                </button>
+                                            </div>
+                                          </div>
+                                          <div class="additional-buttons">
+                                            <div class="d-flex justify-content-between">
+                                            <div class="leftCardMenusArea">
+                                            <ul class="leftCardMenus ul_{{$item->id}}" id="UlTags">
+                                                @foreach ($customSearchObj as $groupNames)
+                                                @if ($item->id == $groupNames->parent_id)
+                                                <li class="leftCardItems row" {{@$groupNames->id}}>
+                                                    <h6 class="cardItemHead col-md-4">{{@$groupNames->title}}</h6>
+                                                    <div class="col-md-8">
+        
+                                                    @foreach ($groupNames->customTags as $tag)
+                                                        <div class="cardItemValue" id="cardItemValueTag_{{@$tag->id}}">
+                                                                <span class="tag tagTitle tags" data-tag="{{ @$tag->tag }}" data-type="true" data-id="{{ @$tag->id }}">{{@$tag->tag}} 
+                                                                </span>
+                                                                <span class="crossValue crossValue1 customtagdelete removed remove" data-id="{{ @$tag->id }}" ><i class="las la-times"></i></span>
+                                                        </div>
+                                                    @endforeach
+                                                    </div>
+                                                </li>
+                                                @endif
+                                                @endforeach
+                                               
+                                                </ul>
+                                            </div>
+                                            <span class="addOnBtn me-0" data-bs-toggle="modal" data-bs-target="#addOnBtnModalTags" ><i class="las la-plus tagId" data-id="{{$item->id}}"></i></span>
+                                        </div>
+                                          </div>
+                                          {{-- <div class="additional-buttons newtag_{{$item->id}}">
+                                            @forelse ($item->customTags as $tag)
+                                            @if (!empty($tag))
+                                            <div class="cardItemValue" id="cardItemValueTag_{{@$tag->id}}">
+                                                <span class="tag tagTitle tags" data-tag="{{ @$tag->tag }}" data-type="true" data-id="{{ @$tag->id }}">{{@$tag->tag}} 
+                                                </span>
+                                                <span class="crossValue crossValue1 customtagdelete removed remove" data-id="{{ @$tag->id }}" ><i class="las la-times"></i></span>
+                                            </div>  
+                                            @endif
+                                            
+                                            @empty
+                                                
+                                            @endforelse
+                                        </div> --}}
+        
+                                        </div>
                                         @endforeach
-                                       
-                                        </ul>
                                     </div>
-                                    <span class="addOnBtn me-0" data-bs-toggle="modal" data-bs-target="#addOnBtnModalTags" ><i class="las la-plus tagId" data-id="{{$item->id}}"></i></span>
-                                </div>
-                                  </div>
-                                  {{-- <div class="additional-buttons newtag_{{$item->id}}">
-                                    @forelse ($item->customTags as $tag)
-                                    @if (!empty($tag))
-                                    <div class="cardItemValue" id="cardItemValueTag_{{@$tag->id}}">
-                                        <span class="tag tagTitle tags" data-tag="{{ @$tag->tag }}" data-type="true" data-id="{{ @$tag->id }}">{{@$tag->tag}} 
-                                        </span>
-                                        <span class="crossValue crossValue1 customtagdelete removed remove" data-id="{{ @$tag->id }}" ><i class="las la-times"></i></span>
-                                    </div>  
-                                    @endif
                                     
-                                    @empty
-                                        
-                                    @endforelse
-                                </div> --}}
-
+                                    
                                 </div>
-                                @endforeach
+                                <div class="btnListContainer">
+                                    <div class="outerModalBtn">
+                                        <span class="addOnBtn me-2" data-bs-toggle="modal" data-bs-target="#addOnBtnModal"><i class="las la-plus"></i></span>
+                                    </div>
+                                    <div class="leftBtmBtn mt-3 text-end">
+                                        <button class="clearBtn" id="removeAllData">Clear</button>
+                                    </div>
+                                </div>
                             </div>
-                            
-                            
-                        </div>
-                        <div class="outerModalBtn">
-                                <span class="addOnBtn me-2" data-bs-toggle="modal" data-bs-target="#addOnBtnModal"><i class="las la-plus"></i></span>
-                            </div>
-                        <div class="leftBtmBtn mt-3 text-end">
-                            <button class="clearBtn" id="removeAllData">Clear</button>
-                        </div>
+                        
+                        
                         <!-- Start InnerCollapseLabelBtn Modal -->
                             <!-- Modal -->
                             <div class="modal fade" id="InnerCollapseLabelBtn" tabindex="-1" aria-labelledby="InnerCollapseLabel" aria-hidden="true" data-bs-backdrop="static">

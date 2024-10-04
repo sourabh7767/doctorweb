@@ -404,9 +404,9 @@ i.las.la-sign-out-alt {
     width: 100%;
     position: relative;
     transition: all 0.3s;
-    height: 90vh;
+    /* height: 90vh; */
     max-height: 100%;
-    overflow: auto;
+    /* overflow: auto; */
     display: flex;
     flex-direction: column;
 }
@@ -491,7 +491,7 @@ i.las.la-sign-out-alt {
     padding: 5px 13px;
 }
 .leftBtmBtn {
-    height: 50px;
+    /* height: 50px; */
     margin-top: auto !important;
     margin-right: -20px;
 }
@@ -719,11 +719,17 @@ position: absolute
     margin: 0 auto;
 }
 
-.outerModalBtn {
+/* .outerModalBtn {
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translate(0px, -50%);
+} */
+.outerModalBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   height:100%;
 }
 @keyframes fadeInAnimation {
     0% {
@@ -732,5 +738,23 @@ position: absolute
     100% {
         opacity: 1;
     }
+}
+
+.main2 {
+    display: grid;
+    grid-template-columns: 90% 1fr;
+}
+.listingTemp {
+    height: 89vh;
+    margin-right: 8px;
+    overflow: auto;
+}
+.btnListContainer {
+    max-height: 100%;
+    height: 89vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction:column;
 }
 
