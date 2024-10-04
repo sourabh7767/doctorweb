@@ -745,13 +745,13 @@ position: absolute
     grid-template-columns: 90% 1fr;
 }
 .listingTemp {
-    height: 89vh;
+    height: calc(100vh - 150px);
     margin-right: 8px;
     overflow: auto;
 }
 .btnListContainer {
     max-height: 100%;
-    height: 89vh;
+    height: calc(100vh - 150px);
     display: flex;
     justify-content: center;
     align-items: center;
