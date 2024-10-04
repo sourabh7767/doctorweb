@@ -564,8 +564,7 @@ i.las.la-sign-out-alt {
 }
 /* End MidArea Css */
 .detailsForm {
-    height: calc(100vh - 150px);
-    overflow: auto;
+    height: 100%;
 }
 
 .field {
