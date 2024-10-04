@@ -138,9 +138,7 @@ input[type='search']::-moz-search-cancel-button {
     right:6px;
 }
 .form-group{position: relative}
-.modal {
-    /* backdrop-filter: blur(3px); */
-}  
+ 
 .modal-header {
     display: block;
     text-align: start;
@@ -564,7 +562,8 @@ i.las.la-sign-out-alt {
 }
 /* End MidArea Css */
 .detailsForm {
-    height: 100%;
+    height: calc(100vh - 150px);
+    overflow: auto;
 }
 
 .field {
