@@ -32,6 +32,7 @@
     top: 5px;  
     left: 0;        
     width: 100%;
+    z-index: 9;
 }
 .card-header{
     background-color:  #474747 !important;
