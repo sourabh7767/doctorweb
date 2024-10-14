@@ -26,6 +26,13 @@
       .data-table .card-header{
     border-bottom: 1px solid #474747 !important;
 }
+.progress.fixed
+{
+    position: fixed;
+    top: 5px;  
+    left: 0;        
+    width: 100%;
+}
 .card-header{
     background-color:  #474747 !important;
     color:white;
@@ -301,6 +308,16 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
          @if(session('error'))
              toastr.error("{{ session('error') }}", 'Error!',  toastCofig);
          @endif
+</script>
+<script>
+    
+    $(window).scroll(function(){
+var sticky = $('.progress'),
+scroll = $(window).scrollTop();
+if (scroll >= 100) sticky.addClass('fixed');
+else sticky.removeClass('fixed');
+
+})
 </script>
 
   <!-- End Js -->
