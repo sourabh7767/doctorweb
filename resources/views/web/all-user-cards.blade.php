@@ -217,7 +217,7 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
     </header>
     <!-- End Header Section -->
     <!-- Start SecondRow -->
-    <div class="progress" style="background-color: #47474747">
+    <div class="progress">
         <div id="pbar" class="progress-bar bg-success d-none" role="progressbar" aria-valuenow="" aria-valuemin="0" aria-valuemax="100">
             0%
         </div>
