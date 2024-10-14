@@ -54,6 +54,25 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
     padding-right: 30px;
     color:white;
 }
+.truncate {
+        max-width: 200px;      /* Adjust the width as needed */
+        white-space: nowrap;   /* Prevents text from wrapping */
+        overflow: hidden;      /* Hides overflow */
+        text-overflow: ellipsis; /* Adds '...' to indicate truncated text */
+        cursor: pointer;       /* Optional: changes cursor on hover */
+    }
+
+    /* Optional: Tooltip styling */
+    .tooltip {
+        position: absolute;
+        background-color: #333;
+        color: #fff;
+        padding: 5px;
+        border-radius: 3px;
+        font-size: 12px;
+        display: none;
+        z-index: 1000;
+    }
 .heart-effect {
         /* Define your desired effect here */
         animation: heartBeat 1s;

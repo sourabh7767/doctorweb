@@ -959,7 +959,16 @@ $(document).ready(function () {
                     
             columns: [
                 // {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false,className:'getCenter'},
-                { data: 'title', name: 'title' ,className:'pointers'},
+                // { data: 'title', name: 'title' ,className:'pointers'},
+                {
+                    data: 'title',
+                    name: 'title',
+                    className: 'pointers truncate',
+                    render: function (data, type, row) {
+                        // Use a tooltip for long titles
+                        return `<span title="${data}">${data}</span>`;
+                    }
+                },
                 { data: 'template_count', name: 'template_count' ,className:'getCenter'},
                 { data: 'user_id', name: 'user_id' ,className:'getCenter'},
                 { data: 'download_count', name: 'download_count',className:'getCenter'},
