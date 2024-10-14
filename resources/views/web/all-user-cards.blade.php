@@ -33,6 +33,8 @@
     left: 0;        
     width: 100%;
     z-index: 9;
+}
+.progress{
     background-color: #373737;
 }
 .card-header{
