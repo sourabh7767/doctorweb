@@ -33,6 +33,7 @@
     left: 0;        
     width: 100%;
     z-index: 9;
+    background-color: #373737;
 }
 .card-header{
     background-color:  #474747 !important;
