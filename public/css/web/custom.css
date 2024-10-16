@@ -695,6 +695,8 @@ div.dataTables_wrapper div.dataTables_paginate
     display: inline-flex;
     align-items: center;
     word-break:break-word;
+    justify-content: space-between;
+    width: 100%;
 }
 .toggleTxtContainer .editModal {
     

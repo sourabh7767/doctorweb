@@ -29,7 +29,7 @@
 .progress.fixed
 {
     position: fixed;
-    top: 5px;  
+    top: 0px;  
     left: 0;        
     width: 100%;
     z-index: 9;

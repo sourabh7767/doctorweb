@@ -520,8 +520,10 @@
                                           <div class="toggle-button-container">
                                             <div class="toggleTxtContainer" data-id="{{@$item->id}}">
                                                 <p style="margin: 0; flex-grow: 1;color:#ffff">{{$item->title}}&nbsp;&nbsp;</p>
-                                                <span class="editModal remove removed editMainGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
-                                                <span class="editModal remove removed removeGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" ><i class="fas fa-trash"></i></span>
+                                                <div class="d-flex">
+                                                    <span class="editModal remove removed editMainGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" data-bs-target="#editMaingroup" ><i class="las la-pen"></i></span>
+                                                    <span class="editModal remove removed removeGroup me-2" data-id="{{@$item->id}}" data-bs-toggle="modal" ><i class="fas fa-trash"></i></span>
+                                                </div>
                                             </div>
                                             
                                             
