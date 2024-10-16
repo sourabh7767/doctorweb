@@ -283,7 +283,8 @@
                           <div class="item-content">
                             <span class="order"></span>
                             <span class="tag tag-data" data-button-position="{{$button->place}}" data-button-id="{{$button->id}}" id="newId_{{$button->id}}">{{$button->title}}</span>
-                            <span class="crossValue buttondeleteCrose removed remove" data-button-id="{{ @$button->id }}" id="crossId_{{$button->id}}"><i class="las la-times"></i></span><span class="editValue remove removed" id="editButton" data-id="{{@$button->id}}" data-bs-toggle="modal" data-bs-target="#editBtnModal" ><i class="las la-pen"></i></span>
+                            <span class="editValue remove removed" id="editButton" data-id="{{@$button->id}}" data-bs-toggle="modal" data-bs-target="#editBtnModal" ><i class="las la-pen"></i></span>
+                            <span class="crossValue buttondeleteCrose removed remove" data-button-id="{{ @$button->id }}" id="crossId_{{$button->id}}"><i class="las la-times"></i></span>
                           </div>
                         </div>
                         @endforeach
