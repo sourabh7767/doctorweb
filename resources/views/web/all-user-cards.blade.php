@@ -287,7 +287,7 @@ table.dataTable thead>tr>th.sorting, table.dataTable thead>tr>td.sorting_asc, ta
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header d-block border-0 p-0 mb-2">
-                        <h5 class="modal-title" id="copyPrescriptionModal">Copy Trauma Template</h5>
+                        <h5 class="modal-title" id="copyPrescriptionModal"></h5>
                     </div>
                     <div class="modal-body p-0">
                       <div id="searchResults"></div>
