@@ -532,7 +532,7 @@
     </footer>
 <!-- Start WatchVideo Modal -->
         <div class="modal fade flip-modal" id="watchVideo" tabindex="-1" aria-labelledby="watchVideoLabel"
-        aria-hidden="true">
+        aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content flip">
                     <span class="position-absolute" data-bs-dismiss="modal" aria-label="Close" style="top: -30px;
@@ -541,7 +541,7 @@
                     font-size: 20px; cursor: pointer;">
                         <i class="fa-solid fa-xmark"></i>
                     </span>
-                    <div class="modal-body px-0 py-0">
+                    <div class="modal-body px-0 py-0" style="height: 500px;">
                         <iframe width="100%" height="500" src="https://www.youtube.com/embed/MlPBbIZ6c1o" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
                         </iframe>
                     </div>
