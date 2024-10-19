@@ -101,7 +101,7 @@
                             </p>
                             <div class="d-flex flex-md-row flex-column align-md-items-center align-items-start gap-4">
                                 <!-- <a href="" class="primaryBtn text-uppercase">Download Now</a> -->
-                                <a href="" class="watchVideo" data-bs-toggle="modal" data-bs-target="#watchVideo">
+                                <a href="" class="watchVideo" data-bs-toggle="modal" data-bs-target="#watchVideo" data-keyboard="false" data-backdrop="static"> 
                                     <i class="fas fa-play-circle"></i>
                                     <span>Watch Tutorial    </span>
                                 </a>
