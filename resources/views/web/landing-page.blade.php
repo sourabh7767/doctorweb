@@ -693,6 +693,8 @@
                 });
             });
         });
+
+        $('#watchVideo').modal({backdrop: 'static', keyboard: false}, 'show');
     </script>
     {{-- <script>
          $(window).scroll( function(){
