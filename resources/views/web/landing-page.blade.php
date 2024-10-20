@@ -532,7 +532,7 @@
     </footer>
 <!-- Start WatchVideo Modal -->
         <div class="modal fade flip-modal" id="watchVideo" tabindex="-1" aria-labelledby="watchVideoLabel"
-        aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        aria-hidden="true" data-bs-backdrop="static" data-keyboard="false">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content flip">
                     <span class="position-absolute" data-bs-dismiss="modal" aria-label="Close" style="top: -30px;
